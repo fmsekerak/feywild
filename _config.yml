@@ -75,9 +75,6 @@ author:
       icon: "fab fa-fw fa-instagram"
       url: "https://instagram.com/"
 
-header:
-  image: "/assets/images/geoffrey-ernault-cozlq.jpg"
-
 footer:
   links:
     - label: "Twitter"

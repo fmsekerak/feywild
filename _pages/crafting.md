@@ -1,4 +1,5 @@
 ---
+title: Crafting
 layout: splash
 permalink: /crafting/
 header:

@@ -63,7 +63,7 @@ footer:
 defaults:
   # _posts
   - scope:
-      path: ""
+      path: "/docs/_pages/home.md"
       type: posts
     values:
       layout: single

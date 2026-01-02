@@ -76,7 +76,7 @@ author:
       url: "https://instagram.com/"
 
 header:
-  image: /assets/images/geoffrey-ernault-cozlq.jpg
+  image: "/assets/images/geoffrey-ernault-cozlq.jpg"
 
 footer:
   links:

@@ -8,7 +8,7 @@
 body {
   font-family: Georgia, 'Times New Roman', Times, serif;
   line-height: 1.6;
-  background-color: #fdd5f7;
+  background-color: #000000;
   color: #000000;
 }
 
@@ -53,7 +53,7 @@ main {
   max-width: 960px;
   margin: 2rem auto;
   padding: 1rem;
-  background: white;
+  background: #3a2236;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   border-radius: 8px;
 }

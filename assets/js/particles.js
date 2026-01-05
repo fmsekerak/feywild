@@ -33,12 +33,12 @@ function animate(){
     if(p.x < 0) p.x = canvas.width;
     if(p.y > canvas.height) p.y = 0;
     if(p.y < 0) p.y = canvas.height;
-  }
 
     // inside animate loop, after moving particle
     p.opacity += p.opacitySpeed;
     if(p.opacity > 1 || p.opacity < 0.3) p.opacitySpeed *= -1;
     ctx.fillStyle = `rgba(255,182,255,${p.opacity})`;
+  }
 
   requestAnimationFrame(animate);
 }

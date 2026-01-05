@@ -1,0 +1,30 @@
+---
+layout: default
+---
+
+<div class="section">
+  <div id="home" class="scrollspy-target scrollspy"></div>
+  <div id="index-banner" class="parallax-container">
+    <div class="section no-pad-bot">
+      <div class="row center white-text">
+        <h1 class="header logo">{{ site.title }}</h1>
+        <h2 class="header col s12">{{ site.description }}</h2>
+      </div>
+    </div>
+    <div class="parallax">
+      {% asset code-darken.jpg alt="Code on screen dark" magick:resize="1680x" magick:gravity="center" magick:crop="1680x700+0+0" %}
+    </div>
+  </div>
+</div>
+
+<main>
+  <div class="container">
+    <div class="section">
+      <div id="blog" class="scrollspy-target scrollspy"></div>
+      <div class="row">
+        <div class="col s6 offset-s3">
+          <h3 style="text-align:center;">Feywild Blog</h3>
+        </div>
+      </div>
+    </div>
+  </div>

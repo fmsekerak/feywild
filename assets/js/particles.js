@@ -11,7 +11,10 @@ for(let i=0; i<80; i++){
     y: Math.random()*canvas.height,
     r: Math.random()*3+1,
     dx: (Math.random()-0.5)/2,
-    dy: (Math.random()-0.5)/2
+    dy: (Math.random()-0.5)/2,
+    opacity: Math.random() * 0.7 + 0.3,
+    opacitySpeed: Math.random() * 0.02 + 0.01,
+    color: ['#ffb3ff','#ff9cff','#ffffff','#ffe4ff'][Math.floor(Math.random()*4)]
   });
 }
 

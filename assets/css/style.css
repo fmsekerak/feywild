@@ -14,12 +14,12 @@ body {
 
 /* Banner */
 .banner {
-  height: 300px; /* essential for background to show */
+  height: 150px; /* essential for background to show */
   background: url('../images/banner.jpg') center/cover no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: pink;
   text-shadow: 0 2px 6px rgba(0,0,0,0.6);
 }
 
@@ -31,13 +31,13 @@ body {
 
 /* Navigation */
 nav {
-  background-color: #2c3e50;
+  background-color: #faaeff;
   padding: 0.5rem 1rem;
   text-align: center;
 }
 
 nav a {
-  color: white;
+  color: palegreen;
   text-decoration: none;
   margin: 0 1rem;
   font-weight: bold;
@@ -45,7 +45,7 @@ nav a {
 }
 
 nav a:hover {
-  color: #1abc9c;
+  color: #f459ff;
 }
 
 /* Main content */

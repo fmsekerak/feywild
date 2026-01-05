@@ -71,11 +71,10 @@ defaults:
       related: true
   # _pages
   - scope:
-      path: "_pages"
-      type: pages
+      path: ""
     values:
-      layout: single
-      author_profile: true
+      header:
+        overlay_image: /assets/images/banner.jpg
 
 category_archive:
   type: liquid

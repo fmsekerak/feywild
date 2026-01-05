@@ -19,7 +19,7 @@ body {
 --------------------------------------- */
 .banner {
   height: 300px;
-  background: url('/assets/images/banner.jpg') center/cover no-repeat;
+  background: url('assets/images/banner.jpg') center/cover no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;

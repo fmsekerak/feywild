@@ -1,11 +1,14 @@
-/* Reset */
-* { margin:0; padding:0; box-sizing:border-box; }
+/* Global resets */
+* {
+  margin: 0; 
+  padding: 0;
+  box-sizing: border-box;
+}
 
 body {
-  width: 100%;
-  height: 100%;
-  font-family: Georgia, serif;
-  background: #1A1A1D;
+  font-family: 'Georgia', serif;
+  line-height: 1.6;
+  background: radial-gradient(circle at top left, #1A1A1D, #2E1C2A);
   color: #f0f0f0;
   overflow-x: hidden;
 }
@@ -31,15 +34,14 @@ body {
   font-family: 'Garamond', serif;
 }
 
-/* Full-page canvas */
+/* Particles canvas fills banner */
 #bannerParticles {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: -1; /* behind content */
-  pointer-events: none;
+  z-index: 1;
 }
 
 /* Navigation */
@@ -80,13 +82,11 @@ nav a:hover {
   text-shadow: 0 0 5px #ff9cff;
 }
 
+/* Main Content */
 main {
   max-width: 960px;
   margin: 2rem auto;
   padding: 2rem;
-  background: rgba(59,28,50,0.8);
-  backdrop-filter: blur(6px);
-  border-radius: 12px;
 }
 
 /* Frosted-glass cards */
@@ -129,7 +129,24 @@ th {
   letter-spacing: 1px;
 }
 
+/* Footer */
 footer {
   text-align: center;
   padding: 2rem;
+  margin-top: 2rem;
+  background: linear-gradient(90deg, #A64D79, #6A1E55);
+  color: #fff;
+  box-shadow: 0 -4px 6px rgba(0,0,0,0.3);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .banner h1 {
+    font-size: 2.5rem;
+  }
+
+  nav a {
+    display: block;
+    margin: 0.5rem 0;
+  }
 }

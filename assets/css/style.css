@@ -1,67 +1,4 @@
-/* Reset */
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: Georgia, serif; background: #1A1A1D; color: #f0f0f0; }
-
-/* Banner */
-.banner {
-  position: relative;
-  height: 300px;
-  overflow: hidden;
-}
-
-.banner h1 {
-  position: relative;
-  z-index: 2;
-  color: #fff;
-  font-size: 3rem;
-  text-align: center;
-  line-height: 300px;
-  text-shadow: 0 0 15px #ff9cff, 0 0 30px #6A1E55;
-}
-
-/* Canvas covers the banner */
-#bannerParticles {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  pointer-events: none;
-}
-
-/* Navigation */
-nav {
-  background: linear-gradient(90deg, #A64D79, #6A1E55);
-  padding: 1rem;
-  text-align: center;
-}
-nav a {
-  color: #fff; text-decoration: none; margin: 0 1rem; font-weight: bold;
-  transition: all 0.3s ease;
-}
-nav a:hover { text-shadow: 0 0 5px #ff9cff; }
-
-/* Main content */
-main { max-width: 960px; margin: 2rem auto; padding: 2rem; }
-.card {
-  background: rgba(59,28,50,0.85);
-  backdrop-filter: blur(8px);
-  padding: 2rem; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.5);
-}
-
-/* Footer */
-footer {
-  text-align: center;
-  padding: 2rem;
-  background: linear-gradient(90deg, #A64D79, #6A1E55);
-}
-
-
-
-
-/* Working
-Global resets 
+/* Global resets */
 * {
   margin: 0; 
   padding: 0;
@@ -76,7 +13,7 @@ body {
   overflow-x: hidden;
 }
 
- Banner 
+/* Banner */
 .banner {
   position: relative;
   height: 300px;
@@ -97,7 +34,7 @@ body {
   font-family: 'Garamond', serif;
 }
 
- Particles canvas fills banner 
+/* Particles canvas fills banner */
 #bannerParticles {
   position: absolute;
   top: 0;
@@ -107,7 +44,7 @@ body {
   z-index: 1;
 }
 
- Navigation 
+/* Navigation */
 nav {
   background: linear-gradient(90deg, #A64D79, #6A1E55);
   padding: 1rem;
@@ -145,14 +82,14 @@ nav a:hover {
   text-shadow: 0 0 5px #ff9cff;
 }
 
- Main Content 
+/* Main Content */
 main {
   max-width: 960px;
   margin: 2rem auto;
   padding: 2rem;
 }
 
- Frosted-glass cards 
+/* Frosted-glass cards */
 .card {
   background: rgba(59,28,50,0.85);
   backdrop-filter: blur(8px);
@@ -169,7 +106,7 @@ main {
   box-shadow: 0 12px 30px rgba(106,30,85,0.8);
 }
 
-Table styling
+/* Table styling */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -192,7 +129,7 @@ th {
   letter-spacing: 1px;
 }
 
-Footer
+/* Footer */
 footer {
   text-align: center;
   padding: 2rem;
@@ -202,7 +139,7 @@ footer {
   box-shadow: 0 -4px 6px rgba(0,0,0,0.3);
 }
 
-Responsive
+/* Responsive */
 @media (max-width: 768px) {
   .banner h1 {
     font-size: 2.5rem;
@@ -213,5 +150,3 @@ Responsive
     margin: 0.5rem 0;
   }
 }
-
-*/

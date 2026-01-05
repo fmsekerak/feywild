@@ -4,18 +4,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style type="text/css">
+    <style>
     body {
       cursor: url('assets/images/D202.cur'), auto;
+    }
+    body.clicked {
+      cursor: url('assets/images/D20.cur'), auto;
     }
   </style>
 
   <title>Feywild</title>
   <link rel="stylesheet" href="assets/css/style_crafting.css">
 </head>
+
+<script>
+  document.addEventListener('click', () => {
+    document.body.classList.toggle('clicked');
+  });
+</script>
+
+
 <body>
-
-
 <!-- Magical Banner -->
   <header class="banner">
     <canvas id="bannerParticles"></canvas>

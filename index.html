@@ -3,9 +3,39 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+    body {
+      cursor: url('assets/images/D202.cur'), auto;
+    }
+    a {
+      cursor: url('assets/images/D20.cur'), pointer;
+    }
+  </style>
+
   <title>Feywild</title>
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
+
+<script>
+  document.querySelectorAll('a').forEach(link => {
+    link.addEventListener('mousedown', () => {
+      document.body.style.cursor =
+        "url('assets/images/D20.cur'), auto";
+    });
+
+    link.addEventListener('mouseup', () => {
+      document.body.style.cursor =
+        "url('assets/images/D20.cur'), auto";
+    });
+
+    link.addEventListener('mouseleave', () => {
+      document.body.style.cursor =
+        "url('assets/images/D20.cur'), auto";
+    });
+  });
+</script>
+
 <body>
 
   <!-- Magical Banner -->

@@ -8,26 +8,24 @@ function resizeCanvas() {
 resizeCanvas();
 window.addEventListener('resize', resizeCanvas);
 
-// Create particles
 let particles = [];
 const colors = ['#ffb3ff','#ff9cff','#ffffff','#ffe4ff'];
-const particleCount = 120; // more particles for sparkle
+const particleCount = 120;
 
-for(let i=0; i<particleCount; i++){
+for(let i=0;i<particleCount;i++){
   particles.push({
     x: Math.random()*canvas.width,
     y: Math.random()*canvas.height,
-    r: Math.random()*3+1,
-    dx: (Math.random()-0.5)/2,
-    dy: (Math.random()-0.5)/2,
-    opacity: Math.random()*0.7 + 0.3,
-    opacitySpeed: Math.random()*0.05 + 0.02, // faster opacity change for twinkle
+    r: Math.random()*3+1.5,          // size
+    dx: (Math.random()-0.5)*0.5,
+    dy: (Math.random()-0.5)*0.5,
+    opacity: Math.random()*0.7+0.3,
+    opacitySpeed: Math.random()*0.05+0.02,
     color: colors[Math.floor(Math.random()*colors.length)]
   });
 }
 
-// Animate particles
-function animate(){
+function animate() {
   ctx.clearRect(0,0,canvas.width,canvas.height);
 
   for(let p of particles){
@@ -35,15 +33,18 @@ function animate(){
     p.opacity += p.opacitySpeed;
     if(p.opacity > 1 || p.opacity < 0.2) p.opacitySpeed *= -1;
 
-    // Draw particle
+    // Draw particle as soft circle
     ctx.beginPath();
     ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
-    ctx.fillStyle = `rgba(${parseInt(p.color.slice(1,3),16)},${parseInt(p.color.slice(3,5),16)},${parseInt(p.color.slice(5,7),16)},${p.opacity})`;
+    
+    // Fill circle
+    ctx.fillStyle = `rgba(255, 182, 255, ${p.opacity})`;
+    ctx.fill();
 
-    // Glow effect
-    ctx.shadowColor = p.color;
-    ctx.shadowBlur = 8;
-
+    // Soft glow
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r*2, 0, Math.PI*2);
+    ctx.fillStyle = `rgba(255, 182, 255, ${p.opacity*0.2})`;
     ctx.fill();
 
     // Move particle

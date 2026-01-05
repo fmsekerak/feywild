@@ -20,19 +20,6 @@ for(let i=0; i<80; i++){
   });
 }
 
-// Cursor sparkles
-let cursorParticles = [];
-
-document.addEventListener('mousemove', e => {
-  cursorParticles.push({
-    x: e.clientX,
-    y: e.clientY,
-    r: Math.random()*2+1,
-    opacity: 1,
-    fade: Math.random()*0.03+0.02,
-    color: colors[Math.floor(Math.random()*colors.length)]
-  });
-});
 
 function animate(){
   ctx.clearRect(0,0,canvas.width,canvas.height);
@@ -75,19 +62,6 @@ function animate(){
     if(p.y < 0) p.y = canvas.height;
   }
 
-   // Cursor particles
-  for(let i = cursorParticles.length -1; i >= 0; i--){
-    const cp = cursorParticles[i];
-    cp.opacity -= cp.fade;
-    if(cp.opacity <= 0){
-      cursorParticles.splice(i,1);
-      continue;
-    }
-    ctx.beginPath();
-    ctx.arc(cp.x, cp.y, cp.r, 0, Math.PI*2);
-    ctx.fillStyle = cp.color + Math.floor(cp.opacity*255).toString(16); // keep original color style
-    ctx.fill();
-  }
 
   requestAnimationFrame(animate);
 }

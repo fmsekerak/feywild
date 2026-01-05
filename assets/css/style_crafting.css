@@ -139,19 +139,6 @@ footer {
   box-shadow: 0 -4px 6px rgba(0,0,0,0.3);
 }
 
-.cursor-orb{
-    position: fixed;
-  top: 0;
-  left: 0;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  pointer-events: none;
-  background: white;
-  box-shadow: 0 0 4px white, 0 0 10px #ff9cff, 0 0 20px #ffb3ff;
-  z-index: 10000;  
-}
-
 /* Responsive */
 @media (max-width: 768px) {
   .banner h1 {

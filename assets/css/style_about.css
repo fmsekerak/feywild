@@ -8,6 +8,23 @@ body, html {
   overflow-x: hidden;
 }
 
+.banner {
+  position: relative;
+  height: 300px;              /* Banner height */
+  background: url('../images/banner.jpg') center/cover no-repeat;
+  overflow: hidden;
+}
+
+.banner h1 {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  line-height: 300px;
+  color: #fff;
+  font-size: 3rem;
+  text-shadow: 0 0 15px #ff9cff, 0 0 30px #6A1E55;
+}
+
 /* Full-page canvas */
 #particlesCanvas {
   position: fixed;

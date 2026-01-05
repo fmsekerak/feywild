@@ -10,26 +10,28 @@ window.addEventListener('resize', resizeCanvas);
 
 let particles = [];
 
-for(let i = 0; i < 100; i++) {
+for(let i = 0; i < 120; i++) {
   particles.push({
     x: Math.random() * canvas.width,
     y: Math.random() * canvas.height,
-    r: Math.random() * 3 + 1,
-    dx: (Math.random() - 0.5) / 1.5,
-    dy: (Math.random() - 0.5) / 1.5,
-    opacity: Math.random() * 0.8 + 0.2,
+    r: Math.random() * 2 + 1,
+    dx: (Math.random() - 0.5) / 2,
+    dy: (Math.random() - 0.5) / 2,
+    opacity: Math.random() * 0.7 + 0.3,
     opacitySpeed: Math.random() * 0.02 + 0.01,
-    color: ['#ffb3ff','#ff9cff','#ffffff'][Math.floor(Math.random()*3)]
+    color: ['#ffb3ff','#ff9cff','#ffffff','#ffe4ff'][Math.floor(Math.random()*4)]
   });
 }
 
 function animate() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  // Draw semi-transparent overlay to create trails
+  ctx.fillStyle = 'rgba(26,26,29,0.15)'; // adjust alpha for longer/shorter trails
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   for(let p of particles) {
     // Glow effect
     ctx.shadowColor = p.color;
-    ctx.shadowBlur = 10;
+    ctx.shadowBlur = 12;
 
     ctx.beginPath();
     ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
@@ -42,7 +44,7 @@ function animate() {
 
     // Twinkle effect
     p.opacity += p.opacitySpeed;
-    if(p.opacity > 1 || p.opacity < 0.2) p.opacitySpeed *= -1;
+    if(p.opacity > 1 || p.opacity < 0.3) p.opacitySpeed *= -1;
 
     // Wrap around edges
     if(p.x > canvas.width) p.x = 0;

@@ -14,12 +14,13 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 title: Feywild
-email:
-description: >- # this means to ignore newlines until "baseurl:"
-twitter_username: 
-github_username: 
+name: Faith Sekerak
+description: My Feywild Website
 minimal_mistakes_skin: dark
 search: true
+
+sass:
+  sass_dir: assets/css
 
 # Build settings
 markdown: kramdown

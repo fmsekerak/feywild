@@ -106,7 +106,8 @@ nav a.active::after {
 /* Active tab stays lit */
 nav a.active {
   color: #ffb3ff;
-  text-shadow: 0 0 5px #ff9cff;
+  /* text-shadow: 0 0 5px #ff9cff; */
+  text-shadow: 1px 1px 2px black, 0 0 5px #ff9cff;
 }
 
 
@@ -119,12 +120,11 @@ main {
 
 /* Frosted-glass cards */
 .card {
-  /* background: rgba(59,28,50,0.85); */
   background:  #305b54f2;
   backdrop-filter: blur(8px);
   padding: 2rem;
   border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+  box-shadow: 0 8px 20px #00000080;
   margin-bottom: 2rem;
   border: 1px solid #4FA37C;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -135,14 +135,14 @@ table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 1rem;
-  background: rgba(255,255,255,0.05);
+  background: #ffffff0d;
   border-radius: 6px;
   overflow: hidden;
 }
 
 th, td {
   padding: 0.75rem;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
+  border-bottom: 1px solid #ffffff1a;
   text-align: left;
 }
 

@@ -8,7 +8,7 @@
 body {
   font-family: 'Georgia', serif;
   line-height: 1.6;
-  background: #f4b7cf;
+  background: #0b080a;
   color: #f0f0f0;
   overflow-x: hidden;
 }
@@ -45,14 +45,6 @@ body {
 }
 
 /* Navigation */
-/*
-nav {
-  background: #4FA37C;
-  padding: 0.5rem;
-  text-align: center;
-  box-shadow: 0 4px 6px #000000;
-}
-*/
 nav {
   position: sticky;
   top: 0;
@@ -75,39 +67,6 @@ nav ul {
   justify-content: center;
   gap: 2rem;
 }
-
-/*
-nav a {
-  color: #fad9e9;
-  text-decoration: none;
-  margin: 0 1rem;
-  font-weight: bold;
-  font-size: 1.5rem;
-  transition: all 0.3s ease;
-  position: relative;
-}
-
-nav a::after {
-  content: '';
-  display: block;
-  height: 2px;
-  background: #ff9cff;
-  width: 0%;
-  transition: width 0.3s;
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-}
-
-nav a:hover::after {
-  width: 100%;
-}
-
-nav a:hover {
-  color: #ffb3ff;
-  text-shadow: 0 0 5px #ff9cff;
-}
-*/
 
 nav a {
   color: #fad9e9;
@@ -155,19 +114,19 @@ main {
 /* Frosted-glass cards */
 .card {
   /* background: rgba(59,28,50,0.85); */
-  background:  #1B2A26;
+  background:  #ffe0f3;
   backdrop-filter: blur(8px);
   padding: 2rem;
   border-radius: 12px;
   box-shadow: 0 8px 20px rgba(0,0,0,0.5);
   margin-bottom: 2rem;
-  border: 1px solid #6A1E55;
+  border: 1px solid #f869cf;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 12px 30px rgba(106,30,85,0.8);
+  box-shadow: 0 12px 30px rgba(228, 85, 188, 0.8);
 }
 
 /* Table styling */

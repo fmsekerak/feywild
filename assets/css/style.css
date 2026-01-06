@@ -105,7 +105,8 @@ nav a.active::after {
 
 /* Active tab stays lit */
 nav a.active {
-  color: #ffb3ff
+  color: #ffb3ff;
+  text-shadow: 0 0 5px #ff9cff;
 }
 
 

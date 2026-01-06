@@ -8,7 +8,7 @@
 body {
   font-family: 'Georgia', serif;
   line-height: 1.6;
-  background: #000e02;
+  background: #064232;
   color: #f0f0f0;
   overflow-x: hidden;
 }
@@ -46,7 +46,7 @@ body {
 
 /* Navigation */
 nav {
-  background: #62ad8a;
+  background: #341b2d;
   padding: 0.5rem;
   text-align: center;
   box-shadow: 0 4px 6px #fad9e9;

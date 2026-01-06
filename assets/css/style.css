@@ -206,7 +206,7 @@ th {
   transform: translateX(-50%);
   background: #14201ef2;
   border: 1px solid #6f8f864d;
-  border-radius: 2px;
+  border-radius: 4px;
   min-width: 100px;
   padding: 0.5rem 0;
   opacity: 0;

@@ -208,7 +208,7 @@ th {
   border: 1px solid #6f8f864d;
   border-radius: 8px;
   min-width: 100px;
-  padding: 2rem 0;
+  padding: 0rem 0;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.25s ease;

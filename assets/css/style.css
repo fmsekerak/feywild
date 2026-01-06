@@ -216,24 +216,6 @@ th {
   z-index: 999;
 }
 
-/* Dropdown items */
-.dropdown-menu li {
-  display: block;
-}
-
-.dropdown-menu a {
-  display: block;
-  padding: 0.6rem 1.2rem;
-  font-size: 0.95rem;
-  color: #E6F2EE;
-}
-
-/* Hover states */
-.dropdown-menu a:hover {
-  background: rgba(109, 227, 242, 0.15);
-  color: #6DE3F2;
-}
-
 /* Show dropdown */
 .dropdown:hover .dropdown-menu,
 .dropdown-menu:hover {

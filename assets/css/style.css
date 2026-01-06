@@ -8,7 +8,8 @@
 body {
   font-family: 'Georgia', serif;
   line-height: 1.6;
-  background: radial-gradient(circle at top left, #1A1A1D, #2E1C2A);
+  background: #0E1413;
+  /* background: radial-gradient(circle at top left, #1A1A1D, #2E1C2A); */
   color: #f0f0f0;
   overflow-x: hidden;
 }

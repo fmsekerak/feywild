@@ -218,11 +218,11 @@ th {
 
 /* Dropdown items */
 .dropdown-menu li {
-  display: block;
+  display: grid;
 }
 
 .dropdown-menu a {
-  display: block;
+  display: grid;
   padding: 0.3rem 0.6rem;
   font-size: 0.95rem;
   color: #fad9e9;

@@ -238,6 +238,7 @@ th {
 .dropdown-menu a:hover {
   color: #ffb3ff;
   text-shadow: 0 0 2px #ff9cff;
+  padding: 0.3rem 0.3rem;
 }
 
 /* Show dropdown */

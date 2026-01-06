@@ -47,11 +47,10 @@ body {
 
 /* Navigation */
 nav {
-  background: #4FA37C;
-  /* background: linear-gradient(90deg, #A64D79, #6A1E55); */
+  background: #62ad8a;
   padding: 1rem;
   text-align: center;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+  box-shadow: 0 4px 6px rgba(255, 255, 255, 0.3);
 }
 
 nav a {

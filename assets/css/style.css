@@ -237,7 +237,7 @@ th {
 /* Hover states */
 .dropdown-menu a:hover {
   color: #ffb3ff;
-  text-shadow: 0 0 5px #ff9cff;
+  text-shadow: 0 0 2px #ff9cff;
 }
 
 /* Show dropdown */

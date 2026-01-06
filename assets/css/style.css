@@ -226,11 +226,11 @@ th {
 
 .dropdown-menu a {
   display: block;
-  padding: 0rem 0rem;
+  padding: 0.3rem 0.3rem;
   font-size: 0.95rem;
   color: #fad9e9;
   text-align: center;
-  border-radius: 6px;
+  border-radius: 3px;
   transition: color 0.2s ease, background 0.2s ease;
 }
 

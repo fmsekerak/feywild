@@ -98,10 +98,15 @@ nav a:hover {
   text-shadow: 0 0 5px #ff9cff;
 }
 
-nav a:hover::after {
+nav a:hover::after,
+nav a.active::after {
   width: 100%;
 }
 
+/* Active tab stays lit */
+nav a.active {
+  color: #ffb3ff
+}
 
 
 /* Main Content */

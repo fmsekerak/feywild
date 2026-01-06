@@ -30,7 +30,7 @@ body {
 .banner h1 {
   font-size: 4rem;
   z-index: 2;
-  text-shadow: 0 0 15px #C7A44A, 0 0 30px #4FA37C;
+  text-shadow: 0 0 15px #0E1413, 0 0 30px #4FA37C;
   letter-spacing: 3px;
   font-family: 'Garamond', serif;
 }

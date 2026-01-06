@@ -218,7 +218,7 @@ th {
 
 /* Dropdown items */
 .dropdown-menu li {
-  display: grid;
+  display: block;
 }
 
 .dropdown-menu a {

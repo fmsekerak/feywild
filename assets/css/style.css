@@ -59,11 +59,11 @@ nav {
   z-index: 1000;
   background: linear-gradient(
     to bottom,
-    rgba(20, 32, 30, 0.95),
+    rgba(48, 91, 84, 0.95),
     rgba(20, 32, 30, 0.85)
   );
   backdrop-filter: blur(6px);
-  padding: 1rem 0;
+  padding: 0.5rem;
   text-align: center;
   box-shadow: 0 10px 30px rgba(0,0,0,0.4);
 }
@@ -81,7 +81,7 @@ nav a {
   text-decoration: none;
   margin: 0 1rem;
   font-weight: bold;
-   font-size: 1.5rem;
+  font-size: 1.5rem;
   transition: all 0.3s ease;
   position: relative;
 }
@@ -109,12 +109,14 @@ nav a:hover {
 */
 
 nav a {
-  color: #E6F2EE;
+  color: #fad9e9;
   text-decoration: none;
-  font-size: 1.15rem;
-  letter-spacing: 0.08em;
+  margin: 0 1rem;
+  font-weight: bold;
+  font-size: 1.5rem;
   position: relative;
   transition: color 0.3s ease;
+  position: relative;
 }
 
 /* glowing underline */
@@ -125,18 +127,15 @@ nav a::after {
   bottom: -6px;
   width: 0;
   height: 2px;
-  background: linear-gradient(
-    90deg,
-    #6DE3F2,
-    #E56AA6
-  );
-  box-shadow: 0 0 12px rgba(109,227,242,0.8);
+  background: #ff9cff;
+  box-shadow: 0 0 12px #ff9cff;;
   transform: translateX(-50%);
   transition: width 0.3s ease;
 }
 
 nav a:hover {
-  color: #6DE3F2;
+  color: #ffb3ff;
+  text-shadow: 0 0 5px #ff9cff;
 }
 
 nav a:hover::after {

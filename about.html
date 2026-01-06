@@ -6,10 +6,10 @@
 
     <style>
     body {
-      cursor: url('assets/images/D202.cur'), auto;
+      cursor: url('assets/images/Pink.cur'), auto;
     }
     a {
-      cursor: url('assets/images/D20.cur'), pointer;
+      cursor: url('assets/images/PinkSelect.cur'), pointer;
     }
   </style>
 
@@ -21,17 +21,17 @@
   document.querySelectorAll('a').forEach(link => {
     link.addEventListener('mousedown', () => {
       document.body.style.cursor =
-        "url('assets/images/D20.cur'), auto";
+        "url('assets/images/PinkSelect.cur'), auto";
     });
 
     link.addEventListener('mouseup', () => {
       document.body.style.cursor =
-        "url('assets/images/D20.cur'), auto";
+        "url('assets/images/PinkSelect.cur'), auto";
     });
 
     link.addEventListener('mouseleave', () => {
       document.body.style.cursor =
-        "url('assets/images/D20.cur'), auto";
+        "url('assets/images/PinkSelect.cur'), auto";
     });
   });
 </script>

@@ -16,7 +16,7 @@ body {
 /* Banner */
 .banner {
   position: relative;
-  height: 250px;
+  height: 200px;
   background: url('../images/banner.jpg') center/cover no-repeat;
   display: flex;
   align-items: center;

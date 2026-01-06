@@ -201,12 +201,12 @@ th {
 /* Hidden menu */
 .dropdown-menu {
   position: absolute;
-  top: 50%;
+  top: 100%;
   left: 50%; 
   transform: translateX(-50%);
   background: #14201ef2;
   border: 1px solid #6f8f864d;
-  border-radius: 8px;
+  border-radius: 4px;
   min-width: 200px;
   padding: 0.5rem 0;
   opacity: 0;

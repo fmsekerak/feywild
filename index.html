@@ -87,24 +87,6 @@
     });
     });
   </script>
-
-  <script>
-  const nav = document.querySelector('.fey-nav');
-  const compass = document.querySelector('.compass');
-
-  nav.addEventListener('mousemove', e => {
-    const rect = nav.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const deltaX = e.clientX - centerX;
-
-    const rotation = Math.max(-25, Math.min(25, deltaX / 10));
-    compass.style.transform = `translateX(-50%) rotate(${rotation}deg)`;
-  });
-
-  nav.addEventListener('mouseleave', () => {
-    compass.style.transform = 'translateX(-50%) rotate(0deg)';
-  });
-</script>
-
+  
 </body>
 </html>

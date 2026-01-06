@@ -61,5 +61,27 @@
 
   <!-- JS for banner particles -->
   <script src="assets/js/particles.js"></script>
+
+  <script>
+  const links = document.querySelectorAll('a');
+
+  links.forEach(link => {
+    link.addEventListener('mousemove', e => {
+      // throttle sparkle creation
+      if (Math.random() > 0.7) return;
+
+      const sparkle = document.createElement('div');
+      sparkle.className = 'sparkle';
+
+      sparkle.style.left = `${e.clientX + (Math.random() * 8 - 4)}px`;
+      sparkle.style.top = `${e.clientY + (Math.random() * 8 - 4)}px`;
+
+      document.body.appendChild(sparkle);
+
+      setTimeout(() => sparkle.remove(), 700);
+    });
+    });
+  </script>
+
 </body>
 </html>

@@ -46,8 +46,8 @@ body {
 
 /* Navigation */
 nav {
-  /* background: #4FA37C; */
-  background: linear-gradient(to bottom, #4FA37C, #285641, #11241b);
+  background: #4FA37C;
+  /* background: linear-gradient(to bottom, #4FA37C, #285641, #11241b); */
   padding: 0.5rem;
   text-align: center;
   box-shadow: 0 4px 6px #000000;

@@ -193,4 +193,50 @@ th {
   }
 }
 
+/* Dropdown wrapper */
+.dropdown {
+  position: relative;
+}
 
+/* Hidden menu */
+.dropdown-menu {
+  position: absolute;
+  top: 120%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(20, 32, 30, 0.95);
+  border: 1px solid rgba(111, 143, 134, 0.3);
+  border-radius: 8px;
+  min-width: 200px;
+  padding: 0.5rem 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+  z-index: 999;
+}
+
+/* Dropdown items */
+.dropdown-menu li {
+  display: block;
+}
+
+.dropdown-menu a {
+  display: block;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.95rem;
+  color: #E6F2EE;
+}
+
+/* Hover states */
+.dropdown-menu a:hover {
+  background: rgba(109, 227, 242, 0.15);
+  color: #6DE3F2;
+}
+
+/* Show dropdown */
+.dropdown:hover .dropdown-menu {
+  opacity: 1;
+  transform: translateX(-50%) translateY(4px);
+  pointer-events: auto;
+}

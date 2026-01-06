@@ -94,7 +94,7 @@ main {
 /* Frosted-glass cards */
 .card {
   /* background: rgba(59,28,50,0.85); */
-  background:  #3FA6B2;
+  background:  #6DE3F2;
   backdrop-filter: blur(8px);
   padding: 2rem;
   border-radius: 12px;

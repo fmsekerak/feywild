@@ -201,7 +201,7 @@ th {
 /* Hidden menu */
 .dropdown-menu {
   position: absolute;
-  top: 100%;
+  top: 50%;
   left: 50%; 
   transform: translateX(-50%);
   background: #14201ef2;

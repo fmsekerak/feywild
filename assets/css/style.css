@@ -120,7 +120,7 @@ main {
   border-radius: 12px;
   box-shadow: 0 8px 20px rgba(0,0,0,0.5);
   margin-bottom: 2rem;
-  border: 1px solid #ff9cff;
+  border: 1px solid #4FA37C;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 

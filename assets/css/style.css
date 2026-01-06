@@ -8,7 +8,7 @@
 body {
   font-family: 'Georgia', serif;
   line-height: 1.6;
-  background: #051f09;
+  background: #000e02;
   color: #f0f0f0;
   overflow-x: hidden;
 }
@@ -16,7 +16,7 @@ body {
 /* Banner */
 .banner {
   position: relative;
-  height: 200px;
+  height: 150px;
   background: url('../images/banner.jpg') center/cover no-repeat;
   display: flex;
   align-items: center;

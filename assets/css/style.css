@@ -209,6 +209,9 @@ th {
   border-radius: 8px;
   min-width: 100px;
   padding: 0rem 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.2rem;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.25s ease;
@@ -218,14 +221,17 @@ th {
 
 /* Dropdown items */
 .dropdown-menu li {
-  display: block;
+  list-style: none;
 }
 
 .dropdown-menu a {
-  display: grid;
+  display: block;
   padding: 0.3rem 0.6rem;
   font-size: 0.95rem;
   color: #fad9e9;
+  text-align: center;
+  border-radius: 6px;
+  transition: color 0.2s ease, background 0.2s ease;
 }
 
 /* Hover states */

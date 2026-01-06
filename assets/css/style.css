@@ -225,13 +225,14 @@ th {
   display: block;
   padding: 0.6rem 1.2rem;
   font-size: 0.95rem;
-  color: #E6F2EE;
+  color: #fad9e9;
 }
 
 /* Hover states */
 .dropdown-menu a:hover {
-  background: rgba(109, 227, 242, 0.15);
-  color: #6DE3F2;
+  /* background: rgba(109, 227, 242, 0.15); */
+  color: #ffb3ff;
+  text-shadow: 0 0 5px #ff9cff;
 }
 
 /* Show dropdown */

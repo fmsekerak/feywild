@@ -228,6 +228,7 @@ th {
   display: block;
   padding: 0.3rem 0.3rem;
   font-size: 0.95rem;
+  line-height: 1;
   color: #fad9e9;
   text-align: center;
   border-radius: 3px;
@@ -238,7 +239,6 @@ th {
 .dropdown-menu a:hover {
   color: #ffb3ff;
   text-shadow: 0 0 2px #ff9cff;
-  padding: 0.3rem 0.3rem;
 }
 
 /* Show dropdown */

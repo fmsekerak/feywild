@@ -45,14 +45,36 @@ body {
 }
 
 /* Navigation */
+/*
 nav {
   background: #4FA37C;
-  /* background: linear-gradient(to bottom, #4FA37C, #285641, #11241b); */
   padding: 0.5rem;
   text-align: center;
   box-shadow: 0 4px 6px #000000;
 }
+*/
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: linear-gradient(
+    to bottom,
+    rgba(20, 32, 30, 0.95),
+    rgba(20, 32, 30, 0.85)
+  );
+  backdrop-filter: blur(6px);
+  padding: 1rem 0;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
 
+nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+/*
 nav a {
   color: #fad9e9;
   text-decoration: none;
@@ -83,6 +105,44 @@ nav a:hover {
   color: #ffb3ff;
   text-shadow: 0 0 5px #ff9cff;
 }
+*/
+
+nav a {
+  color: #E6F2EE;
+  text-decoration: none;
+  font-size: 1.15rem;
+  letter-spacing: 0.08em;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+/* glowing underline */
+nav a::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -6px;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    #6DE3F2,
+    #E56AA6
+  );
+  box-shadow: 0 0 12px rgba(109,227,242,0.8);
+  transform: translateX(-50%);
+  transition: width 0.3s ease;
+}
+
+nav a:hover {
+  color: #6DE3F2;
+}
+
+nav a:hover::after {
+  width: 100%;
+}
+
+
 
 /* Main Content */
 main {

@@ -135,11 +135,11 @@ th {
 /* Footer */
 footer {
   text-align: center;
-  padding: 2rem;
-  margin-top: 2rem;
-  background: linear-gradient(90deg, #A64D79, #6A1E55);
-  color: #fff;
-  box-shadow: 0 -4px 6px rgba(0,0,0,0.3);
+  padding: 1rem;
+  margin-top: 1rem;
+  background: #62ad8a;
+  color: #fad9e9;
+  box-shadow: 0 4px 6px #fad9e9;
 }
 
 /* Responsive */

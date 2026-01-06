@@ -203,7 +203,6 @@ th {
   position: absolute;
   top: 100%;
   left: 50%; 
-  bottom: -6px;
   transform: translateX(-50%);
   background: #14201ef2;
   border: 1px solid #6f8f864d;

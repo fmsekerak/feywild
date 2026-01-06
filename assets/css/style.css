@@ -30,7 +30,7 @@ body {
 .banner h1 {
   font-size: 4rem;
   z-index: 2;
-  text-shadow: 1px 1px 2px black, 0 0 20px #55f4bc, 0 0 20px #55f4bc;
+  text-shadow: 1px 1px 2px black, 0 0 15px #55f4bc, 0 0 15px #55f4bc;
   letter-spacing: 3px;
   font-family: 'Garamond', serif;
 }
@@ -58,7 +58,7 @@ nav a {
   text-decoration: none;
   margin: 0 1rem;
   font-weight: bold;
-   font-size: 1.1rem;
+   font-size: 1.5rem;
   transition: all 0.3s ease;
   position: relative;
 }

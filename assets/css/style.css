@@ -59,8 +59,9 @@ nav {
   z-index: 1000;
   background: linear-gradient(
     to bottom,
-    rgba(48, 91, 84, 0.95),
-    rgba(20, 32, 30, 0.85)
+    #4FA37C,
+    #305b54f2,
+    #11211fd9
   );
   backdrop-filter: blur(6px);
   padding: 0.5rem;
@@ -113,7 +114,7 @@ nav a {
   text-decoration: none;
   margin: 0 1rem;
   font-weight: bold;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   position: relative;
   transition: color 0.3s ease;
   position: relative;

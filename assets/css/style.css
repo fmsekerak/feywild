@@ -194,12 +194,24 @@ th {
 }
 
 /* Dropdown wrapper */
-.dropdown {
+.dropdown-menu a {
   position: relative;
 }
 
 /* Hidden menu */
-.dropdown-menu {
+.dropdown-menu a::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 2px; /* 🔑 THIS controls distance */
+  transform: translateX(-50%);
+  width: 60%;
+  height: 1px;
+  background: #ffb3ff;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+
+  /*
   position: absolute;
   top: 100%;
   left: 50%; 
@@ -217,9 +229,11 @@ th {
   transition: opacity 0.25s ease;
   box-shadow: 0 10px 30px #00000099;
   z-index: 999;
+  */
 }
 
-/* Dropdown items */
+
+/*
 .dropdown-menu li {
   list-style: none;
 }
@@ -235,16 +249,28 @@ th {
   transition: color 0.2s ease, background 0.2s ease;
 }
 
+*/
+
+
 /* Hover states */
+/*
 .dropdown-menu a:hover {
   color: #ffb3ff;
   text-shadow: 0 0 2px #ff9cff;
 }
+*/
+
 
 /* Show dropdown */
+/*
 .dropdown:hover .dropdown-menu,
 .dropdown-menu:hover {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
+}
+*/
+
+.dropdown-menu a:hover::after {
+  opacity: 1;
 }

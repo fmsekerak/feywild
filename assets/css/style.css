@@ -143,18 +143,18 @@ table {
   margin-right: auto;
 }
 
-th, td {
-  padding: 0.75rem;
-  border-bottom: 1px solid #ffffff1a;
-  text-align: center;
+td {
+  color: #fff;
 }
 
 th {
-  /* background: linear-gradient(45deg, #A64D79, #6A1E55); */
   background: #4FA37C;
   color: #fff;
   text-transform: uppercase;
   letter-spacing: 1px;
+  padding: 0.75rem;
+  border-bottom: 1px solid #ffffff1a;
+  text-align: center;
 }
 
 /* Responsive */

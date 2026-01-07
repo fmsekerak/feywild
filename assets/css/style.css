@@ -243,8 +243,7 @@ th {
 */
 
 /* Show dropdown */
-.dropdown:hover .dropdown-menu,
-.dropdown-menu:hover {
+.dropdown:hover .dropdown-menu {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;

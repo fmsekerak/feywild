@@ -148,7 +148,8 @@ th, td {
 }
 
 th {
-  background: linear-gradient(45deg, #A64D79, #6A1E55);
+  /* background: linear-gradient(45deg, #A64D79, #6A1E55); */
+  background: #4FA37C;
   color: #fff;
   text-transform: uppercase;
   letter-spacing: 1px;

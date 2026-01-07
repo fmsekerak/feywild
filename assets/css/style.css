@@ -208,8 +208,8 @@ th {
   border: 1px solid #6f8f864d;
   border-radius: 12px;
   min-width: 100px;
-  padding: 0rem 0;
-  padding-bottom: 1rem;
+  padding: 0.3rem 0;
+  padding-bottom: 0.3rem;
   display: grid;
   grid-template-columns: none;
   gap: 0.2rem;

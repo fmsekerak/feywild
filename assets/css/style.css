@@ -212,7 +212,7 @@ th {
   padding-bottom: 0.3rem;
   display: grid;
   grid-template-columns: none;
-  gap: 0.4rem;
+  gap: 0.8rem;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.25s ease;

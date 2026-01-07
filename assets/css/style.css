@@ -193,12 +193,12 @@ th {
   }
 }
 
-/* Dropdown wrapper */
+/* Dropdown wrapper 
 .dropdown {
   position: relative;
 }
 
-/* Hidden menu */
+ Hidden menu 
 .dropdown-menu {
   position: absolute;
   top: 100%;
@@ -219,7 +219,7 @@ th {
   z-index: 999;
 }
 
-/* Dropdown items */
+ Dropdown items 
 .dropdown-menu li {
   list-style: none;
 }
@@ -236,23 +236,25 @@ th {
   transition: color 0.2s ease; 
 }
 
-/* Hover states */
+ Hover states 
 .dropdown-menu a:hover {
   color: #ffb3ff;
   text-shadow: 0 0 2px #ff9cff;
 }
 
 
-/* Show dropdown */
+ Show dropdown 
 .dropdown:hover .dropdown-menu {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
 }
 
-/* Kill nav underline pseudo-elements */
+ Kill nav underline pseudo-elements 
 .dropdown-menu a::after,
 .dropdown-menu a::before {
   content: none !important;
   display: none !important;
 }
+
+*/

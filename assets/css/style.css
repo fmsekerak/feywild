@@ -227,20 +227,21 @@ th {
 .dropdown-menu a {
   display: block;
   padding: 0.3rem 0.3rem;
+  text-decoration: none;
   font-size: 0.95rem;
   line-height: 1.3;
   color: #fad9e9;
   text-align: center;
   border-radius: 3px;
-  /* transition: color 0.2s ease; */
+  transition: color 0.2s ease; 
 }
 
-/* Hover states 
+/* Hover states */
 .dropdown-menu a:hover {
   color: #ffb3ff;
   text-shadow: 0 0 2px #ff9cff;
 }
-*/
+
 
 /* Show dropdown */
 .dropdown:hover .dropdown-menu {

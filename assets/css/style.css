@@ -205,8 +205,8 @@ th {
   left: 50%; 
   transform: translateX(-50%);
   background: #14201ef2;
-  border: 2px solid #6f8f864d;
-  border-radius: 8px;
+  border: 1px solid #6f8f864d;
+  border-radius: 16px;
   min-width: 100px;
   padding: 0rem 0;
   display: grid;

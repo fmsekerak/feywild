@@ -122,7 +122,7 @@ main {
 .card {
   background:  #305b54f2;
   backdrop-filter: blur(8px);
-  padding: 2rem;
+  padding: 1rem;
   border-radius: 12px;
   box-shadow: 0 8px 20px #00000080;
   margin-bottom: 2rem;

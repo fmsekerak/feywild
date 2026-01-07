@@ -128,12 +128,6 @@ main {
   margin-bottom: 2rem;
   border: 1px solid #4FA37C;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.card p {
-  background: rgba(0, 0, 0, 0.35);
-  padding: 1rem 1.25rem;
-  border-radius: 8px;
   text-shadow: 0 1px 4px rgba(0,0,0,0.8);
 }
 

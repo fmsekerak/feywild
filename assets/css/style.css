@@ -235,11 +235,12 @@ th {
   transition: color 0.2s ease, background 0.2s ease;
 }
 
-/* Hover states */
+/* Hover states 
 .dropdown-menu a:hover {
   color: #ffb3ff;
   text-shadow: 0 0 2px #ff9cff;
 }
+  /
 
 /* Show dropdown */
 .dropdown:hover .dropdown-menu,

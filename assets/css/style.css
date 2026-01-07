@@ -128,7 +128,7 @@ main {
   margin-bottom: 2rem;
   border: 1px solid #4FA37C;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+  text-shadow: 1 4px 4px rgba(0,0,0,0.8);
 }
 
 /* Table styling */

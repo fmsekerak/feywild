@@ -160,10 +160,10 @@ th {
   color: #fff;
   text-transform: uppercase;
   letter-spacing: 1px;
-  padding: 0.75rem;
-  border-bottom: 1px solid #ffffff1a;
+  padding: 0.5rem;
+  border-bottom: 0.5px solid #ffffff1a;
   text-align: center;
-  font-size: 1.25rem;
+  font-size: 1.15rem;
 }
 
 .bold-cell {

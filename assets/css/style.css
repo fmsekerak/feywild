@@ -151,6 +151,8 @@ td {
   padding: 0.5rem;
   font-weight: bold;
   background: #11211f;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 0.3rem 0.4rem;
 }
 
 th {
@@ -162,11 +164,6 @@ th {
   border-bottom: 1px solid #ffffff1a;
   text-align: center;
   font-size: 1.25rem;
-}
-
-th, td {
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  padding: 0.3rem 0.4rem;
 }
 
 .bold-cell {

@@ -162,7 +162,7 @@ th {
   border-bottom: 0.5px solid #ffffff1a;
   text-align: center;
   font-size: 1.15rem;
-  padding: 1rem;
+  padding: 0.5rem, 1rem;
   border: 1px solid rgba(255, 255, 255, 0.25);
 }
 

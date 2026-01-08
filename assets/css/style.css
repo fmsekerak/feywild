@@ -164,6 +164,7 @@ th {
   border-bottom: 0.5px solid #ffffff1a;
   text-align: center;
   font-size: 1.15rem;
+  border: 1px solid rgba(255, 255, 255, 0.25);
 }
 
 .bold-cell {

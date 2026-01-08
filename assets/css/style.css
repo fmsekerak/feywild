@@ -148,6 +148,7 @@ td {
   text-align: center;
   letter-spacing: 1px;
   padding: 0.5rem;
+  font-weight: bold;
 }
 
 th {
@@ -158,6 +159,7 @@ th {
   padding: 0.75rem;
   border-bottom: 1px solid #ffffff1a;
   text-align: center;
+  font-size: 2rem;
 }
 
 th, td {

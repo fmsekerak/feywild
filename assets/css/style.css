@@ -272,3 +272,48 @@ p {
   visibility: visible;
   pointer-events: auto;
 }
+
+
+.fey-button {
+  position: center;
+  display: inline-block;
+  margin-top: 1.5rem;
+  padding: 0.75rem 1.8rem;
+  font-family: 'Georgia', serif;
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+
+  color: #ffe6f2;
+  background: linear-gradient(
+    135deg,
+    rgba(255,179,255,0.25),
+    rgba(168,84,160,0.35)
+  );
+
+  border: 1px solid rgba(255,179,255,0.45);
+  border-radius: 999px;
+  cursor: pointer;
+
+  box-shadow:
+    0 0 12px rgba(255,179,255,0.35),
+    inset 0 0 6px rgba(255,255,255,0.15);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease;
+}
+
+.fey-button:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 0 20px rgba(255,179,255,0.6),
+    inset 0 0 8px rgba(255,255,255,0.25);
+}
+
+.fey-button:active {
+  transform: translateY(0);
+  box-shadow:
+    0 0 10px rgba(255,179,255,0.4),
+    inset 0 0 10px rgba(0,0,0,0.3);
+}

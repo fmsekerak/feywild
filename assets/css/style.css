@@ -282,16 +282,13 @@ p {
   display: block;
   margin: 0rem auto 1rem;
   cursor: inherit;
-
   color: #ffe6f2;
   background: radial-gradient(
-   /* rgb(255, 179, 255), */
     rgb(163, 83, 155)
   );
 
   border: 1px solid rgba(255,179,255,0.45);
   border-radius: 999px;
-  /* cursor: pointer; */
 
   box-shadow:
     0 0 12px rgba(255,179,255,0.35),
@@ -308,7 +305,7 @@ p {
   box-shadow:
     0 0 20px rgba(255,179,255,0.6),
     inset 0 0 8px rgba(255,255,255,0.25);
-    pointer-events: auto;
+  cursor: url('../images/blossom-hover.cur'), auto;
 }
 
 .fey-button:active {

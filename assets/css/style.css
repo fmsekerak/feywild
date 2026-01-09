@@ -285,8 +285,8 @@ p {
   color: #ffe6f2;
   background: linear-gradient(
     135deg,
-    rgba(255,179,255,0.25),
-    rgba(168,84,160,0.35)
+    rgb(255, 179, 255),
+    rgb(163, 83, 155)
   );
 
   border: 1px solid rgba(255,179,255,0.45);

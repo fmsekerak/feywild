@@ -275,14 +275,13 @@ p {
 
 
 .fey-button {
-  display: inline-block;
+  display: flex;
   margin-top: 1.5rem;
   padding: 0.75rem 1.8rem;
   font-family: 'Georgia', serif;
   font-size: 1rem;
   letter-spacing: 0.05em;
-  margin-left: auto;
-  margin-right: auto;
+  justify-content: center;
 
   color: #ffe6f2;
   background: linear-gradient(

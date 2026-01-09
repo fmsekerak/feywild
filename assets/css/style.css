@@ -280,7 +280,7 @@ p {
   font-size: 1rem;
   letter-spacing: 0.05em;
   display: block;
-  margin: 1rem auto 1rem;
+  margin: 0rem auto 1rem;
 
   color: #ffe6f2;
   background: radial-gradient(

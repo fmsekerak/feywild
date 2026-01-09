@@ -315,3 +315,53 @@ p {
     0 0 10px rgba(255,179,255,0.4),
     inset 0 0 10px rgba(0,0,0,0.3);
 }
+
+.crafting-button {
+  display: flex;
+  justify-content: center;
+}
+
+.fey-link {
+  display: inline-block;
+  margin-top: 2rem;
+  padding: 0.9rem 2.2rem;
+
+  font-family: 'Georgia', serif;
+  font-size: 1.05rem;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+
+  color: #ffe6f2;
+  background: linear-gradient(
+    135deg,
+    rgba(255,179,255,0.25),
+    rgba(120,45,110,0.45)
+  );
+
+  border: 1px solid rgba(255,179,255,0.5);
+  border-radius: 999px;
+
+  box-shadow:
+    0 0 14px rgba(255,179,255,0.35),
+    inset 0 0 8px rgba(255,255,255,0.12);
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    background 0.3s ease;
+
+  cursor: inherit; /* uses your custom body cursor */
+}
+
+/* Hover magic */
+.fey-link:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 0 24px rgba(255,179,255,0.65),
+    inset 0 0 10px rgba(255,255,255,0.2);
+}
+
+/* Click */
+.fey-link:active {
+  transform: translateY(-1px);
+}

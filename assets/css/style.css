@@ -283,7 +283,7 @@ p {
   margin: 1rem auto 1rem;
 
   color: #ffe6f2;
-  background: linear-gradient(
+  background: radial-gradient(
     135deg,
     rgb(255, 179, 255),
     rgb(163, 83, 155)

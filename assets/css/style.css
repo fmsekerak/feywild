@@ -283,6 +283,7 @@ p {
   margin: 0rem auto 1rem;
   cursor: inherit;
   color: #ffe6f2;
+  text-shadow: 1 4px 4px rgba(0,0,0,0.8);
   background: radial-gradient(
     rgb(163, 83, 155)
   );

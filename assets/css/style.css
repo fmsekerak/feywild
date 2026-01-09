@@ -284,7 +284,7 @@ p {
 
   color: #ffe6f2;
   background: radial-gradient(
-    rgb(255, 179, 255),
+   /* rgb(255, 179, 255), */
     rgb(163, 83, 155)
   );
 

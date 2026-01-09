@@ -308,6 +308,7 @@ p {
   box-shadow:
     0 0 20px rgba(255,179,255,0.6),
     inset 0 0 8px rgba(255,255,255,0.25);
+    pointer-events: auto;
 }
 
 .fey-button:active {

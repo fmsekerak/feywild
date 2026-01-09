@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      cursor: url('assets/images/Pink.cur'), auto;
+    }
+    a {
+      cursor: url('assets/images/PinkSelect.cur'), pointer;
+    }
+  </style>
+
+  <title>Feywild</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<script>
+  document.querySelectorAll('a').forEach(link => {
+    link.addEventListener('mousedown', () => {
+      document.body.style.cursor =
+        "url('assets/images/PinkSelect.cur'), auto";
+    });
+
+    link.addEventListener('mouseup', () => {
+      document.body.style.cursor =
+        "url('assets/images/PinkSelect.cur'), auto";
+    });
+
+    link.addEventListener('mouseleave', () => {
+      document.body.style.cursor =
+        "url('assets/images/PinkSelect.cur'), auto";
+    });
+  });
+</script>
+
+<body>
+<!-- Magical Banner -->
+  <header class="banner">
+    <canvas id="bannerParticles"></canvas>
+    <h1>Feywild</h1>
+  </header>
+
+  <!-- Navigation -->
+<nav>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    
+      <li class="dropdown">
+      <a href="crafting.html" class="active">Crafting ▾</a>
+      <ul class="dropdown-menu">
+        <li> <a href="crafting.html" class="active"> Overview</a></li>
+        <li><a href="">Alchemy</a></li>
+        <li><a href="">Blacksmithing</a></li>
+        <li><a href="">Enchanting</a></li>
+      </ul>
+    </li>
+    
+  </ul>
+</nav>
+
+  <!-- Main Content -->
+  <main>
+    <section class="card">
+      <h1 style="text-align:center; padding-bottom: 0rem;">Alchemy</h1>
+      <p>Alchemy
+      </p>
+      <h2 style="text-align:center; padding-bottom: 0rem; padding-top: 1rem;">Tools Quick Reference</h2>
+
+        <table>
+          <tr>
+          <th>Profession</th>
+          <th>Tool</th>
+          <th>Ability</th>
+          </tr>
+          <tr>
+          <td>Alchemy</td>
+          <td>Alchemist's Tools /<br> Poisoner's Kit</td>
+          <td>Wis /<br>Int</td>
+          </tr>
+        </table>
+
+
+    </section>
+  </main>
+
+  <!-- JS for banner particles -->
+  <script src="assets/js/particles.js"></script>
+</body>
+</html>

@@ -11,7 +11,7 @@ fetch(sheetURL)
 
     data.forEach(item => {
       const li = document.createElement("li");
-      li.textContent = `${item.name} - ${item.materials} - ${item.time} - ${item.check} - ${item.difficulty} (${item.rarity}) —  ${item.price}gp `;
+      li.textContent = `${item.Name} - ${item.Materials} - ${item.Crafting Time} - ${item.Checks} - ${item.Difficulty} (${item.Rarity}) —  ${item.Value}`;
       list.appendChild(li);
     });
   })

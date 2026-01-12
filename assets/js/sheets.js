@@ -8,18 +8,19 @@ fetch(sheetURL)
   });
 
 
-  function csvToObjects(csv) {
+function csvToObjects(csv) {
   const lines = csv.trim().split("\n");
   const headers = lines.shift().split(",");
 
   return lines.map(line => {
-    const values = line.split(",");
+    const values = line.match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g);
     return headers.reduce((obj, header, i) => {
-      obj[header.trim()] = values[i]?.trim();
+      obj[header] = values[i]?.replace(/"/g, "").trim();
       return obj;
     }, {});
   });
 }
+
 
 fetch(sheetURL)
   .then(res => res.text())

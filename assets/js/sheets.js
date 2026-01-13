@@ -43,10 +43,6 @@ document.addEventListener("DOMContentLoaded", () => {
             <td>${item.name}</td>
             <td>${formatMultiline(item.materials)}</td>
             <td>${item.crafting_time}</td>
-            <td>${item.checks}</td>
-            <td>${item.difficulty}</td>
-            <td>${item.rarity}</td>
-            <td>${formatGp(item.value)}</td>
           `;
 
           tbody.appendChild(tr);
@@ -99,18 +95,6 @@ function csvToObjects(csv) {
   });
 }
 
-
-  // ---------- VALUE FORMATTERS ----------
-
-  function parseGp(value) {
-    if (!value) return 0;
-    return Number(value.replace(/[^\d]/g, ""));
-  }
-
-  function formatGp(value) {
-    const num = parseGp(value);
-    return num ? `${num.toLocaleString()} gp` : "—";
-  }
 
 });
 

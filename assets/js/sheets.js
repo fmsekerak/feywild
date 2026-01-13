@@ -4,24 +4,21 @@ document.addEventListener("DOMContentLoaded", () => {
   const sheetURL =
     "https://docs.google.com/spreadsheets/d/e/2PACX-1vTGEGjryoMoYyFZIWPFrYLLO9M9Z0zq0lbIB4xIe-_-VqRwAQ6KP2ley9HpuDokO9i07lbDD4CnKqVT/pub?gid=0&single=true&output=csv";
 
+
   fetch(sheetURL)
     .then(res => res.text())
     .then(csv => {
-
-      // ✅ 1. Convert CSV → objects
       const data = csvToObjects(csv);
+      console.log("DATA:", data);
 
-      // ✅ 2. Store data for searching
       let tableData = data;
 
-      // ✅ 3. Grab DOM elements
       const tbody = document.querySelector("#crafting-table tbody");
       const searchInput = document.getElementById("search");
 
-      // ✅ 4. Initial render
       renderTable(tableData);
 
-      // ✅ 5. Live search
+      // 🔍 Live search
       searchInput.addEventListener("input", () => {
         const query = searchInput.value.toLowerCase();
 
@@ -34,13 +31,14 @@ document.addEventListener("DOMContentLoaded", () => {
         renderTable(filtered);
       });
 
-      // ---------- FUNCTIONS ----------
+      // ---------- RENDER ----------
 
       function renderTable(rows) {
         tbody.innerHTML = "";
 
         rows.forEach(item => {
           const tr = document.createElement("tr");
+
           tr.innerHTML = `
             <td>${item.name}</td>
             <td>${item.materials}</td>
@@ -48,8 +46,9 @@ document.addEventListener("DOMContentLoaded", () => {
             <td>${item.checks}</td>
             <td>${item.difficulty}</td>
             <td>${item.rarity}</td>
-            <td>${item.value_gp}</td>
+            <td>${formatGp(item.value)}</td>
           `;
+
           tbody.appendChild(tr);
         });
       }
@@ -60,7 +59,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function normalizeHeader(header) {
     return header
+      .replace(/^\uFEFF/, "")    // remove BOM
+      .replace(/\u00A0/g, " ")   // normalize spaces
+      .trim()
       .toLowerCase()
+      .replace(/\(.*?\)/g, "")   // remove "(gp)" etc
       .replace(/\s+/g, "_")
       .replace(/[^\w]/g, "");
   }
@@ -77,6 +80,18 @@ document.addEventListener("DOMContentLoaded", () => {
         return obj;
       }, {});
     });
+  }
+
+  // ---------- VALUE FORMATTERS ----------
+
+  function parseGp(value) {
+    if (!value) return 0;
+    return Number(value.replace(/[^\d]/g, ""));
+  }
+
+  function formatGp(value) {
+    const num = parseGp(value);
+    return num ? `${num.toLocaleString()} gp` : "—";
   }
 
 });

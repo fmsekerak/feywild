@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
           tr.innerHTML = `
             <td>${item.name}</td>
-            <td>${item.materials}</td>
+            <td>${formatMultiline(item.materials)}</td>
             <td>${item.crafting_time}</td>
             <td>${item.checks}</td>
             <td>${item.difficulty}</td>
@@ -68,19 +68,37 @@ document.addEventListener("DOMContentLoaded", () => {
       .replace(/[^\w]/g, "");
   }
 
-  function csvToObjects(csv) {
-    const lines = csv.trim().split("\n");
-    const rawHeaders = lines.shift().split(",");
-    const headers = rawHeaders.map(normalizeHeader);
+function csvToObjects(csv) {
+  const rows = [];
+  let current = "";
+  let insideQuotes = false;
 
-    return lines.map(line => {
-      const values = line.match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g) || [];
-      return headers.reduce((obj, header, i) => {
-        obj[header] = values[i]?.replace(/"/g, "").trim() || "";
-        return obj;
-      }, {});
-    });
+  for (let char of csv) {
+    if (char === '"') insideQuotes = !insideQuotes;
+    if (char === "\n" && !insideQuotes) {
+      rows.push(current);
+      current = "";
+    } else {
+      current += char;
+    }
   }
+  rows.push(current);
+
+  const rawHeaders = rows.shift().split(",");
+  const headers = rawHeaders.map(normalizeHeader);
+
+  return rows.map(row => {
+    const values = row.match(/(".*?"|[^",]+)(?=\s*,|\s*$)/gs) || [];
+    return headers.reduce((obj, header, i) => {
+      obj[header] = values[i]
+        ?.replace(/^"|"$/g, "")
+        .replace(/\r/g, "")
+        .trim() || "";
+      return obj;
+    }, {});
+  });
+}
+
 
   // ---------- VALUE FORMATTERS ----------
 
@@ -95,3 +113,10 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 });
+
+  // ---------- MATERIALS FORMATTERS ----------
+
+function formatMultiline(text) {
+  if (!text) return "—";
+  return text.replace(/\n/g, "<br>");
+}

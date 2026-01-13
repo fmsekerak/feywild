@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <td>${item.checks}</td>
             <td>${item.difficulty}</td>
             <td>${item.rarity}</td>
-            <td>${item.value}</td>
+            <td>${item.value_gp}</td>
           `;
           tbody.appendChild(tr);
         });

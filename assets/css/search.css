@@ -330,5 +330,4 @@ p {
   border-collapse: collapse;
 }
 
-#crafting-table th:nth-child(2),
-#crafting-table td:nth-child(2) { font-size: 0.3rem; }
+#crafting-table td:nth-child(2) { font-size: 0.6rem; }

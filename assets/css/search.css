@@ -273,10 +273,8 @@ p {
   pointer-events: auto;
 }
 
-
-
 input {
-  vertical-align: auto;
+  display: block;
   background: radial-gradient(
     rgb(163, 83, 155)
   );

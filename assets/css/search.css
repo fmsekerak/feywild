@@ -324,14 +324,11 @@ p {
 }
 
 #crafting-table th {
-  width: 60%;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
   border-collapse: collapse;
-  margin-top: 1rem;
   background: #ffffff0d;
-  border-radius: 6px;
-  overflow: hidden;
-  margin-left: auto;
-  margin-right: auto;
   text-shadow: 1 4px 4px rgba(0,0,0,0.8);
 }
 
@@ -345,8 +342,3 @@ p {
   padding: 0.3rem 0.4rem;
 }
 
-#crafting-table td:nth-child(2) {
-  line-height: 1.4;
-  white-space: normal;     /* allow wrapping */
-  word-break: break-word;
-}

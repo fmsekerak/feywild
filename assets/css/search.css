@@ -323,22 +323,10 @@ p {
   font-style: italic;
 }
 
-#crafting-table th {
+#crafting-table {
   width: 100%;
   max-width: 1000px;
   margin: 0 auto;
   border-collapse: collapse;
-  background: #ffffff0d;
-  text-shadow: 1 4px 4px rgba(0,0,0,0.8);
-}
-
-#crafting-table td {
-  color: #fff;
-  text-align: center;
-  letter-spacing: 1px;
-  font-weight: bold;
-  background: #1f3a36f2;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  padding: 0.3rem 0.4rem;
 }
 

@@ -322,3 +322,32 @@ p {
   color: rgba(70, 60, 90, 0.65);
   font-style: italic;
 }
+
+#crafting-table th {
+  padding: 0.75rem 1rem;
+  text-align: left;
+
+  background: linear-gradient(135deg, #4a6b58, #6f8f7c);
+  color: #f5f3ec;
+
+  font-weight: 600;
+  letter-spacing: 0.03em;
+
+  border-bottom: 2px solid rgba(0,0,0,0.25);
+}
+
+#crafting-table td {
+  padding: 0.65rem 1rem;
+  vertical-align: top;
+
+  background: rgba(245, 243, 236, 0.75);
+  color: #2e2a23;
+
+  border-bottom: 1px solid rgba(0,0,0,0.15);
+}
+
+#crafting-table td:nth-child(2) {
+  line-height: 1.4;
+  white-space: normal;     /* allow wrapping */
+  word-break: break-word;
+}

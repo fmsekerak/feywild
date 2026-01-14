@@ -274,11 +274,6 @@ p {
 }
 
 #search {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: radial-gradient(
-    rgb(234, 172, 228)
-  );
-
+  display: block;
+  margin: 0 auto 1rem auto;
 }

@@ -369,4 +369,8 @@ p {
 
 input {
   vertical-align: auto;
+  background: radial-gradient(
+    rgb(163, 83, 155)
+  );
+
 }

@@ -275,5 +275,50 @@ p {
 
 #search {
   display: block;
-  margin: 0 auto 1rem auto;
+  margin: 1.5rem auto 2rem auto;
+  width: 100%;
+  max-width: 420px;
+
+  padding: 0.65rem 1rem;
+  font-size: 1rem;
+  font-family: inherit;
+
+  color: #2f2a1f;
+  background:
+    radial-gradient(circle at top left, rgba(255,255,255,0.85), rgba(234,172,228,0.55)),
+    linear-gradient(135deg, #c6e6c3, #e8d9f1);
+
+  border: 1px solid rgba(120, 90, 140, 0.45);
+  border-radius: 999px; /* enchanted pill shape */
+
+  box-shadow:
+    0 0 8px rgba(190, 140, 210, 0.35),
+    inset 0 0 6px rgba(255,255,255,0.6);
+
+  outline: none;
+  transition: all 0.35s ease;
+}
+
+#search:hover {
+  box-shadow:
+    0 0 12px rgba(200, 160, 255, 0.6),
+    inset 0 0 8px rgba(255,255,255,0.7);
+}
+
+#search:focus {
+  border-color: #b48cc8;
+
+  box-shadow:
+    0 0 16px rgba(220, 180, 255, 0.85),
+    0 0 32px rgba(180, 240, 200, 0.45),
+    inset 0 0 10px rgba(255,255,255,0.8);
+
+  background:
+    radial-gradient(circle at top left, #ffffff, #f3dcf7),
+    linear-gradient(135deg, #d9f2d6, #f2e7fa);
+}
+
+#search::placeholder {
+  color: rgba(70, 60, 90, 0.65);
+  font-style: italic;
 }

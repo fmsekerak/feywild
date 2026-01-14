@@ -273,7 +273,7 @@ p {
   pointer-events: auto;
 }
 
-input {
+#search {
   display: flex; 
   justify-content: center;
   background: radial-gradient(

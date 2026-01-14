@@ -274,7 +274,8 @@ p {
 }
 
 input {
-  display: block;
+  display: flex; 
+  justify-content: center;
   background: radial-gradient(
     rgb(163, 83, 155)
   );

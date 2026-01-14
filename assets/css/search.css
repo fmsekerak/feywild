@@ -365,3 +365,8 @@ p {
 .fey-link:active {
   transform: translateY(-1px);
 }
+
+
+input {
+  vertical-align: auto;
+}

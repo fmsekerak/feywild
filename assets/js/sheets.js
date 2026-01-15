@@ -50,6 +50,8 @@ document.addEventListener("DOMContentLoaded", () => {
             <td>${item.name}</td>
             <td>${formatMultiline(item.materials)}</td>
             <td>${item.crafting_time}</td>
+            <td>${item.rarity}</td>
+            <td>${item.profession}</td>
           `;
 
           tbody.appendChild(tr);

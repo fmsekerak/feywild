@@ -16,11 +16,17 @@ document.addEventListener("DOMContentLoaded", () => {
       const tbody = document.querySelector("#crafting-table tbody");
       const searchInput = document.getElementById("search");
 
-      renderTable(tableData);
+      /* renderTable(tableData); */
 
       // 🔍 Live search
       searchInput.addEventListener("input", () => {
-        const query = searchInput.value.toLowerCase();
+        const query = searchInput.value.trim().toLowerCase();
+
+        // If search is empty → clear table
+        if (!query) {
+          tbody.innerHTML = "";
+          return;
+        }
 
         const filtered = tableData.filter(item =>
           Object.values(item).some(value =>
@@ -30,6 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         renderTable(filtered);
       });
+
 
       // ---------- RENDER ----------
 

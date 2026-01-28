@@ -332,7 +332,7 @@ p {
   border-collapse: collapse;
 }
 
-#crafting-table td:nth-child(2) { font-size: 0.9rem; }
+/*#crafting-table td:nth-child(2) { font-size: 0.9rem; }*/
 #crafting-table td:nth-child(6) { font-size: 0.9em; }
 #crafting-table th:nth-child(6) { width: 700px}
 #crafting-table th:nth-child(2) { width: 300px}

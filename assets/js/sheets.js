@@ -52,6 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <td>${item.crafting_time}</td>
             <td>${item.rarity}</td>
             <td>${item.profession}</td>
+            <td>${item.description}</td>
           `;
 
           tbody.appendChild(tr);

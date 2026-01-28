@@ -331,4 +331,5 @@ p {
 }
 
 #crafting-table td:nth-child(2) { font-size: 0.8rem; }
-#crafting-table td:nth-child(6) { font-size: 0.8rem; width: 150%}
+#crafting-table td:nth-child(6) { font-size: 0.8rem; }
+#crafting-table th:nth-child(6) { width: 50% }

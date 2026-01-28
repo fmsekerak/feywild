@@ -167,6 +167,19 @@ th {
   border: 1px solid rgba(255, 255, 255, 0.25);
 }
 
+th-d {
+  background: #4FA37C;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: px;
+  border-bottom: 0.5px solid #ffffff1a;
+  text-align: center;
+  font-size: 1.15rem;
+  padding: 1rem;
+  padding-bottom: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
 p {
   text-align: center;
 }

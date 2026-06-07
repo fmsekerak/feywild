@@ -321,6 +321,12 @@ p {
   justify-content: center;
 }
 
+
+.search-button {
+  display: flex;
+  justify-content: center;
+}
+
 .fey-link {
   display: inline-block;
   margin-top: 2rem;

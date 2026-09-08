@@ -336,62 +336,6 @@ p {
 #crafting-table th:nth-child(6) { width: 700px}
 #crafting-table th:nth-child(2) { width: 300px}
 
-
-
-@media screen and (max-width: 768px) {
-  /* Hide table header on mobile */
-  #crafting-table thead {
-    display: none;
-  }
-
-  /* Make table rows display like stacked cards */
-  #crafting-table, 
-  #crafting-table tbody, 
-  #crafting-table tr, 
-  #crafting-table td {
-    display: block;
-    width: 100%;
-  }
-
-  #crafting-table tr {
-    margin-bottom: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 0.5rem;
-    background-color: #fff;
-  }
-
-  #crafting-table td {
-    text-align: right;
-    padding-left: 50%;
-    position: relative;
-    border: none;
-    border-bottom: 1px solid #eee;
-  }
-
-  #crafting-table td:last-child {
-    border-bottom: none;
-  }
-
-  /* Add column labels dynamically using CSS data labels */
-  #crafting-table td::before {
-    position: absolute;
-    left: 10px;
-    width: 45%;
-    white-space: nowrap;
-    text-align: left;
-    font-weight: bold;
-  }
-
-  /* Define labels for each mobile column */
-  #crafting-table td:nth-of-type(1)::before { content: "Name:"; }
-  #crafting-table td:nth-of-type(2)::before { content: "Materials:"; }
-  #crafting-table td:nth-of-type(3)::before { content: "Crafting Time:"; }
-  #crafting-table td:nth-of-type(4)::before { content: "Rarity:"; }
-  #crafting-table td:nth-of-type(5)::before { content: "Profession:"; }
-  #crafting-table td:nth-of-type(6)::before { content: "Description:"; }
-}
-
 /* Crafting List Container */
 #crafting-list {
   display: flex;
@@ -483,4 +427,42 @@ p {
   margin-top: 0.8rem;
   padding-top: 0.6rem;
   border-top: 1px dashed rgba(255, 255, 255, 0.15);
+}
+
+
+/* Responsive fixes for Mobile Screens */
+@media screen and (max-width: 768px) {
+  /* Reduce container padding so content fits on mobile screens */
+  main {
+    padding: 0.5rem;
+    margin: 0 auto;
+  }
+
+  .card {
+    padding: 0.75rem;
+    border-radius: 8px;
+  }
+
+  /* Make search input 100% wide on mobile */
+  #search {
+    width: 100% !important;
+    max-width: 100% !important;
+    font-size: 1rem;
+  }
+
+  /* Optimize crafting list layout for touch devices */
+  #crafting-list {
+    margin-top: 0.5rem;
+    gap: 0.5rem;
+  }
+
+  .crafting-item-header {
+    padding: 0.75rem;
+    font-size: 1rem; /* Prevents auto-zoom on mobile safari */
+  }
+
+  .crafting-item-body {
+    padding: 0.75rem;
+    font-size: 0.95rem;
+  }
 }

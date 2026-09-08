@@ -50,6 +50,16 @@
              style="margin-bottom: 1rem; padding: 0.5rem; width: 100%; max-width: 400px;">
 
       <div id="crafting-list"></div>
+
+        <script>
+          console.log("Inline script running...");
+          const list = document.getElementById("crafting-list");
+          if (list) {
+            list.innerHTML = "<p style='color:#55f4bc; font-size:1.5rem;'>TEST: Inline Script Works!</p>";
+          } else {
+            console.error("Could not find #crafting-list element");
+          }
+        </script>
     </section>
   </main>
 

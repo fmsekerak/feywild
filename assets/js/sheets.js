@@ -154,20 +154,22 @@ function parseCSVRows(text) {
       const profession = item.profession || "—";
       const description = item.description || "—";
 
-      itemElement.innerHTML = `
-        <div class="crafting-item-header">
-          <span class="item-name">${name}</span>
+    itemElement.innerHTML = `
+      <div class="crafting-item-header">
+        <span class="item-name">${name}</span>
+      </div>
+      <div class="crafting-item-body">
+        <div class="detail-row detail-block">
+          <span class="detail-label">Materials:</span><br>${formatMultiline(materials)}
         </div>
-        <div class="crafting-item-body">
-          <div class="detail-row"><span class="detail-label">Materials:</span> ${materials.replace(/\n/g, '<br>')}</div>
-          <div class="detail-row"><span class="detail-label">Crafting Time:</span> ${time}</div>
-          <div class="detail-row"><span class="detail-label">Rarity:</span> ${rarity}</div>
-          <div class="detail-row"><span class="detail-label">Profession:</span> ${profession}</div>
-          <div class="detail-row detail-description">
-            <span class="detail-label">Description:</span><br>${description.replace(/\n/g, '<br>')}
-          </div>
+        <div class="detail-row"><span class="detail-label">Crafting Time:</span> ${time}</div>
+        <div class="detail-row"><span class="detail-label">Rarity:</span> ${rarity}</div>
+        <div class="detail-row"><span class="detail-label">Profession:</span> ${profession}</div>
+        <div class="detail-row detail-description">
+          <span class="detail-label">Description:</span><br>${formatMultiline(description)}
         </div>
-      `;
+      </div>
+    `;
 
       const header = itemElement.querySelector(".crafting-item-header");
 

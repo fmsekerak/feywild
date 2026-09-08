@@ -159,7 +159,7 @@ function parseCSVRows(text) {
           <span class="item-name">${name}</span>
         </div>
         <div class="crafting-item-body">
-          <div class="detail-row"><span class="detail-label">Materials:</span> ${materials.replace(/\n/g, '<br>')}</div>
+          <div class="detail-row"><span class="detail-label">Materials:</span><br> ${materials.replace(/\n/g, '<br>')}</div>
           <div class="detail-row"><span class="detail-label">Crafting Time:</span> ${time}</div>
           <div class="detail-row"><span class="detail-label">Rarity:</span> ${rarity}</div>
           <div class="detail-row"><span class="detail-label">Profession:</span> ${profession}</div>

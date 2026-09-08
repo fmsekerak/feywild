@@ -335,3 +335,28 @@ p {
 #crafting-table td:nth-child(6) { font-size: 1.05em; }
 #crafting-table th:nth-child(6) { width: 700px}
 #crafting-table th:nth-child(2) { width: 300px}
+
+
+
+/* Mobile-specific styles (for screens 768px wide or smaller) */
+@media screen and (max-width: 768px) {
+  /* Make container scroll horizontally if table gets wider than screen */
+  .card {
+    overflow-x: auto;
+  }
+
+  /* Set explicit widths for each column on mobile */
+  #crafting-table th:nth-child(1), #crafting-table td:nth-child(1) { width: 20%; } /* Name */
+  #crafting-table th:nth-child(2), #crafting-table td:nth-child(2) { width: 25%; } /* Materials */
+  #crafting-table th:nth-child(3), #crafting-table td:nth-child(3) { width: 15%; } /* Crafting Time */
+  #crafting-table th:nth-child(4), #crafting-table td:nth-child(4) { width: 10%; } /* Rarity */
+  #crafting-table th:nth-child(5), #crafting-table td:nth-child(5) { width: 10%; } /* Profession */
+  #crafting-table th:nth-child(6), #crafting-table td:nth-child(6) { width: 20%; } /* Description */
+  
+  /* Ensure the table uses full available width */
+  #crafting-table {
+    width: 100%;
+    table-layout: fixed; /* Ensures specified widths are respected */
+    word-wrap: break-word; /* Prevents text overflow */
+  }
+}

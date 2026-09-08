@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const rawSheetURL =
     "https://docs.google.com/spreadsheets/d/e/2PACX-1vTGEGjryoMoYyFZIWPFrYLLO9M9Z0zq0lbIB4xIe-_-VqRwAQ6KP2ley9HpuDokO9i07lbDD4CnKqVT/pub?gid=1358917249&single=true&output=csv";
 
-  // Bypass CORS/Redirect issues on Google Sheets CSV URLs
+  // CORS proxy to guarantee cross-origin access
   const sheetURL = "https://corsproxy.io/?" + encodeURIComponent(rawSheetURL);
 
   let tableData = [];
@@ -14,18 +14,21 @@ document.addEventListener("DOMContentLoaded", () => {
     })
     .then(csv => {
       tableData = csvToObjects(csv);
-      console.log("Loaded CSV Items:", tableData);
+      console.log("CSV Loaded Successfully:", tableData);
+
+      // Render all items initially
+      renderCraftingItems(tableData);
 
       const searchInput = document.getElementById("search");
       if (!searchInput) return;
 
-      // Search filter listener
+      // Filter on input
       searchInput.addEventListener("input", () => {
         const query = searchInput.value.trim().toLowerCase();
 
+        // If search is empty, show everything
         if (!query) {
-          const container = document.getElementById("crafting-list");
-          if (container) container.innerHTML = "";
+          renderCraftingItems(tableData);
           return;
         }
 
@@ -38,16 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
         renderCraftingItems(filtered);
       });
     })
-    .catch(err => {
-      console.error("FETCH ERROR:", err);
-      // Fallback direct attempt if proxy fails
-      fetch(rawSheetURL)
-        .then(res => res.text())
-        .then(csv => {
-          tableData = csvToObjects(csv);
-        })
-        .catch(e => console.error("DIRECT FETCH ALSO FAILED:", e));
-    });
+    .catch(err => console.error("FETCH ERROR:", err));
 
   // ---------- CSV PARSING ----------
 
@@ -98,7 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return result;
   }
 
-  // ---------- ACCORDION RENDER ----------
+  // ---------- RENDER FUNCTION ----------
 
   function renderCraftingItems(data) {
     const container = document.getElementById("crafting-list");
@@ -107,7 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
     container.innerHTML = "";
 
     if (data.length === 0) {
-      container.innerHTML = `<p style="padding: 1rem; color: #777;">No matching items found.</p>`;
+      container.innerHTML = `<p style="padding: 1rem; color: #fad9e9;">No matching items found.</p>`;
       return;
     }
 
@@ -115,7 +109,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const itemElement = document.createElement("div");
       itemElement.className = "crafting-item";
 
-      // Flexible property lookup in case header names vary
       const name = item.name || item.item_name || "Unnamed Item";
       const materials = item.materials || item.crafting_materials || "—";
       const time = item.crafting_time || item.time || "—";

@@ -115,6 +115,22 @@ function formatMultiline(text) {
   return text.replace(/\n/g, "<br>");
 }
 
+// Attach input listener to the search box
+document.getElementById('search').addEventListener('input', function (e) {
+  const searchTerm = e.target.value.toLowerCase().trim();
+  const items = document.querySelectorAll('.crafting-item');
+
+  items.forEach(item => {
+    // Search across all text content inside the item (Name, Materials, Rarity, etc.)
+    const itemText = item.textContent.toLowerCase();
+
+    if (itemText.includes(searchTerm)) {
+      item.style.display = 'block'; // Show item
+    } else {
+      item.style.display = 'none';  // Hide item
+    }
+  });
+});
 
 function renderCraftingItems(data) {
   const container = document.getElementById('crafting-list');

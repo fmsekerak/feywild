@@ -170,10 +170,14 @@ function parseCSVRows(text) {
       `;
 
       const header = itemElement.querySelector(".crafting-item-header");
-      header.addEventListener("click", () => {
-        itemElement.classList.toggle("open");
-      });
 
+      const toggleOpen = (e) => {
+        e.preventDefault();
+        itemElement.classList.toggle("open");
+      };
+
+      // Handle both mouse clicks and mobile touch taps without double-firing
+      header.addEventListener("click", toggleOpen);
       container.appendChild(itemElement);
     });
   }

@@ -15,50 +15,31 @@
 
   <title>Feywild</title>
   <link rel="stylesheet" href="assets/css/search.css">
+  <script src="assets/js/sheets.js" defer></script>
 </head>
 
-<script>
-  document.querySelectorAll('a').forEach(link => {
-    link.addEventListener('mousedown', () => {
-      document.body.style.cursor =
-        "url('assets/images/PinkSelect.cur'), auto";
-    });
-
-    link.addEventListener('mouseup', () => {
-      document.body.style.cursor =
-        "url('assets/images/PinkSelect.cur'), auto";
-    });
-
-    link.addEventListener('mouseleave', () => {
-      document.body.style.cursor =
-        "url('assets/images/PinkSelect.cur'), auto";
-    });
-  });
-</script>
-
 <body>
-<!-- Magical Banner -->
+  <!-- Magical Banner -->
   <header class="banner">
     <canvas id="bannerParticles"></canvas>
     <h1>Feywild</h1>
   </header>
 
   <!-- Navigation -->
-<nav>
-  <ul>
-    <li><a href="index.html">Home</a></li>
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
       <li class="dropdown">
-      <a href="crafting.html">Crafting ▾</a>
-      <ul class="dropdown-menu">
-        <li> <a href="crafting.html"> Overview</a></li>
-        <li><a href="alchemy.html">Alchemy</a></li>
-      </ul>
-    </li>
-    <li><a href="search.html" class="active">Search</a></li>
-    <li><a href="source.html">Sources</a></li>
-
-  </ul>
-</nav>
+        <a href="crafting.html">Crafting ▾</a>
+        <ul class="dropdown-menu">
+          <li><a href="crafting.html">Overview</a></li>
+          <li><a href="alchemy.html">Alchemy</a></li>
+        </ul>
+      </li>
+      <li><a href="search.html" class="active">Search</a></li>
+      <li><a href="source.html">Sources</a></li>
+    </ul>
+  </nav>
 
   <!-- Main Content -->
   <main>
@@ -68,28 +49,24 @@
       <input type="text" id="search" placeholder="Search crafting items..." 
              style="margin-bottom: 1rem; padding: 0.5rem; width: 100%; max-width: 400px;">
 
-  <div id="crafting-list"></div>
-  
-  <!-- <table id="crafting-table" border="1" cellpadding="0" cellspacing="0">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Materials</th>
-        <th>Crafting Time</th>
-        <th>Rarity</th>
-        <th>Profession</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table> -->
-
-  <script src="assets/js/sheets.js" defer></script>
-
+      <div id="crafting-list"></div>
     </section>
   </main>
 
-  <!-- JS for banner particles -->
+  <!-- JS Scripts -->
   <script src="assets/js/particles.js"></script>
+  <script>
+    document.querySelectorAll('a').forEach(link => {
+      link.addEventListener('mousedown', () => {
+        document.body.style.cursor = "url('assets/images/PinkSelect.cur'), auto";
+      });
+      link.addEventListener('mouseup', () => {
+        document.body.style.cursor = "url('assets/images/PinkSelect.cur'), auto";
+      });
+      link.addEventListener('mouseleave', () => {
+        document.body.style.cursor = "url('assets/images/PinkSelect.cur'), auto";
+      });
+    });
+  </script>
 </body>
 </html>

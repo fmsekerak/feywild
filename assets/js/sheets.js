@@ -68,40 +68,69 @@
   }
 
   function csvToObjects(csv) {
-    const lines = csv.split(/\r?\n/).filter(line => line.trim() !== "");
-    if (lines.length === 0) return [];
+  const rows = parseCSVRows(csv);
+  if (rows.length === 0) return [];
 
-    const rawHeaders = splitCSVRow(lines.shift());
-    const headers = rawHeaders.map(normalizeHeader);
+  const rawHeaders = rows.shift();
+  const headers = rawHeaders.map(normalizeHeader);
 
-    return lines.map(line => {
-      const values = splitCSVRow(line);
-      return headers.reduce((obj, header, i) => {
-        obj[header] = values[i] ? values[i].trim() : "";
-        return obj;
-      }, {});
-    });
-  }
+  return rows.map(row => {
+    return headers.reduce((obj, header, i) => {
+      obj[header] = row[i] !== undefined ? row[i].trim() : "";
+      return obj;
+    }, {});
+  });
+}
 
-  function splitCSVRow(row) {
-    const result = [];
-    let insideQuotes = false;
-    let current = "";
+function parseCSVRows(text) {
+  const rows = [];
+  let currentRow = [];
+  let currentToken = '';
+  let insideQuotes = false;
 
-    for (let i = 0; i < row.length; i++) {
-      const char = row[i];
-      if (char === '"') {
-        insideQuotes = !insideQuotes;
-      } else if (char === ',' && !insideQuotes) {
-        result.push(current.replace(/^"|"$/g, '').trim());
-        current = "";
+  for (let i = 0; i < text.length; i++) {
+    const char = text[i];
+    const nextChar = text[i + 1];
+
+    if (char === '"') {
+      if (insideQuotes && nextChar === '"') {
+        // Handle escaped quotes ("") inside quoted fields
+        currentToken += '"';
+        i++;
       } else {
-        current += char;
+        // Toggle quote state
+        insideQuotes = !insideQuotes;
       }
+    } else if (char === ',' && !insideQuotes) {
+      // Comma outside quotes = end of field
+      currentRow.push(currentToken);
+      currentToken = '';
+    } else if ((char === '\r' || char === '\n') && !insideQuotes) {
+      // Newline outside quotes = end of row
+      if (char === '\r' && nextChar === '\n') {
+        i++; // Skip \n in \r\n
+      }
+      currentRow.push(currentToken);
+      if (currentRow.some(field => field.trim() !== '')) {
+        rows.push(currentRow);
+      }
+      currentRow = [];
+      currentToken = '';
+    } else {
+      currentToken += char;
     }
-    result.push(current.replace(/^"|"$/g, '').trim());
-    return result;
   }
+
+  // Push remaining token/row if file doesn't end with a newline
+  if (currentToken || currentRow.length > 0) {
+    currentRow.push(currentToken);
+    if (currentRow.some(field => field.trim() !== '')) {
+      rows.push(currentRow);
+    }
+  }
+
+  return rows;
+}
 
   // ---------- RENDER FUNCTION ----------
 

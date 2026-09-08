@@ -338,25 +338,56 @@ p {
 
 
 
-/* Mobile-specific styles (for screens 768px wide or smaller) */
 @media screen and (max-width: 768px) {
-  /* Make container scroll horizontally if table gets wider than screen */
-  .card {
-    overflow-x: auto;
+  /* Hide table header on mobile */
+  #crafting-table thead {
+    display: none;
   }
 
-  /* Set explicit widths for each column on mobile */
-  #crafting-table th:nth-child(1), #crafting-table td:nth-child(1) { width: 20%; } /* Name */
-  #crafting-table th:nth-child(2), #crafting-table td:nth-child(2) { width: 25%; } /* Materials */
-  #crafting-table th:nth-child(3), #crafting-table td:nth-child(3) { width: 15%; } /* Crafting Time */
-  #crafting-table th:nth-child(4), #crafting-table td:nth-child(4) { width: 10%; } /* Rarity */
-  #crafting-table th:nth-child(5), #crafting-table td:nth-child(5) { width: 10%; } /* Profession */
-  #crafting-table th:nth-child(6), #crafting-table td:nth-child(6) { width: 20%; } /* Description */
-  
-  /* Ensure the table uses full available width */
-  #crafting-table {
+  /* Make table rows display like stacked cards */
+  #crafting-table, 
+  #crafting-table tbody, 
+  #crafting-table tr, 
+  #crafting-table td {
+    display: block;
     width: 100%;
-    table-layout: fixed; /* Ensures specified widths are respected */
-    word-wrap: break-word; /* Prevents text overflow */
   }
+
+  #crafting-table tr {
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 0.5rem;
+    background-color: #fff;
+  }
+
+  #crafting-table td {
+    text-align: right;
+    padding-left: 50%;
+    position: relative;
+    border: none;
+    border-bottom: 1px solid #eee;
+  }
+
+  #crafting-table td:last-child {
+    border-bottom: none;
+  }
+
+  /* Add column labels dynamically using CSS data labels */
+  #crafting-table td::before {
+    position: absolute;
+    left: 10px;
+    width: 45%;
+    white-space: nowrap;
+    text-align: left;
+    font-weight: bold;
+  }
+
+  /* Define labels for each mobile column */
+  #crafting-table td:nth-of-type(1)::before { content: "Name:"; }
+  #crafting-table td:nth-of-type(2)::before { content: "Materials:"; }
+  #crafting-table td:nth-of-type(3)::before { content: "Crafting Time:"; }
+  #crafting-table td:nth-of-type(4)::before { content: "Rarity:"; }
+  #crafting-table td:nth-of-type(5)::before { content: "Profession:"; }
+  #crafting-table td:nth-of-type(6)::before { content: "Description:"; }
 }

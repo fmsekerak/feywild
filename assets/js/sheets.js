@@ -1,49 +1,60 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const rawSheetURL =
+// Remove DOMContentLoaded wrapper to test direct execution
+(function initCraftingSearch() {
+  console.log("sheets.js loaded successfully.");
+
+  const sheetURL =
     "https://docs.google.com/spreadsheets/d/e/2PACX-1vTGEGjryoMoYyFZIWPFrYLLO9M9Z0zq0lbIB4xIe-_-VqRwAQ6KP2ley9HpuDokO9i07lbDD4CnKqVT/pub?gid=1358917249&single=true&output=csv";
 
-  // CORS proxy to guarantee cross-origin access
-  const sheetURL = "https://corsproxy.io/?" + encodeURIComponent(rawSheetURL);
+  // Immediate visual indicator while fetching
+  const container = document.getElementById("crafting-list");
+  if (container) {
+    container.innerHTML = `<p style="color:#fad9e9; text-align:center;">Loading crafting recipes...</p>`;
+  } else {
+    console.error("CRITICAL: Element with id='crafting-list' not found on DOM!");
+    return;
+  }
 
   let tableData = [];
 
   fetch(sheetURL)
     .then(res => {
-      if (!res.ok) throw new Error("HTTP Error " + res.status);
+      console.log("Fetch response status:", res.status);
+      if (!res.ok) throw new Error("HTTP Status " + res.status);
       return res.text();
     })
     .then(csv => {
+      console.log("Raw CSV character length:", csv.length);
       tableData = csvToObjects(csv);
-      console.log("CSV Loaded Successfully:", tableData);
+      console.log("Parsed objects count:", tableData.length);
 
-      // Render all items initially
+      // Render items on load
       renderCraftingItems(tableData);
 
       const searchInput = document.getElementById("search");
-      if (!searchInput) return;
-
-      // Filter on input
-      searchInput.addEventListener("input", () => {
-        const query = searchInput.value.trim().toLowerCase();
-
-        // If search is empty, show everything
-        if (!query) {
-          renderCraftingItems(tableData);
-          return;
-        }
-
-        const filtered = tableData.filter(item =>
-          Object.values(item).some(value =>
-            String(value).toLowerCase().includes(query)
-          )
-        );
-
-        renderCraftingItems(filtered);
-      });
+      if (searchInput) {
+        searchInput.addEventListener("input", () => {
+          const query = searchInput.value.trim().toLowerCase();
+          if (!query) {
+            renderCraftingItems(tableData);
+            return;
+          }
+          const filtered = tableData.filter(item =>
+            Object.values(item).some(val =>
+              String(val).toLowerCase().includes(query)
+            )
+          );
+          renderCraftingItems(filtered);
+        });
+      }
     })
-    .catch(err => console.error("FETCH ERROR:", err));
+    .catch(err => {
+      console.error("SHEET FETCH FAILED:", err);
+      if (container) {
+        container.innerHTML = `<p style="color:#ffb3ff; text-align:center;">Failed to fetch data from Google Sheets. Check console for details.</p>`;
+      }
+    });
 
-  // ---------- CSV PARSING ----------
+  // ---------- CSV PARSER ----------
 
   function normalizeHeader(header) {
     return header
@@ -95,13 +106,11 @@ document.addEventListener("DOMContentLoaded", () => {
   // ---------- RENDER FUNCTION ----------
 
   function renderCraftingItems(data) {
-    const container = document.getElementById("crafting-list");
     if (!container) return;
-
     container.innerHTML = "";
 
-    if (data.length === 0) {
-      container.innerHTML = `<p style="padding: 1rem; color: #fad9e9;">No matching items found.</p>`;
+    if (!data || data.length === 0) {
+      container.innerHTML = `<p style="color:#fad9e9; text-align:center;">No crafting items found.</p>`;
       return;
     }
 
@@ -121,12 +130,12 @@ document.addEventListener("DOMContentLoaded", () => {
           <span class="item-name">${name}</span>
         </div>
         <div class="crafting-item-body">
-          <div class="detail-row"><span class="detail-label">Materials:</span> ${formatMultiline(materials)}</div>
+          <div class="detail-row"><span class="detail-label">Materials:</span> ${materials.replace(/\n/g, '<br>')}</div>
           <div class="detail-row"><span class="detail-label">Crafting Time:</span> ${time}</div>
           <div class="detail-row"><span class="detail-label">Rarity:</span> ${rarity}</div>
           <div class="detail-row"><span class="detail-label">Profession:</span> ${profession}</div>
           <div class="detail-row detail-description">
-            <span class="detail-label">Description:</span><br>${formatMultiline(description)}
+            <span class="detail-label">Description:</span><br>${description.replace(/\n/g, '<br>')}
           </div>
         </div>
       `;
@@ -139,9 +148,4 @@ document.addEventListener("DOMContentLoaded", () => {
       container.appendChild(itemElement);
     });
   }
-
-  function formatMultiline(text) {
-    if (!text || text === "—") return "—";
-    return text.replace(/\n/g, "<br>");
-  }
-});
+})();

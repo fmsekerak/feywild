@@ -391,3 +391,78 @@ p {
   #crafting-table td:nth-of-type(5)::before { content: "Profession:"; }
   #crafting-table td:nth-of-type(6)::before { content: "Description:"; }
 }
+
+/* Container for accordion items */
+#crafting-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+/* Accordion Item Header (Only shows Name) */
+.crafting-item {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  overflow: hidden;
+  background-color: #fff;
+  transition: box-shadow 0.2s ease;
+}
+
+.crafting-item-header {
+  padding: 0.8rem 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f9f9f9;
+}
+
+.crafting-item-header:hover {
+  background-color: #f0f0f0;
+}
+
+.crafting-item-header::after {
+  content: '▸';
+  font-size: 0.9rem;
+  transition: transform 0.2s ease;
+}
+
+/* Toggle arrow icon when expanded */
+.crafting-item.open .crafting-item-header::after {
+  transform: rotate(90deg);
+}
+
+/* Accordion Item Body (Hidden details) */
+.crafting-item-body {
+  display: none;
+  padding: 1rem;
+  border-top: 1px solid #eee;
+  background-color: #fff;
+}
+
+.crafting-item.open .crafting-item-body {
+  display: block;
+}
+
+/* Layout for detailed fields inside body */
+.detail-row {
+  margin-bottom: 0.5rem;
+}
+
+.detail-row:last-child {
+  margin-bottom: 0;
+}
+
+.detail-label {
+  font-weight: bold;
+  color: #555;
+  margin-right: 0.5rem;
+}
+
+.detail-description {
+  margin-top: 0.5rem;
+  line-height: 1.4;
+  white-space: pre-wrap; /* Preserves formatting for long descriptions */
+}

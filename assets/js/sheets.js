@@ -114,3 +114,37 @@ function formatMultiline(text) {
   if (!text) return "—";
   return text.replace(/\n/g, "<br>");
 }
+
+
+function renderCraftingItems(data) {
+  const container = document.getElementById('crafting-list');
+  container.innerHTML = '';
+
+  data.forEach(item => {
+    const itemElement = document.createElement('div');
+    itemElement.className = 'crafting-item';
+
+    itemElement.innerHTML = `
+      <div class="crafting-item-header">
+        <span class="item-name">${item.name}</span>
+      </div>
+      <div class="crafting-item-body">
+        <div class="detail-row"><span class="detail-label">Materials:</span> ${item.materials}</div>
+        <div class="detail-row"><span class="detail-label">Crafting Time:</span> ${item.craftingTime}</div>
+        <div class="detail-row"><span class="detail-label">Rarity:</span> ${item.rarity}</div>
+        <div class="detail-row"><span class="detail-label">Profession:</span> ${item.profession}</div>
+        <div class="detail-row detail-description">
+          <span class="detail-label">Description:</span><br>${item.description}
+        </div>
+      </div>
+    `;
+
+    // Click handler to toggle open/closed state
+    const header = itemElement.querySelector('.crafting-item-header');
+    header.addEventListener('click', () => {
+      itemElement.classList.toggle('open');
+    });
+
+    container.appendChild(itemElement);
+  });
+}

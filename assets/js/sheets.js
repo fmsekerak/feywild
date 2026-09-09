@@ -165,48 +165,58 @@ function parseCSVRows(text) {
     }
   });
 
-  function applyFilters() {
-    const query = searchInput ? searchInput.value.trim().toLowerCase() : "";
-    const selectedProf = professionFilter ? professionFilter.value.trim().toLowerCase() : "";
+function populateProfessionDropdown(data) {
+  if (!professionFilter) return;
 
-    const filtered = tableData.filter(item => {
-      // 1. Check search text against all property values
-      const matchesSearch = !query || Object.values(item).some(val =>
-        val.toLowerCase().includes(query)
-      );
+  const professionSet = new Set();
 
-      // 2. Check profession dropdown match (supports 'profession' or 'professions')
-      const itemProf = (item.profession || item.professions || "").toLowerCase();
-      const matchesProf = !selectedProf || itemProf === selectedProf;
+  data.forEach(item => {
+    // Search dynamically for any key containing "prof" (e.g. profession, professions, profession_type)
+    const profKey = Object.keys(item).find(key => key.includes("prof"));
+    const prof = profKey && item[profKey] ? String(item[profKey]).trim() : "";
 
-      return matchesSearch && matchesProf;
-    });
+    if (prof && prof !== "—" && prof.toLowerCase() !== "undefined") {
+      professionSet.add(prof);
+    }
+  });
 
-    renderCraftingItems(filtered);
-  }
+  const sortedProfessions = Array.from(professionSet).sort((a, b) => 
+    a.localeCompare(b, undefined, { sensitivity: 'base' })
+  );
 
-  function populateProfessionDropdown(data) {
-    if (!professionFilter) return;
+  professionFilter.innerHTML = `<option value="">All Professions</option>`;
+  
+  sortedProfessions.forEach(prof => {
+    const option = document.createElement("option");
+    // Ensure option value is trimmed to prevent whitespace mismatches
+    option.value = prof.trim();
+    option.textContent = prof.trim();
+    professionFilter.appendChild(option);
+  });
+}
 
-    const professionSet = new Set();
+// Updated applyFilters function to ensure exact matching between dropdown and items
+function applyFilters() {
+  const query = searchInput ? searchInput.value.trim().toLowerCase() : "";
+  const selectedProf = professionFilter ? professionFilter.value.trim().toLowerCase() : "";
 
-    data.forEach(item => {
-      const prof = item.profession || item.professions || "";
-      if (prof && prof !== "—") {
-        professionSet.add(prof);
-      }
-    });
+  const filtered = tableData.filter(item => {
+    // Text search query matching across all item properties
+    const matchesSearch = !query || Object.values(item).some(val =>
+      String(val).toLowerCase().includes(query)
+    );
 
-    const sortedProfessions = Array.from(professionSet).sort();
+    // Dynamic profession matching
+    const profKey = Object.keys(item).find(key => key.includes("prof"));
+    const itemProf = profKey && item[profKey] ? String(item[profKey]).trim().toLowerCase() : "";
 
-    professionFilter.innerHTML = `<option value="">All Professions</option>`;
-    sortedProfessions.forEach(prof => {
-      const option = document.createElement("option");
-      option.value = prof;
-      option.textContent = prof;
-      professionFilter.appendChild(option);
-    });
-  }
+    const matchesProf = !selectedProf || itemProf === selectedProf;
+
+    return matchesSearch && matchesProf;
+  });
+
+  renderCraftingItems(filtered);
+}
 
   // ---------- RENDER FUNCTION ----------
 

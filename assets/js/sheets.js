@@ -1,18 +1,134 @@
+// Remove DOMContentLoaded wrapper to test direct execution
 (function initCraftingSearch() {
-  console.log("sheets.js initialized.");
+  console.log("sheets.js loaded successfully.");
 
   const sheetURL =
     "https://docs.google.com/spreadsheets/d/e/2PACX-1vTGEGjryoMoYyFZIWPFrYLLO9M9Z0zq0lbIB4xIe-_-VqRwAQ6KP2ley9HpuDokO9i07lbDD4CnKqVT/pub?gid=1358917249&single=true&output=csv";
 
+  // Immediate visual indicator while fetching
   const container = document.getElementById("crafting-list");
   const searchInput = document.getElementById("search");
   const professionFilter = document.getElementById("profession-filter");
 
   if (!container) return;
-
   let tableData = [];
 
-  // Single, reliable CSV parse & load
+  fetch(sheetURL)
+    .then(res => {
+      console.log("Fetch response status:", res.status);
+      if (!res.ok) throw new Error("HTTP Status " + res.status);
+      return res.text();
+    })
+    .then(csv => {
+      console.log("Raw CSV character length:", csv.length);
+      tableData = csvToObjects(csv);
+      console.log("Parsed objects count:", tableData.length);
+
+      // Render items on load
+      renderCraftingItems(tableData);
+
+      const searchInput = document.getElementById("search");
+      if (searchInput) {
+        searchInput.addEventListener("input", () => {
+          const query = searchInput.value.trim().toLowerCase();
+          if (!query) {
+            renderCraftingItems(tableData);
+            return;
+          }
+          const filtered = tableData.filter(item =>
+            Object.values(item).some(val =>
+              String(val).toLowerCase().includes(query)
+            )
+          );
+          renderCraftingItems(filtered);
+        });
+      }
+    })
+    .catch(err => {
+      console.error("SHEET FETCH FAILED:", err);
+      if (container) {
+        container.innerHTML = `<p style="color:#ffb3ff; text-align:center;">Failed to fetch data from Google Sheets. Check console for details.</p>`;
+      }
+    });
+
+  // ---------- CSV PARSER ----------
+
+  function normalizeHeader(header) {
+    return header
+      .replace(/^\uFEFF/, "")
+      .replace(/\u00A0/g, " ")
+      .trim()
+      .toLowerCase()
+      .replace(/\(.*?\)/g, "")
+      .replace(/\s+/g, "_")
+      .replace(/[^\w]/g, "");
+  }
+
+  function csvToObjects(csv) {
+  const rows = parseCSVRows(csv);
+  if (rows.length === 0) return [];
+
+  const rawHeaders = rows.shift();
+  const headers = rawHeaders.map(normalizeHeader);
+
+  return rows.map(row => {
+    return headers.reduce((obj, header, i) => {
+      obj[header] = row[i] !== undefined ? row[i].trim() : "";
+      return obj;
+    }, {});
+  });
+}
+
+function parseCSVRows(text) {
+  const rows = [];
+  let currentRow = [];
+  let currentToken = '';
+  let insideQuotes = false;
+
+  for (let i = 0; i < text.length; i++) {
+    const char = text[i];
+    const nextChar = text[i + 1];
+
+    if (char === '"') {
+      if (insideQuotes && nextChar === '"') {
+        // Handle escaped quotes ("") inside quoted fields
+        currentToken += '"';
+        i++;
+      } else {
+        // Toggle quote state
+        insideQuotes = !insideQuotes;
+      }
+    } else if (char === ',' && !insideQuotes) {
+      // Comma outside quotes = end of field
+      currentRow.push(currentToken);
+      currentToken = '';
+    } else if ((char === '\r' || char === '\n') && !insideQuotes) {
+      // Newline outside quotes = end of row
+      if (char === '\r' && nextChar === '\n') {
+        i++; // Skip \n in \r\n
+      }
+      currentRow.push(currentToken);
+      if (currentRow.some(field => field.trim() !== '')) {
+        rows.push(currentRow);
+      }
+      currentRow = [];
+      currentToken = '';
+    } else {
+      currentToken += char;
+    }
+  }
+
+  // Push remaining token/row if file doesn't end with a newline
+  if (currentToken || currentRow.length > 0) {
+    currentRow.push(currentToken);
+    if (currentRow.some(field => field.trim() !== '')) {
+      rows.push(currentRow);
+    }
+  }
+
+  return rows;
+}
+
   Papa.parse(sheetURL, {
     download: true,
     header: true,
@@ -23,7 +139,7 @@
         return;
       }
 
-      // Clean headers and normalize string values for every item
+      // Clean headers for every item
       tableData = results.data.map(row => {
         const cleanedRow = {};
         for (let key in row) {
@@ -31,8 +147,6 @@
         }
         return cleanedRow;
       });
-
-      console.log("Parsed Table Data:", tableData);
 
       // Populate dropdown & initial render
       populateProfessionDropdown(tableData);
@@ -47,81 +161,67 @@
       }
     },
     error: function (err) {
-      console.error("PapaParse Error:", err);
-      if (container) {
-        container.innerHTML = `<p style="color:#ffb3ff; text-align:center;">Failed to fetch data from Google Sheets.</p>`;
-      }
+      console.error("PapaParse error:", err);
     }
   });
 
-  // ---------- FILTER LOGIC ----------
+function populateProfessionDropdown(data) {
+  if (!professionFilter) return;
 
-  function applyFilters() {
-    const query = searchInput ? searchInput.value.trim().toLowerCase() : "";
-    const selectedProf = professionFilter ? professionFilter.value.trim().toLowerCase() : "";
+  const professionSet = new Set();
 
-    const filtered = tableData.filter(item => {
-      // 1. Text search matching across all properties
-      const matchesSearch = !query || Object.values(item).some(val =>
-        String(val).toLowerCase().includes(query)
-      );
+  data.forEach(item => {
+    // Search dynamically for any key containing "prof" (e.g. profession, professions, profession_type)
+    const profKey = Object.keys(item).find(key => key.includes("prof"));
+    const prof = profKey && item[profKey] ? String(item[profKey]).trim() : "";
 
-      // 2. Profession matching (fuzzy key search for "prof")
-      const profKey = Object.keys(item).find(key => key.includes("prof"));
-      const itemProf = profKey && item[profKey] ? String(item[profKey]).trim().toLowerCase() : "";
+    if (prof && prof !== "—" && prof.toLowerCase() !== "undefined") {
+      professionSet.add(prof);
+    }
+  });
 
-      const matchesProf = !selectedProf || itemProf === selectedProf;
+  const sortedProfessions = Array.from(professionSet).sort((a, b) => 
+    a.localeCompare(b, undefined, { sensitivity: 'base' })
+  );
 
-      return matchesSearch && matchesProf;
-    });
+  professionFilter.innerHTML = `<option value="">All Professions</option>`;
+  
+  sortedProfessions.forEach(prof => {
+    const option = document.createElement("option");
+    // Ensure option value is trimmed to prevent whitespace mismatches
+    option.value = prof.trim();
+    option.textContent = prof.trim();
+    professionFilter.appendChild(option);
+  });
+}
 
-    renderCraftingItems(filtered);
-  }
+// Updated applyFilters function to ensure exact matching between dropdown and items
+function applyFilters() {
+  const query = searchInput ? searchInput.value.trim().toLowerCase() : "";
+  const selectedProf = professionFilter ? professionFilter.value.trim().toLowerCase() : "";
 
-  // ---------- DROPDOWN BUILDER ----------
-
-  function populateProfessionDropdown(data) {
-    if (!professionFilter) return;
-
-    const professionSet = new Set();
-
-    data.forEach(item => {
-      const profKey = Object.keys(item).find(key => key.includes("prof"));
-      const prof = profKey && item[profKey] ? String(item[profKey]).trim() : "";
-
-      if (prof && prof !== "—" && prof.toLowerCase() !== "undefined") {
-        professionSet.add(prof);
-      }
-    });
-
-    const sortedProfessions = Array.from(professionSet).sort((a, b) => 
-      a.localeCompare(b, undefined, { sensitivity: 'base' })
+  const filtered = tableData.filter(item => {
+    // Text search query matching across all item properties
+    const matchesSearch = !query || Object.values(item).some(val =>
+      String(val).toLowerCase().includes(query)
     );
 
-    professionFilter.innerHTML = `<option value="">All Professions</option>`;
-    
-    sortedProfessions.forEach(prof => {
-      const option = document.createElement("option");
-      option.value = prof.trim();
-      option.textContent = prof.trim();
-      professionFilter.appendChild(option);
-    });
-  }
+    // Dynamic profession matching
+    const profKey = Object.keys(item).find(key => key.includes("prof"));
+    const itemProf = profKey && item[profKey] ? String(item[profKey]).trim().toLowerCase() : "";
 
-  // ---------- HELPER & RENDER FUNCTIONS ----------
+    const matchesProf = !selectedProf || itemProf === selectedProf;
 
-  function normalizeHeader(header) {
-    return header
-      .replace(/^\uFEFF/, "")
-      .replace(/\u00A0/g, " ")
-      .trim()
-      .toLowerCase()
-      .replace(/\(.*?\)/g, "")
-      .replace(/\s+/g, "_")
-      .replace(/[^\w]/g, "");
-  }
+    return matchesSearch && matchesProf;
+  });
+
+  renderCraftingItems(filtered);
+}
+
+  // ---------- RENDER FUNCTION ----------
 
   function renderCraftingItems(data) {
+    if (!container) return;
     container.innerHTML = "";
 
     if (!data || data.length === 0) {
@@ -137,10 +237,7 @@
       const materials = item.materials || item.crafting_materials || "—";
       const time = item.crafting_time || item.time || "—";
       const rarity = item.rarity || "—";
-      
-      const profKey = Object.keys(item).find(key => key.includes("prof"));
-      const profession = profKey && item[profKey] ? item[profKey] : "—";
-      
+      const profession = item.profession || "—";
       const description = item.description || "—";
 
       itemElement.innerHTML = `
@@ -148,30 +245,26 @@
           <span class="item-name">${name}</span>
         </div>
         <div class="crafting-item-body">
-          <div class="detail-row detail-block">
-            <span class="detail-label">Materials:</span><br>${formatMultiline(materials)}
-          </div>
+          <div class="detail-row"><span class="detail-label">Materials:</span><br> ${materials.replace(/\n/g, '<br>')}</div>
           <div class="detail-row"><span class="detail-label">Crafting Time:</span> ${time}</div>
           <div class="detail-row"><span class="detail-label">Rarity:</span> ${rarity}</div>
           <div class="detail-row"><span class="detail-label">Profession:</span> ${profession}</div>
           <div class="detail-row detail-description">
-            <span class="detail-label">Description:</span><br>${formatMultiline(description)}
+            <span class="detail-label">Description:</span><br>${description.replace(/\n/g, '<br>')}
           </div>
         </div>
       `;
 
       const header = itemElement.querySelector(".crafting-item-header");
-      header.addEventListener("click", (e) => {
+
+      const toggleOpen = (e) => {
         e.preventDefault();
         itemElement.classList.toggle("open");
-      });
+      };
 
+      // Handle both mouse clicks and mobile touch taps without double-firing
+      header.addEventListener("click", toggleOpen);
       container.appendChild(itemElement);
     });
-  }
-
-  function formatMultiline(text) {
-    if (!text || text === "—" || text === "undefined") return "—";
-    return text.replace(/\n/g, "<br>");
   }
 })();

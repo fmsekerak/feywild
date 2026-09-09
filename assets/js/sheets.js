@@ -12,42 +12,56 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let tableData = [];
 
-  Papa.parse(sheetURL, {
-    download: true,
-    header: true,
-    skipEmptyLines: true,
-    complete: function (results) {
-      if (!results.data || results.data.length === 0) {
-        container.innerHTML = `<p style="color:#ffb3ff; text-align:center;">Google Sheet returned empty data.</p>`;
-        return;
-      }
+  // Fetch raw text first to guarantee clean formatting before parsing
+  fetch(sheetURL)
+    .then(res => res.text())
+    .then(csvText => {
+      // Remove UTF-8 Byte Order Mark (BOM) if present
+      const cleanCsv = csvText.replace(/^\uFEFF/, "");
 
-      // Clean header keys for every row
-      tableData = results.data.map(row => {
-        const cleanedRow = {};
-        for (let key in row) {
-          cleanedRow[normalizeHeader(key)] = row[key];
+      Papa.parse(cleanCsv, {
+        header: true,
+        dynamicTyping: true,
+        skipEmptyLines: 'greedy',
+        complete: function (results) {
+          if (!results.data || results.data.length === 0) {
+            container.innerHTML = `<p style="color:#ffb3ff; text-align:center;">Google Sheet returned empty data.</p>`;
+            return;
+          }
+
+          // Debugging log to verify separate keys in Browser Console (F12)
+          console.log("DETECTED COLUMNS:", Object.keys(results.data[0]));
+
+          tableData = results.data.map(row => {
+            const cleanedRow = {};
+            for (let key in row) {
+              cleanedRow[normalizeHeader(key)] = row[key] ? String(row[key]) : "";
+            }
+            return cleanedRow;
+          });
+
+          console.log("PARSED OBJECTS:", tableData);
+
+          // Populate profession dropdown
+          populateProfessionDropdown(tableData);
+
+          // Render list
+          renderCraftingItems(tableData);
+
+          // Attach listeners
+          if (searchInput) searchInput.addEventListener("input", applyFilters);
+          if (professionFilter) professionFilter.addEventListener("change", applyFilters);
+        },
+        error: function (err) {
+          console.error("PapaParse Error:", err);
+          container.innerHTML = `<p style="color:#ffb3ff; text-align:center;">Failed to parse CSV data.</p>`;
         }
-        return cleanedRow;
       });
-
-      console.log("Parsed Data Objects:", tableData);
-
-      // Populate dropdown options
-      populateProfessionDropdown(tableData);
-
-      // Initial render
-      renderCraftingItems(tableData);
-
-      // Listeners for searching & filtering
-      if (searchInput) searchInput.addEventListener("input", applyFilters);
-      if (professionFilter) professionFilter.addEventListener("change", applyFilters);
-    },
-    error: function (err) {
-      console.error("PapaParse Error:", err);
-      container.innerHTML = `<p style="color:#ffb3ff; text-align:center;">Failed to load Google Sheets data.</p>`;
-    }
-  });
+    })
+    .catch(err => {
+      console.error("Fetch Error:", err);
+      container.innerHTML = `<p style="color:#ffb3ff; text-align:center;">Failed to fetch Google Sheet.</p>`;
+    });
 
   // ---------- FILTER LOGIC ----------
 
@@ -78,7 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     data.forEach(item => {
       const prof = (item.profession || "").trim();
-      if (prof && prof !== "—") {
+      if (prof && prof !== "—" && prof !== "undefined") {
         professionSet.add(prof);
       }
     });
@@ -155,7 +169,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function formatMultiline(text) {
-    if (!text || text === "—") return "—";
+    if (!text || text === "—" || text === "undefined") return "—";
     return text.replace(/\n/g, "<br>");
   }
 });

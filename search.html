@@ -46,19 +46,17 @@
     <section class="card">
       <h1 style="text-align:center; padding-bottom: 0rem;">Search</h1>
 
-      <input type="text" id="search" placeholder="Search crafting items..." 
-             style="margin-bottom: 1rem; padding: 0.5rem; width: 100%; max-width: 400px;">
+      <!-- Filter Container (Only ONE input element here) -->
+      <div class="filter-container">
+        <input type="text" id="search" placeholder="Search crafting items...">
 
-    <div class="filter-container">
-      <input type="text" id="search" placeholder="Search crafting items...">
+        <select id="profession-filter">
+          <option value="">All Professions</option>
+        </select>
+      </div>
 
-      <select id="profession-filter">
-        <option value="">All Professions</option>
-      </select>
-    </div>
-
-    <div id="crafting-list"></div>
-
+      <!-- Crafting List output -->
+      <div id="crafting-list"></div>
     </section>
   </main>
 

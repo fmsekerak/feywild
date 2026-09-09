@@ -25,6 +25,8 @@ document.addEventListener("DOMContentLoaded", () => {
         return cleanedRow;
       });
 
+      console.log("Loaded Table Data:", tableData);
+
       // Populate dropdown options automatically from the sheet data
       populateProfessionDropdown(tableData);
 
@@ -54,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
       );
 
       // Check if item's profession matches selected dropdown value
-      const itemProfession = (item.profession || "").trim().toLowerCase();
+      const itemProfession = getFieldValue(item, ["profession"]).toLowerCase();
       const matchesProfession = !selectedProfession || itemProfession === selectedProfession;
 
       return matchesSearch && matchesProfession;
@@ -66,12 +68,19 @@ document.addEventListener("DOMContentLoaded", () => {
   function populateProfessionDropdown(data) {
     if (!professionFilter) return;
 
-    // Get unique, non-empty profession names from data
-    const professions = [...new Set(
-      data.map(item => (item.profession || "").trim()).filter(Boolean)
-    )].sort();
+    // Collect all unique profession strings
+    const professionSet = new Set();
 
-    // Preserve the default "All Professions" option and append unique professions
+    data.forEach(item => {
+      const prof = getFieldValue(item, ["profession"]);
+      if (prof && prof !== "—") {
+        professionSet.add(prof);
+      }
+    });
+
+    const professions = Array.from(professionSet).sort();
+
+    // Reset dropdown and add options
     professionFilter.innerHTML = `<option value="">All Professions</option>`;
     professions.forEach(prof => {
       const option = document.createElement("option");
@@ -79,6 +88,14 @@ document.addEventListener("DOMContentLoaded", () => {
       option.textContent = prof;
       professionFilter.appendChild(option);
     });
+  }
+
+  // Helper to safely get field values across normalize header variants
+  function getFieldValue(item, targetKeys) {
+    for (let key of targetKeys) {
+      if (item[key]) return item[key].trim();
+    }
+    return "—";
   }
 
   // ---------- HEADER HELPER ----------
@@ -108,12 +125,12 @@ document.addEventListener("DOMContentLoaded", () => {
       const itemElement = document.createElement("div");
       itemElement.className = "crafting-item";
 
-      const name = item.name || item.item_name || "Unnamed Item";
-      const materials = item.materials || item.crafting_materials || "—";
-      const time = item.crafting_time || item.time || "—";
-      const rarity = item.rarity || "—";
-      const profession = item.profession || "—";
-      const description = item.description || "—";
+      const name = getFieldValue(item, ["name", "item_name"]);
+      const materials = getFieldValue(item, ["materials", "crafting_materials"]);
+      const time = getFieldValue(item, ["crafting_time", "time"]);
+      const rarity = getFieldValue(item, ["rarity"]);
+      const profession = getFieldValue(item, ["profession"]);
+      const description = getFieldValue(item, ["description"]);
 
       itemElement.innerHTML = `
         <div class="crafting-item-header">

@@ -1,6 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const sheetURL =
+  const rawSheetURL =
     "https://docs.google.com/spreadsheets/d/e/2PACX-1vTGEGjryoMoYyFZIWPFrYLLO9M9Z0zq0lbIB4xIe-_-VqRwAQ6KP2ley9HpuDokO9i07lbDD4CnKqVT/pub?gid=1358917249&single=true&output=csv";
+
+  // Use corsproxy.io to route around browser CORS & file:/// blocks
+  const sheetURL = "https://corsproxy.io/?" + encodeURIComponent(rawSheetURL);
 
   const container = document.getElementById("crafting-list");
   const searchInput = document.getElementById("search");
@@ -12,11 +15,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let tableData = [];
 
-  // Fetch raw text first to guarantee clean formatting before parsing
   fetch(sheetURL)
-    .then(res => res.text())
+    .then(res => {
+      if (!res.ok) throw new Error("HTTP Status " + res.status);
+      return res.text();
+    })
     .then(csvText => {
-      // Remove UTF-8 Byte Order Mark (BOM) if present
       const cleanCsv = csvText.replace(/^\uFEFF/, "");
 
       Papa.parse(cleanCsv, {
@@ -29,7 +33,6 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
           }
 
-          // Debugging log to verify separate keys in Browser Console (F12)
           console.log("DETECTED COLUMNS:", Object.keys(results.data[0]));
 
           tableData = results.data.map(row => {
@@ -42,13 +45,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
           console.log("PARSED OBJECTS:", tableData);
 
-          // Populate profession dropdown
           populateProfessionDropdown(tableData);
-
-          // Render list
           renderCraftingItems(tableData);
 
-          // Attach listeners
           if (searchInput) searchInput.addEventListener("input", applyFilters);
           if (professionFilter) professionFilter.addEventListener("change", applyFilters);
         },
@@ -60,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
     })
     .catch(err => {
       console.error("Fetch Error:", err);
-      container.innerHTML = `<p style="color:#ffb3ff; text-align:center;">Failed to fetch Google Sheet.</p>`;
+      container.innerHTML = `<p style="color:#ffb3ff; text-align:center;">Failed to fetch Google Sheet. Make sure you are using a local web server or internet connection.</p>`;
     });
 
   // ---------- FILTER LOGIC ----------
@@ -70,12 +69,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const selectedProfession = professionFilter ? professionFilter.value.toLowerCase() : "";
 
     const filtered = tableData.filter(item => {
-      // Search term matching across all fields
       const matchesSearch = !query || Object.values(item).some(val =>
         String(val).toLowerCase().includes(query)
       );
 
-      // Profession matching
       const itemProf = (item.profession || "").trim().toLowerCase();
       const matchesProfession = !selectedProfession || itemProf === selectedProfession;
 

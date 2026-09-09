@@ -1,6 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const sheetURL =
+  const rawSheetURL =
     "https://docs.google.com/spreadsheets/d/e/2PACX-1vTGEGjryoMoYyFZIWPFrYLLO9M9Z0zq0lbIB4xIe-_-VqRwAQ6KP2ley9HpuDokO9i07lbDD4CnKqVT/pub?output=csv";
+
+  // Bypass CORS restriction by routing through corsproxy.io
+  const proxyURL = "https://corsproxy.io/?" + encodeURIComponent(rawSheetURL);
 
   const container = document.getElementById("crafting-list");
   const searchInput = document.getElementById("search");
@@ -8,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (!container) return;
 
-  // Static Local Data so elements render immediately on local files (file:///)
+  // Static Fallback Data (only used if network is completely offline)
   const fallbackData = [
     {
       name: "Healing Potion",
@@ -25,40 +28,59 @@ document.addEventListener("DOMContentLoaded", () => {
       rarity: "Rare",
       profession: "Enchanting",
       description: "Explodes in a 10-foot-radius sphere on impact."
-    },
-    {
-      name: "Antitoxin",
-      materials: "1x Common Poisonous Reagent\n1x Glass Vial",
-      crafting_time: "2 hours",
-      rarity: "Common",
-      profession: "Alchemy",
-      description: "Gain advantage on saving throws against poison for 1 hour."
     }
   ];
 
   let tableData = [];
 
-  // Attempt to fetch published Google Sheet
-  if (typeof Papa !== "undefined") {
-    Papa.parse(sheetURL, {
-      download: true,
-      header: true,
-      skipEmptyLines: "greedy",
-      complete: function (results) {
-        if (results.data && results.data.length > 0) {
-          processData(results.data);
-        } else {
+  // Step 1: Attempt to fetch live Google Sheet via proxy
+  fetch(proxyURL)
+    .then(res => {
+      if (!res.ok) throw new Error("Proxy HTTP Error " + res.status);
+      return res.text();
+    })
+    .then(csvText => {
+      const cleanCsv = csvText.replace(/^\uFEFF/, "");
+      
+      Papa.parse(cleanCsv, {
+        header: true,
+        skipEmptyLines: "greedy",
+        complete: function (results) {
+          if (results.data && results.data.length > 0) {
+            console.log("SUCCESSFULLY FETCHED LIVE SHEET:", results.data);
+            processData(results.data);
+          } else {
+            console.warn("Live sheet was empty, loading fallback data.");
+            processData(fallbackData);
+          }
+        },
+        error: function (err) {
+          console.error("PapaParse Error:", err);
           processData(fallbackData);
         }
-      },
-      error: function () {
-        // Fallback for local file:/// environments
-        processData(fallbackData);
-      }
+      });
+    })
+    .catch(err => {
+      console.warn("Proxy fetch failed. Trying direct PapaParse download...", err);
+
+      // Step 2: Fallback to direct PapaParse download
+      Papa.parse(rawSheetURL, {
+        download: true,
+        header: true,
+        skipEmptyLines: "greedy",
+        complete: function (results) {
+          if (results.data && results.data.length > 0) {
+            processData(results.data);
+          } else {
+            processData(fallbackData);
+          }
+        },
+        error: function () {
+          console.warn("Direct PapaParse failed. Using fallback data.");
+          processData(fallbackData);
+        }
+      });
     });
-  } else {
-    processData(fallbackData);
-  }
 
   function processData(data) {
     tableData = data.map(row => {

@@ -1,9 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // Correct published CSV endpoint (does not require login)
   const rawSheetURL =
-    "https://docs.google.com/spreadsheets/d/1FD4k0mZLMvQ7d0FLcdOCmnx5mDhRggPcFxsMoZ-gRqU/export?format=csv&gid=1358917249";
+    "https://docs.google.com/spreadsheets/d/e/2PACX-1vTGEGjryoMoYyFZIWPFrYLLO9M9Z0zq0lbIB4xIe-_-VqRwAQ6KP2ley9HpuDokO9i07lbDD4CnKqVT/pub?output=csv";
 
-  // Bypass CORS restriction by routing through corsproxy.io
-  const proxyURL = "https://corsproxy.io/?" + encodeURIComponent(rawSheetURL);
+  // Use AllOrigins proxy to bypass browser file:/// and CORS locks
+  const proxyURL = "https://api.allorigins.win/raw?url=" + encodeURIComponent(rawSheetURL);
 
   const container = document.getElementById("crafting-list");
   const searchInput = document.getElementById("search");
@@ -11,59 +12,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (!container) return;
 
-  // Static Fallback Data (only used if network is completely offline)
-  const fallbackData = [
-    {
-      name: "Healing Potion",
-      materials: "2x Red Mushroom\n1x Vial of Water",
-      crafting_time: "5 minutes",
-      rarity: "Common",
-      profession: "Alchemy",
-      description: "Restores 2d4+2 hit points when consumed."
-    },
-    {
-      name: "Bead of Force",
-      materials: "1d4 + 4 Beads",
-      crafting_time: "2 days",
-      rarity: "Rare",
-      profession: "Enchanting",
-      description: "Explodes in a 10-foot-radius sphere on impact."
-    }
-  ];
+  container.innerHTML = `<p style="color:#fad9e9; text-align:center;">Loading crafting recipes...</p>`;
 
   let tableData = [];
 
-  // Step 1: Attempt to fetch live Google Sheet via proxy
+  // Attempt fetch via Proxy first
   fetch(proxyURL)
     .then(res => {
-      if (!res.ok) throw new Error("Proxy HTTP Error " + res.status);
+      if (!res.ok) throw new Error("HTTP Status " + res.status);
       return res.text();
     })
-    .then(csvText => {
-      const cleanCsv = csvText.replace(/^\uFEFF/, "");
-      
-      Papa.parse(cleanCsv, {
-        header: true,
-        skipEmptyLines: "greedy",
-        complete: function (results) {
-          if (results.data && results.data.length > 0) {
-            console.log("SUCCESSFULLY FETCHED LIVE SHEET:", results.data);
-            processData(results.data);
-          } else {
-            console.warn("Live sheet was empty, loading fallback data.");
-            processData(fallbackData);
-          }
-        },
-        error: function (err) {
-          console.error("PapaParse Error:", err);
-          processData(fallbackData);
-        }
-      });
-    })
+    .then(csvText => parseCSV(csvText))
     .catch(err => {
-      console.warn("Proxy fetch failed. Trying direct PapaParse download...", err);
-
-      // Step 2: Fallback to direct PapaParse download
+      console.warn("Proxy fetch failed. Attempting direct PapaParse...", err);
+      // Fallback to direct PapaParse download
       Papa.parse(rawSheetURL, {
         download: true,
         header: true,
@@ -72,15 +34,27 @@ document.addEventListener("DOMContentLoaded", () => {
           if (results.data && results.data.length > 0) {
             processData(results.data);
           } else {
-            processData(fallbackData);
+            console.error("No data returned from sheet.");
           }
         },
-        error: function () {
-          console.warn("Direct PapaParse failed. Using fallback data.");
-          processData(fallbackData);
+        error: function (pErr) {
+          console.error("PapaParse direct failed:", pErr);
         }
       });
     });
+
+  function parseCSV(csvText) {
+    const cleanCsv = csvText.replace(/^\uFEFF/, "");
+    Papa.parse(cleanCsv, {
+      header: true,
+      skipEmptyLines: "greedy",
+      complete: function (results) {
+        if (results.data && results.data.length > 0) {
+          processData(results.data);
+        }
+      }
+    });
+  }
 
   function processData(data) {
     tableData = data.map(row => {
@@ -90,6 +64,8 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       return cleaned;
     });
+
+    console.log("SUCCESSFULLY PARSED DATA:", tableData);
 
     populateProfessionDropdown(tableData);
     renderCraftingItems(tableData);

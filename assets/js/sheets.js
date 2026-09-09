@@ -7,13 +7,10 @@
 
   // Immediate visual indicator while fetching
   const container = document.getElementById("crafting-list");
-  if (container) {
-    container.innerHTML = `<p style="color:#fad9e9; text-align:center;">Loading crafting recipes...</p>`;
-  } else {
-    console.error("CRITICAL: Element with id='crafting-list' not found on DOM!");
-    return;
-  }
+  const searchInput = document.getElementById("search");
+  const professionFilter = document.getElementById("profession-filter");
 
+  if (!container) return;
   let tableData = [];
 
   fetch(sheetURL)
@@ -131,6 +128,65 @@ function parseCSVRows(text) {
 
   return rows;
 }
+
+  Papa.parse(sheetURL, {
+    download: true,
+    header: true,
+    skipEmptyLines: "greedy",
+    complete: function (results) {
+      if (!results.data || results.data.length === 0) {
+        container.innerHTML = `<p style="color:#ffb3ff; text-align:center;">No data found in sheet.</p>`;
+        return;
+      }
+
+      // Clean headers for every item
+      tableData = results.data.map(row => {
+        const cleanedRow = {};
+        for (let key in row) {
+          cleanedRow[normalizeHeader(key)] = row[key] ? String(row[key]).trim() : "";
+        }
+        return cleanedRow;
+      });
+
+      // Populate dropdown & initial render
+      populateProfessionDropdown(tableData);
+      renderCraftingItems(tableData);
+
+      // Add filter event listeners
+      if (searchInput) {
+        searchInput.addEventListener("input", applyFilters);
+      }
+      if (professionFilter) {
+        professionFilter.addEventListener("change", applyFilters);
+      }
+    },
+    error: function (err) {
+      console.error("PapaParse error:", err);
+    }
+  });
+
+  function populateProfessionDropdown(data) {
+    if (!professionFilter) return;
+
+    const professionSet = new Set();
+
+    data.forEach(item => {
+      const prof = item.profession || item.professions || "";
+      if (prof && prof !== "—") {
+        professionSet.add(prof);
+      }
+    });
+
+    const sortedProfessions = Array.from(professionSet).sort();
+
+    professionFilter.innerHTML = `<option value="">All Professions</option>`;
+    sortedProfessions.forEach(prof => {
+      const option = document.createElement("option");
+      option.value = prof;
+      option.textContent = prof;
+      professionFilter.appendChild(option);
+    });
+  }
 
   // ---------- RENDER FUNCTION ----------
 

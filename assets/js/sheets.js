@@ -165,6 +165,26 @@ function parseCSVRows(text) {
     }
   });
 
+  function applyFilters() {
+    const query = searchInput ? searchInput.value.trim().toLowerCase() : "";
+    const selectedProf = professionFilter ? professionFilter.value.trim().toLowerCase() : "";
+
+    const filtered = tableData.filter(item => {
+      // 1. Check search text against all property values
+      const matchesSearch = !query || Object.values(item).some(val =>
+        val.toLowerCase().includes(query)
+      );
+
+      // 2. Check profession dropdown match (supports 'profession' or 'professions')
+      const itemProf = (item.profession || item.professions || "").toLowerCase();
+      const matchesProf = !selectedProf || itemProf === selectedProf;
+
+      return matchesSearch && matchesProf;
+    });
+
+    renderCraftingItems(filtered);
+  }
+
   function populateProfessionDropdown(data) {
     if (!professionFilter) return;
 

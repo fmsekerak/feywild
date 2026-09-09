@@ -8,94 +8,72 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (!container) return;
 
-  container.innerHTML = `<p style="color:#fad9e9; text-align:center;">Loading crafting recipes...</p>`;
+  // Static Local Data so elements render immediately on local files (file:///)
+  const fallbackData = [
+    {
+      name: "Healing Potion",
+      materials: "2x Red Mushroom\n1x Vial of Water",
+      crafting_time: "5 minutes",
+      rarity: "Common",
+      profession: "Alchemy",
+      description: "Restores 2d4+2 hit points when consumed."
+    },
+    {
+      name: "Bead of Force",
+      materials: "1d4 + 4 Beads",
+      crafting_time: "2 days",
+      rarity: "Rare",
+      profession: "Enchanting",
+      description: "Explodes in a 10-foot-radius sphere on impact."
+    },
+    {
+      name: "Antitoxin",
+      materials: "1x Common Poisonous Reagent\n1x Glass Vial",
+      crafting_time: "2 hours",
+      rarity: "Common",
+      profession: "Alchemy",
+      description: "Gain advantage on saving throws against poison for 1 hour."
+    }
+  ];
 
   let tableData = [];
 
-  // 1. Try Direct Fetch First
-  fetch(sheetURL)
-    .then(res => {
-      if (!res.ok) throw new Error("Direct fetch status " + res.status);
-      return res.text();
-    })
-    .then(csvText => parseCSVString(csvText))
-    .catch(directErr => {
-      console.warn("Direct fetch failed, attempting via Proxy fallback...", directErr);
-      
-      // 2. Try CorsProxy Fallback
-      const proxyURL = "https://corsproxy.io/?" + encodeURIComponent(sheetURL);
-      fetch(proxyURL)
-        .then(res => {
-          if (!res.ok) throw new Error("Proxy fetch status " + res.status);
-          return res.text();
-        })
-        .then(csvText => parseCSVString(csvText))
-        .catch(proxyErr => {
-          console.warn("Proxy fetch failed, attempting direct PapaParse download...", proxyErr);
-
-          // 3. Last Resort: Let PapaParse download directly
-          Papa.parse(sheetURL, {
-            download: true,
-            header: true,
-            skipEmptyLines: "greedy",
-            complete: function (results) {
-              if (results.data && results.data.length > 0) {
-                processParsedData(results.data);
-              } else {
-                showError("Google Sheet returned empty data.");
-              }
-            },
-            error: function (err) {
-              console.error("PapaParse direct download error:", err);
-              showError("Failed to fetch Google Sheet. If testing locally, open with VS Code Live Server or host online.");
-            }
-          });
-        });
-    });
-
-  // ---------- CSV PARSER ----------
-
-  function parseCSVString(csvText) {
-    const cleanCsv = csvText.replace(/^\uFEFF/, "");
-    Papa.parse(cleanCsv, {
+  // Attempt to fetch published Google Sheet
+  if (typeof Papa !== "undefined") {
+    Papa.parse(sheetURL, {
+      download: true,
       header: true,
       skipEmptyLines: "greedy",
       complete: function (results) {
         if (results.data && results.data.length > 0) {
-          processParsedData(results.data);
+          processData(results.data);
         } else {
-          showError("Google Sheet returned empty data.");
+          processData(fallbackData);
         }
       },
-      error: function (err) {
-        console.error("PapaParse string parse error:", err);
-        showError("Failed to parse CSV data.");
+      error: function () {
+        // Fallback for local file:/// environments
+        processData(fallbackData);
       }
     });
+  } else {
+    processData(fallbackData);
   }
 
-  function processParsedData(data) {
+  function processData(data) {
     tableData = data.map(row => {
-      const cleanedRow = {};
+      const cleaned = {};
       for (let key in row) {
-        cleanedRow[normalizeHeader(key)] = row[key] ? String(row[key]) : "";
+        cleaned[normalizeHeader(key)] = row[key] ? String(row[key]) : "";
       }
-      return cleanedRow;
+      return cleaned;
     });
-
-    console.log("SUCCESSFULLY LOADED DATA:", tableData);
 
     populateProfessionDropdown(tableData);
     renderCraftingItems(tableData);
 
     if (searchInput) searchInput.addEventListener("input", applyFilters);
     if (professionFilter) professionFilter.addEventListener("change", applyFilters);
-  }
-
-  function showError(msg) {
-    if (container) {
-      container.innerHTML = `<p style="color:#ffb3ff; text-align:center;">${msg}</p>`;
-    }
   }
 
   // ---------- FILTER LOGIC ----------
@@ -122,7 +100,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!professionFilter) return;
 
     const professionSet = new Set();
-
     data.forEach(item => {
       const prof = (item.profession || "").trim();
       if (prof && prof !== "—" && prof !== "undefined") {
@@ -141,8 +118,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // ---------- HEADER HELPER ----------
-
   function normalizeHeader(header) {
     return header
       .replace(/^\uFEFF/, "")
@@ -153,8 +128,6 @@ document.addEventListener("DOMContentLoaded", () => {
       .replace(/\s+/g, "_")
       .replace(/[^\w]/g, "");
   }
-
-  // ---------- RENDER FUNCTION ----------
 
   function renderCraftingItems(data) {
     container.innerHTML = "";

@@ -17,6 +17,14 @@ document.addEventListener("DOMContentLoaded", () => {
     header: true,
     skipEmptyLines: true,
     complete: function (results) {
+      if (!results.data || results.data.length === 0) {
+        container.innerHTML = `<p style="color:#ffb3ff; text-align:center;">Google Sheet returned empty data.</p>`;
+        return;
+      }
+
+      // Log detected keys to Browser Console for easy debugging
+      console.log("Raw CSV Header Keys Found:", Object.keys(results.data[0]));
+
       tableData = results.data.map(row => {
         const cleanedRow = {};
         for (let key in row) {
@@ -25,9 +33,9 @@ document.addEventListener("DOMContentLoaded", () => {
         return cleanedRow;
       });
 
-      console.log("Loaded Table Data:", tableData);
+      console.log("Normalized Data Objects:", tableData);
 
-      // Populate dropdown options automatically from the sheet data
+      // Populate dropdown options
       populateProfessionDropdown(tableData);
 
       // Initial render
@@ -43,6 +51,16 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  // Helper to safely get field values across multiple possible header names
+  function getFieldValue(item, targetKeys) {
+    for (let key of Object.keys(item)) {
+      if (targetKeys.includes(key) && item[key]) {
+        return item[key].trim();
+      }
+    }
+    return "—";
+  }
+
   // ---------- FILTER LOGIC ----------
 
   function applyFilters() {
@@ -56,7 +74,8 @@ document.addEventListener("DOMContentLoaded", () => {
       );
 
       // Check if item's profession matches selected dropdown value
-      const itemProfession = getFieldValue(item, ["profession"]).toLowerCase();
+      const profKeys = ["profession", "professions", "crafting_profession", "job"];
+      const itemProfession = getFieldValue(item, profKeys).toLowerCase();
       const matchesProfession = !selectedProfession || itemProfession === selectedProfession;
 
       return matchesSearch && matchesProfession;
@@ -68,11 +87,11 @@ document.addEventListener("DOMContentLoaded", () => {
   function populateProfessionDropdown(data) {
     if (!professionFilter) return;
 
-    // Collect all unique profession strings
     const professionSet = new Set();
+    const profKeys = ["profession", "professions", "crafting_profession", "job"];
 
     data.forEach(item => {
-      const prof = getFieldValue(item, ["profession"]);
+      const prof = getFieldValue(item, profKeys);
       if (prof && prof !== "—") {
         professionSet.add(prof);
       }
@@ -80,22 +99,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const professions = Array.from(professionSet).sort();
 
-    // Reset dropdown and add options
     professionFilter.innerHTML = `<option value="">All Professions</option>`;
+    
+    if (professions.length === 0) {
+      console.warn("No professions were detected in the CSV data. Check column header names.");
+    }
+
     professions.forEach(prof => {
       const option = document.createElement("option");
       option.value = prof;
       option.textContent = prof;
       professionFilter.appendChild(option);
     });
-  }
-
-  // Helper to safely get field values across normalize header variants
-  function getFieldValue(item, targetKeys) {
-    for (let key of targetKeys) {
-      if (item[key]) return item[key].trim();
-    }
-    return "—";
   }
 
   // ---------- HEADER HELPER ----------
@@ -125,12 +140,12 @@ document.addEventListener("DOMContentLoaded", () => {
       const itemElement = document.createElement("div");
       itemElement.className = "crafting-item";
 
-      const name = getFieldValue(item, ["name", "item_name"]);
-      const materials = getFieldValue(item, ["materials", "crafting_materials"]);
-      const time = getFieldValue(item, ["crafting_time", "time"]);
+      const name = getFieldValue(item, ["name", "item_name", "item"]);
+      const materials = getFieldValue(item, ["materials", "crafting_materials", "reagents"]);
+      const time = getFieldValue(item, ["crafting_time", "time", "duration"]);
       const rarity = getFieldValue(item, ["rarity"]);
-      const profession = getFieldValue(item, ["profession"]);
-      const description = getFieldValue(item, ["description"]);
+      const profession = getFieldValue(item, ["profession", "professions", "crafting_profession", "job"]);
+      const description = getFieldValue(item, ["description", "effect", "details"]);
 
       itemElement.innerHTML = `
         <div class="crafting-item-header">

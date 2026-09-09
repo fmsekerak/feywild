@@ -486,3 +486,52 @@ p {
     word-break: break-word;
   }
 }
+
+
+.filter-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+/* Adjust search bar reset in container */
+.filter-container #search {
+  margin: 0;
+  max-width: 320px;
+}
+
+/* Style profession dropdown */
+#profession-filter {
+  padding: 0.65rem 1rem;
+  font-size: 1rem;
+  font-family: inherit;
+  color: #2f2a1f;
+  background: radial-gradient(circle at top left, rgba(255,255,255,0.85), rgba(234,172,228,0.55)),
+              linear-gradient(135deg, #c6e6c3, #e8d9f1);
+  border: 1px solid rgba(120, 90, 140, 0.45);
+  border-radius: 999px;
+  box-shadow: 0 0 8px rgba(190, 140, 210, 0.35);
+  outline: none;
+  cursor: pointer;
+}
+
+#profession-filter:focus {
+  border-color: #b48cc8;
+  box-shadow: 0 0 16px rgba(220, 180, 255, 0.85);
+}
+
+@media screen and (max-width: 768px) {
+  .filter-container {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .filter-container #search,
+  #profession-filter {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}

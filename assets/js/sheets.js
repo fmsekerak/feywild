@@ -1,9 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const rawSheetURL =
-    "https://docs.google.com/spreadsheets/d/e/2PACX-1vTGEGjryoMoYyFZIWPFrYLLO9M9Z0zq0lbIB4xIe-_-VqRwAQ6KP2ley9HpuDokO9i07lbDD4CnKqVT/pub?gid=1358917249&single=true&output=csv";
-
-  // Use corsproxy.io to route around browser CORS & file:/// blocks
-  const sheetURL = "https://corsproxy.io/?" + encodeURIComponent(rawSheetURL);
+  const sheetURL =
+    "https://docs.google.com/spreadsheets/d/e/2PACX-1vTGEGjryoMoYyFZIWPFrYLLO9M9Z0zq0lbIB4xIe-_-VqRwAQ6KP2ley9HpuDokO9i07lbDD4CnKqVT/pub?output=csv";
 
   const container = document.getElementById("crafting-list");
   const searchInput = document.getElementById("search");
@@ -15,52 +12,91 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let tableData = [];
 
+  // 1. Try Direct Fetch First
   fetch(sheetURL)
     .then(res => {
-      if (!res.ok) throw new Error("HTTP Status " + res.status);
+      if (!res.ok) throw new Error("Direct fetch status " + res.status);
       return res.text();
     })
-    .then(csvText => {
-      const cleanCsv = csvText.replace(/^\uFEFF/, "");
+    .then(csvText => parseCSVString(csvText))
+    .catch(directErr => {
+      console.warn("Direct fetch failed, attempting via Proxy fallback...", directErr);
+      
+      // 2. Try CorsProxy Fallback
+      const proxyURL = "https://corsproxy.io/?" + encodeURIComponent(sheetURL);
+      fetch(proxyURL)
+        .then(res => {
+          if (!res.ok) throw new Error("Proxy fetch status " + res.status);
+          return res.text();
+        })
+        .then(csvText => parseCSVString(csvText))
+        .catch(proxyErr => {
+          console.warn("Proxy fetch failed, attempting direct PapaParse download...", proxyErr);
 
-      Papa.parse(cleanCsv, {
-        header: true,
-        dynamicTyping: true,
-        skipEmptyLines: 'greedy',
-        complete: function (results) {
-          if (!results.data || results.data.length === 0) {
-            container.innerHTML = `<p style="color:#ffb3ff; text-align:center;">Google Sheet returned empty data.</p>`;
-            return;
-          }
-
-          console.log("DETECTED COLUMNS:", Object.keys(results.data[0]));
-
-          tableData = results.data.map(row => {
-            const cleanedRow = {};
-            for (let key in row) {
-              cleanedRow[normalizeHeader(key)] = row[key] ? String(row[key]) : "";
+          // 3. Last Resort: Let PapaParse download directly
+          Papa.parse(sheetURL, {
+            download: true,
+            header: true,
+            skipEmptyLines: "greedy",
+            complete: function (results) {
+              if (results.data && results.data.length > 0) {
+                processParsedData(results.data);
+              } else {
+                showError("Google Sheet returned empty data.");
+              }
+            },
+            error: function (err) {
+              console.error("PapaParse direct download error:", err);
+              showError("Failed to fetch Google Sheet. If testing locally, open with VS Code Live Server or host online.");
             }
-            return cleanedRow;
           });
-
-          console.log("PARSED OBJECTS:", tableData);
-
-          populateProfessionDropdown(tableData);
-          renderCraftingItems(tableData);
-
-          if (searchInput) searchInput.addEventListener("input", applyFilters);
-          if (professionFilter) professionFilter.addEventListener("change", applyFilters);
-        },
-        error: function (err) {
-          console.error("PapaParse Error:", err);
-          container.innerHTML = `<p style="color:#ffb3ff; text-align:center;">Failed to parse CSV data.</p>`;
-        }
-      });
-    })
-    .catch(err => {
-      console.error("Fetch Error:", err);
-      container.innerHTML = `<p style="color:#ffb3ff; text-align:center;">Failed to fetch Google Sheet. Make sure you are using a local web server or internet connection.</p>`;
+        });
     });
+
+  // ---------- CSV PARSER ----------
+
+  function parseCSVString(csvText) {
+    const cleanCsv = csvText.replace(/^\uFEFF/, "");
+    Papa.parse(cleanCsv, {
+      header: true,
+      skipEmptyLines: "greedy",
+      complete: function (results) {
+        if (results.data && results.data.length > 0) {
+          processParsedData(results.data);
+        } else {
+          showError("Google Sheet returned empty data.");
+        }
+      },
+      error: function (err) {
+        console.error("PapaParse string parse error:", err);
+        showError("Failed to parse CSV data.");
+      }
+    });
+  }
+
+  function processParsedData(data) {
+    tableData = data.map(row => {
+      const cleanedRow = {};
+      for (let key in row) {
+        cleanedRow[normalizeHeader(key)] = row[key] ? String(row[key]) : "";
+      }
+      return cleanedRow;
+    });
+
+    console.log("SUCCESSFULLY LOADED DATA:", tableData);
+
+    populateProfessionDropdown(tableData);
+    renderCraftingItems(tableData);
+
+    if (searchInput) searchInput.addEventListener("input", applyFilters);
+    if (professionFilter) professionFilter.addEventListener("change", applyFilters);
+  }
+
+  function showError(msg) {
+    if (container) {
+      container.innerHTML = `<p style="color:#ffb3ff; text-align:center;">${msg}</p>`;
+    }
+  }
 
   // ---------- FILTER LOGIC ----------
 

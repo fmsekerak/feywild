@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   const rawSheetURL =
-    "https://docs.google.com/spreadsheets/d/e/2PACX-1vTGEGjryoMoYyFZIWPFrYLLO9M9Z0zq0lbIB4xIe-_-VqRwAQ6KP2ley9HpuDokO9i07lbDD4CnKqVT/pub?output=csv";
+    "https://docs.google.com/spreadsheets/d/1FD4k0mZLMvQ7d0FLcdOCmnx5mDhRggPcFxsMoZ-gRqU/export?format=csv&gid=1358917249";
 
   // Bypass CORS restriction by routing through corsproxy.io
   const proxyURL = "https://corsproxy.io/?" + encodeURIComponent(rawSheetURL);

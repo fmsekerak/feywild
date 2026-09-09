@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      // Clean keys for every row
+      // Clean header keys for every row
       tableData = results.data.map(row => {
         const cleanedRow = {};
         for (let key in row) {
@@ -31,15 +31,15 @@ document.addEventListener("DOMContentLoaded", () => {
         return cleanedRow;
       });
 
-      console.log("Loaded CSV Items:", tableData);
+      console.log("Parsed Data Objects:", tableData);
 
-      // Populate professions
+      // Populate dropdown options
       populateProfessionDropdown(tableData);
 
-      // Render all items initially
+      // Initial render
       renderCraftingItems(tableData);
 
-      // Listeners
+      // Listeners for searching & filtering
       if (searchInput) searchInput.addEventListener("input", applyFilters);
       if (professionFilter) professionFilter.addEventListener("change", applyFilters);
     },
@@ -56,13 +56,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const selectedProfession = professionFilter ? professionFilter.value.toLowerCase() : "";
 
     const filtered = tableData.filter(item => {
-      // Search term matching
+      // Search term matching across all fields
       const matchesSearch = !query || Object.values(item).some(val =>
         String(val).toLowerCase().includes(query)
       );
 
       // Profession matching
-      const itemProf = (item.profession || item.professions || item.crafting_profession || "").trim().toLowerCase();
+      const itemProf = (item.profession || "").trim().toLowerCase();
       const matchesProfession = !selectedProfession || itemProf === selectedProfession;
 
       return matchesSearch && matchesProfession;
@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const professionSet = new Set();
 
     data.forEach(item => {
-      const prof = (item.profession || item.professions || item.crafting_profession || "").trim();
+      const prof = (item.profession || "").trim();
       if (prof && prof !== "—") {
         professionSet.add(prof);
       }
@@ -121,11 +121,11 @@ document.addEventListener("DOMContentLoaded", () => {
       const itemElement = document.createElement("div");
       itemElement.className = "crafting-item";
 
-      const name = item.name || item.item_name || "Unnamed Item";
-      const materials = item.materials || item.crafting_materials || "—";
-      const time = item.crafting_time || item.time || "—";
+      const name = item.name || "Unnamed Item";
+      const materials = item.materials || "—";
+      const time = item.crafting_time || "—";
       const rarity = item.rarity || "—";
-      const profession = item.profession || item.professions || item.crafting_profession || "—";
+      const profession = item.profession || "—";
       const description = item.description || "—";
 
       itemElement.innerHTML = `

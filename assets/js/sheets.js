@@ -7,7 +7,13 @@
   const clearFilters = document.getElementById('clear-filters');
   if (!container || !searchInput || !professionFilter) return;
 
+  const knownProfessions = [
+    'Alchemy', 'Blacksmithing', 'Cooking', 'Enchanting', 'Leatherworking',
+    'Runecarving - Ancient', 'Runecarving - Academic', 'Scrollscribing',
+    'Wand Whittling', 'Woodcarving'
+  ];
   let items = [];
+  let loaded = false;
   const setStatus = message => { if (status) status.textContent = message; };
   setStatus('Loading crafting recipes…');
 
@@ -49,9 +55,15 @@
   }
 
   function professionOf(item) {
-    // Published sheet headings can include notes, e.g. "Crafting Profession / Branch".
+    // Prefer an explicit column; some sheets label this "Crafting Branch".
     const key = Object.keys(item).find(name => /profess|branch|category|crafting_type|type_of_craft/.test(name) && item[name]);
-    return key ? item[key].trim() : '';
+    if (key) return item[key].trim();
+    // Older sheet exports may use an unlabeled column for the profession.
+    const values = Object.entries(item).filter(([name]) => !/name|description|material|rarity|time/.test(name));
+    const match = values.find(([, value]) => value.split(/[,;\n]+/).some(part =>
+      knownProfessions.some(profession => profession.toLowerCase() === part.trim().toLowerCase())
+    ));
+    return match ? match[1].trim() : '';
   }
 
   function professionNames(item) {
@@ -69,7 +81,7 @@
   }
 
   function populateProfessions() {
-    const names = [...new Set(items.flatMap(professionNames))]
+    const names = [...new Set([...knownProfessions, ...items.flatMap(professionNames)])]
       .sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
     professionFilter.replaceChildren(new Option('All Professions', ''),
       ...names.map(name => new Option(name, name)));
@@ -144,6 +156,7 @@
   }
 
   function applyFilters() {
+    if (!loaded) return;
     const query = searchInput.value.trim().toLowerCase();
     const profession = professionFilter.value.trim().toLowerCase();
     render(items.filter(item =>
@@ -154,6 +167,7 @@
 
   searchInput.addEventListener('input', applyFilters);
   professionFilter.addEventListener('change', applyFilters);
+  populateProfessions();
   clearFilters?.addEventListener('click', () => {
     searchInput.value = '';
     professionFilter.value = '';
@@ -164,11 +178,13 @@
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     return response.text();
   }).then(csv => {
+    if (/^\s*<!doctype html|^\s*<html/i.test(csv)) throw new Error('Sheet returned HTML instead of CSV');
     items = csvToObjects(csv);
+    loaded = true;
     populateProfessions();
     applyFilters();
-    if (items.length && professionFilter.options.length === 1) {
-      setStatus('Recipes loaded, but the sheet has no profession data. Check its column heading.');
+    if (items.length && !items.some(item => professionNames(item).length)) {
+      setStatus('Recipes loaded, but no profession values were found in the sheet. Check its profession column.');
       console.warn('No profession values found. CSV columns:', Object.keys(items[0]));
     }
   }).catch(error => {

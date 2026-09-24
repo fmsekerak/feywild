@@ -39,6 +39,18 @@ a, button, select { cursor: url('../images/PinkSelect.cur'), pointer; }
 .crafting-item-body[hidden] { display: none; }
 .fey-button { text-decoration: none; width: fit-content; }
 #search-status { min-height: 1.5em; }
+#profession-filter {
+  display: block;
+  margin: 0 auto;
+  max-width: min(100%, 22rem);
+  padding: 0.55rem 1rem;
+  border: 1px solid rgba(255,179,255,0.6);
+  border-radius: 999px;
+  background: #f8e8f4;
+  color: #36263d;
+  box-shadow: 0 0 10px rgba(255,179,255,0.28);
+  font: inherit;
+}
 .section-intro { margin: 0.4rem 0 1rem; color: #ffe6f2; }
 .filter-container { text-align: center; }
 .clear-filters, .back-to-top {

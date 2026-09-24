@@ -2,78 +2,49 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-
-  <style>
-    body {
-      cursor: url('assets/images/Pink.cur'), auto;
-    }
-    a {
-      cursor: url('assets/images/PinkSelect.cur'), pointer;
-    }
-  </style>
-
-  <title>Feywild</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Search and filter crafting recipes for the Feywild campaign.">
+  <title>Recipe Search | Feywild</title>
+  <link rel="stylesheet" href="assets/css/main.css">
   <link rel="stylesheet" href="assets/css/search.css">
-  <script src="assets/js/sheets.js" defer></script>
+  <script src="assets/js/site.js" defer></script>
+  <script src="assets/js/particles.js" defer></script>
+  <script src="assets/js/crafting-search.js" defer></script>
 </head>
+<body data-page="search">
+  <div data-site-banner></div>
+  <div data-site-nav></div>
 
-<body>
-  <!-- Magical Banner -->
-  <header class="banner">
-    <canvas id="bannerParticles"></canvas>
-    <h1>Feywild</h1>
-  </header>
-
-  <!-- Navigation -->
-  <nav>
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li class="dropdown">
-        <a href="crafting.html">Crafting ▾</a>
-        <ul class="dropdown-menu">
-          <li><a href="crafting.html">Overview</a></li>
-          <li><a href="alchemy.html">Alchemy</a></li>
-        </ul>
-      </li>
-      <li><a href="search.html" class="active">Search</a></li>
-      <li><a href="source.html">Sources</a></li>
-    </ul>
-  </nav>
-
-  <!-- Main Content -->
-  <main>
-    <section class="card">
-      <h1 style="text-align:center; padding-bottom: 0rem;">Search</h1>
-
-     <div class="filter-container">
-      <input type="text" id="search" placeholder="Search crafting items...">
-
-     <select id="profession-filter">
-      <option value="">All Professions</option>
-    </select>
-      </div>
-    <div id="crafting-list"></div>
+  <main id="main-content">
+    <section class="page-hero">
+      <p class="page-kicker">Crafting Grove</p>
+      <h1>Recipe Search</h1>
+      <p>Search across every recipe field or narrow the list to a specific profession.</p>
     </section>
-     
 
+    <section class="card search-shell">
+      <div class="filter-container">
+        <label>
+          <span class="visually-hidden">Search recipes</span>
+          <input class="search-input" type="search" id="search" autocomplete="off" placeholder="Search crafting items...">
+        </label>
 
+        <label>
+          <span class="visually-hidden">Filter by profession</span>
+          <select class="profession-filter" id="profession-filter">
+            <option value="">All Professions</option>
+          </select>
+        </label>
+
+        <button class="clear-button" id="clear-filters" type="button">Clear</button>
+      </div>
+
+      <p class="search-status" id="search-status" role="status" aria-live="polite">Gathering recipes from the crafting grove…</p>
+      <p class="result-summary" id="result-summary" aria-live="polite"></p>
+      <div class="crafting-list" id="crafting-list"></div>
+    </section>
   </main>
 
-  <!-- JS Scripts -->
-  <script src="assets/js/particles.js"></script>
-  <script>
-    document.querySelectorAll('a').forEach(link => {
-      link.addEventListener('mousedown', () => {
-        document.body.style.cursor = "url('assets/images/PinkSelect.cur'), auto";
-      });
-      link.addEventListener('mouseup', () => {
-        document.body.style.cursor = "url('assets/images/PinkSelect.cur'), auto";
-      });
-      link.addEventListener('mouseleave', () => {
-        document.body.style.cursor = "url('assets/images/PinkSelect.cur'), auto";
-      });
-    });
-  </script>
+  <div data-site-footer></div>
 </body>
 </html>

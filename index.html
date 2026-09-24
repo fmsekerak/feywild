@@ -3,107 +3,80 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <style>
-    body {
-      cursor: url('assets/images/Pink.cur'), auto;
-    }
-    a {
-      cursor: url('assets/images/PinkSelect.cur'), pointer;
-    }
-  </style>
-
-  <title>Feywild</title>
-  <link rel="stylesheet" href="assets/css/style.css">
+  <meta name="description" content="A Feywild campaign companion for lore, crafting, courts, creatures, and adventure notes.">
+  <title>Feywild Campaign Companion</title>
+  <link rel="stylesheet" href="assets/css/main.css">
+  <script src="assets/js/site.js" defer></script>
+  <script src="assets/js/particles.js" defer></script>
 </head>
+<body data-page="home">
+  <div data-site-banner></div>
+  <div data-site-nav></div>
 
-<script>
-  document.querySelectorAll('a').forEach(link => {
-    link.addEventListener('mousedown', () => {
-      document.body.style.cursor =
-        "url('assets/images/PinkSelect.cur'), auto";
-    });
-
-    link.addEventListener('mouseup', () => {
-      document.body.style.cursor =
-        "url('assets/images/PinkSelect.cur'), auto";
-    });
-
-    link.addEventListener('mouseleave', () => {
-      document.body.style.cursor =
-        "url('assets/images/PinkSelect.cur'), auto";
-    });
-  });
-</script>
-
-<body>
-  <!-- Magical Banner -->
-  <header class="banner">
-    <canvas id="bannerParticles"></canvas>
-    <h1>Feywild</h1>
-  </header>
-
-  <!-- Navigation -->
-<nav>
-  <ul>
-    <li><a href="index.html" class="active">Home</a></li>
-    <li class="dropdown">
-      <a href="crafting.html">Crafting ▾</a>
-      <ul class="dropdown-menu">
-        <li> <a href="crafting.html">Overview</a></li>
-        <li><a href="alchemy.html">Alchemy</a></li>
-      </ul>
-    </li>
-    <li><a href="search.html">Search</a></li>
-    <li><a href="source.html">Sources</a></li>
-
-  </ul>
-</nav>
-
-
-  <!-- Main Content -->
-  <main>
-    <section class="card">
-      <h2 style="text-align:center; padding-bottom: 0rem;">Welcome to the Feywild!</h2>
-      <p>Explore the magical forests and hidden glades of the Feywild. Adventure and wonder await.</p>
-      <div class="crafting-button">
-      <a href="crafting.html" class="fey-link">
-        ✧ Enter the Crafting Grove ✧
-      </a>
-      </div>
-      <div class="search-button">
-        <a href="search.html" class="fey-link">
-          ✧ Search the Crafting Recipes ✧
-        </a>
-      </div>
+  <main id="main-content">
+    <section class="page-hero">
+      <p class="page-kicker">Campaign Companion</p>
+      <h1>Welcome to the Feywild</h1>
+      <p>Explore the setting, seasonal courts, creatures, crafting rules, and campaign trail from one enchanted hub.</p>
     </section>
 
+    <section class="grid" aria-label="Explore the campaign site">
+      <a class="feature-card wide" href="world.html">
+        <div>
+          <div class="icon" aria-hidden="true">🌿</div>
+          <h2>Explore the Feywild</h2>
+          <p>Learn how emotion, promises, strange geography, and fey customs shape the world.</p>
+        </div>
+        <span class="card-link">Enter the wilds →</span>
+      </a>
 
+      <a class="feature-card wide" href="courts.html">
+        <div>
+          <div class="icon" aria-hidden="true">👑</div>
+          <h2>Seasonal Courts</h2>
+          <p>Meet Spring, Summer, Autumn, Winter, and the untamed Wild Fey.</p>
+        </div>
+        <span class="card-link">Visit the courts →</span>
+      </a>
+
+      <a class="feature-card" href="crafting.html">
+        <div>
+          <div class="icon" aria-hidden="true">⚒️</div>
+          <h2>Crafting</h2>
+          <p>Keep the core crafting rules and profession references close at hand.</p>
+        </div>
+        <span class="card-link">Open the crafting grove →</span>
+      </a>
+
+      <a class="feature-card" href="search.html">
+        <div>
+          <div class="icon" aria-hidden="true">🔎</div>
+          <h2>Recipe Search</h2>
+          <p>Search and filter recipes pulled live from your published Google Sheet.</p>
+        </div>
+        <span class="card-link">Search recipes →</span>
+      </a>
+
+      <a class="feature-card" href="bestiary.html">
+        <div>
+          <div class="icon" aria-hidden="true">🐉</div>
+          <h2>Bestiary</h2>
+          <p>Browse the campaign's Fey Dragon themes and creature references.</p>
+        </div>
+        <span class="card-link">Browse creatures →</span>
+      </a>
+
+      <a class="feature-card full" href="campaign.html">
+        <div>
+          <div class="icon" aria-hidden="true">🦋</div>
+          <h2>Campaign Trail</h2>
+          <p>Follow the adventure from the Witchlight Carnival through Murkendraw and onward to the Seasonal Courts.</p>
+        </div>
+        <span class="card-link">View the campaign path →</span>
+      </a>
+    </section>
   </main>
 
-  <!-- JS for banner particles -->
-  <script src="assets/js/particles.js"></script>
-
-  <script>
-  const links = document.querySelectorAll('a');
-
-  links.forEach(link => {
-    link.addEventListener('mousemove', e => {
-      // throttle sparkle creation
-      if (Math.random() > 0.7) return;
-
-      const sparkle = document.createElement('div');
-      sparkle.className = 'sparkle';
-
-      sparkle.style.left = `${e.clientX + (Math.random() * 8 - 4)}px`;
-      sparkle.style.top = `${e.clientY + (Math.random() * 8 - 4)}px`;
-
-      document.body.appendChild(sparkle);
-
-      setTimeout(() => sparkle.remove(), 700);
-    });
-    });
-  </script>
-
+  <div data-site-footer></div>
 </body>
 </html>

@@ -3,90 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <style>
-    body {
-      cursor: url('assets/images/Pink.cur'), auto;
-    }
-    a {
-      cursor: url('assets/images/PinkSelect.cur'), pointer;
-    }
-  </style>
-
-  <title>Feywild</title>
-  <link rel="stylesheet" href="assets/css/style.css">
+  <meta name="description" content="Alchemy quick reference and recipe access for the Feywild campaign.">
+  <title>Alchemy | Feywild</title>
+  <link rel="stylesheet" href="assets/css/main.css">
+  <script src="assets/js/site.js" defer></script>
+  <script src="assets/js/particles.js" defer></script>
 </head>
+<body data-page="alchemy">
+  <div data-site-banner></div>
+  <div data-site-nav></div>
 
-<script>
-  document.querySelectorAll('a').forEach(link => {
-    link.addEventListener('mousedown', () => {
-      document.body.style.cursor =
-        "url('assets/images/PinkSelect.cur'), auto";
-    });
+  <main id="main-content">
+    <section class="page-hero">
+      <p class="page-kicker">Crafting Grove</p>
+      <h1>Alchemy</h1>
+      <p>A focused quick-reference page for the Alchemy profession, with live recipes kept in the searchable crafting list.</p>
+      <div class="button-row">
+        <a class="fey-link" href="search.html?profession=Alchemy">✧ Browse Alchemy Recipes ✧</a>
+      </div>
+    </section>
 
-    link.addEventListener('mouseup', () => {
-      document.body.style.cursor =
-        "url('assets/images/PinkSelect.cur'), auto";
-    });
-
-    link.addEventListener('mouseleave', () => {
-      document.body.style.cursor =
-        "url('assets/images/PinkSelect.cur'), auto";
-    });
-  });
-</script>
-
-<body>
-<!-- Magical Banner -->
-  <header class="banner">
-    <canvas id="bannerParticles"></canvas>
-    <h1>Feywild</h1>
-  </header>
-
-  <!-- Navigation -->
-<nav>
-  <ul>
-    <li><a href="index.html">Home</a></li>
-    
-      <li class="dropdown">
-      <a href="crafting.html" class="active">Crafting ▾</a>
-      <ul class="dropdown-menu">
-        <li> <a href="crafting.html"> Overview</a></li>
-        <li><a href="alchemy.html"  class="active">Alchemy</a></li>
-      </ul>
-    </li>
-    <li><a href="search.html">Search</a></li>
-    <li><a href="source.html">Sources</a></li>
-    
-  </ul>
-</nav>
-
-  <!-- Main Content -->
-  <main>
     <section class="card">
-      <h1 style="text-align:center; padding-bottom: 0rem;">Alchemy</h1>
-      <p>Alchemy
-      </p>
-      <h2 style="text-align:center; padding-bottom: 0rem; padding-top: 1rem;">Tools Quick Reference</h2>
-
+      <h2 class="section-heading">Tools Quick Reference</h2>
+      <div class="table-wrap">
         <table>
-          <tr>
-          <th>Profession</th>
-          <th>Tool</th>
-          <th>Ability</th>
-          </tr>
-          <tr>
-          <td>Alchemy</td>
-          <td>Alchemist's Tools /<br> Poisoner's Kit</td>
-          <td>Wis /<br>Int</td>
-          </tr>
+          <thead><tr><th>Profession</th><th>Tool</th><th>Ability</th></tr></thead>
+          <tbody><tr><td>Alchemy</td><td>Alchemist's Tools / Poisoner's Kit</td><td>Wis / Int</td></tr></tbody>
         </table>
-
-
+      </div>
+      <div class="callout">Recipe names, materials, crafting times, rarities, professions, and descriptions are loaded from the same published Google Sheet used by the Search page, so you only maintain the data in one place.</div>
     </section>
   </main>
 
-  <!-- JS for banner particles -->
-  <script src="assets/js/particles.js"></script>
+  <div data-site-footer></div>
 </body>
 </html>

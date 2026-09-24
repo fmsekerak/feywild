@@ -39,6 +39,48 @@ a, button, select { cursor: url('../images/PinkSelect.cur'), pointer; }
 .crafting-item-body[hidden] { display: none; }
 .fey-button { text-decoration: none; width: fit-content; }
 #search-status { min-height: 1.5em; }
+.section-intro { margin: 0.4rem 0 1rem; color: #ffe6f2; }
+.filter-container { text-align: center; }
+.clear-filters, .back-to-top {
+  border: 1px solid rgba(255,179,255,0.55);
+  border-radius: 999px;
+  padding: 0.5rem 1rem;
+  color: #ffe6f2;
+  background: #5e3460;
+  box-shadow: 0 0 10px rgba(255,179,255,0.28);
+  font: inherit;
+}
+.clear-filters { display: block; margin: 0.5rem auto 1rem; }
+.back-to-top { position: fixed; bottom: 1rem; right: 1rem; z-index: 1001; }
+.back-to-top[hidden] { display: none; }
+.empty-glade { padding: 1.5rem; color: #fad9e9; }
+.recipe-icon { color: #aaf7d7; font-size: 1.4rem; flex: 0 0 1.8rem; }
+.crafting-item-header .item-name { flex: 1; }
+.crafting-item-header { gap: 0.7rem; }
+.rarity-badge {
+  color: #ffe6f2;
+  background: #654067;
+  border: 1px solid rgba(255,179,255,0.5);
+  border-radius: 999px;
+  padding: 0.2rem 0.65rem;
+  font-size: 0.8rem;
+  text-align: center;
+  flex: 0 0 auto;
+}
+.home-paths { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 1rem; margin-top: 1.5rem; }
+.home-path {
+  display: flex; flex-direction: column; align-items: center; gap: 0.35rem;
+  padding: 1.25rem; border: 1px solid rgba(255,179,255,0.5);
+  border-radius: 14px; text-align: center; color: #ffe6f2;
+  text-decoration: none;
+  background: linear-gradient(135deg, rgba(255,179,255,0.18), rgba(18,38,34,0.65));
+  box-shadow: 0 0 14px rgba(255,179,255,0.16);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.home-path:hover { transform: translateY(-3px); box-shadow: 0 0 22px rgba(255,179,255,0.4); }
+.home-path-icon { font-size: 2rem; color: #b6f5d8; }
+.home-path strong { font-size: 1.1rem; }
+.home-path span:last-child { font-size: 0.95rem; }
 @media (max-width: 768px) {
   body, a, button, select { cursor: auto; }
   .banner .site-title { font-size: 2.5rem; }
@@ -47,6 +89,8 @@ a, button, select { cursor: url('../images/PinkSelect.cur'), pointer; }
   .dropdown-menu { left: 0; transform: none; }
   table { width: 100%; }
   th, td { overflow-wrap: anywhere; }
+  .home-paths { grid-template-columns: 1fr; }
+  .rarity-badge { max-width: 7rem; overflow-wrap: anywhere; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }

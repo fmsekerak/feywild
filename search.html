@@ -37,16 +37,18 @@
   <!-- Main Content -->
   <main>
     <section class="card">
-      <h1 style="text-align:center; padding-bottom: 0rem;">Search</h1>
+      <h1 style="text-align:center; padding-bottom: 0rem;">What shall we make today?</h1>
+      <p class="section-intro">Find a potion, tool, or curious treasure.</p>
 
      <div class="filter-container">
       <label class="visually-hidden" for="search">Search crafting items</label>
-      <input type="search" id="search" placeholder="Search crafting items..." autocomplete="off">
+      <input type="search" id="search" placeholder="Search recipes..." autocomplete="off">
 
      <label class="visually-hidden" for="profession-filter">Profession</label>
      <select id="profession-filter">
       <option value="">All Professions</option>
     </select>
+    <button id="clear-filters" class="clear-filters" type="button">✧ Clear filters</button>
       </div>
     <p id="search-status" role="status" aria-live="polite"></p>
     <div id="crafting-list"></div>

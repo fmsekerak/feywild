@@ -32,4 +32,17 @@
       setTimeout(() => sparkle.remove(), 700);
     });
   });
+
+  const backToTop = document.createElement('button');
+  backToTop.type = 'button';
+  backToTop.className = 'back-to-top';
+  backToTop.textContent = '↑ Back to top';
+  backToTop.hidden = true;
+  document.body.append(backToTop);
+  const updateBackToTop = () => { backToTop.hidden = window.scrollY < 500; };
+  window.addEventListener('scroll', updateBackToTop, { passive: true });
+  updateBackToTop();
+  backToTop.addEventListener('click', () => window.scrollTo({
+    top: 0, behavior: reducedMotion.matches ? 'instant' : 'smooth'
+  }));
 })();

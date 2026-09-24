@@ -3,9 +3,10 @@
   const container = document.getElementById('crafting-list');
   const searchInput = document.getElementById('search');
   const professionFilter = document.getElementById('profession-filter');
+  const rarityFilter = document.getElementById('rarity-filter');
   const status = document.getElementById('search-status');
   const clearFilters = document.getElementById('clear-filters');
-  if (!container || !searchInput || !professionFilter) return;
+  if (!container || !searchInput || !professionFilter || !rarityFilter) return;
 
   const knownProfessions = [
     'Alchemy', 'Blacksmithing', 'Cooking', 'Enchanting', 'Leatherworking',
@@ -70,6 +71,11 @@
     return professionOf(item).split(/[,;\n]+/).map(name => name.trim()).filter(Boolean);
   }
 
+  function rarityOf(item) {
+    const key = Object.keys(item).find(name => /rarity/.test(name) && item[name]);
+    return key ? item[key].trim() : '';
+  }
+
   function iconFor(profession) {
     const name = profession.toLowerCase();
     if (name.includes('alchem') || name.includes('poison')) return '⚗';
@@ -84,6 +90,20 @@
     const names = [...new Set([...knownProfessions, ...items.flatMap(professionNames)])]
       .sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
     professionFilter.replaceChildren(new Option('All Professions', ''),
+      ...names.map(name => new Option(name, name)));
+  }
+
+  function populateRarities() {
+    const order = ['common', 'uncommon', 'rare', 'very rare', 'legendary', 'artifact'];
+    const names = [...new Map(items.map(rarityOf).filter(Boolean)
+      .map(name => [name.toLowerCase(), name])).values()]
+      .sort((a, b) => {
+        const aOrder = order.indexOf(a.toLowerCase());
+        const bOrder = order.indexOf(b.toLowerCase());
+        if (aOrder !== bOrder) return (aOrder < 0 ? Infinity : aOrder) - (bOrder < 0 ? Infinity : bOrder);
+        return a.localeCompare(b, undefined, { sensitivity: 'base' });
+      });
+    rarityFilter.replaceChildren(new Option('All Rarities', ''),
       ...names.map(name => new Option(name, name)));
   }
 
@@ -126,10 +146,10 @@
       name.className = 'item-name';
       name.textContent = item.name || item.item_name || 'Unnamed Item';
       button.append(icon, name);
-      if (item.rarity) {
+      if (rarityOf(item)) {
         const badge = document.createElement('span');
         badge.className = 'rarity-badge';
-        badge.textContent = item.rarity;
+        badge.textContent = rarityOf(item);
         button.append(badge);
       }
       button.setAttribute('aria-expanded', 'false');
@@ -141,7 +161,7 @@
       panel.append(
         detail('Materials:', item.materials || item.crafting_materials, true),
         detail('Crafting Time:', item.crafting_time || item.time),
-        detail('Rarity:', item.rarity),
+        detail('Rarity:', rarityOf(item)),
         detail('Profession:', professionOf(item)),
         detail('Description:', item.description, true)
       );
@@ -159,18 +179,22 @@
     if (!loaded) return;
     const query = searchInput.value.trim().toLowerCase();
     const profession = professionFilter.value.trim().toLowerCase();
+    const rarity = rarityFilter.value.trim().toLowerCase();
     render(items.filter(item =>
       (!query || Object.values(item).some(value => String(value).toLowerCase().includes(query))) &&
-      (!profession || professionNames(item).some(name => name.toLowerCase() === profession))
+      (!profession || professionNames(item).some(name => name.toLowerCase() === profession)) &&
+      (!rarity || rarityOf(item).toLowerCase() === rarity)
     ));
   }
 
   searchInput.addEventListener('input', applyFilters);
   professionFilter.addEventListener('change', applyFilters);
+  rarityFilter.addEventListener('change', applyFilters);
   populateProfessions();
   clearFilters?.addEventListener('click', () => {
     searchInput.value = '';
     professionFilter.value = '';
+    rarityFilter.value = '';
     applyFilters();
     searchInput.focus();
   });
@@ -182,6 +206,7 @@
     items = csvToObjects(csv);
     loaded = true;
     populateProfessions();
+    populateRarities();
     applyFilters();
     if (items.length && !items.some(item => professionNames(item).length)) {
       setStatus('Recipes loaded, but no profession values were found in the sheet. Check its profession column.');

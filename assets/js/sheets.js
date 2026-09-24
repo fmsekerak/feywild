@@ -78,7 +78,7 @@
 
   function iconFor(profession) {
     const name = profession.toLowerCase();
-    if (name.includes('alchem') || name.includes('poison')) return '⚗';
+    if (name.includes('alchem') || name.includes('poison')) return '⚗️';
     if (name.includes('smith') || name.includes('engineer')) return '⚒';
     if (name.includes('cook')) return '✿';
     if (name.includes('scroll') || name.includes('rune') || name.includes('enchant')) return '✧';

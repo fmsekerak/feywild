@@ -4,43 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      cursor: url('assets/images/Pink.cur'), auto;
-    }
-    a {
-      cursor: url('assets/images/PinkSelect.cur'), pointer;
-    }
-  </style>
-
   <title>Feywild</title>
   <link rel="stylesheet" href="assets/css/search.css">
+  <link rel="stylesheet" href="assets/css/shared.css">
 </head>
 
-<script>
-  document.querySelectorAll('a').forEach(link => {
-    link.addEventListener('mousedown', () => {
-      document.body.style.cursor =
-        "url('assets/images/PinkSelect.cur'), auto";
-    });
-
-    link.addEventListener('mouseup', () => {
-      document.body.style.cursor =
-        "url('assets/images/PinkSelect.cur'), auto";
-    });
-
-    link.addEventListener('mouseleave', () => {
-      document.body.style.cursor =
-        "url('assets/images/PinkSelect.cur'), auto";
-    });
-  });
-</script>
 
 <body>
 <!-- Magical Banner -->
   <header class="banner">
     <canvas id="bannerParticles"></canvas>
-    <h1>Feywild</h1>
+    <div class="site-title">Feywild</div>
   </header>
 
   <!-- Navigation -->
@@ -48,14 +22,15 @@
   <ul>
     <li><a href="index.html">Home</a></li>
       <li class="dropdown">
-      <a href="crafting.html">Crafting ▾</a>
-      <ul class="dropdown-menu">
+      <a href="crafting.html">Crafting</a>
+      <button class="submenu-toggle" type="button" aria-label="Toggle Crafting submenu" aria-controls="crafting-submenu" aria-expanded="false">▾</button>
+      <ul class="dropdown-menu" id="crafting-submenu">
         <li> <a href="crafting.html"> Overview</a></li>
         <li><a href="alchemy.html">Alchemy</a></li>
       </ul>
     </li>
-    <li><a href="search.html" class="active">Search</a></li>
-    <li><a href="source.html">Sources</a></li>
+    <li><a href="search.html">Search</a></li>
+    <li><a href="source.html" class="active" aria-current="page">Sources</a></li>
 
   </ul>
 </nav>
@@ -63,14 +38,15 @@
   <!-- Main Content -->
   <main>
     <section class="card">
-      <h1 style="text-align:center; padding-bottom: 0rem;">Source</h1>
-
-  <script src="assets/js/sheets.js" defer></script>
+      <h1 style="text-align:center; padding-bottom: 0rem;">Sources</h1>
+      <p>The crafting rules and quick reference are collected in the <a href="assets/pdfs/CraftingGuide.pdf">Crafting Guide</a>.</p>
+      <p>The searchable recipes come from the <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vTGEGjryoMoYyFZIWPFrYLLO9M9Z0zq0lbIB4xIe-_-VqRwAQ6KP2ley9HpuDokO9i07lbDD4CnKqVT/pub?gid=1358917249&amp;single=true&amp;output=csv">published crafting spreadsheet</a>.</p>
 
     </section>
   </main>
 
   <!-- JS for banner particles -->
   <script src="assets/js/particles.js"></script>
+  <script src="assets/js/shared.js"></script>
 </body>
 </html>

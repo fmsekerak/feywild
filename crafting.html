@@ -4,43 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      cursor: url('assets/images/Pink.cur'), auto;
-    }
-    a {
-      cursor: url('assets/images/PinkSelect.cur'), pointer;
-    }
-  </style>
-
   <title>Feywild</title>
   <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/shared.css">
 </head>
 
-<script>
-  document.querySelectorAll('a').forEach(link => {
-    link.addEventListener('mousedown', () => {
-      document.body.style.cursor =
-        "url('assets/images/PinkSelect.cur'), auto";
-    });
-
-    link.addEventListener('mouseup', () => {
-      document.body.style.cursor =
-        "url('assets/images/PinkSelect.cur'), auto";
-    });
-
-    link.addEventListener('mouseleave', () => {
-      document.body.style.cursor =
-        "url('assets/images/PinkSelect.cur'), auto";
-    });
-  });
-</script>
 
 <body>
 <!-- Magical Banner -->
   <header class="banner">
     <canvas id="bannerParticles"></canvas>
-    <h1>Feywild</h1>
+    <div class="site-title">Feywild</div>
   </header>
 
   <!-- Navigation -->
@@ -49,9 +23,10 @@
     <li><a href="index.html">Home</a></li>
     
       <li class="dropdown">
-      <a href="crafting.html" class="active">Crafting ▾</a>
-      <ul class="dropdown-menu">
-        <li> <a href="crafting.html" class="active"> Overview</a></li>
+      <a href="crafting.html" class="active" aria-current="page">Crafting</a>
+      <button class="submenu-toggle" type="button" aria-label="Toggle Crafting submenu" aria-controls="crafting-submenu" aria-expanded="false">▾</button>
+      <ul class="dropdown-menu" id="crafting-submenu">
+        <li> <a href="crafting.html" class="active" aria-current="page"> Overview</a></li>
         <li><a href="alchemy.html">Alchemy</a></li>
       </ul>
     </li>
@@ -65,9 +40,7 @@
   <main>
     <section class="card">
       <h1 style="text-align:center; padding-bottom: 0rem;">Crafting</h1>
-        <button class="fey-button" type="button" onclick="window.open('assets/pdfs/CraftingGuide.pdf')">
-          ✧ Download Crafting Guide ✧
-        </button>
+        <a class="fey-button" href="assets/pdfs/CraftingGuide.pdf" download>✧ Download Crafting Guide ✧</a>
         
       <p>Crafting is done in 2-hour intervals, with one check per interval. A success grants 
         2 hours of progress; once progress equals the required crafting time, the item is 
@@ -141,12 +114,12 @@
 
       <h2 style="text-align:center; padding-bottom: 0rem; padding-top: 1rem;">Crafting Rolls</h2>
       <p>Each profession lists the related ability modifier and tool used to calculate your crafting roll modifier. 
-        Beyond the tool, most branches of crafting require a heat source, and some require more infastructure.
+        Beyond the tool, most branches of crafting require a heat source, and some require more infrastructure.
         <br> <br>
         Here is a list of some of the additional requirements by branch: <br>
         • Blacksmithing can perform minor crafts with a simple heat source, but requires a forge and anvil to make 
         new items. <br>
-        • Alchemy and Cooking almost always requires a heat source.<br>
+        • Alchemy and Cooking almost always require a heat source.<br>
         • Tinkering, Jewelcrafting, and Poisoncraft sometimes require a heat source.<br>
         • Enchanting, Scroll Scribing, Woodworking, Wand Whittling, Poisoncraft, Leatherworking, Engineering, 
         Runecarving rarely require anything besides the tools of the profession.<br>
@@ -161,7 +134,7 @@
       <h2 style="text-align:center; padding-bottom: 0rem; padding-top: 1rem;">Bonuses</h2>
       <p>A crafting roll is a special kind of check. You can’t apply boosts other than expertise to your crafting 
         check. In general, the only way other than expertise to boost a crafting roll is to get help from another 
-        skilled crafted for the entire duration of the craft.
+        skilled crafter for the entire duration of the craft.
       </p>
 
       <h2 style="text-align:center; padding-bottom: 0rem; padding-top: 1rem;">Taking 10</h2>
@@ -184,5 +157,6 @@
 
   <!-- JS for banner particles -->
   <script src="assets/js/particles.js"></script>
+  <script src="assets/js/shared.js"></script>
 </body>
 </html>

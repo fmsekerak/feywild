@@ -2,19 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-
-  <style>
-    body {
-      cursor: url('assets/images/Pink.cur'), auto;
-    }
-    a {
-      cursor: url('assets/images/PinkSelect.cur'), pointer;
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Feywild</title>
   <link rel="stylesheet" href="assets/css/search.css">
+  <link rel="stylesheet" href="assets/css/shared.css">
   <script src="assets/js/sheets.js" defer></script>
 </head>
 
@@ -22,7 +14,7 @@
   <!-- Magical Banner -->
   <header class="banner">
     <canvas id="bannerParticles"></canvas>
-    <h1>Feywild</h1>
+    <div class="site-title">Feywild</div>
   </header>
 
   <!-- Navigation -->
@@ -30,13 +22,14 @@
     <ul>
       <li><a href="index.html">Home</a></li>
       <li class="dropdown">
-        <a href="crafting.html">Crafting ▾</a>
-        <ul class="dropdown-menu">
+        <a href="crafting.html">Crafting</a>
+      <button class="submenu-toggle" type="button" aria-label="Toggle Crafting submenu" aria-controls="crafting-submenu" aria-expanded="false">▾</button>
+        <ul class="dropdown-menu" id="crafting-submenu">
           <li><a href="crafting.html">Overview</a></li>
           <li><a href="alchemy.html">Alchemy</a></li>
         </ul>
       </li>
-      <li><a href="search.html" class="active">Search</a></li>
+      <li><a href="search.html" class="active" aria-current="page">Search</a></li>
       <li><a href="source.html">Sources</a></li>
     </ul>
   </nav>
@@ -47,12 +40,15 @@
       <h1 style="text-align:center; padding-bottom: 0rem;">Search</h1>
 
      <div class="filter-container">
-      <input type="text" id="search" placeholder="Search crafting items...">
+      <label class="visually-hidden" for="search">Search crafting items</label>
+      <input type="search" id="search" placeholder="Search crafting items..." autocomplete="off">
 
+     <label class="visually-hidden" for="profession-filter">Profession</label>
      <select id="profession-filter">
       <option value="">All Professions</option>
     </select>
       </div>
+    <p id="search-status" role="status" aria-live="polite"></p>
     <div id="crafting-list"></div>
     </section>
      
@@ -62,18 +58,7 @@
 
   <!-- JS Scripts -->
   <script src="assets/js/particles.js"></script>
-  <script>
-    document.querySelectorAll('a').forEach(link => {
-      link.addEventListener('mousedown', () => {
-        document.body.style.cursor = "url('assets/images/PinkSelect.cur'), auto";
-      });
-      link.addEventListener('mouseup', () => {
-        document.body.style.cursor = "url('assets/images/PinkSelect.cur'), auto";
-      });
-      link.addEventListener('mouseleave', () => {
-        document.body.style.cursor = "url('assets/images/PinkSelect.cur'), auto";
-      });
-    });
-  </script>
+
+  <script src="assets/js/shared.js"></script>
 </body>
 </html>

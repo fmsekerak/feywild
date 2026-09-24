@@ -128,7 +128,7 @@ main {
   margin-bottom: 2rem;
   border: 1px solid #4FA37C;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  text-shadow: 1 4px 4px rgba(0,0,0,0.8);
+  text-shadow: 1px 4px 4px rgba(0,0,0,0.8);
 }
 
 /* Table styling */
@@ -141,7 +141,7 @@ table {
   overflow: hidden;
   margin-left: auto;
   margin-right: auto;
-  text-shadow: 1 4px 4px rgba(0,0,0,0.8);
+  text-shadow: 1px 4px 4px rgba(0,0,0,0.8);
 }
 
 td {
@@ -158,7 +158,7 @@ th {
   background: #4FA37C;
   color: #fff;
   text-transform: uppercase;
-  letter-spacing: px;
+  letter-spacing: 0.05em;
   border-bottom: 0.5px solid #ffffff1a;
   text-align: center;
   font-size: 1.15rem;
@@ -283,7 +283,7 @@ p {
   margin: 0rem auto 1rem;
   cursor: inherit;
   color: #ffe6f2;
-  text-shadow: 1 4px 4px rgba(0,0,0,0.8);
+  text-shadow: 1px 4px 4px rgba(0,0,0,0.8);
   background: radial-gradient(
     rgb(163, 83, 155)
   );

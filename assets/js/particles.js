@@ -1,71 +1,62 @@
-const canvas = document.getElementById('bannerParticles');
-const ctx = canvas.getContext('2d');
-canvas.width = canvas.offsetWidth;
-canvas.height = canvas.offsetHeight;
+(() => {
+  const canvas = document.getElementById('bannerParticles');
+  const context = canvas?.getContext('2d');
+  if (!context) return;
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const colors = ['#ffb3ff', '#ff9cff', '#ffffff', '#ffe4ff'];
+  let particles = [], frame = null;
 
-let particles = [];
-const colors = ['#ffb3ff','#ff9cff','#ffffff','#ffe4ff'];
-
-for(let i=0; i<80; i++){
-  particles.push({
-    x: Math.random()*canvas.width,
-    y: Math.random()*canvas.height,
-    r: Math.random()*3+1,
-    dx: (Math.random()-0.5)/2,
-    dy: (Math.random()-0.5)/2,
-    opacity: Math.random() * 0.7 + 0.3,
-    opacitySpeed: Math.random() * 0.02 + 0.01,
-    colorIndex: Math.floor(Math.random()*colors.length),
-    colorSpeed: Math.random()*0.02+0.01 // speed of color change
-  });
-}
-
-function animate(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-
-  for(let p of particles){
-    // Update opacity for twinkle
-    p.opacity += p.opacitySpeed;
-    if(p.opacity > 1 || p.opacity < 0.3) p.opacitySpeed *= -1;
-
-    // Update color index for shimmer
-    p.colorIndex += p.colorSpeed;
-    if(p.colorIndex >= colors.length) p.colorIndex = 0;
-
-    // Interpolate colors for smooth gradient shimmer
-    const c1 = colors[Math.floor(p.colorIndex) % colors.length];
-    const c2 = colors[(Math.floor(p.colorIndex)+1) % colors.length];
-    const t = p.colorIndex - Math.floor(p.colorIndex); // blend factor
-
-    function blendColors(a, b, t){
-      const r = Math.round(parseInt(a.slice(1,3),16)*(1-t) + parseInt(b.slice(1,3),16)*t);
-      const g = Math.round(parseInt(a.slice(3,5),16)*(1-t) + parseInt(b.slice(3,5),16)*t);
-      const b_ = Math.round(parseInt(a.slice(5,7),16)*(1-t) + parseInt(b.slice(5,7),16)*t);
-      return `rgba(${r},${g},${b_},${p.opacity})`;
-    }
-
-    // Draw particle
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
-    ctx.fillStyle = blendColors(c1,c2,t);
-    ctx.fill();
-
-    // Move particle
-    p.x += p.dx;
-    p.y += p.dy;
-
-    // Wrap around
-    if(p.x > canvas.width) p.x = 0;
-    if(p.x < 0) p.x = canvas.width;
-    if(p.y > canvas.height) p.y = 0;
-    if(p.y < 0) p.y = canvas.height;
+  function resize() {
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+    const count = canvas.width < 600 ? 40 : 80;
+    particles = Array.from({ length: count }, () => ({
+      x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+      r: Math.random() * 3 + 1, dx: (Math.random() - 0.5) / 2,
+      dy: (Math.random() - 0.5) / 2, opacity: Math.random() * 0.7 + 0.3,
+      opacitySpeed: Math.random() * 0.02 + 0.01,
+      colorIndex: Math.floor(Math.random() * colors.length),
+      colorSpeed: Math.random() * 0.02 + 0.01
+    }));
+    draw();
   }
 
-  requestAnimationFrame(animate);
-}
+  function draw() {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    for (const particle of particles) {
+      const color = colors[Math.floor(particle.colorIndex) % colors.length];
+      context.globalAlpha = particle.opacity;
+      context.fillStyle = color;
+      context.beginPath();
+      context.arc(particle.x, particle.y, particle.r, 0, Math.PI * 2);
+      context.fill();
+      if (reducedMotion.matches) continue;
+      particle.opacity += particle.opacitySpeed;
+      if (particle.opacity > 1 || particle.opacity < 0.3) particle.opacitySpeed *= -1;
+      particle.colorIndex = (particle.colorIndex + particle.colorSpeed) % colors.length;
+      particle.x = (particle.x + particle.dx + canvas.width) % canvas.width;
+      particle.y = (particle.y + particle.dy + canvas.height) % canvas.height;
+    }
+    context.globalAlpha = 1;
+  }
 
-animate();
-window.addEventListener('resize', () => {
-  canvas.width = canvas.offsetWidth;
-  canvas.height = canvas.offsetHeight;
-});
+  function animate() {
+    frame = null;
+    if (document.hidden || reducedMotion.matches) return;
+    draw();
+    frame = requestAnimationFrame(animate);
+  }
+
+  function update() {
+    if (frame !== null) cancelAnimationFrame(frame);
+    frame = null;
+    draw();
+    if (!document.hidden && !reducedMotion.matches) frame = requestAnimationFrame(animate);
+  }
+
+  resize();
+  update();
+  window.addEventListener('resize', () => { resize(); update(); });
+  document.addEventListener('visibilitychange', update);
+  reducedMotion.addEventListener('change', update);
+})();

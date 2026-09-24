@@ -3,97 +3,186 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Feywild</title>
-  <style>
-/* Critical fallback: keeps the site visibly Feywild-themed even if an external asset is temporarily missing. */
-body{margin:0;font-family:Georgia,serif;line-height:1.6;background:#11211f;color:#f0f0f0} .banner{height:150px;background:#1f3a36;display:flex;align-items:center;justify-content:center;color:#fad9e9}.banner h1{font:700 4rem Garamond,serif;text-shadow:0 0 15px #55f4bc} nav{background:linear-gradient(#4FA37C,#305b54f2,#11211fd9);padding:.5rem;text-align:center} nav ul{list-style:none;display:flex;justify-content:center;gap:2rem;flex-wrap:wrap} nav a{color:#fad9e9;font-weight:bold;text-decoration:none} main{max-width:960px;margin:1rem auto;padding:2rem}.card{background:#305b54f2;padding:1rem;border-radius:12px;border:1px solid #4FA37C;box-shadow:0 8px 20px #0008;margin-bottom:2rem} p{text-align:center}
-</style>
-  <link rel="stylesheet" href="assets/css/style.css">
-  
 
-  <script src="assets/js/site.js" defer></script>
-  <script src="assets/js/particles.js" defer></script>
-  
+  <style>
+    body {
+      cursor: url('assets/images/Pink.cur'), auto;
+    }
+    a {
+      cursor: url('assets/images/PinkSelect.cur'), pointer;
+    }
+  </style>
+
+  <title>Feywild</title>
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
+
+<script>
+  document.querySelectorAll('a').forEach(link => {
+    link.addEventListener('mousedown', () => {
+      document.body.style.cursor =
+        "url('assets/images/PinkSelect.cur'), auto";
+    });
+
+    link.addEventListener('mouseup', () => {
+      document.body.style.cursor =
+        "url('assets/images/PinkSelect.cur'), auto";
+    });
+
+    link.addEventListener('mouseleave', () => {
+      document.body.style.cursor =
+        "url('assets/images/PinkSelect.cur'), auto";
+    });
+  });
+</script>
+
 <body>
+<!-- Magical Banner -->
   <header class="banner">
-    <canvas id="bannerParticles" aria-hidden="true"></canvas>
+    <canvas id="bannerParticles"></canvas>
     <h1>Feywild</h1>
   </header>
 
+  <!-- Navigation -->
 <nav>
   <ul>
     <li><a href="index.html">Home</a></li>
-    <li class="dropdown">
-      <a href="world.html">World ▾</a>
+    
+      <li class="dropdown">
+      <a href="crafting.html" class="active">Crafting ▾</a>
       <ul class="dropdown-menu">
-        <li><a href="world.html">Feywild Overview</a></li>
-        <li><a href="courts.html">Seasonal Courts</a></li>
-        <li><a href="bestiary.html">Fey Dragons & Bestiary</a></li>
-      </ul>
-    </li>
-    <li class="dropdown">
-      <a href="crafting.html" class="active" aria-current="page">Crafting ▾</a>
-      <ul class="dropdown-menu">
-        <li><a href="crafting.html" class="active" aria-current="page">Overview</a></li>
+        <li> <a href="crafting.html" class="active"> Overview</a></li>
         <li><a href="alchemy.html">Alchemy</a></li>
       </ul>
     </li>
     <li><a href="search.html">Search</a></li>
-    <li><a href="campaign.html">Campaign</a></li>
     <li><a href="source.html">Sources</a></li>
+    
   </ul>
 </nav>
 
-  <main id="main-content">
+  <!-- Main Content -->
+  <main>
     <section class="card">
-      <h1 class="page-title">Crafting</h1>
-      <button class="fey-button" type="button" onclick="window.open('assets/pdfs/CraftingGuide.pdf', '_blank')">✧ Download Crafting Guide ✧</button>
+      <h1 style="text-align:center; padding-bottom: 0rem;">Crafting</h1>
+        <button class="fey-button" type="button" onclick="window.open('assets/pdfs/CraftingGuide.pdf')">
+          ✧ Download Crafting Guide ✧
+        </button>
+        
+      <p>Crafting is done in 2-hour intervals, with one check per interval. A success grants 
+        2 hours of progress; once progress equals the required crafting time, the item is 
+        complete. A failure grants no progress. Some crafts (such as Alchemy) require 
+        consecutive checks. Three consecutive failures result in total failure and loss 
+        of materials.
+        <br><br>
+        During a long rest, you may spend up to 2 hours crafting if you do nothing else. 
+        While doing so, you have disadvantage on Perception checks and a −5 to passive 
+        Perception.
+      </p>
+      <h2 style="text-align:center; padding-bottom: 0rem; padding-top: 1rem;">Tools Quick Reference</h2>
 
-      <p>Crafting is done in 2-hour intervals, with one check per interval. A success grants 2 hours of progress; once progress equals the required crafting time, the item is complete. A failure grants no progress. Some crafts (such as Alchemy) require consecutive checks. Three consecutive failures result in total failure and loss of materials.<br><br>
-      During a long rest, you may spend up to 2 hours crafting if you do nothing else. While doing so, you have disadvantage on Perception checks and a −5 to passive Perception.</p>
+        <table>
+          <tr>
+          <th>Profession</th>
+          <th>Tool</th>
+          <th>Ability</th>
+          </tr>
+          <tr>
+          <td>Alchemy</td>
+          <td>Alchemist's Tools /<br> Poisoner's Kit</td>
+          <td>Wis /<br>Int</td>
+          </tr>
+          <tr>
+          <td>Blacksmithing</td>
+          <td>Blacksmith's Tools</td>
+          <td>Str</td>
+          </tr>
+          <tr>
+          <td>Cooking</td>
+          <td>Cook's Utensils</td>
+          <td>Wis</td>
+          </tr>
+          <tr>
+          <td>Enchanting</td>
+          <td>Arcana</td>
+          <td>Int</td>
+          </tr>
+          <tr>
+          <td>Leatherworking</td>
+          <td>Leatherworker’s Tools</td>
+          <td>Dex</td>
+          </tr>
+          <tr>
+          <td>Runecarving - Ancient</td>
+          <td>Mason’s Tools /<br> Painter’s Supplies</td>
+          <td>Wis</td>
+          </tr>
+          <tr>
+          <td>Runecarving - Academic</td>
+          <td>Calligrapher’s Supplies /<br> Woodcarver’s Tools</td>
+          <td>Int</td>
+          </tr>
+          <tr>
+          <td>Scrollscribing</td>
+          <td>Calligrapher’s Tools</td>
+          <td>Int</td>
+          </tr>
+          <tr>
+          <td>Wand Whittling</td>
+          <td>Woodcarver’s Tools</td>
+          <td>Dex</td>
+          </tr>
+          <tr>
+          <td>Woodcarving</td>
+          <td>Woodcarver’s Tools</td>
+          <td>Dex</td>
+          </tr>
+        </table>
 
-      <h2 class="section-title">Tools Quick Reference</h2>
-      <table>
-        <tr><th>Profession</th><th>Tool</th><th>Ability</th></tr>
-        <tr><td>Alchemy</td><td>Alchemist's Tools /<br> Poisoner's Kit</td><td>Wis /<br>Int</td></tr>
-        <tr><td>Blacksmithing</td><td>Blacksmith's Tools</td><td>Str</td></tr>
-        <tr><td>Cooking</td><td>Cook's Utensils</td><td>Wis</td></tr>
-        <tr><td>Enchanting</td><td>Arcana</td><td>Int</td></tr>
-        <tr><td>Leatherworking</td><td>Leatherworker’s Tools</td><td>Dex</td></tr>
-        <tr><td>Runecarving - Ancient</td><td>Mason’s Tools /<br> Painter’s Supplies</td><td>Wis</td></tr>
-        <tr><td>Runecarving - Academic</td><td>Calligrapher’s Supplies /<br> Woodcarver’s Tools</td><td>Int</td></tr>
-        <tr><td>Scrollscribing</td><td>Calligrapher’s Tools</td><td>Int</td></tr>
-        <tr><td>Wand Whittling</td><td>Woodcarver’s Tools</td><td>Dex</td></tr>
-        <tr><td>Woodcarving</td><td>Woodcarver’s Tools</td><td>Dex</td></tr>
-      </table>
+      <h2 style="text-align:center; padding-bottom: 0rem; padding-top: 1rem;">Crafting Rolls</h2>
+      <p>Each profession lists the related ability modifier and tool used to calculate your crafting roll modifier. 
+        Beyond the tool, most branches of crafting require a heat source, and some require more infastructure.
+        <br> <br>
+        Here is a list of some of the additional requirements by branch: <br>
+        • Blacksmithing can perform minor crafts with a simple heat source, but requires a forge and anvil to make 
+        new items. <br>
+        • Alchemy and Cooking almost always requires a heat source.<br>
+        • Tinkering, Jewelcrafting, and Poisoncraft sometimes require a heat source.<br>
+        • Enchanting, Scroll Scribing, Woodworking, Wand Whittling, Poisoncraft, Leatherworking, Engineering, 
+        Runecarving rarely require anything besides the tools of the profession.<br>
+      </p>
 
-      <h2 class="section-title">Crafting Rolls</h2>
-      <p>Each profession lists the related ability modifier and tool used to calculate your crafting roll modifier. Beyond the tool, most branches of crafting require a heat source, and some require more infrastructure.<br><br>
-      Here is a list of some of the additional requirements by branch:<br>
-      • Blacksmithing can perform minor crafts with a simple heat source, but requires a forge and anvil to make new items.<br>
-      • Alchemy and Cooking almost always require a heat source.<br>
-      • Tinkering, Jewelcrafting, and Poisoncraft sometimes require a heat source.<br>
-      • Enchanting, Scroll Scribing, Woodworking, Wand Whittling, Poisoncraft, Leatherworking, Engineering, and Runecarving rarely require anything besides the tools of the profession.</p>
+      <h2 style="text-align:center; padding-bottom: 0rem; padding-top: 1rem;">Expertise</h2>
+      <p>Features that grant tool expertise (the ability to add twice your proficiency bonus to ability checks made 
+        with a tool) are calculated into your crafting roll modifier, but do not add to the calculated DC the 
+        effects of that item have.
+      </p>
 
-      <h2 class="section-title">Expertise</h2>
-      <p>Features that grant tool expertise (the ability to add twice your proficiency bonus to ability checks made with a tool) are calculated into your crafting roll modifier, but do not add to the calculated DC the effects of that item have.</p>
+      <h2 style="text-align:center; padding-bottom: 0rem; padding-top: 1rem;">Bonuses</h2>
+      <p>A crafting roll is a special kind of check. You can’t apply boosts other than expertise to your crafting 
+        check. In general, the only way other than expertise to boost a crafting roll is to get help from another 
+        skilled crafted for the entire duration of the craft.
+      </p>
 
-      <h2 class="section-title">Bonuses</h2>
-      <p>A crafting roll is a special kind of check. You can’t apply boosts other than expertise to your crafting check. In general, the only way other than expertise to boost a crafting roll is to get help from another skilled crafter for the entire duration of the craft.</p>
+      <h2 style="text-align:center; padding-bottom: 0rem; padding-top: 1rem;">Taking 10</h2>
+      <p>When you craft something, double the crafting period (from 2 hours to 4 hours per check) to “take a 10” on the 
+        crafting roll, meaning that your crafting checks are 10 + your related ability score + your related tool 
+        proficiency bonus. This provides a floor level that you can always succeed on if you choose to take your time. 
+        If someone with proficiency is aiding you for the entire duration of the crafting, the crafting check doesn’t 
+        gain any bonus, but can be completed in the standard 2 hours.
+      </p>
 
-      <h2 class="section-title">Taking 10</h2>
-      <p>When you craft something, double the crafting period (from 2 hours to 4 hours per check) to “take a 10” on the crafting roll, meaning that your crafting checks are 10 + your related ability score + your related tool proficiency bonus. This provides a floor level that you can always succeed on if you choose to take your time. If someone with proficiency is aiding you for the entire duration of the crafting, the crafting check doesn’t gain any bonus, but can be completed in the standard 2 hours.</p>
 
-      <h2 class="section-title">Workdays</h2>
-      <p>When a character is spending all day working, they make 8 hours of progress, and cannot exceed 8 hours working on a crafting project during a day. In almost all cases working over 8 hours on a crafting project would leave a character with one or more levels of Exhaustion.</p>
+      <h2 style="text-align:center; padding-bottom: 0rem; padding-top: 1rem;">Workdays</h2>
+      <p>When a character is spending all day working, they make 8 hours of progress, and cannot exceed 8 hours working 
+        on a crafting project during a day. In almost all cases working over 8 hours on a crafting project would leave 
+        a character with one or more levels of Exhaustion.
+      </p>
 
-      <div class="button-row">
-        <a class="fey-link" href="alchemy.html">✧ Alchemy Quick Reference ✧</a>
-        <a class="fey-link" href="search.html">✧ Search Crafting Recipes ✧</a>
-      </div>
     </section>
   </main>
 
+  <!-- JS for banner particles -->
+  <script src="assets/js/particles.js"></script>
 </body>
 </html>

@@ -2,46 +2,35 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Search and filter crafting recipes for the Feywild campaign.">
-  <title>Recipe Search | Feywild</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Feywild - Recipe Search</title>
   <link rel="stylesheet" href="assets/css/main.css">
   <link rel="stylesheet" href="assets/css/search.css">
   <script src="assets/js/site.js" defer></script>
   <script src="assets/js/particles.js" defer></script>
   <script src="assets/js/crafting-search.js" defer></script>
 </head>
-<body data-page="search">
+<body class="search-page" data-page="search">
   <div data-site-banner></div>
   <div data-site-nav></div>
 
   <main id="main-content">
-    <section class="page-hero">
-      <p class="page-kicker">Crafting Grove</p>
-      <h1>Recipe Search</h1>
-      <p>Search across every recipe field or narrow the list to a specific profession.</p>
-    </section>
+    <section class="card">
+      <h1 class="page-title">Search</h1>
+      <p>Search the crafting list by name, material, rarity, profession, or description.</p>
 
-    <section class="card search-shell">
       <div class="filter-container">
-        <label>
-          <span class="visually-hidden">Search recipes</span>
-          <input class="search-input" type="search" id="search" autocomplete="off" placeholder="Search crafting items...">
-        </label>
+        <label for="search" class="skip-link">Search crafting items</label>
+        <input type="text" id="search" placeholder="Search crafting items..." autocomplete="off">
 
-        <label>
-          <span class="visually-hidden">Filter by profession</span>
-          <select class="profession-filter" id="profession-filter">
-            <option value="">All Professions</option>
-          </select>
-        </label>
-
-        <button class="clear-button" id="clear-filters" type="button">Clear</button>
+        <label for="profession-filter" class="skip-link">Filter by profession</label>
+        <select id="profession-filter">
+          <option value="">All Professions</option>
+        </select>
       </div>
 
-      <p class="search-status" id="search-status" role="status" aria-live="polite">Gathering recipes from the crafting grove…</p>
-      <p class="result-summary" id="result-summary" aria-live="polite"></p>
-      <div class="crafting-list" id="crafting-list"></div>
+      <div id="result-count" class="search-meta" aria-live="polite"></div>
+      <div id="crafting-list"></div>
     </section>
   </main>
 

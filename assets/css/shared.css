@@ -43,6 +43,7 @@ a, button, select { cursor: url('../images/PinkSelect.cur'), pointer; }
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: center;
   gap: 0.75rem;
 }
 #profession-filter, #rarity-filter {
@@ -67,7 +68,7 @@ a, button, select { cursor: url('../images/PinkSelect.cur'), pointer; }
   box-shadow: 0 0 10px rgba(255,179,255,0.28);
   font: inherit;
 }
-.clear-filters { display: block; margin: 0.5rem auto 1rem; }
+.clear-filters { margin: 0; white-space: nowrap; }
 .back-to-top { position: fixed; bottom: 1rem; right: 1rem; z-index: 1001; }
 .back-to-top[hidden] { display: none; }
 .empty-glade { padding: 1.5rem; color: #fad9e9; }

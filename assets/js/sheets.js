@@ -87,7 +87,7 @@
     if (name.includes('ancient')) return '⚸';
     if (name.includes('rune')) return 'ᛟ';
     if (name.includes('enchant')) return '🪄';
-    if (name.includes('wood')) return '🪵';
+    if (name.includes('wood')) return '🏹';
     if (name.includes('cobb')) return '👞';
     if (name.includes('jewel')) return '💍';
     if (name.includes('leather')) return '💼';

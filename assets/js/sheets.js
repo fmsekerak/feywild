@@ -83,14 +83,14 @@
     if (name.includes('brew')) return '🍺';
     if (name.includes('cook')) return '🥩';
     if (name.includes('scroll')) return '📜';
+    if (name.includes('academic')) return '⚚';
+    if (name.includes('ancient')) return '⚸';
     if (name.includes('rune')) return 'ᛟ';
     if (name.includes('enchant')) return '🪄';
     if (name.includes('wood')) return '🪵';
     if (name.includes('cobb')) return '👞';
     if (name.includes('jewel')) return '💍';
-    if (name.includes('leather')) return '🟫';
-    if (name.includes('academic')) return '⚚';
-    if (name.includes('ancient')) return '⚸';
+    if (name.includes('leather')) return '💼';
     if (name.includes('tailor')) return '🧵';
     if (name.includes('engineer') || name.includes('tinker')) return '🛠️';
     if (name.includes('wand')) return '🪄';

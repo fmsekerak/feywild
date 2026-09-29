@@ -1,6 +1,6 @@
 # Integer character IDs: one-time migration
 
-This changes ONLY character IDs. New `characters` has exactly `id integer GENERATED ALWAYS AS IDENTITY` (starting at 1) and `name text`. `inventory_items.character_id` and `inventory_history.character_id` become integers. Existing character inventories and history are remapped automatically; history for previously deleted characters keeps its name and receives a NULL character ID. Item IDs and catalog IDs stay UUIDs.
+This changes ONLY character IDs. New `characters` has exactly `id integer GENERATED ALWAYS AS IDENTITY` (starting at 1) and `name text`. `inventory_items.character_id` and `inventory_history.character_id` become integers. Existing character inventories are remapped automatically. Your existing history has no character ID, so the migration adds an integer character ID and links history to surviving items where possible, then to uniquely matching character names. History with ambiguous duplicate names or deleted characters retains its recorded character name and a NULL character ID. Item IDs and catalog IDs stay UUIDs.
 
 **Order matters:**
 1. Export `characters`, `inventory_items`, and `inventory_history` as independent CSV backups, and stop all inventory edits during the change.

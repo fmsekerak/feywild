@@ -32,22 +32,16 @@ create table public.characters (
 create temporary table character_id_map (
  old_id uuid primary key, new_id integer not null unique
 ) on commit drop;
-with inserted as (
- insert into public.characters(name)
- select name from public.characters_uuid_old order by created_at, id
- returning id, name
-)
--- Duplicate names are allowed; mapping by name would be ambiguous. Instead use
--- a temporary ordered staging map before insert (handled below).
-select 1;
--- Rebuild inserted characters deterministically with row numbers paired to IDs.
--- The block above inserted the rows; pair via row order of old created_at/id and
--- the sequential new identity IDs, which start at 1 on this newly created table.
-insert into character_id_map(old_id,new_id)
-select old_id, rn from (
- select id old_id, row_number() over(order by created_at,id)::integer rn
- from public.characters_uuid_old
-) ordered;
+do $$
+declare old_character record; new_character_id integer;
+begin
+ for old_character in
+  select id,name from public.characters_uuid_old order by created_at,id
+ loop
+  insert into public.characters(name) values(old_character.name) returning id into new_character_id;
+  insert into character_id_map(old_id,new_id) values(old_character.id,new_character_id);
+ end loop;
+end $$;
 
 -- Replace the old UUID foreign key before changing inventory column.
 alter table public.inventory_items drop constraint if exists inventory_items_character_id_fkey;

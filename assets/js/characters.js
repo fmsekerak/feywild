@@ -17,6 +17,9 @@ async function initialize() {
  const picker = $("character");
  picker.replaceChildren(new Option("Choose your character", ""));
  for (const character of data || []) picker.add(new Option(character.name, character.id));
+ const remembered=sessionStorage.getItem("feywild-character-id");
+ const chosen=(data||[]).find(character=>character.id===remembered);
+ if(chosen){picker.value=chosen.id;await selectCharacter(chosen.id,chosen.name);}
  status(data?.length ? "Choose any character to open their satchel. Changes are saved automatically." :
   "No characters yet. Add one in the Supabase Table Editor.");
  await loadCatalog();
@@ -45,6 +48,7 @@ $("catalog-item").addEventListener("change", showCatalogDescription);
 
 async function selectCharacter(id, name) {
  currentCharacter = id || null;
+ if(currentCharacter){sessionStorage.setItem("feywild-character-id",currentCharacter);sessionStorage.setItem("feywild-character-name",name||"Adventurer");}
  show("inventory", !!currentCharacter);
  $("items").replaceChildren();
  $("history").replaceChildren();

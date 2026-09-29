@@ -67,3 +67,11 @@ button:disabled{opacity:.55;cursor:wait}
 #auth{text-align:center}
 #auth .fey-button{font-size:1.08rem;padding:.9rem 1.8rem;margin:0 auto 1.3rem}
 .google-g{display:inline-grid;place-items:center;background:#fff;color:#4285f4;font:bold 1rem Arial,sans-serif;width:1.65rem;height:1.65rem;border-radius:50%;margin-right:.5rem;text-shadow:none}
+
+/* Public shared satchels and their automatic read-only adventure log. */
+.satchel-welcome{padding-bottom:.1rem}
+.satchel-welcome .welcome-illustration{height:145px;max-width:400px}
+.satchel-welcome h2{font-size:clamp(1.65rem,4vw,2.4rem)}
+.satchel-history-panel{margin-top:1.3rem}
+#history{list-style:none;display:grid;gap:.55rem;margin:0;padding:0}
+#history li{padding:.65rem .9rem;background:#14201ef2;border-left:3px solid #b6f5d8;border-radius:6px;color:#f6e9f3;overflow-wrap:anywhere;font-size:.92rem}

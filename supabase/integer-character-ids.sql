@@ -1,7 +1,7 @@
 -- ONE-TIME MIGRATION. Export characters, inventory_items, inventory_history FIRST.
 -- Run after remove-google-auth-legacy.sql. Stop all inventory edits during migration.
 -- The new characters table has EXACTLY id integer GENERATED ALWAYS AS IDENTITY and name.
--- Existing character inventory and history are remapped in one transaction.
+-- Existing inventory and identifiable history are remapped in one transaction.
 begin;
 set local lock_timeout = '10s';
 lock table public.characters, public.inventory_items, public.inventory_history in access exclusive mode;
@@ -62,13 +62,24 @@ alter table public.inventory_items add constraint inventory_items_character_id_f
  foreign key(character_id) references public.characters(id) on delete cascade;
 create index if not exists inventory_items_character_id_idx on public.inventory_items(character_id);
 
--- Preserve history of deleted characters: those rows retain character_name and
--- receive NULL character_id because their original character no longer exists.
-alter table public.inventory_history add column character_id_new integer;
-update public.inventory_history h set character_id_new=m.new_id
-from character_id_map m where h.character_id=m.old_id;
-alter table public.inventory_history drop column character_id;
-alter table public.inventory_history rename column character_id_new to character_id;
+-- Your existing inventory_history has character_name but NO character_id.
+-- Add the new integer reference without attempting to read a missing UUID column.
+-- Prefer exact item-ID matches for existing items. For deleted items, use the
+-- recorded character name ONLY if it uniquely identifies a character.
+alter table public.inventory_history add column character_id integer;
+update public.inventory_history h
+set character_id=m.new_id
+from public.inventory_items i
+join character_id_map m on m.new_id=i.character_id
+where h.item_id=i.id;
+update public.inventory_history h
+set character_id=c.id
+from public.characters c
+where h.character_id is null
+  and h.character_name=c.name
+  and (select count(*) from public.characters c2 where c2.name=h.character_name)=1;
+-- History for deleted characters or ambiguous duplicate names keeps its
+-- character_name and a NULL character_id, rather than guessing incorrectly.
 create index if not exists inventory_history_character_id_idx
  on public.inventory_history(character_id,changed_at desc);
 

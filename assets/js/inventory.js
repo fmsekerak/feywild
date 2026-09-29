@@ -8,20 +8,16 @@ const status = message => { $("status").textContent = message; };
 const show = (id, visible) => { $(id).hidden = !visible; };
 const errorText = err => err?.message || "Something went wrong. Please try again.";
 async function initialize() {
- status("Gathering the adventurers...");
- // Clear any previous Google session so all visitors use the same public RLS policies.
- const { data: { session } } = await db.auth.getSession();
- if (session) await db.auth.signOut({ scope: "local" });
- const { data, error } = await db.from("characters").select("id,name").order("name");
- if (error) { status("Unable to load characters: " + errorText(error) + ". Has the public inventory SQL been run?"); return; }
- const picker = $("character");
- picker.replaceChildren(new Option("Choose your character", ""));
- for (const character of data || []) picker.add(new Option(character.name, character.id));
- const remembered=sessionStorage.getItem("feywild-character-id");
- const chosen=(data||[]).find(character=>String(character.id)===remembered);
- if(chosen){picker.value=chosen.id;await selectCharacter(chosen.id,chosen.name);}
- status(data?.length ? "Choose any character to open their satchel. Changes are saved automatically." :
-  "No characters yet. Add one in the Supabase Table Editor.");
+ const selectedId=sessionStorage.getItem("feywild-character-id");
+ if(!selectedId){location.replace("index.html");return;}
+ status("Opening your satchel...");
+ // Keep the inventory accessible under the public Supabase policies.
+ const {data:{session},error:sessionError}=await db.auth.getSession();
+ if(sessionError){status("Unable to prepare inventory: "+errorText(sessionError));return;}
+ if(session){const {error}=await db.auth.signOut({scope:"local"});if(error){status(errorText(error));return;}}
+ const {data,error}=await db.from("characters").select("id,name").eq("id",selectedId).maybeSingle();
+ if(error||!data){sessionStorage.removeItem("feywild-character-id");sessionStorage.removeItem("feywild-character-name");location.replace("index.html");return;}
+ await selectCharacter(data.id,data.name);
  await loadCatalog();
 }
 async function loadCatalog() {
@@ -55,9 +51,6 @@ async function selectCharacter(id, name) {
  $("character-name").textContent = name || "";
  if (currentCharacter) await Promise.all([loadItems(),loadHistory()]);
 }
-$("character").addEventListener("change", async event => {
- await selectCharacter(event.target.value,event.target.selectedOptions[0]?.textContent);
-});
 async function loadHistory() {
  const selected = currentCharacter;
  const { data, error } = await db.from("inventory_history")

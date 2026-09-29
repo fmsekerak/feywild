@@ -18,13 +18,11 @@
  </ul></nav>
  <main class="satchel-main">
   <section class="card satchel-card">
-   <div id="welcome" class="satchel-welcome"><div class="welcome-illustration" aria-hidden="true"><span class="welcome-moon">☾</span><span class="welcome-fairy">✦</span><span class="welcome-flowers">❀ ✿ ❀</span></div><h2>Welcome, Adventurer!</h2><p class="section-intro">Your magical journey awaits. Sign in to access your character and inventory.</p></div>
-   <div id="satchel-title" class="satchel-heading" hidden><span class="satchel-sparkle" aria-hidden="true">✧</span><h2>Your Adventurers</h2><span class="satchel-sparkle" aria-hidden="true">✧</span></div>
+   <div id="welcome" class="satchel-welcome"><div class="welcome-illustration" aria-hidden="true"><span class="welcome-moon">☾</span><span class="welcome-fairy">✦</span><span class="welcome-flowers">❀ ✿ ❀</span></div><h2>Welcome, Adventurer!</h2><p class="section-intro">Your magical journey awaits. Choose an adventurer to explore their satchel.</p></div>
+   <div id="satchel-title" class="satchel-heading"><span class="satchel-sparkle" aria-hidden="true">✧</span><h2>Your Adventurers</h2><span class="satchel-sparkle" aria-hidden="true">✧</span></div>
    <p id="status" role="status" aria-live="polite">Preparing the magic...</p>
-   <div id="auth"><button id="login" class="fey-button" type="button"><span class="google-g" aria-hidden="true">G</span> Continue with Google</button></div>
-   <div id="signed-in" hidden>
-    <div class="satchel-account"><span id="account"></span><button id="logout" type="button" class="satchel-text-button">Sign out</button></div>
-    <div class="satchel-character-select" id="character-selector"><label for="character">Choose your adventurer</label><select id="character"><option value="">Choose your character</option></select></div>
+   <div id="signed-in">
+    <div class="satchel-character-select" id="character-selector"><label for="character">Choose an adventurer</label><select id="character"><option value="">Choose your character</option></select></div>
     <div id="inventory" hidden>
      <div class="satchel-divider" aria-hidden="true">✦</div>
      <h3 id="character-name" class="satchel-character-name"></h3>
@@ -45,12 +43,8 @@
        <ul id="items"></ul>
       </section>
      </div>
+     <section class="satchel-panel satchel-history-panel" aria-labelledby="history-heading"><h4 id="history-heading">✧ Adventure Log</h4><p class="satchel-items-hint">Automatic history of inventory changes. Everyone can view it.</p><ul id="history"></ul></section>
     </div>
-    <section id="catalog-admin" class="satchel-panel satchel-dm-panel" hidden>
-     <h3>✧ DM Item Catalog</h3>
-     <p>Bring new recipes from your crafting spreadsheet into the shared catalog.</p>
-     <button type="button" id="sync-crafting" class="fey-button">✧ Import / update crafting recipes</button>
-    </section>
    </div>
   </section>
  </main>

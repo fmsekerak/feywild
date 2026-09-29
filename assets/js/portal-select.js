@@ -16,7 +16,9 @@ async function load(){
  if(!characters.length){status.textContent="No characters yet. Add characters in your Supabase Table Editor.";return;}
  for(const character of characters){
   const button=document.createElement("button");button.type="button";button.className="portal-character";
-  const symbol=document.createElement("span");symbol.className="portal-character-symbol";symbol.setAttribute("aria-hidden","true");symbol.textContent=character.name.trim().toLowerCase()==="dm"?"♛":"✧";
+  const theme=character.name.trim().toLowerCase();
+  if(["mion","ruin","crotus","hayden","dm"].includes(theme)) button.classList.add("portal-theme-"+theme);
+  const symbol=document.createElement("span");symbol.className="portal-character-symbol";symbol.setAttribute("aria-hidden","true");symbol.textContent=({mion:"🦊",ruin:"🌸",crotus:"🐐",hayden:"❄",dm:"🐉"})[theme]||"✧";
   const name=document.createElement("strong");name.textContent=character.name;
   button.append(symbol,name);
   button.addEventListener("click",()=>{sessionStorage.setItem("feywild-character-id",character.id);sessionStorage.setItem("feywild-character-name",character.name);location.href="home.html";});

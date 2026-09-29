@@ -9,6 +9,7 @@
 <div id="auth"><button id="login" type="button">Continue with Google</button></div>
 <div id="signed-in" hidden><p id="account"></p><button id="logout" type="button">Sign out</button>
 <label for="character">Select character</label><select id="character"><option value="">Choose your character</option></select>
+<section id="catalog-admin" hidden><h3>DM Item Catalog</h3><p>Import recipes from your existing crafting spreadsheet into the item catalog. Re-import to update descriptions, professions, and rarities.</p><button type="button" id="sync-crafting">Import / update crafting recipes</button></section>
 <div id="inventory" hidden><h3 id="character-name"></h3><form id="add-item">
 <label for="item-search">Find an item</label><input id="item-search" type="search" placeholder="Search available items...">
 <label for="catalog-item">Choose an item</label><select id="catalog-item" required><option value="">Select an item</option></select><p id="catalog-description" aria-live="polite"></p>

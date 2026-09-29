@@ -4,93 +4,20 @@ const $ = id => document.getElementById(id);
 const db = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
 let currentCharacter = null;
 let catalog = [];
-let initializationVersion = 0;
 const status = message => { $("status").textContent = message; };
 const show = (id, visible) => { $(id).hidden = !visible; };
 const errorText = err => err?.message || "Something went wrong. Please try again.";
 async function initialize() {
- const version = ++initializationVersion;
- const { data: { session }, error } = await db.auth.getSession();
- if (version !== initializationVersion) return;
- if (error) { status(errorText(error)); return; }
- show("auth", !session); show("signed-in", !!session);
- show("welcome", !session); show("satchel-title", !!session);
- if (!session) {
-  currentCharacter = null;
-  show("inventory", false);
-  show("catalog-admin", false);
-  status("");
-  return;
- }
- $("account").textContent = session.user.email || "Signed in";
- const { data: dm, error: dmError } = await db.rpc("is_dm");
- if (version !== initializationVersion) return;
- const isDm = !dmError && dm === true;
- show("catalog-admin", isDm);
- await loadCharacters(session.user.id, isDm, version);
- if (version !== initializationVersion) return;
+ status("Gathering the adventurers...");
+ const { data, error } = await db.from("characters").select("id,name").order("name");
+ if (error) { status("Unable to load characters: " + errorText(error) + ". Has the public inventory SQL been run?"); return; }
+ const picker = $("character");
+ picker.replaceChildren(new Option("Choose your character", ""));
+ for (const character of data || []) picker.add(new Option(character.name, character.id));
+ status(data?.length ? "Choose any character to open their satchel. Changes are saved automatically." :
+  "No characters yet. Add one in the Supabase Table Editor.");
  await loadCatalog();
 }
-$("login").addEventListener("click", async () => {
- const { error } = await db.auth.signInWithOAuth({
-  provider: "google", options: { redirectTo: new URL("characters.html", location.href).href }
- });
- if (error) status(errorText(error));
-});
-$("logout").addEventListener("click", async () => {
- const { error } = await db.auth.signOut();
- if (error) status(errorText(error));
- else { currentCharacter = null; $("items").replaceChildren(); show("inventory",false); await initialize(); }
-});
-db.auth.onAuthStateChange(() => { setTimeout(initialize, 0); });
-// The crafting search page uses this same published spreadsheet.
-const CRAFTING_CSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTGEGjryoMoYyFZIWPFrYLLO9M9Z0zq0lbIB4xIe-_-VqRwAQ6KP2ley9HpuDokO9i07lbDD4CnKqVT/pub?gid=1358917249&single=true&output=csv";
-function parseCsv(text) {
- const rows = []; let row=[], field="", quoted=false;
- for (let i=0;i<text.length;i++) {
-  const ch=text[i];
-  if (ch==='"') { if (quoted && text[i+1]==='"') {field+='"';i++;} else quoted=!quoted; }
-  else if (ch==="," && !quoted) {row.push(field);field="";}
-  else if ((ch==="\r"||ch==="\n")&&!quoted) {
-   if(ch==="\r"&&text[i+1]==="\n") i++;
-   row.push(field);if(row.some(x=>x.trim()))rows.push(row);row=[];field="";
-  } else field+=ch;
- }
- if(quoted)throw Error("Unclosed quoted field in crafting spreadsheet");
- if(field||row.length){row.push(field);if(row.some(x=>x.trim()))rows.push(row);}
- const headers=(rows.shift()||[]).map(x=>x.replace(/^\uFEFF/,"").trim().toLowerCase().replace(/\(.*?\)/g,"").replace(/\s+/g,"_").replace(/[^\w]/g,""));
- return rows.map(r=>Object.fromEntries(headers.map((h,i)=>[h,(r[i]||"").trim()])));
-}
-$("sync-crafting").addEventListener("click", async () => {
- const button=$("sync-crafting");button.disabled=true;status("Importing crafting recipes...");
- try {
-  const response=await fetch(CRAFTING_CSV,{cache:"no-store"});
-  if(!response.ok)throw Error("Could not fetch crafting spreadsheet ("+response.status+")");
-  const csv=await response.text();
-  if(/^\s*<!doctype html|^\s*<html/i.test(csv))throw Error("Spreadsheet returned HTML, not CSV");
-  const recipes=parseCsv(csv), unique=new Map();
-  for(const recipe of recipes){
-   const name=(recipe.name||recipe.item_name||"").trim();
-   if(!name)continue;
-   const professionKey=Object.keys(recipe).find(k=>/profess|branch|category|crafting_type|type_of_craft/.test(k)&&recipe[k]);
-   const rarityKey=Object.keys(recipe).find(k=>/rarity/.test(k)&&recipe[k]);
-   const category=professionKey?recipe[professionKey]:"Crafting";
-   const rarity=rarityKey?recipe[rarityKey]:"Common";
-   // Keep the existing description column; crafting details remain on the crafting page.
-   unique.set(name.toLowerCase(),{name,description:recipe.description||"",category:category.slice(0,200),rarity:rarity.slice(0,100)});
-  }
-  if(!unique.size)throw Error("No named recipes were found in the spreadsheet");
-  const rows=[...unique.values()];
-  // Upsert in small batches; database RLS permits only DMs to import.
-  for(let i=0;i<rows.length;i+=100){
-   const {error}=await db.from("item_catalog").upsert(rows.slice(i,i+100),{onConflict:"name"});
-   if(error)throw error;
-  }
-  await loadCatalog();
-  status("Imported or updated "+rows.length+" crafting items. They are now available to select.");
- } catch(error){status("Import failed: "+errorText(error));}
- finally{button.disabled=false;}
-});
 async function loadCatalog() {
  const { data, error } = await db.from("item_catalog").select("id,name,description,category,rarity").order("name");
  if (error) { status("Could not load item catalog: " + errorText(error)); return; }
@@ -112,52 +39,37 @@ function showCatalogDescription() {
 }
 $("item-search").addEventListener("input", renderCatalog);
 $("catalog-item").addEventListener("change", showCatalogDescription);
-async function loadCharacters(userId, isDm, version) {
- // Both players and DMs get their personal character from their own login ID.
- // DM privileges still allow catalog administration, but do not choose a different character.
- const { data: memberships, error: membershipError } = await db.from("character_members")
-  .select("character_id").eq("user_id", userId);
- if (version !== initializationVersion) return;
- if (membershipError) { status(errorText(membershipError)); return; }
- const assignedIds = (memberships || []).map(member => member.character_id);
- let assigned = [];
- if (assignedIds.length) {
-  const { data, error } = await db.from("characters")
-   .select("id,name").in("id", assignedIds).order("name");
-  if (version !== initializationVersion) return;
-  if (error) { status(errorText(error)); return; }
-  assigned = data || [];
- }
- // Support the existing DM setup, where the DM character may not yet have a membership row.
- // For long-term consistency, also assign the DM login to this character in character_members.
- if (isDm && assigned.length === 0) {
-  const { data, error } = await db.from("characters").select("id,name").ilike("name","DM");
-  if (version !== initializationVersion) return;
-  if (error) { status(errorText(error)); return; }
-  if ((data || []).length === 1) assigned = data;
- }
- show("character-selector", false);
- if (assigned.length === 1) {
-  await selectCharacter(assigned[0].id, assigned[0].name);
- } else {
-  currentCharacter = null;
-  show("inventory", false);
-  $("items").replaceChildren();
-  status(assigned.length === 0 ?
-   "You're signed in! Ask your DM to link this Google account to your character." :
-   "More than one character is linked to this login. Ask your DM to keep one active assignment.");
- }
-}
+
 async function selectCharacter(id, name) {
  currentCharacter = id || null;
  show("inventory", !!currentCharacter);
  $("items").replaceChildren();
+ $("history").replaceChildren();
  $("character-name").textContent = name || "";
- if (currentCharacter) await loadItems();
+ if (currentCharacter) await Promise.all([loadItems(),loadHistory()]);
 }
-$("character").addEventListener("change", async e => {
- await selectCharacter(e.target.value, e.target.selectedOptions[0]?.textContent);
+$("character").addEventListener("change", async event => {
+ await selectCharacter(event.target.value,event.target.selectedOptions[0]?.textContent);
 });
+async function loadHistory() {
+ const selected = currentCharacter;
+ const { data, error } = await db.from("inventory_history")
+  .select("action,item_name,old_quantity,new_quantity,changed_at")
+  .eq("character_id",selected).order("changed_at",{ascending:false}).limit(50);
+ if (selected !== currentCharacter) return;
+ const list = $("history"); list.replaceChildren();
+ if (error) { status("Unable to load history: " + errorText(error)); return; }
+ if (!data.length) { const empty=document.createElement("li"); empty.textContent="No changes recorded yet.";list.append(empty);return; }
+ for (const change of data) {
+  const row=document.createElement("li");
+  const when=new Date(change.changed_at).toLocaleString();
+  const detail=change.action==="added" ? "Added ×"+change.new_quantity :
+   change.action==="removed" ? "Removed ×"+change.old_quantity :
+   "Changed ×"+change.old_quantity+" → ×"+change.new_quantity;
+  row.textContent=when+" · "+change.item_name+" · "+detail;
+  list.append(row);
+ }
+}
 async function loadItems() {
  const selected = currentCharacter;
  const { data, error } = await db.from("inventory_items").select("id,name,description,quantity").eq("character_id", selected).order("name");
@@ -176,7 +88,7 @@ async function loadItems() {
    button.addEventListener("click", async () => {
     button.disabled = true;
     const { error } = await db.rpc("adjust_inventory_quantity", { item_id:item.id, amount:change });
-    if (error) status(errorText(error)); else await loadItems();
+    if (error) status(errorText(error)); else await Promise.all([loadItems(),loadHistory()]);
     button.disabled = false;
    }); actions.append(button);
   }
@@ -185,7 +97,7 @@ async function loadItems() {
    if (!confirm("Remove "+item.name+"?")) return;
    remove.disabled = true;
    const { error } = await db.from("inventory_items").delete().eq("id",item.id).eq("character_id",selected);
-   if (error) status(errorText(error)); else await loadItems();
+   if (error) status(errorText(error)); else await Promise.all([loadItems(),loadHistory()]);
    remove.disabled = false;
   });
   actions.append(remove); li.append(info,actions); list.append(li);
@@ -200,7 +112,7 @@ $("add-item").addEventListener("submit", async event => {
  const { error } = await db.from("inventory_items").insert({
   character_id:currentCharacter, catalog_item_id:$("catalog-item").value, quantity
  });
- if (error) status(errorText(error)); else { event.target.reset(); renderCatalog(); await loadItems(); }
+ if (error) status(errorText(error)); else { event.target.reset(); renderCatalog(); await Promise.all([loadItems(),loadHistory()]); }
  button.disabled = false;
 });
 initialize();

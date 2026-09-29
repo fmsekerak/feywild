@@ -39,3 +39,11 @@
  .portal-grid .portal-character strong{font-size:clamp(.95rem,3.7vw,1.15rem)}
  .portal-grid .portal-character span:last-child{font-size:.65rem}
 }
+
+/* Match the DM icon and card's compact mobile proportions to player cards. */
+@media(max-width:600px){
+ .portal-dm-grid .portal-character{min-height:108px;padding:.55rem .3rem;gap:.25rem;border-radius:12px}
+ .portal-dm-grid .portal-character-symbol{font-size:1.7rem}
+ .portal-dm-grid .portal-character strong{font-size:clamp(.95rem,3.7vw,1.15rem)}
+ .portal-dm-grid .portal-character span:last-child{font-size:.65rem}
+}

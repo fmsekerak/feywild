@@ -4,16 +4,32 @@ const $ = id => document.getElementById(id);
 const db = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
 let currentCharacter = null;
 let catalog = [];
+let initializationVersion = 0;
 const status = message => { $("status").textContent = message; };
 const show = (id, visible) => { $(id).hidden = !visible; };
 const errorText = err => err?.message || "Something went wrong. Please try again.";
 async function initialize() {
+ const version = ++initializationVersion;
  const { data: { session }, error } = await db.auth.getSession();
+ if (version !== initializationVersion) return;
  if (error) { status(errorText(error)); return; }
  show("auth", !session); show("signed-in", !!session);
- if (!session) { status("Sign in with Google to access your characters."); return; }
+ show("welcome", !session); show("satchel-title", !!session);
+ if (!session) {
+  currentCharacter = null;
+  show("inventory", false);
+  show("catalog-admin", false);
+  status("");
+  return;
+ }
  $("account").textContent = session.user.email || "Signed in";
- await Promise.all([loadCharacters(), loadCatalog(), checkDm()]);
+ const { data: dm, error: dmError } = await db.rpc("is_dm");
+ if (version !== initializationVersion) return;
+ const isDm = !dmError && dm === true;
+ show("catalog-admin", isDm);
+ await loadCharacters(session.user.id, isDm, version);
+ if (version !== initializationVersion) return;
+ await loadCatalog();
 }
 $("login").addEventListener("click", async () => {
  const { error } = await db.auth.signInWithOAuth({
@@ -29,10 +45,6 @@ $("logout").addEventListener("click", async () => {
 db.auth.onAuthStateChange(() => { setTimeout(initialize, 0); });
 // The crafting search page uses this same published spreadsheet.
 const CRAFTING_CSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTGEGjryoMoYyFZIWPFrYLLO9M9Z0zq0lbIB4xIe-_-VqRwAQ6KP2ley9HpuDokO9i07lbDD4CnKqVT/pub?gid=1358917249&single=true&output=csv";
-async function checkDm() {
- const { data, error } = await db.rpc("is_dm");
- if (!error) show("catalog-admin", data === true);
-}
 function parseCsv(text) {
  const rows = []; let row=[], field="", quoted=false;
  for (let i=0;i<text.length;i++) {
@@ -100,17 +112,44 @@ function showCatalogDescription() {
 }
 $("item-search").addEventListener("input", renderCatalog);
 $("catalog-item").addEventListener("change", showCatalogDescription);
-async function loadCharacters() {
+async function loadCharacters(userId, isDm, version) {
+ // The membership lookup uses the authenticated user ID, not an email or browser preference.
+ // For DMs, RLS permits the full character list.
+ const memberships = isDm ? { data: [], error: null } :
+  await db.from("character_members").select("character_id").eq("user_id", userId);
+ if (version !== initializationVersion) return;
+ if (memberships.error) { status(errorText(memberships.error)); return; }
  const { data, error } = await db.from("characters").select("id,name").order("name");
+ if (version !== initializationVersion) return;
  if (error) { status(errorText(error)); return; }
- const select = $("character"); select.replaceChildren(new Option("Choose your character", ""));
- for (const character of data) select.add(new Option(character.name, character.id));
- status(data.length ? "Choose your character to see their satchel." : "Your Google login worked! Ask your DM to approve your account and assign a character.");
+ const allowed = isDm ? data : data.filter(character =>
+  memberships.data.some(member => member.character_id === character.id));
+ const select = $("character");
+ select.replaceChildren(new Option("Choose your character", ""));
+ for (const character of allowed) select.add(new Option(character.name, character.id));
+ const autoSelect = !isDm && allowed.length === 1;
+ show("character-selector", isDm || allowed.length > 1);
+ if (autoSelect) {
+  select.value = allowed[0].id;
+  await selectCharacter(allowed[0].id, allowed[0].name);
+ } else {
+  currentCharacter = null;
+  show("inventory", false);
+  $("items").replaceChildren();
+  status(!allowed.length ? "Your login worked! Ask your DM to assign your character." :
+   isDm ? "Choose a character to manage their satchel." :
+   "Choose which adventurer's satchel to open.");
+ }
+}
+async function selectCharacter(id, name) {
+ currentCharacter = id || null;
+ show("inventory", !!currentCharacter);
+ $("items").replaceChildren();
+ $("character-name").textContent = name || "";
+ if (currentCharacter) await loadItems();
 }
 $("character").addEventListener("change", async e => {
- currentCharacter = e.target.value || null; show("inventory", !!currentCharacter);
- $("items").replaceChildren(); $("character-name").textContent = e.target.selectedOptions[0]?.textContent || "";
- if (currentCharacter) await loadItems();
+ await selectCharacter(e.target.value, e.target.selectedOptions[0]?.textContent);
 });
 async function loadItems() {
  const selected = currentCharacter;

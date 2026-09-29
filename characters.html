@@ -10,8 +10,8 @@
 <div id="signed-in" hidden><p id="account"></p><button id="logout" type="button">Sign out</button>
 <label for="character">Select character</label><select id="character"><option value="">Choose your character</option></select>
 <div id="inventory" hidden><h3 id="character-name"></h3><form id="add-item">
-<label for="item-name">Item name</label><input id="item-name" maxlength="120" required>
-<label for="item-description">Description</label><input id="item-description" maxlength="2000">
+<label for="item-search">Find an item</label><input id="item-search" type="search" placeholder="Search available items...">
+<label for="catalog-item">Choose an item</label><select id="catalog-item" required><option value="">Select an item</option></select><p id="catalog-description" aria-live="polite"></p>
 <label for="item-quantity">Quantity</label><input id="item-quantity" type="number" min="1" max="999999" value="1" required>
 <button type="submit">Add item</button></form><ul id="items"></ul></div></div></section></main>
 <script src="assets/js/particles.js"></script><script src="assets/js/shared.js"></script>

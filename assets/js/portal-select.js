@@ -3,6 +3,13 @@ import { SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY } from "./supabase-config.js";
 const db=createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);
 const grid=document.getElementById("portal-characters"),status=document.getElementById("portal-status");
 async function load(){
+ // A previously saved Google session should not hide characters behind old RLS.
+ const {data:{session},error:sessionError}=await db.auth.getSession();
+ if(sessionError){status.textContent="Could not prepare character selection. Refresh and try again.";return;}
+ if(session){
+  const {error:signOutError}=await db.auth.signOut({scope:"local"});
+  if(signOutError){status.textContent="Could not clear your old session. Clear this site's browser data and reload.";return;}
+ }
  const {data,error}=await db.from("characters").select("id,name").order("name");
  if(error){status.textContent="Could not load characters. Check that the public inventory SQL migration has been run.";return;}
  const characters=data||[];

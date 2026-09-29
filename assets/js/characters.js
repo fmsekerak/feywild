@@ -39,14 +39,14 @@ function parseCsv(text) {
   const ch=text[i];
   if (ch==='"') { if (quoted && text[i+1]==='"') {field+='"';i++;} else quoted=!quoted; }
   else if (ch==="," && !quoted) {row.push(field);field="";}
-  else if ((ch==="\\r"||ch==="\\n")&&!quoted) {
-   if(ch==="\\r"&&text[i+1]==="\\n") i++;
+  else if ((ch==="\r"||ch==="\n")&&!quoted) {
+   if(ch==="\r"&&text[i+1]==="\n") i++;
    row.push(field);if(row.some(x=>x.trim()))rows.push(row);row=[];field="";
   } else field+=ch;
  }
  if(quoted)throw Error("Unclosed quoted field in crafting spreadsheet");
  if(field||row.length){row.push(field);if(row.some(x=>x.trim()))rows.push(row);}
- const headers=(rows.shift()||[]).map(x=>x.replace(/^\\uFEFF/,"").trim().toLowerCase().replace(/\\(.*?\\)/g,"").replace(/\\s+/g,"_").replace(/[^\\w]/g,""));
+ const headers=(rows.shift()||[]).map(x=>x.replace(/^\uFEFF/,"").trim().toLowerCase().replace(/\(.*?\)/g,"").replace(/\s+/g,"_").replace(/[^\w]/g,""));
  return rows.map(r=>Object.fromEntries(headers.map((h,i)=>[h,(r[i]||"").trim()])));
 }
 $("sync-crafting").addEventListener("click", async () => {
@@ -55,7 +55,7 @@ $("sync-crafting").addEventListener("click", async () => {
   const response=await fetch(CRAFTING_CSV,{cache:"no-store"});
   if(!response.ok)throw Error("Could not fetch crafting spreadsheet ("+response.status+")");
   const csv=await response.text();
-  if(/^\\s*<!doctype html|^\\s*<html/i.test(csv))throw Error("Spreadsheet returned HTML, not CSV");
+  if(/^\s*<!doctype html|^\s*<html/i.test(csv))throw Error("Spreadsheet returned HTML, not CSV");
   const recipes=parseCsv(csv), unique=new Map();
   for(const recipe of recipes){
    const name=(recipe.name||recipe.item_name||"").trim();

@@ -113,32 +113,39 @@ function showCatalogDescription() {
 $("item-search").addEventListener("input", renderCatalog);
 $("catalog-item").addEventListener("change", showCatalogDescription);
 async function loadCharacters(userId, isDm, version) {
- // The membership lookup uses the authenticated user ID, not an email or browser preference.
- // For DMs, RLS permits the full character list.
- const memberships = isDm ? { data: [], error: null } :
-  await db.from("character_members").select("character_id").eq("user_id", userId);
+ // Both players and DMs get their personal character from their own login ID.
+ // DM privileges still allow catalog administration, but do not choose a different character.
+ const { data: memberships, error: membershipError } = await db.from("character_members")
+  .select("character_id").eq("user_id", userId);
  if (version !== initializationVersion) return;
- if (memberships.error) { status(errorText(memberships.error)); return; }
- const { data, error } = await db.from("characters").select("id,name").order("name");
- if (version !== initializationVersion) return;
- if (error) { status(errorText(error)); return; }
- const allowed = isDm ? data : data.filter(character =>
-  memberships.data.some(member => member.character_id === character.id));
- const select = $("character");
- select.replaceChildren(new Option("Choose your character", ""));
- for (const character of allowed) select.add(new Option(character.name, character.id));
- const autoSelect = !isDm && allowed.length === 1;
- show("character-selector", isDm || allowed.length > 1);
- if (autoSelect) {
-  select.value = allowed[0].id;
-  await selectCharacter(allowed[0].id, allowed[0].name);
+ if (membershipError) { status(errorText(membershipError)); return; }
+ const assignedIds = (memberships || []).map(member => member.character_id);
+ let assigned = [];
+ if (assignedIds.length) {
+  const { data, error } = await db.from("characters")
+   .select("id,name").in("id", assignedIds).order("name");
+  if (version !== initializationVersion) return;
+  if (error) { status(errorText(error)); return; }
+  assigned = data || [];
+ }
+ // Support the existing DM setup, where the DM character may not yet have a membership row.
+ // For long-term consistency, also assign the DM login to this character in character_members.
+ if (isDm && assigned.length === 0) {
+  const { data, error } = await db.from("characters").select("id,name").ilike("name","DM");
+  if (version !== initializationVersion) return;
+  if (error) { status(errorText(error)); return; }
+  if ((data || []).length === 1) assigned = data;
+ }
+ show("character-selector", false);
+ if (assigned.length === 1) {
+  await selectCharacter(assigned[0].id, assigned[0].name);
  } else {
   currentCharacter = null;
   show("inventory", false);
   $("items").replaceChildren();
-  status(!allowed.length ? "Your login worked! Ask your DM to assign your character." :
-   isDm ? "Choose a character to manage their satchel." :
-   "Choose which adventurer's satchel to open.");
+  status(assigned.length === 0 ?
+   "You're signed in! Ask your DM to link this Google account to your character." :
+   "More than one character is linked to this login. Ask your DM to keep one active assignment.");
  }
 }
 async function selectCharacter(id, name) {

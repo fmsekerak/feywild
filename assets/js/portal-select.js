@@ -1,7 +1,7 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY } from "./supabase-config.js";
 const db=createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);
-const grid=document.getElementById("portal-characters"),status=document.getElementById("portal-status");
+const grid=document.getElementById("portal-characters"),dmGrid=document.getElementById("portal-dm"),dmSection=document.getElementById("portal-dm-section"),status=document.getElementById("portal-status");
 async function load(){
  // A previously saved Google session should not hide characters behind old RLS.
  const {data:{session},error:sessionError}=await db.auth.getSession();
@@ -21,7 +21,8 @@ async function load(){
   const caption=document.createElement("span");caption.textContent=character.name.trim().toLowerCase()==="dm"?"Enter as Dungeon Master":"Enter the Feywild";
   button.append(symbol,name,caption);
   button.addEventListener("click",()=>{sessionStorage.setItem("feywild-character-id",character.id);sessionStorage.setItem("feywild-character-name",character.name);location.href="home.html";});
-  grid.append(button);
+  if(character.name.trim().toLowerCase()==="dm") { dmSection.hidden=false;dmGrid.append(button); }
+  else grid.append(button);
  }
  status.textContent="";
 }

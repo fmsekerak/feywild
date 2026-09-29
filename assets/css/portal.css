@@ -8,3 +8,20 @@
 .portal-dm-grid{display:flex;justify-content:center}
 .portal-dm-grid .portal-character{width:min(100%,280px);min-height:165px;background:linear-gradient(155deg,#49394f,#213a36);border-color:#bc9bca}
 .portal-dm-grid .portal-character-symbol{color:#ffd4ef;text-shadow:0 0 18px #ff9cff}
+
+/* Character selection banner: retain the existing magical background and particles. */
+.banner .portal-banner-title{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:.3rem .8rem;text-align:center;font-size:clamp(1.65rem,4vw,3.2rem);line-height:1.2;padding:0 .7rem}
+.portal-banner-stars{font-size:.55em;white-space:nowrap;letter-spacing:.2em;color:#b6f5d8;text-shadow:0 0 14px #55f4bc}
+@media(max-width:600px){
+ .banner .portal-banner-title{font-size:clamp(1.4rem,6vw,2rem);gap:.1rem .5rem}
+ .portal-banner-stars{font-size:.55em;letter-spacing:.08em}
+ .portal-intro{padding:1rem .75rem}
+ .portal-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:.65rem;margin:.85rem 0}
+ .portal-grid .portal-character{min-width:0;min-height:125px;padding:.7rem .35rem;gap:.35rem;border-radius:12px}
+ .portal-grid .portal-character-symbol{font-size:2rem}
+ .portal-grid .portal-character strong{font-size:clamp(1rem,4vw,1.25rem);overflow-wrap:anywhere}
+ .portal-grid .portal-character span:last-child{font-size:.7rem}
+ .portal-dm-section{margin-top:1.6rem;padding-top:1rem}
+ .portal-dm-grid .portal-character{min-height:125px;width:min(100%,220px)}
+ .portal-dm-grid .portal-character-symbol{font-size:2.3rem}
+}

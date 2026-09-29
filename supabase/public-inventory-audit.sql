@@ -9,7 +9,11 @@ create policy "Public reads character names" on public.characters for select to 
 create policy "Public browses item catalog" on public.item_catalog for select to anon using (true);
 
 -- Allow shared inventory changes, but keep the catalog and character administration private.
-grant select, insert, update, delete on public.inventory_items to anon;
+grant select, delete on public.inventory_items to anon;
+-- Prevent anonymous callers from changing item identity, description or ownership.
+revoke insert, update on public.inventory_items from anon;
+grant insert(character_id,catalog_item_id,quantity) on public.inventory_items to anon;
+grant update(quantity) on public.inventory_items to anon;
 create policy "Public reads shared inventory" on public.inventory_items for select to anon using (true);
 create policy "Public adds shared inventory" on public.inventory_items for insert to anon with check (true);
 create policy "Public edits shared inventory" on public.inventory_items for update to anon using (true) with check (true);

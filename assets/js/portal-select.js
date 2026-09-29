@@ -18,8 +18,7 @@ async function load(){
   const button=document.createElement("button");button.type="button";button.className="portal-character";
   const symbol=document.createElement("span");symbol.className="portal-character-symbol";symbol.setAttribute("aria-hidden","true");symbol.textContent=character.name.trim().toLowerCase()==="dm"?"♛":"✧";
   const name=document.createElement("strong");name.textContent=character.name;
-  const caption=document.createElement("span");caption.textContent=character.name.trim().toLowerCase()==="dm"?"Enter as Dungeon Master":"Enter the Feywild";
-  button.append(symbol,name,caption);
+  button.append(symbol,name);
   button.addEventListener("click",()=>{sessionStorage.setItem("feywild-character-id",character.id);sessionStorage.setItem("feywild-character-name",character.name);location.href="home.html";});
   if(character.name.trim().toLowerCase()==="dm") { dmSection.hidden=false;dmGrid.append(button); }
   else grid.append(button);

@@ -46,3 +46,24 @@
 .satchel-dm-panel p{color:#d6eee4}
 button:disabled{opacity:.55;cursor:wait}
 @media(max-width:760px){.satchel-columns{grid-template-columns:1fr}.satchel-panel{padding:1rem}.satchel-main{padding:.65rem}.satchel-card{padding:1rem}}
+
+/* Fairy-garden welcome state: CSS-only illustration, no third-party images. */
+#welcome[hidden],#satchel-title[hidden],#character-selector[hidden]{display:none!important}
+.satchel-welcome{text-align:center;padding:clamp(.6rem,2vw,1.5rem) 0 1rem}
+.satchel-welcome h2{color:#fad9e9;font:normal bold clamp(2rem,5vw,3.2rem) Garamond,Georgia,serif;letter-spacing:.025em;text-shadow:0 0 18px #ff9cff66}
+.satchel-welcome .section-intro{max-width:32rem;margin:.5rem auto 1.2rem;font-size:1.08rem}
+.welcome-illustration{height:clamp(155px,27vw,235px);max-width:510px;margin:0 auto 1.1rem;position:relative;isolation:isolate;overflow:hidden;
+ border-radius:100% 100% 28px 28px;background:
+ radial-gradient(circle at 52% 42%,#ffe4f3bb 0 1%,transparent 19%),
+ radial-gradient(ellipse at 50% 95%,#85c7a555,transparent 65%),
+ linear-gradient(165deg,#142e2a,#305b54 60%,#1b3731);
+ border:1px solid #83bb9a;box-shadow:inset 0 0 45px #0a221b,0 0 24px #ffb3ff33}
+.welcome-illustration:before,.welcome-illustration:after{content:"";position:absolute;bottom:-38%;width:75%;height:90%;border:2px solid #88cba588;border-radius:50%;box-shadow:0 0 20px #55f4bc33}
+.welcome-illustration:before{left:-37%;transform:rotate(-24deg)}
+.welcome-illustration:after{right:-37%;transform:rotate(24deg)}
+.welcome-moon{position:absolute;left:25%;top:6%;font-size:clamp(4rem,12vw,7rem);line-height:1;color:#f8ddeb;text-shadow:0 0 28px #ffd3f7}
+.welcome-fairy{position:absolute;left:57%;top:14%;font-size:clamp(3rem,9vw,6rem);color:#c8ffe8;text-shadow:0 0 10px #55f4bc,0 0 38px #ff9cff;transform:rotate(-16deg)}
+.welcome-flowers{position:absolute;bottom:2%;left:0;right:0;color:#ffb3d8;font-size:clamp(1.6rem,5vw,3rem);letter-spacing:1.1rem;text-shadow:0 0 12px #ff9cff}
+#auth{text-align:center}
+#auth .fey-button{font-size:1.08rem;padding:.9rem 1.8rem;margin:0 auto 1.3rem}
+.google-g{display:inline-grid;place-items:center;background:#fff;color:#4285f4;font:bold 1rem Arial,sans-serif;width:1.65rem;height:1.65rem;border-radius:50%;margin-right:.5rem;text-shadow:none}

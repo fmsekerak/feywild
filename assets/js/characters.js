@@ -13,7 +13,7 @@ async function initialize() {
  show("auth", !session); show("signed-in", !!session);
  if (!session) { status("Sign in with Google to access your characters."); return; }
  $("account").textContent = session.user.email || "Signed in";
- await Promise.all([loadCharacters(), loadCatalog()]);
+ await Promise.all([loadCharacters(), loadCatalog(), checkDm()]);
 }
 $("login").addEventListener("click", async () => {
  const { error } = await db.auth.signInWithOAuth({
@@ -27,6 +27,58 @@ $("logout").addEventListener("click", async () => {
  else { currentCharacter = null; $("items").replaceChildren(); show("inventory",false); await initialize(); }
 });
 db.auth.onAuthStateChange(() => { setTimeout(initialize, 0); });
+// The crafting search page uses this same published spreadsheet.
+const CRAFTING_CSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTGEGjryoMoYyFZIWPFrYLLO9M9Z0zq0lbIB4xIe-_-VqRwAQ6KP2ley9HpuDokO9i07lbDD4CnKqVT/pub?gid=1358917249&single=true&output=csv";
+async function checkDm() {
+ const { data, error } = await db.rpc("is_dm");
+ if (!error) show("catalog-admin", data === true);
+}
+function parseCsv(text) {
+ const rows = []; let row=[], field="", quoted=false;
+ for (let i=0;i<text.length;i++) {
+  const ch=text[i];
+  if (ch==='"') { if (quoted && text[i+1]==='"') {field+='"';i++;} else quoted=!quoted; }
+  else if (ch==="," && !quoted) {row.push(field);field="";}
+  else if ((ch==="\\r"||ch==="\\n")&&!quoted) {
+   if(ch==="\\r"&&text[i+1]==="\\n") i++;
+   row.push(field);if(row.some(x=>x.trim()))rows.push(row);row=[];field="";
+  } else field+=ch;
+ }
+ if(quoted)throw Error("Unclosed quoted field in crafting spreadsheet");
+ if(field||row.length){row.push(field);if(row.some(x=>x.trim()))rows.push(row);}
+ const headers=(rows.shift()||[]).map(x=>x.replace(/^\\uFEFF/,"").trim().toLowerCase().replace(/\\(.*?\\)/g,"").replace(/\\s+/g,"_").replace(/[^\\w]/g,""));
+ return rows.map(r=>Object.fromEntries(headers.map((h,i)=>[h,(r[i]||"").trim()])));
+}
+$("sync-crafting").addEventListener("click", async () => {
+ const button=$("sync-crafting");button.disabled=true;status("Importing crafting recipes...");
+ try {
+  const response=await fetch(CRAFTING_CSV,{cache:"no-store"});
+  if(!response.ok)throw Error("Could not fetch crafting spreadsheet ("+response.status+")");
+  const csv=await response.text();
+  if(/^\\s*<!doctype html|^\\s*<html/i.test(csv))throw Error("Spreadsheet returned HTML, not CSV");
+  const recipes=parseCsv(csv), unique=new Map();
+  for(const recipe of recipes){
+   const name=(recipe.name||recipe.item_name||"").trim();
+   if(!name)continue;
+   const professionKey=Object.keys(recipe).find(k=>/profess|branch|category|crafting_type|type_of_craft/.test(k)&&recipe[k]);
+   const rarityKey=Object.keys(recipe).find(k=>/rarity/.test(k)&&recipe[k]);
+   const category=professionKey?recipe[professionKey]:"Crafting";
+   const rarity=rarityKey?recipe[rarityKey]:"Common";
+   // Keep the existing description column; crafting details remain on the crafting page.
+   unique.set(name.toLowerCase(),{name,description:recipe.description||"",category:category.slice(0,200),rarity:rarity.slice(0,100)});
+  }
+  if(!unique.size)throw Error("No named recipes were found in the spreadsheet");
+  const rows=[...unique.values()];
+  // Upsert in small batches; database RLS permits only DMs to import.
+  for(let i=0;i<rows.length;i+=100){
+   const {error}=await db.from("item_catalog").upsert(rows.slice(i,i+100),{onConflict:"name"});
+   if(error)throw error;
+  }
+  await loadCatalog();
+  status("Imported or updated "+rows.length+" crafting items. They are now available to select.");
+ } catch(error){status("Import failed: "+errorText(error));}
+ finally{button.disabled=false;}
+});
 async function loadCatalog() {
  const { data, error } = await db.from("item_catalog").select("id,name,description,category,rarity").order("name");
  if (error) { status("Could not load item catalog: " + errorText(error)); return; }

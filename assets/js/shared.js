@@ -21,8 +21,9 @@
   });
 
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  document.querySelectorAll('a').forEach(link => {
-    link.addEventListener('mousemove', event => {
+  // Delegation includes dynamically inserted character selection buttons.
+  document.addEventListener('mousemove', event => {
+      if (!event.target.closest('a, button')) return;
       if (reducedMotion.matches || Math.random() > 0.3) return;
       const sparkle = document.createElement('span');
       sparkle.className = 'sparkle';
@@ -30,7 +31,6 @@
       sparkle.style.top = `${event.clientY + (Math.random() * 8 - 4)}px`;
       document.body.append(sparkle);
       setTimeout(() => sparkle.remove(), 700);
-    });
   });
 
   const backToTop = document.createElement('button');

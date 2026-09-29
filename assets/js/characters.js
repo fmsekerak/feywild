@@ -9,6 +9,9 @@ const show = (id, visible) => { $(id).hidden = !visible; };
 const errorText = err => err?.message || "Something went wrong. Please try again.";
 async function initialize() {
  status("Gathering the adventurers...");
+ // Clear any previous Google session so all visitors use the same public RLS policies.
+ const { data: { session } } = await db.auth.getSession();
+ if (session) await db.auth.signOut({ scope: "local" });
  const { data, error } = await db.from("characters").select("id,name").order("name");
  if (error) { status("Unable to load characters: " + errorText(error) + ". Has the public inventory SQL been run?"); return; }
  const picker = $("character");

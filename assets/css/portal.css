@@ -20,3 +20,9 @@
  .portal-dm-grid .portal-character{min-height:125px;width:min(100%,220px)}
  .portal-dm-grid .portal-character-symbol{font-size:2.3rem}
 }
+
+/* Compact character-selection heading without changing the main Feywild banner. */
+.portal-intro{max-width:650px;margin:0 auto 1rem;padding:.85rem 1rem}
+.portal-intro h2{font-size:clamp(1.35rem,3.5vw,2rem);line-height:1.2}
+.portal-intro .portal-stars{font-size:1.15rem;letter-spacing:.45rem;line-height:1.3;margin-bottom:.25rem}
+@media(max-width:600px){.portal-intro{max-width:100%;padding:.7rem .55rem;margin-bottom:.75rem}.portal-intro h2{font-size:clamp(1.2rem,5vw,1.55rem)}.portal-intro .portal-stars{font-size:1rem;letter-spacing:.3rem}}

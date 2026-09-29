@@ -7,8 +7,9 @@
   let particles = [], frame = null;
 
   function resize() {
-    canvas.width = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
+    const bounds = canvas.getBoundingClientRect();
+    canvas.width = Math.max(1, Math.round(bounds.width));
+    canvas.height = Math.max(1, Math.round(bounds.height));
     const count = canvas.width < 600 ? 40 : 80;
     particles = Array.from({ length: count }, () => ({
       x: Math.random() * canvas.width, y: Math.random() * canvas.height,
@@ -58,5 +59,6 @@
   update();
   window.addEventListener('resize', () => { resize(); update(); });
   document.addEventListener('visibilitychange', update);
-  reducedMotion.addEventListener('change', update);
+  if (reducedMotion.addEventListener) reducedMotion.addEventListener('change', update);
+  else if (reducedMotion.addListener) reducedMotion.addListener(update);
 })();

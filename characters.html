@@ -1,19 +1,60 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Feywild | Adventurer Inventory</title>
-<link rel="stylesheet" href="assets/css/style.css"><link rel="stylesheet" href="assets/css/shared.css">
-<link rel="stylesheet" href="assets/css/characters.css"></head>
-<body><header class="banner"><canvas id="bannerParticles"></canvas><h1>Adventurer's Satchel</h1></header>
-<nav><ul><li><a href="index.html">Home</a></li><li><a href="crafting.html">Crafting</a></li><li><a href="search.html">Search</a></li><li><a href="characters.html" class="active" aria-current="page">Characters</a></li></ul></nav>
-<main><section class="card"><h2>Your Adventurers</h2><p id="status" role="status" aria-live="polite">Preparing the magic...</p>
-<div id="auth"><button id="login" type="button">Continue with Google</button></div>
-<div id="signed-in" hidden><p id="account"></p><button id="logout" type="button">Sign out</button>
-<label for="character">Select character</label><select id="character"><option value="">Choose your character</option></select>
-<section id="catalog-admin" hidden><h3>DM Item Catalog</h3><p>Import recipes from your existing crafting spreadsheet into the item catalog. Re-import to update descriptions, professions, and rarities.</p><button type="button" id="sync-crafting">Import / update crafting recipes</button></section>
-<div id="inventory" hidden><h3 id="character-name"></h3><form id="add-item">
-<label for="item-search">Find an item</label><input id="item-search" type="search" placeholder="Search available items...">
-<label for="catalog-item">Choose an item</label><select id="catalog-item" required><option value="">Select an item</option></select><p id="catalog-description" aria-live="polite"></p>
-<label for="item-quantity">Quantity</label><input id="item-quantity" type="number" min="1" max="999999" value="1" required>
-<button type="submit">Add item</button></form><ul id="items"></ul></div></div></section></main>
-<script src="assets/js/particles.js"></script><script src="assets/js/shared.js"></script>
-<script type="module" src="assets/js/characters.js"></script></body></html>
+<html lang="en">
+<head>
+ <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+ <title>Feywild | Adventurer's Satchel</title>
+ <link rel="stylesheet" href="assets/css/style.css">
+ <link rel="stylesheet" href="assets/css/shared.css">
+ <link rel="stylesheet" href="assets/css/characters.css">
+</head>
+<body>
+ <header class="banner"><canvas id="bannerParticles"></canvas><h1>Adventurer's Satchel</h1></header>
+ <nav><ul>
+  <li><a href="index.html">Home</a></li>
+  <li class="dropdown"><a href="crafting.html">Crafting</a><button class="submenu-toggle" type="button" aria-label="Toggle Crafting submenu" aria-controls="crafting-submenu" aria-expanded="false">▾</button><ul class="dropdown-menu" id="crafting-submenu"><li><a href="crafting.html">Overview</a></li><li><a href="alchemy.html">Alchemy</a></li></ul></li>
+  <li><a href="search.html">Search</a></li>
+  <li><a href="source.html">Sources</a></li>
+  <li><a href="characters.html" class="active" aria-current="page">Characters</a></li>
+ </ul></nav>
+ <main class="satchel-main">
+  <section class="card satchel-card">
+   <div class="satchel-heading"><span class="satchel-sparkle" aria-hidden="true">✧</span><h2>Your Adventurers</h2><span class="satchel-sparkle" aria-hidden="true">✧</span></div>
+   <p class="section-intro">A little magic for everything you carry.</p>
+   <p id="status" role="status" aria-live="polite">Preparing the magic...</p>
+   <div id="auth"><button id="login" class="fey-button" type="button">✧ Continue with Google</button></div>
+   <div id="signed-in" hidden>
+    <div class="satchel-account"><span id="account"></span><button id="logout" type="button" class="satchel-text-button">Sign out</button></div>
+    <div class="satchel-character-select"><label for="character">Choose your adventurer</label><select id="character"><option value="">Choose your character</option></select></div>
+    <div id="inventory" hidden>
+     <div class="satchel-divider" aria-hidden="true">✦</div>
+     <h3 id="character-name" class="satchel-character-name"></h3>
+     <div class="satchel-columns">
+      <section class="satchel-panel satchel-add-panel" aria-labelledby="satchel-add-heading">
+       <h4 id="satchel-add-heading">✧ Add to your satchel</h4>
+       <form id="add-item">
+        <label for="item-search">Find an item</label><input id="item-search" type="search" placeholder="Search enchanted treasures..." autocomplete="off">
+        <label for="catalog-item">Choose an item</label><select id="catalog-item" required><option value="">Select an item</option></select>
+        <p id="catalog-description" aria-live="polite"></p>
+        <label for="item-quantity">Quantity</label><input id="item-quantity" type="number" min="1" max="999999" value="1" required>
+        <button class="fey-button" type="submit">✧ Add item</button>
+       </form>
+      </section>
+      <section class="satchel-panel satchel-items-panel" aria-labelledby="satchel-items-heading">
+       <h4 id="satchel-items-heading">✧ Your belongings</h4>
+       <p class="satchel-items-hint">Your gathered curiosities and treasures.</p>
+       <ul id="items"></ul>
+      </section>
+     </div>
+    </div>
+    <section id="catalog-admin" class="satchel-panel satchel-dm-panel" hidden>
+     <h3>✧ DM Item Catalog</h3>
+     <p>Bring new recipes from your crafting spreadsheet into the shared catalog.</p>
+     <button type="button" id="sync-crafting" class="fey-button">✧ Import / update crafting recipes</button>
+    </section>
+   </div>
+  </section>
+ </main>
+ <script src="assets/js/particles.js"></script><script src="assets/js/shared.js"></script>
+ <script type="module" src="assets/js/characters.js"></script>
+</body>
+</html>

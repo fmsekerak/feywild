@@ -1,6 +1,48 @@
-#signed-in[hidden],#inventory[hidden],#auth[hidden]{display:none}
-#signed-in{display:grid;gap:1rem}#add-item{display:grid;gap:.6rem;max-width:30rem}
-#character{max-width:30rem}#items{padding:0;list-style:none;display:grid;gap:.75rem}
-.inventory-row{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;padding:1rem;border:1px solid #d7b8cb;border-radius:14px}
-.inventory-row p{margin:.25rem 0;overflow-wrap:anywhere}.item-actions{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
-button{cursor:pointer}button:disabled{opacity:.55;cursor:wait}
+/* Adventurer's Satchel — matches the crafting/search pages' forest-and-pink theme. */
+#auth[hidden],#signed-in[hidden],#inventory[hidden],#catalog-admin[hidden]{display:none!important}
+.satchel-main{max-width:1100px}
+.satchel-card{padding:clamp(1rem,3vw,2rem)}
+.satchel-heading{display:flex;justify-content:center;align-items:center;gap:.9rem;text-align:center}
+.satchel-heading h2{color:#fad9e9;font-family:Garamond,Georgia,serif;font-size:clamp(1.8rem,4vw,2.5rem);letter-spacing:.03em}
+.satchel-sparkle{color:#55f4bc;font-size:1.6rem;text-shadow:0 0 10px #55f4bc}
+#status{text-align:center;color:#e8f7eb;margin:.75rem 0 1.2rem;min-height:1.5rem}
+#signed-in{display:grid;gap:1.4rem}
+.satchel-account{display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap;color:#e8f7eb;font-size:.92rem}
+.satchel-text-button{font:inherit;color:#fad9e9;background:transparent;border:0;text-decoration:underline;text-underline-offset:3px;padding:.3rem}
+.satchel-text-button:hover{color:#ffb3ff}
+.satchel-character-select{display:grid;gap:.5rem;max-width:26rem;width:100%;margin:0 auto;text-align:center}
+.satchel-character-select label,.satchel-panel label{font-weight:bold;color:#b6f5d8}
+.satchel-character-select select,.satchel-panel select,.satchel-panel input{
+ width:100%;min-width:0;padding:.7rem 1rem;border:1px solid rgba(255,179,255,.6);border-radius:999px;
+ color:#36263d;background:linear-gradient(135deg,#f8e8f4,#e1f4e7);
+ box-shadow:0 0 10px rgba(255,179,255,.25);font:inherit;font-size:1rem;
+}
+.satchel-panel input:focus,.satchel-panel select:focus,.satchel-character-select select:focus{
+ outline:2px solid #ffb3ff;outline-offset:2px;box-shadow:0 0 16px rgba(255,179,255,.55)
+}
+.satchel-divider{display:flex;align-items:center;gap:1rem;color:#55f4bc;justify-content:center;margin:.4rem 0}
+.satchel-divider:before,.satchel-divider:after{content:"";height:1px;flex:1;background:linear-gradient(90deg,transparent,#4fa37c,transparent)}
+.satchel-character-name{text-align:center;color:#fad9e9;font:normal 2rem Garamond,Georgia,serif;margin:.5rem 0 1.2rem}
+.satchel-columns{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:1.2rem;align-items:start}
+.satchel-panel{min-width:0;padding:1.3rem;border:1px solid #4fa37c;border-radius:12px;background:#1f3a36f2;box-shadow:0 4px 12px #0006}
+.satchel-panel h4,.satchel-panel h3{color:#fad9e9;text-align:center;font:normal bold 1.45rem Garamond,Georgia,serif;margin:0 0 1rem}
+#add-item{display:grid;gap:.65rem}
+#catalog-description{color:#d7f5e8;font-style:italic;text-align:left;overflow-wrap:anywhere;min-height:1.2rem;font-size:.92rem}
+.satchel-panel .fey-button{margin:1rem auto .1rem;cursor:pointer}
+.satchel-items-hint{color:#cbe9da;font-style:italic;font-size:.9rem;margin:-.5rem 0 1rem}
+#items{list-style:none;display:grid;gap:.75rem;padding:0;margin:0}
+.inventory-row{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+ padding:1rem;border:1px solid #4fa37c;border-radius:8px;background:#14201ef2;
+ box-shadow:0 4px 12px #0005;transition:border-color .2s,box-shadow .2s}
+.inventory-row:hover{border-color:#ff9cff;box-shadow:0 0 10px #ff9cff44}
+.inventory-row>div:first-child{min-width:0;flex:1 1 12rem}
+.inventory-row strong{color:#fad9e9;font-size:1.07rem}
+.inventory-row p{text-align:left;color:#d6eee4;font-size:.92rem;margin:.25rem 0 0;overflow-wrap:anywhere}
+.item-actions{display:flex;gap:.45rem;align-items:center;flex-wrap:wrap}
+.item-actions button{font:inherit;border:1px solid #ffb3ff88;color:#ffe6f2;background:#5e3460;
+ border-radius:999px;padding:.35rem .7rem;min-width:2.4rem;box-shadow:0 0 8px #ffb3ff33}
+.item-actions button:hover{background:#7c477b;box-shadow:0 0 12px #ffb3ff88}
+.satchel-dm-panel{margin-top:1.3rem;text-align:center;background:#192e2b}
+.satchel-dm-panel p{color:#d6eee4}
+button:disabled{opacity:.55;cursor:wait}
+@media(max-width:760px){.satchel-columns{grid-template-columns:1fr}.satchel-panel{padding:1rem}.satchel-main{padding:.65rem}.satchel-card{padding:1rem}}

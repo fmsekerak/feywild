@@ -50,3 +50,19 @@
  .portal-dm-grid .portal-character strong{font-size:clamp(.95rem,3.7vw,1.15rem)}
  .portal-dm-grid .portal-character span:last-child{font-size:.65rem}
 }
+
+/* Storybook court portraits: soft scenic art under a translucent veil. */
+.portal-character{position:relative;isolation:isolate;overflow:hidden;background-size:cover;background-position:center;border:2px solid var(--court-border,#c4a8b9);box-shadow:0 8px 22px #0007,inset 0 0 18px #fff2}
+.portal-character::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,#14201e35 0%,#192b2b4d 43%,#172423b8 100%);transition:background .25s}
+.portal-character:hover::before,.portal-character:focus-visible::before{background:linear-gradient(180deg,#14201e1f,#192b2b40 40%,#172423ad)}
+.portal-character-symbol{line-height:1.1;filter:drop-shadow(0 2px 5px #201924a6);text-shadow:0 2px 10px #fff9}
+.portal-character strong{position:relative;color:#fff2e9;text-shadow:0 2px 5px #1c1a27,0 0 12px #1c1a27;letter-spacing:.025em}
+.portal-theme-mion{--court-border:#edaa98;background-image:url("../images/portal-mion.svg")}
+.portal-theme-ruin{--court-border:#c6d6a7;background-image:url("../images/portal-ruin.svg")}
+.portal-theme-crotus{--court-border:#f0cb89;background-image:url("../images/portal-crotus.svg")}
+.portal-theme-hayden{--court-border:#c7c4ee;background-image:url("../images/portal-hayden.svg")}
+.portal-dm-grid .portal-theme-dm{--court-border:#f6b5d9;background-image:url("../images/portal-dm.svg")}
+.portal-dm-grid .portal-character-symbol{filter:drop-shadow(0 0 8px #ff9cce)}
+.portal-intro{border-color:#e6a7ca;background:linear-gradient(125deg,#4c3b52e8,#35534eea);box-shadow:0 0 20px #eea5d438}
+.portal-dm-section{border-top-color:#d5a2c288}
+@media(max-width:600px){.portal-character{border-width:1.5px}.portal-character-symbol{line-height:1}}

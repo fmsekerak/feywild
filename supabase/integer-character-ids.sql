@@ -55,6 +55,8 @@ do $$ begin
 end $$;
 alter table public.inventory_items drop column character_id;
 alter table public.inventory_items rename column character_id_new to character_id;
+-- Column-level INSERT grant for the old UUID character_id does not carry over.
+grant insert(character_id,catalog_item_id,quantity) on public.inventory_items to anon;
 alter table public.inventory_items alter column character_id set not null;
 alter table public.inventory_items add constraint inventory_items_character_id_fkey
  foreign key(character_id) references public.characters(id) on delete cascade;

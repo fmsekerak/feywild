@@ -71,11 +71,11 @@
 .portal-character-symbol{display:flex;align-items:center;justify-content:center;min-height:3.1rem}
 .portal-character-portrait{display:block;width:4.8rem;height:4.8rem;max-width:100%;object-fit:contain;filter:drop-shadow(0 2px 3px #1a182a80)}
 .portal-grid .portal-character,.portal-dm-grid .portal-character{background-size:cover;background-position:center}
-.portal-theme-mion{background-image:linear-gradient(#302a302b,#302a3040),url("../images/mion-background.webp"),url("../images/portal-mion.svg")}
-.portal-theme-ruin{background-image:linear-gradient(#263e302b,#263e3040),url("../images/ruin-background.webp"),url("../images/portal-ruin.svg")}
-.portal-theme-crotus{background-image:linear-gradient(#42331f2b,#42331f40),url("../images/crotus-background.webp"),url("../images/portal-crotus.svg")}
-.portal-theme-hayden{background-image:linear-gradient(#30344b2b,#30344b40),url("../images/hayden-background.webp"),url("../images/portal-hayden.svg")}
-.portal-dm-grid .portal-theme-dm{background-image:linear-gradient(#51364a2b,#51364a40),url("../images/dm-background.webp"),url("../images/portal-dm.svg")}
+.portal-theme-mion{background-image:linear-gradient(#302a302b,#302a3040),url("../images/mion_bg.png"),url("../images/portal-mion.svg")}
+.portal-theme-ruin{background-image:linear-gradient(#263e302b,#263e3040),url("../images/ruin_bg.png"),url("../images/portal-ruin.svg")}
+.portal-theme-crotus{background-image:linear-gradient(#42331f2b,#42331f40),url("../images/crotus_bg.png"),url("../images/portal-crotus.svg")}
+.portal-theme-hayden{background-image:linear-gradient(#30344b2b,#30344b40),url("../images/hayden_bg.png"),url("../images/portal-hayden.svg")}
+.portal-dm-grid .portal-theme-dm{background-image:linear-gradient(#51364a2b,#51364a40),url("../images/dm_bg.png"),url("../images/portal-dm.svg")}
 @media(max-width:600px){
  .portal-character-symbol{min-height:1.7rem}
  .portal-character-portrait{width:2.8rem;height:2.8rem}

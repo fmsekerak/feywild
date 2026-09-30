@@ -80,3 +80,12 @@
  .portal-character-symbol{min-height:1.7rem}
  .portal-character-portrait{width:2.8rem;height:2.8rem}
 }
+
+/* Zoom the uploaded landscape art slightly past the rounded card edges.
+   The PNG exports contain a narrow dark rim that cover alone can expose. */
+.portal-grid .portal-character,
+.portal-dm-grid .portal-character{
+ background-size:100% 100%, 112% 112%, cover;
+ background-position:center, center, center;
+ background-repeat:no-repeat;
+}

@@ -81,11 +81,11 @@
  .portal-character-portrait{width:2.8rem;height:2.8rem}
 }
 
-/* Zoom the uploaded landscape art slightly past the rounded card edges.
-   The PNG exports contain a narrow dark rim that cover alone can expose. */
+/* Preserve the original landscape proportions. Cover fills the card by
+   cropping overflow horizontally or vertically instead of stretching the art. */
 .portal-grid .portal-character,
 .portal-dm-grid .portal-character{
- background-size:100% 100%, 112% 112%, cover;
+ background-size:100% 100%, cover, cover;
  background-position:center, center, center;
  background-repeat:no-repeat;
 }

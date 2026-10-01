@@ -48,6 +48,7 @@ async function selectCharacter(id, name) {
  show("inventory", !!currentCharacter);
  $("items").replaceChildren();
  $("character-name").textContent = name || "";
+ $("inventory-title").textContent = name ? name.trim().replace(/(?:s|S)$/, match => match) + (/[sS]$/.test(name.trim()) ? "’" : "’s") + " Inventory" : "Your Inventory";
  if (currentCharacter) await loadItems();
 }
 async function loadItems() {

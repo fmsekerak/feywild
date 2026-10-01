@@ -27,11 +27,11 @@
       <section class="satchel-panel satchel-add-panel" aria-labelledby="satchel-add-heading">
        <h4 id="satchel-add-heading">✧ Add to your satchel</h4>
        <form id="add-item">
-        <label for="item-search">Find an item</label><input id="item-search" type="search" placeholder="Search enchanted treasures..." autocomplete="off">
-        <label for="catalog-item">Choose an item</label><select id="catalog-item" required><option value="">Select an item</option></select>
-        <p id="catalog-description" aria-live="polite"></p>
-        <label for="item-quantity">Quantity</label><input id="item-quantity" type="number" min="1" max="999999" value="1" required>
+        <div class="satchel-field satchel-search-field"><label for="item-search">Find an item</label><input id="item-search" type="search" placeholder="Search treasures..." autocomplete="off"></div>
+        <div class="satchel-field satchel-select-field"><label for="catalog-item">Choose an item</label><select id="catalog-item" required><option value="">Select an item</option></select></div>
+        <div class="satchel-field satchel-quantity-field"><label for="item-quantity">Quantity</label><input id="item-quantity" type="number" min="1" max="999999" value="1" required></div>
         <button class="fey-button" type="submit">✧ Add item</button>
+        <p id="catalog-description" aria-live="polite"></p>
        </form>
       </section>
       <section class="satchel-panel satchel-items-panel" aria-labelledby="satchel-items-heading">

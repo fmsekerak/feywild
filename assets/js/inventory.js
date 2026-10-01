@@ -82,7 +82,7 @@ async function loadItems() {
   });
   actions.append(remove); li.append(info,actions); list.append(li);
  }
- status(data.length ? "Inventory loaded." : "Your satchel is empty. Add your first item!");
+ status(data.length ? "" : "Your satchel is empty. Add your first item!");
 }
 $("add-item").addEventListener("submit", async event => {
  event.preventDefault(); if (!currentCharacter) return;

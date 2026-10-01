@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Feywild | Campaign</title>
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/shared.css">
+<link rel="stylesheet" href="assets/css/portal.css">
+<style>
+.campaign-heading{text-align:center;color:#fad9e9;margin:.3rem 0 .8rem}
+.campaign-subtitle{max-width:40rem;margin:auto;color:#d5e9e1}
+.campaign-card{max-width:760px;margin:1.5rem auto;text-align:center;border-color:#e6a7ca}
+.campaign-flourish{font-size:1.7rem;color:#ffd4ef;letter-spacing:.5rem}
+</style>
+<script>
+/* This is a display guard for the selected character, not authentication. */
+if(sessionStorage.getItem("feywild-character-name")?.trim().toLowerCase()!=="dm"){
+ location.replace(sessionStorage.getItem("feywild-character-id")?"home.html":"index.html");
+}
+</script>
+</head>
+<body>
+<header class="banner"><canvas id="bannerParticles"></canvas><h1>Feywild</h1></header>
+<nav aria-label="Main navigation"><ul>
+<li><a href="home.html">Home</a></li>
+<li class="dropdown"><a href="crafting.html">Crafting</a><button class="submenu-toggle" type="button" aria-label="Toggle Crafting submenu" aria-controls="crafting-submenu" aria-expanded="false">▾</button><ul class="dropdown-menu" id="crafting-submenu"><li><a href="crafting.html">Overview</a></li><li><a href="alchemy.html">Alchemy</a></li></ul></li>
+<li><a href="search.html">Search</a></li>
+<li><a href="inventory.html">Inventory</a></li>
+<li><a href="campaign.html" class="active" aria-current="page">Campaign</a></li>
+<li><a href="source.html">Sources</a></li>
+</ul></nav>
+<main>
+<section class="card campaign-card">
+<div class="campaign-flourish" aria-hidden="true">✦ ❀ ✦</div>
+<h2 class="campaign-heading">Behind the Storybook</h2>
+<p class="campaign-subtitle">Your campaign corner awaits, Dungeon Master.</p>
+</section>
+</main>
+<script src="assets/js/particles.js"></script>
+<script src="assets/js/shared.js"></script>
+</body>
+</html>

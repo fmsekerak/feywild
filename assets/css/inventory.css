@@ -75,3 +75,8 @@ button:disabled{opacity:.55;cursor:wait}
 .satchel-history-panel{margin-top:1.3rem}
 #history{list-style:none;display:grid;gap:.55rem;margin:0;padding:0}
 #history li{padding:.65rem .9rem;background:#14201ef2;border-left:3px solid #b6f5d8;border-radius:6px;color:#f6e9f3;overflow-wrap:anywhere;font-size:.92rem}
+
+/* Stack the add-item form and belongings as separate, full-width panels. */
+.satchel-columns{grid-template-columns:minmax(0,1fr);gap:1.6rem}
+.satchel-add-panel,.satchel-items-panel{width:100%}
+.satchel-items-panel{margin-top:.25rem}

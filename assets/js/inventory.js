@@ -47,28 +47,8 @@ async function selectCharacter(id, name) {
  if(currentCharacter){sessionStorage.setItem("feywild-character-id",String(currentCharacter));sessionStorage.setItem("feywild-character-name",name||"Adventurer");}
  show("inventory", !!currentCharacter);
  $("items").replaceChildren();
- $("history").replaceChildren();
  $("character-name").textContent = name || "";
- if (currentCharacter) await Promise.all([loadItems(),loadHistory()]);
-}
-async function loadHistory() {
- const selected = currentCharacter;
- const { data, error } = await db.from("inventory_history")
-  .select("action,item_name,old_quantity,new_quantity,changed_at")
-  .eq("character_id",selected).order("changed_at",{ascending:false}).limit(50);
- if (selected !== currentCharacter) return;
- const list = $("history"); list.replaceChildren();
- if (error) { status("Unable to load history: " + errorText(error)); return; }
- if (!data.length) { const empty=document.createElement("li"); empty.textContent="No changes recorded yet.";list.append(empty);return; }
- for (const change of data) {
-  const row=document.createElement("li");
-  const when=new Date(change.changed_at).toLocaleString();
-  const detail=change.action==="added" ? "Added ×"+change.new_quantity :
-   change.action==="removed" ? "Removed ×"+change.old_quantity :
-   "Changed ×"+change.old_quantity+" → ×"+change.new_quantity;
-  row.textContent=when+" · "+change.item_name+" · "+detail;
-  list.append(row);
- }
+ if (currentCharacter) await loadItems();
 }
 async function loadItems() {
  const selected = currentCharacter;
@@ -88,7 +68,7 @@ async function loadItems() {
    button.addEventListener("click", async () => {
     button.disabled = true;
     const { error } = await db.rpc("adjust_inventory_quantity", { item_id:item.id, amount:change });
-    if (error) status(errorText(error)); else await Promise.all([loadItems(),loadHistory()]);
+    if (error) status(errorText(error)); else await loadItems();
     button.disabled = false;
    }); actions.append(button);
   }
@@ -97,7 +77,7 @@ async function loadItems() {
    if (!confirm("Remove "+item.name+"?")) return;
    remove.disabled = true;
    const { error } = await db.from("inventory_items").delete().eq("id",item.id).eq("character_id",selected);
-   if (error) status(errorText(error)); else await Promise.all([loadItems(),loadHistory()]);
+   if (error) status(errorText(error)); else await loadItems();
    remove.disabled = false;
   });
   actions.append(remove); li.append(info,actions); list.append(li);
@@ -112,7 +92,7 @@ $("add-item").addEventListener("submit", async event => {
  const { error } = await db.from("inventory_items").insert({
   character_id:currentCharacter, catalog_item_id:$("catalog-item").value, quantity
  });
- if (error) status(errorText(error)); else { event.target.reset(); renderCatalog(); await Promise.all([loadItems(),loadHistory()]); }
+ if (error) status(errorText(error)); else { event.target.reset(); renderCatalog(); await loadItems(); }
  button.disabled = false;
 });
 initialize();

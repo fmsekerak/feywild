@@ -24,6 +24,18 @@ function renderIdentity(character,data={}){
  const entries=window.FEYWILD_CHARACTER_DETAILS||{};
  const matchedName=Object.keys(entries).find(key=>key.trim().toLowerCase()===name.toLowerCase());
  const hardcoded=matchedName?entries[matchedName]:{};
+ const portrait=$("characterPortraitImage");
+ const fallback=$("characterPortraitFallback");
+ const imagePath=typeof hardcoded.portrait==="string"?hardcoded.portrait.trim():"";
+ portrait.hidden=true;
+ portrait.removeAttribute("src");
+ fallback.hidden=false;
+ if(imagePath && !/^(?:https?:|\/\/|data:|javascript:)/i.test(imagePath) && imagePath.startsWith("assets/images/")){
+  portrait.onload=()=>{portrait.hidden=false;fallback.hidden=true};
+  portrait.onerror=()=>{portrait.hidden=true;fallback.hidden=false};
+  portrait.alt=name+" portrait";
+  portrait.src=imagePath;
+ }
  for(const key of ["class","race","background","alignment"]){
   const value=hardcoded[key]||data[key]||"—";
   $("profile-"+key).textContent=value;

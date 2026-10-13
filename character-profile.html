@@ -25,8 +25,13 @@
    <div class="character-header">
     <div class="character-portrait" aria-hidden="true">✦</div>
     <div class="character-summary">
-     <label class="field character-name-field">Adventurer<input name="characterName" id="characterName" readonly></label>
-     <div class="character-details" id="identity"></div>
+     <h3 class="character-display-name" id="characterName">Adventurer</h3>
+     <div class="character-facts" id="identity" aria-label="Character details">
+      <div class="character-fact"><span>Class</span><strong id="profile-class">—</strong></div>
+      <div class="character-fact"><span>Race</span><strong id="profile-race">—</strong></div>
+      <div class="character-fact"><span>Background</span><strong id="profile-background">—</strong></div>
+      <div class="character-fact"><span>Alignment</span><strong id="profile-alignment">—</strong></div>
+     </div>
     </div>
    </div>
    <div class="satchel-divider" aria-hidden="true">✦</div>
@@ -73,6 +78,7 @@
  </main>
  <script src="assets/js/particles.js"></script>
  <script src="assets/js/shared.js"></script>
+ <script src="assets/js/character-details.js" defer></script>
  <script src="assets/js/character-profile.js" defer></script>
 </body>
 </html>

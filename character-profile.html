@@ -1,8 +1,75 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Feywild | Character Profile</title><link rel="stylesheet" href="assets/css/style.css"><link rel="stylesheet" href="assets/css/shared.css"><link rel="stylesheet" href="assets/css/character-profile.css"></head><body>
-<main class="profile-shell"><header class="profile-top"><a href="home.html">← Back to Feywild</a><h1>🍄 Character Profile ♡</h1><a href="inventory.html">Open Satchel →</a></header>
-<div class="profile-sheet"><div class="profile-hero"><div><img src="assets/images/character-sheet/frog-hanging.png" alt="" class="hero-art"><label class="field">Character name<input name="characterName" id="characterName" readonly></label></div><div class="profile-fields" id="identity"></div></div>
-<nav class="profile-tabs" aria-label="Character profile sections"><button data-tab="stats" aria-selected="true">🐸 Stats & Adventure</button><button data-tab="story" aria-selected="false">🍄 Story & Personality</button><button data-tab="spells" aria-selected="false">✨ Spellbook</button></nav>
-<section class="profile-pane active" id="stats"><div class="profile-columns"><div><article class="profile-card"><h2>Ability Scores</h2><img src="assets/images/character-sheet/ability-potions.png" alt="" class="decor"><div class="stat-grid" id="abilities"></div></article><article class="profile-card"><h2>Skills & Saving Throws</h2><div class="skill-grid" id="skills"></div></article><article class="profile-card"><h2>Proficiencies & Languages</h2><div id="proficiencies"></div></article></div><div><article class="profile-card"><h2>Health & Combat</h2><img src="assets/images/character-sheet/health-cauldron.png" alt="" class="decor"><div class="profile-fields" id="combat"></div></article><article class="profile-card"><h2>Attacks & Spellcasting</h2><div id="attacks"></div></article><article class="profile-card"><h2>Equipment</h2><img src="assets/images/character-sheet/equipment-scroll.png" alt="" class="decor"><div id="equipment"></div><a href="inventory.html">Manage your actual inventory →</a></article></div><div><article class="profile-card"><h2>Personality & Ideals</h2><img src="assets/images/character-sheet/personality-panels.png" alt="" class="decor"><div id="personality"></div></article><article class="profile-card"><h2>Features & Traits</h2><img src="assets/images/character-sheet/feature-mushrooms.png" alt="" class="decor"><div id="features"></div></article></div></div></section>
-<section class="profile-pane" id="story"><div class="profile-two"><article class="profile-card"><h2>Character Appearance</h2><img src="assets/images/character-sheet/appearance-mushroom.png" alt="" class="decor"><div class="profile-fields" id="appearanceDetails"></div><div id="appearanceNotes"></div></article><article class="profile-card"><h2>Allies & Organizations</h2><img src="assets/images/character-sheet/frog-books.png" alt="" class="decor"><div id="allies"></div></article><article class="profile-card"><h2>Character Backstory</h2><img src="assets/images/character-sheet/backstory-vines.png" alt="" class="decor"><div id="backstory"></div></article><article class="profile-card"><h2>Additional Traits & Treasure</h2><div id="extras"></div><img src="assets/images/character-sheet/frog-friends.png" alt="" class="decor"></article></div></section>
-<section class="profile-pane" id="spells"><img src="assets/images/character-sheet/spells-mushrooms.png" alt="" class="decor"><div class="profile-three"><article class="profile-card"><h2>Spellcasting</h2><div id="spellcasting"></div></article><article class="profile-card"><h2>Cantrips</h2><div id="cantrips"></div></article><article class="profile-card"><h2>Spell Notes</h2><img src="assets/images/character-sheet/spell-frog.png" alt="" class="decor"><div id="spellNotes"></div></article></div><div class="profile-three" id="spellLevels"></div></section>
-<div class="profile-footer"><span id="saveStatus" role="status">Loading your character…</span><button id="saveProfile" type="button">♡ Save Character</button></div><p class="profile-warning">Character profiles are public to visitors, just like inventory. Do not enter private DM secrets here.</p></div></main><script src="assets/js/character-profile.js" defer></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+ <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+ <title>Feywild | Character Profile</title>
+ <link rel="stylesheet" href="assets/css/style.css">
+ <link rel="stylesheet" href="assets/css/shared.css">
+ <link rel="stylesheet" href="assets/css/character-profile.css">
+</head>
+<body>
+ <header class="banner"><canvas id="bannerParticles"></canvas><h1>Feywild</h1></header>
+ <nav aria-label="Main navigation"><ul>
+  <li><a href="home.html">Home</a></li>
+  <li class="dropdown"><a href="crafting.html">Crafting</a><button class="submenu-toggle" type="button" aria-label="Toggle Crafting submenu" aria-controls="crafting-submenu" aria-expanded="false">▾</button><ul class="dropdown-menu" id="crafting-submenu"><li><a href="crafting.html">Overview</a></li><li><a href="alchemy.html">Alchemy</a></li></ul></li>
+  <li><a href="search.html">Search</a></li>
+  <li><a href="inventory.html">Inventory</a></li>
+  <li><a href="character-profile.html" class="active" aria-current="page">Character Profile</a></li>
+  <li><a href="source.html">Sources</a></li>
+ </ul></nav>
+ <main class="character-main">
+  <section class="card character-intro">
+   <div class="character-eyebrow">✧ Adventurer's Chronicle ✧</div>
+   <h1>Character Profile</h1>
+   <p>A little corner of the Feywild for your adventurer's story, abilities, and magic.</p>
+   <div class="character-identity">
+    <label class="field">Character name<input name="characterName" id="characterName" readonly></label>
+    <div class="character-details" id="identity"></div>
+   </div>
+  </section>
+  <div class="profile-tabs" role="tablist" aria-label="Profile sections">
+   <button type="button" role="tab" id="tab-stats" aria-controls="stats" data-tab="stats" aria-selected="true">✧ Stats & Adventure</button>
+   <button type="button" role="tab" id="tab-story" aria-controls="story" data-tab="story" aria-selected="false">♡ Story & Personality</button>
+   <button type="button" role="tab" id="tab-spells" aria-controls="spells" data-tab="spells" aria-selected="false">✦ Spellbook</button>
+  </div>
+  <section class="profile-pane active" id="stats" role="tabpanel" aria-labelledby="tab-stats">
+   <div class="profile-columns">
+    <div>
+     <section class="card profile-card"><h2>✧ Ability Scores</h2><p class="card-hint">Your adventurer's strengths and talents.</p><div class="stat-grid" id="abilities"></div></section>
+     <section class="card profile-card"><h2>✧ Skills & Saving Throws</h2><div class="skill-grid" id="skills"></div></section>
+     <section class="card profile-card"><h2>✧ Proficiencies & Languages</h2><div id="proficiencies"></div></section>
+    </div>
+    <div>
+     <section class="card profile-card"><h2>✧ Health & Combat</h2><div class="character-details" id="combat"></div></section>
+     <section class="card profile-card"><h2>✧ Attacks & Spellcasting</h2><div id="attacks"></div></section>
+     <section class="card profile-card"><h2>✧ Equipment Notes</h2><div id="equipment"></div><a class="profile-link" href="inventory.html">✧ Open your actual inventory →</a></section>
+    </div>
+    <div>
+     <section class="card profile-card"><h2>✧ Personality & Ideals</h2><div id="personality"></div></section>
+     <section class="card profile-card"><h2>✧ Features & Traits</h2><div id="features"></div></section>
+    </div>
+   </div>
+  </section>
+  <section class="profile-pane" id="story" role="tabpanel" aria-labelledby="tab-story" hidden>
+   <div class="profile-two">
+    <section class="card profile-card"><h2>♡ Character Appearance</h2><div class="character-details" id="appearanceDetails"></div><div id="appearanceNotes"></div></section>
+    <section class="card profile-card"><h2>♡ Allies & Organizations</h2><div id="allies"></div></section>
+    <section class="card profile-card"><h2>♡ Character Backstory</h2><div id="backstory"></div></section>
+    <section class="card profile-card"><h2>♡ Additional Traits & Treasure</h2><div id="extras"></div></section>
+   </div>
+  </section>
+  <section class="profile-pane" id="spells" role="tabpanel" aria-labelledby="tab-spells" hidden>
+   <div class="profile-three">
+    <section class="card profile-card"><h2>✦ Spellcasting</h2><div id="spellcasting"></div></section>
+    <section class="card profile-card"><h2>✦ Cantrips</h2><div id="cantrips"></div></section>
+    <section class="card profile-card"><h2>✦ Spell Notes</h2><div id="spellNotes"></div></section>
+   </div>
+   <div class="profile-three" id="spellLevels"></div>
+  </section>
+  <section class="card profile-save-card"><p id="saveStatus" role="status" aria-live="polite">Opening your chronicle…</p><button class="fey-button" id="saveProfile" type="button">♡ Save Character</button><p class="profile-warning">Profiles are publicly editable, like inventory. Keep DM secrets in private notes.</p></section>
+ </main>
+ <script src="assets/js/particles.js"></script>
+ <script src="assets/js/shared.js"></script>
+ <script src="assets/js/character-profile.js" defer></script>
+</body>
+</html>

@@ -18,14 +18,19 @@ for(let level=1;level<=9;level++){const card=document.createElement("article");c
 document.querySelectorAll(".profile-tabs button").forEach(button=>button.addEventListener("click",()=>{document.querySelectorAll(".profile-tabs button").forEach(x=>x.setAttribute("aria-selected",String(x===button)));document.querySelectorAll(".profile-pane").forEach(p=>{p.classList.toggle("active",p.id===button.dataset.tab);p.hidden=p.id!==button.dataset.tab})}));
 const inputs=()=>[...document.querySelectorAll("input[name],textarea[name]")];
 let originalData={};
-function renderIdentity(character,data){
- $("characterName").textContent=character.name;
- const hardcoded=window.FEYWILD_CHARACTER_DETAILS?.[character.name]||{};
+function renderIdentity(character,data={}){
+ const name=(character?.name||sessionStorage.getItem("feywild-character-name")||"Adventurer").trim();
+ $("characterName").textContent=name;
+ const entries=window.FEYWILD_CHARACTER_DETAILS||{};
+ const matchedName=Object.keys(entries).find(key=>key.trim().toLowerCase()===name.toLowerCase());
+ const hardcoded=matchedName?entries[matchedName]:{};
  for(const key of ["class","race","background","alignment"]){
   const value=hardcoded[key]||data[key]||"—";
   $("profile-"+key).textContent=value;
  }
 }
-async function load(){try{const response=await fetch("/api/character-profile?character_id="+encodeURIComponent(selectedId),{cache:"no-store"});const payload=await response.json();if(!response.ok)throw Error(payload.error||"Could not load profile");originalData=payload.data||{};renderIdentity(payload.character,originalData);inputs().forEach(el=>{if(Object.hasOwn(payload.data,el.name)){if(el.type==="checkbox")el.checked=!!payload.data[el.name];else el.value=payload.data[el.name]}});$("saveStatus").textContent="♡ Profile loaded from Cloudflare D1"}catch(e){$("saveStatus").textContent=e.message}}
+// Show hardcoded identity immediately, independently of the profile API.
+renderIdentity(null,{});
+async function load(){try{const response=await fetch("/api/character-profile?character_id="+encodeURIComponent(selectedId),{cache:"no-store"});const payload=await response.json();if(!response.ok)throw Error(payload.error||"Could not load profile");originalData=payload.data||{};renderIdentity(payload.character,originalData);inputs().forEach(el=>{if(Object.hasOwn(payload.data,el.name)){if(el.type==="checkbox")el.checked=!!payload.data[el.name];else el.value=payload.data[el.name]}});$("saveStatus").textContent="♡ Profile loaded from Cloudflare D1"}catch(e){$("saveStatus").textContent="Profile data could not load: "+e.message+". Character header is still available."}}
 $("saveProfile").addEventListener("click",async()=>{const button=$("saveProfile");button.disabled=true;$("saveStatus").textContent="Saving to D1…";const data={...originalData};inputs().forEach(el=>{if(el.name==="characterName")return;data[el.name]=el.type==="checkbox"?el.checked:el.value});try{const response=await fetch("/api/character-profile",{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify({character_id:selectedId,data})});const result=await response.json();if(!response.ok)throw Error(result.error||"Save failed");originalData=data;$("saveStatus").textContent="♡ Saved to Cloudflare D1"}catch(e){$("saveStatus").textContent=e.message}finally{button.disabled=false}});
 load();

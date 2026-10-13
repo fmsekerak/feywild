@@ -1,7 +1,11 @@
-import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
-import { SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY } from "./supabase-config.js";
 const $ = id => document.getElementById(id);
-const db = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+const api=async(path,options={})=>{
+ const response=await fetch(path,{cache:"no-store",...options});
+ let data;try{data=await response.json()}catch{throw Error("Unable to read server response.");}
+ if(!response.ok)throw Error(data?.error||"Request failed.");
+ return data;
+};
+const jsonBody=value=>({headers:{"Content-Type":"application/json"},body:JSON.stringify(value)});
 let currentCharacter = null;
 let catalog = [];
 const status = message => { $("status").textContent = message; };
@@ -11,18 +15,18 @@ async function initialize() {
  const selectedId=sessionStorage.getItem("feywild-character-id");
  if(!selectedId){location.replace("index.html");return;}
  status("Opening your satchel...");
- // Keep the inventory accessible under the public Supabase policies.
- const {data:{session},error:sessionError}=await db.auth.getSession();
- if(sessionError){status("Unable to prepare inventory: "+errorText(sessionError));return;}
- if(session){const {error}=await db.auth.signOut({scope:"local"});if(error){status(errorText(error));return;}}
- const {data,error}=await db.from("characters").select("id,name").eq("id",selectedId).maybeSingle();
- if(error||!data){sessionStorage.removeItem("feywild-character-id");sessionStorage.removeItem("feywild-character-name");location.replace("index.html");return;}
+ let data;
+ try{
+  const characters=await api("/api/inventory/characters");
+  data=characters.find(character=>character.id===selectedId);
+ }catch(error){status("Unable to prepare inventory: "+errorText(error));return;}
+ if(!data){sessionStorage.removeItem("feywild-character-id");sessionStorage.removeItem("feywild-character-name");location.replace("index.html");return;}
  await selectCharacter(data.id,data.name);
  await loadCatalog();
 }
 async function loadCatalog() {
- const { data, error } = await db.from("item_catalog").select("id,name,description,category,rarity").order("name");
- if (error) { status("Could not load item catalog: " + errorText(error)); return; }
+ let data;
+ try{data=await api("/api/inventory/catalog")}catch(error){status("Could not load item catalog: "+errorText(error));return;}
  catalog = data || []; renderCatalog();
 }
 function renderCatalog() {
@@ -52,9 +56,9 @@ async function selectCharacter(id, name) {
 }
 async function loadItems() {
  const selected = currentCharacter;
- const { data, error } = await db.from("inventory_items").select("id,name,description,quantity").eq("character_id", selected).order("name");
- if (selected !== currentCharacter) return;
- if (error) { status(errorText(error)); return; }
+ let data;
+ try{data=await api("/api/inventory/items?character_id="+encodeURIComponent(selected))}catch(error){status(errorText(error));return;}
+ if(selected!==currentCharacter)return;
  const list = $("items"); list.replaceChildren();
  for (const item of data) {
   const li = document.createElement("li"); li.className = "inventory-row";
@@ -67,8 +71,7 @@ async function loadItems() {
    button.setAttribute("aria-label", label === "+" ? "Increase "+item.name : "Decrease "+item.name);
    button.addEventListener("click", async () => {
     button.disabled = true;
-    const { error } = await db.rpc("adjust_inventory_quantity", { item_id:item.id, amount:change });
-    if (error) status(errorText(error)); else await loadItems();
+    try{await api("/api/inventory/items/"+encodeURIComponent(item.id),{method:"PATCH",...jsonBody({character_id:selected,amount:change})});await loadItems()}catch(error){status(errorText(error));}
     button.disabled = false;
    }); actions.append(button);
   }
@@ -76,8 +79,7 @@ async function loadItems() {
   remove.addEventListener("click", async () => {
    if (!confirm("Remove "+item.name+"?")) return;
    remove.disabled = true;
-   const { error } = await db.from("inventory_items").delete().eq("id",item.id).eq("character_id",selected);
-   if (error) status(errorText(error)); else await loadItems();
+   try{await api("/api/inventory/items/"+encodeURIComponent(item.id),{method:"DELETE",...jsonBody({character_id:selected})});await loadItems()}catch(error){status(errorText(error));}
    remove.disabled = false;
   });
   actions.append(remove); li.append(info,actions); list.append(li);
@@ -89,10 +91,10 @@ $("add-item").addEventListener("submit", async event => {
  const button = event.currentTarget.querySelector("button"); button.disabled = true;
  const quantity = Number($("item-quantity").value);
  if (!Number.isInteger(quantity) || quantity < 1 || quantity > 999999) { status("Enter a valid quantity."); button.disabled = false; return; }
- const { error } = await db.from("inventory_items").insert({
-  character_id:currentCharacter, catalog_item_id:$("catalog-item").value, quantity
- });
- if (error) status(errorText(error)); else { event.target.reset(); renderCatalog(); await loadItems(); }
+ try{
+  await api("/api/inventory/items",{method:"POST",...jsonBody({character_id:currentCharacter,catalog_item_id:$("catalog-item").value,quantity})});
+  event.target.reset();renderCatalog();await loadItems();
+ }catch(error){status(errorText(error));}
  button.disabled = false;
 });
 initialize();

@@ -35,3 +35,11 @@
 .profile-warning{font-size:.8rem;color:#d8e9df}
 @media(max-width:760px){.character-main{padding:.65rem}.character-header{gap:.75rem}.character-portrait{flex-basis:64px;width:64px;height:64px;font-size:2.3rem}.character-details{grid-template-columns:repeat(2,minmax(0,1fr))}.profile-layout{grid-template-columns:1fr}.profile-panel{padding:1rem}}
 @media(max-width:460px){.character-header{align-items:flex-start}.character-portrait{display:none}.character-details{grid-template-columns:1fr}.stat-grid{gap:.4rem}.skill-grid{grid-template-columns:1fr}.profile-tabs button{font-size:.9rem;padding:.6rem .8rem}}
+
+/* Read-only character identity: text, not form controls. */
+.character-display-name{font:normal bold clamp(1.6rem,4vw,2.25rem) Garamond,Georgia,serif;color:#fad9e9;text-shadow:0 0 12px #ff9cff55;margin:0 0 .8rem}
+.character-facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem 1.3rem}
+.character-fact{display:flex;flex-direction:column;gap:.2rem;min-width:0;padding-bottom:.4rem;border-bottom:1px solid #4fa37c88}
+.character-fact span{font-size:.8rem;color:#b6f5d8;letter-spacing:.06em;text-transform:uppercase}
+.character-fact strong{font-size:1rem;color:#ffe6f2;font-weight:normal;overflow-wrap:anywhere}
+@media(max-width:460px){.character-facts{grid-template-columns:repeat(2,minmax(0,1fr));gap:.7rem}}

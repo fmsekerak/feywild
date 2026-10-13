@@ -1,6 +1,6 @@
 const $=id=>document.getElementById(id);
 const selectedId=sessionStorage.getItem("feywild-character-id");
-if(!selectedId)location.replace("index.html");
+if(!selectedId || (sessionStorage.getItem("feywild-character-name") || "").trim().toLowerCase() === "dm")location.replace("home.html");
 const labelize=s=>s.replace(/([A-Z])/g," $1").replace(/^./,x=>x.toUpperCase());
 function field(name,label=labelize(name),type="text",parent){const wrap=document.createElement("label");wrap.className="field";wrap.textContent=label;const input=document.createElement(type==="textarea"?"textarea":"input");input.name=name;if(type!=="textarea")input.type=type;wrap.append(input);$(parent).append(wrap);return input}
 function add(names,parent,type="text"){names.forEach(name=>field(name,undefined,type,parent))}

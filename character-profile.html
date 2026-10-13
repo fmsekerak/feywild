@@ -5,6 +5,7 @@
  <title>Feywild | Character Profile</title>
  <link rel="stylesheet" href="assets/css/style.css">
  <link rel="stylesheet" href="assets/css/shared.css">
+ <link rel="stylesheet" href="assets/css/inventory.css">
  <link rel="stylesheet" href="assets/css/character-profile.css">
 </head>
 <body>
@@ -18,55 +19,57 @@
   <li><a href="source.html">Sources</a></li>
  </ul></nav>
  <main class="character-main">
-  <section class="card character-intro">
-   <div class="character-eyebrow">✧ Adventurer's Chronicle ✧</div>
-   <h1>Character Profile</h1>
-   <p>A little corner of the Feywild for your adventurer's story, abilities, and magic.</p>
-   <div class="character-identity">
-    <label class="field">Character name<input name="characterName" id="characterName" readonly></label>
-    <div class="character-details" id="identity"></div>
-   </div>
-  </section>
-  <div class="profile-tabs" role="tablist" aria-label="Profile sections">
-   <button type="button" role="tab" id="tab-stats" aria-controls="stats" data-tab="stats" aria-selected="true">✧ Stats & Adventure</button>
-   <button type="button" role="tab" id="tab-story" aria-controls="story" data-tab="story" aria-selected="false">♡ Story & Personality</button>
-   <button type="button" role="tab" id="tab-spells" aria-controls="spells" data-tab="spells" aria-selected="false">✦ Spellbook</button>
-  </div>
-  <section class="profile-pane active" id="stats" role="tabpanel" aria-labelledby="tab-stats">
-   <div class="profile-columns">
-    <div>
-     <section class="card profile-card"><h2>✧ Ability Scores</h2><p class="card-hint">Your adventurer's strengths and talents.</p><div class="stat-grid" id="abilities"></div></section>
-     <section class="card profile-card"><h2>✧ Skills & Saving Throws</h2><div class="skill-grid" id="skills"></div></section>
-     <section class="card profile-card"><h2>✧ Proficiencies & Languages</h2><div id="proficiencies"></div></section>
-    </div>
-    <div>
-     <section class="card profile-card"><h2>✧ Health & Combat</h2><div class="character-details" id="combat"></div></section>
-     <section class="card profile-card"><h2>✧ Attacks & Spellcasting</h2><div id="attacks"></div></section>
-     <section class="card profile-card"><h2>✧ Equipment Notes</h2><div id="equipment"></div><a class="profile-link" href="inventory.html">✧ Open your actual inventory →</a></section>
-    </div>
-    <div>
-     <section class="card profile-card"><h2>✧ Personality & Ideals</h2><div id="personality"></div></section>
-     <section class="card profile-card"><h2>✧ Features & Traits</h2><div id="features"></div></section>
+  <section class="card character-page-card">
+   <div class="satchel-heading"><span class="satchel-sparkle" aria-hidden="true">✧</span><h2>Character Profile</h2><span class="satchel-sparkle" aria-hidden="true">✧</span></div>
+   <p class="character-subtitle">Your adventurer's little corner of the Feywild.</p>
+   <div class="character-header">
+    <div class="character-portrait" aria-hidden="true">✦</div>
+    <div class="character-summary">
+     <label class="field character-name-field">Adventurer<input name="characterName" id="characterName" readonly></label>
+     <div class="character-details" id="identity"></div>
     </div>
    </div>
-  </section>
-  <section class="profile-pane" id="story" role="tabpanel" aria-labelledby="tab-story" hidden>
-   <div class="profile-two">
-    <section class="card profile-card"><h2>♡ Character Appearance</h2><div class="character-details" id="appearanceDetails"></div><div id="appearanceNotes"></div></section>
-    <section class="card profile-card"><h2>♡ Allies & Organizations</h2><div id="allies"></div></section>
-    <section class="card profile-card"><h2>♡ Character Backstory</h2><div id="backstory"></div></section>
-    <section class="card profile-card"><h2>♡ Additional Traits & Treasure</h2><div id="extras"></div></section>
+   <div class="satchel-divider" aria-hidden="true">✦</div>
+   <div class="profile-tabs" role="tablist" aria-label="Character sections">
+    <button type="button" role="tab" id="tab-stats" aria-controls="stats" data-tab="stats" aria-selected="true">Stats & Abilities</button>
+    <button type="button" role="tab" id="tab-story" aria-controls="story" data-tab="story" aria-selected="false">Story & Personality</button>
+    <button type="button" role="tab" id="tab-spells" aria-controls="spells" data-tab="spells" aria-selected="false">Spellbook</button>
    </div>
+   <section class="profile-pane active" id="stats" role="tabpanel" aria-labelledby="tab-stats">
+    <div class="profile-section-heading"><h3>✧ Stats & Abilities</h3><p>Your character's abilities, combat details, and talents.</p></div>
+    <div class="profile-layout">
+     <section class="satchel-panel profile-panel profile-abilities"><h4>Ability Scores</h4><div class="stat-grid" id="abilities"></div></section>
+     <section class="satchel-panel profile-panel"><h4>Health & Combat</h4><div class="character-details" id="combat"></div></section>
+     <section class="satchel-panel profile-panel"><h4>Skills & Saving Throws</h4><div class="skill-grid" id="skills"></div></section>
+     <section class="satchel-panel profile-panel"><h4>Proficiencies & Languages</h4><div id="proficiencies"></div></section>
+     <section class="satchel-panel profile-panel"><h4>Attacks & Spellcasting</h4><div id="attacks"></div></section>
+     <section class="satchel-panel profile-panel"><h4>Equipment Notes</h4><div id="equipment"></div><a class="profile-link" href="inventory.html">✧ Manage your inventory →</a></section>
+     <section class="satchel-panel profile-panel"><h4>Personality & Ideals</h4><div id="personality"></div></section>
+     <section class="satchel-panel profile-panel"><h4>Features & Traits</h4><div id="features"></div></section>
+    </div>
+   </section>
+   <section class="profile-pane" id="story" role="tabpanel" aria-labelledby="tab-story" hidden>
+    <div class="profile-section-heading"><h3>♡ Story & Personality</h3><p>The story behind your adventurer.</p></div>
+    <div class="profile-layout">
+     <section class="satchel-panel profile-panel"><h4>Appearance</h4><div class="character-details" id="appearanceDetails"></div><div id="appearanceNotes"></div></section>
+     <section class="satchel-panel profile-panel"><h4>Allies & Organizations</h4><div id="allies"></div></section>
+     <section class="satchel-panel profile-panel"><h4>Backstory</h4><div id="backstory"></div></section>
+     <section class="satchel-panel profile-panel"><h4>Additional Traits & Treasure</h4><div id="extras"></div></section>
+    </div>
+   </section>
+   <section class="profile-pane" id="spells" role="tabpanel" aria-labelledby="tab-spells" hidden>
+    <div class="profile-section-heading"><h3>✦ Spellbook</h3><p>A place to keep track of your magical discoveries.</p></div>
+    <div class="profile-layout">
+     <section class="satchel-panel profile-panel"><h4>Spellcasting</h4><div id="spellcasting"></div></section>
+     <section class="satchel-panel profile-panel"><h4>Cantrips</h4><div id="cantrips"></div></section>
+     <section class="satchel-panel profile-panel"><h4>Spell Notes</h4><div id="spellNotes"></div></section>
+    </div>
+    <div class="profile-layout spell-levels" id="spellLevels"></div>
+   </section>
+   <div class="satchel-divider" aria-hidden="true">✦</div>
+   <div class="profile-save"><span id="saveStatus" role="status" aria-live="polite">Opening your chronicle…</span><button class="fey-button" id="saveProfile" type="button">✧ Save Character</button></div>
+   <p class="profile-warning">Character profiles are publicly editable. Please don't store private DM notes here.</p>
   </section>
-  <section class="profile-pane" id="spells" role="tabpanel" aria-labelledby="tab-spells" hidden>
-   <div class="profile-three">
-    <section class="card profile-card"><h2>✦ Spellcasting</h2><div id="spellcasting"></div></section>
-    <section class="card profile-card"><h2>✦ Cantrips</h2><div id="cantrips"></div></section>
-    <section class="card profile-card"><h2>✦ Spell Notes</h2><div id="spellNotes"></div></section>
-   </div>
-   <div class="profile-three" id="spellLevels"></div>
-  </section>
-  <section class="card profile-save-card"><p id="saveStatus" role="status" aria-live="polite">Opening your chronicle…</p><button class="fey-button" id="saveProfile" type="button">♡ Save Character</button><p class="profile-warning">Profiles are publicly editable, like inventory. Keep DM secrets in private notes.</p></section>
  </main>
  <script src="assets/js/particles.js"></script>
  <script src="assets/js/shared.js"></script>

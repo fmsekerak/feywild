@@ -43,3 +43,10 @@
 .character-fact span{font-size:.8rem;color:#b6f5d8;letter-spacing:.06em;text-transform:uppercase}
 .character-fact strong{font-size:1rem;color:#ffe6f2;font-weight:normal;overflow-wrap:anywhere}
 @media(max-width:460px){.character-facts{grid-template-columns:repeat(2,minmax(0,1fr));gap:.7rem}}
+
+/* Character portrait: image fills the existing circular icon, preserving its border. */
+.character-portrait{position:relative;overflow:hidden;isolation:isolate}
+.character-portrait img{display:block;width:100%;height:100%;object-fit:cover;object-position:center;border-radius:50%}
+.character-portrait img[hidden],.character-portrait span[hidden]{display:none!important}
+.character-portrait span{line-height:1}
+@media(max-width:460px){.character-portrait{display:grid;flex:0 0 64px;width:64px;height:64px}}

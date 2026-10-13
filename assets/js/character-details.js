@@ -7,28 +7,28 @@
 
 window.FEYWILD_CHARACTER_DETAILS = {
   "Mion": {
-    portrait: "assets/images/characters/mion.png",
+    portrait: "assets/images/characters/mion.jpg",
     class: "Artificer",
     race: "Puca",
     background: "-",
     alignment: "-"
   },
   "Ruin": {
-    portrait: "assets/images/characters/ruin.png",
+    portrait: "assets/images/characters/ruin.jpg",
     class: "Druid",
     race: "Firbolg",
     background: "-",
     alignment: "-"
   },
   "Crotus": {
-    portrait: "assets/images/characters/crotus.png",
+    portrait: "assets/images/characters/crotus.jpg",
     class: "Bard",
     race: "Saytr",
     background: "-",
     alignment: "-"
   },
   "Hayden": {
-    portrait: "assets/images/characters/hayden.png",
+    portrait: "assets/images/characters/hayden.jpg",
     class: "Himbo",
     race: "Humna",
     background: "-",

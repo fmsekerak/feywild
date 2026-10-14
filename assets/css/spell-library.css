@@ -1,0 +1,60 @@
+/* The SRD archive is an inset grimoire inside the existing Spellbook tab. */
+.character-page-card .spell-library-panel { margin: 0 0 1.3rem; }
+.character-page-card .spell-library-intro { color:#d8eee0; text-align:center; margin:.2rem 0 1.2rem; }
+.character-page-card .spell-library-filters {
+ display:grid; grid-template-columns: minmax(0,2fr) repeat(3,minmax(0,1fr));
+ gap:.7rem; align-items:end; margin:1rem 0;
+}
+.character-page-card .spell-library-filters label {
+ display:grid; gap:.35rem; font-weight:600; color:#bce4c3; font-size:.88rem;
+}
+.character-page-card .spell-library-filters input,
+.character-page-card .spell-library-filters select {
+ width:100%; min-width:0; padding:.65rem .75rem; border-radius:9px;
+ background:linear-gradient(135deg,#f8e8f4,#e1f4e7); color:#36263d;
+ border:1px solid #f4c2daaa; font:inherit;
+}
+.character-page-card .spell-library-filters :is(input,select):focus-visible {
+ outline:2px solid #f4c2da; outline-offset:2px;
+}
+.character-page-card #srd-spell-status { color:#bce4c3; font-size:.88rem; margin:.8rem 0 1.2rem; }
+.character-page-card .spell-library-subheading {
+ font:600 1.35rem/1.4 Georgia,serif; color:#f8ebdb;
+ border-bottom:1px solid #e9d5a466; padding:.6rem 0; margin:1.2rem 0 .9rem;
+}
+.character-page-card .spell-library-results { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.8rem; }
+.character-page-card .srd-spell-card {
+ min-width:0; padding:1rem; border-radius:12px;
+ border:1px solid #bce4c355;
+ background:linear-gradient(140deg,#1c3a31,#142d27);
+ box-shadow:inset 0 1px #fff1;
+}
+.character-page-card .srd-spell-card h6 {
+ margin:0 0 .4rem; font:600 1.2rem/1.3 Georgia,serif; color:#f8ebdb;
+}
+.character-page-card .srd-spell-meta { font-size:.83rem; color:#bce4c3; margin:0 0 .75rem; }
+.character-page-card .srd-spell-controls button,
+.character-page-card .spell-library-pagination button {
+ border:1px solid #f4c2da99; border-radius:999px;
+ padding:.48rem .85rem; color:#ffe8f3; background:#654362;
+ font:inherit; cursor:pointer;
+}
+.character-page-card .srd-spell-controls button:hover,
+.character-page-card .spell-library-pagination button:hover { background:#80577b; }
+.character-page-card .srd-spell-details { margin-top:.8rem; color:#e3f1e8; }
+.character-page-card .srd-spell-details summary { cursor:pointer; color:#f4c2da; }
+.character-page-card .srd-spell-details dl { display:grid; grid-template-columns:max-content minmax(0,1fr); gap:.3rem .7rem; font-size:.85rem; }
+.character-page-card .srd-spell-details dt { font-weight:bold; color:#bce4c3; }
+.character-page-card .srd-spell-details dd { margin:0; overflow-wrap:anywhere; }
+.character-page-card .srd-spell-description { white-space:pre-line; line-height:1.6; font-size:.91rem; overflow-wrap:anywhere; }
+.character-page-card .srd-spell-empty { grid-column:1/-1; text-align:center; color:#bce4c3; font-style:italic; }
+.character-page-card .spell-library-pagination { text-align:center; margin:1rem 0; }
+.character-page-card .spell-library-credit { font-size:.76rem; color:#d0e5d8; line-height:1.6; margin:1.4rem 0 0; }
+.character-page-card .spell-library-credit a { color:#f4c2da; }
+@media(max-width:780px) {
+ .character-page-card .spell-library-filters { grid-template-columns:repeat(2,minmax(0,1fr)); }
+ .character-page-card .spell-library-results { grid-template-columns:1fr; }
+}
+@media(max-width:460px) {
+ .character-page-card .spell-library-filters { grid-template-columns:1fr; }
+}

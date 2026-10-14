@@ -26,7 +26,21 @@ document.querySelectorAll("#abilities input[name]").forEach(input=>{
 
 const skills=["Acrobatics","Animal Handling","Arcana","Athletics","Deception","History","Insight","Intimidation","Investigation","Medicine","Nature","Perception","Performance","Persuasion","Religion","Sleight of Hand","Stealth","Survival"];
 const skillWrap=$("skills");skills.forEach(name=>{const label=document.createElement("label"),input=document.createElement("input");input.type="checkbox";input.name="skill-"+name;label.append(input,document.createTextNode(name));skillWrap.append(label)});
+const characterLevel=field("characterLevel","Character Level","number","combat");
+characterLevel.min="1";characterLevel.max="20";characterLevel.step="1";
+characterLevel.placeholder="1–20";
 add(["proficiencies"],"proficiencies","textarea");add(["proficiencyBonus","passivePerception"],"proficiencies");
+const proficiencyBonus=document.querySelector('#proficiencies input[name="proficiencyBonus"]');
+proficiencyBonus.readOnly=true;
+proficiencyBonus.title="Automatically calculated from character level (D&D 5e)";
+function updateProficiency(){
+ const raw=characterLevel.value.trim(),n=Number(raw);
+ const valid=raw!==""&&Number.isInteger(n)&&n>=1&&n<=20;
+ proficiencyBonus.value=valid?String(2+Math.floor((n-1)/4)):"";
+ proficiencyBonus.dispatchEvent(new Event("input",{bubbles:true}));
+}
+characterLevel.addEventListener("input",updateProficiency);
+
 add(["maxHp","currentHp","temporaryHp","hitDice","armorClass","initiative","speed","deathSaves"],"combat");
 add(["attacks"],"attacks","textarea");add(["equipment"],"equipment","textarea");
 add(["personality","ideals","bonds","flaws"],"personality","textarea");add(["features"],"features","textarea");
@@ -80,6 +94,6 @@ function renderIdentity(character,data={}){
 }
 // Show hardcoded identity immediately, independently of the profile API.
 renderIdentity(null,{});
-async function load(){try{const response=await fetch("/api/character-profile?character_id="+encodeURIComponent(selectedId),{cache:"no-store"});const payload=await response.json();if(!response.ok)throw Error(payload.error||"Could not load profile");originalData=payload.data||{};renderIdentity(payload.character,originalData);inputs().forEach(el=>{if(Object.hasOwn(payload.data,el.name)){if(el.type==="checkbox")el.checked=!!payload.data[el.name];else el.value=payload.data[el.name]}});document.querySelectorAll("#abilities input[name]").forEach(el=>el.dispatchEvent(new Event("input")));document.dispatchEvent(new Event("feywild:profile-loaded"));$("saveStatus").textContent="♡ Profile loaded from Cloudflare D1"}catch(e){$("saveStatus").textContent="Profile data could not load: "+e.message+". Character header is still available."}}
+async function load(){try{const response=await fetch("/api/character-profile?character_id="+encodeURIComponent(selectedId),{cache:"no-store"});const payload=await response.json();if(!response.ok)throw Error(payload.error||"Could not load profile");originalData=payload.data||{};renderIdentity(payload.character,originalData);inputs().forEach(el=>{if(Object.hasOwn(payload.data,el.name)){if(el.type==="checkbox")el.checked=!!payload.data[el.name];else el.value=payload.data[el.name]}});document.querySelectorAll("#abilities input[name]").forEach(el=>el.dispatchEvent(new Event("input")));updateProficiency();document.dispatchEvent(new Event("feywild:profile-loaded"));$("saveStatus").textContent="♡ Profile loaded from Cloudflare D1"}catch(e){$("saveStatus").textContent="Profile data could not load: "+e.message+". Character header is still available."}}
 $("saveProfile").addEventListener("click",async()=>{const button=$("saveProfile");button.disabled=true;$("saveStatus").textContent="Saving to D1…";const data={...originalData};inputs().forEach(el=>{if(el.name==="characterName")return;data[el.name]=el.type==="checkbox"?el.checked:el.value});try{const response=await fetch("/api/character-profile",{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify({character_id:selectedId,data})});const result=await response.json();if(!response.ok)throw Error(result.error||"Save failed");originalData=data;$("saveStatus").textContent="♡ Saved to Cloudflare D1"}catch(e){$("saveStatus").textContent=e.message}finally{button.disabled=false}});
 load();

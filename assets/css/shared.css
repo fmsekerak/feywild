@@ -375,3 +375,24 @@ main > .card {
       center, center;
   }
 }
+
+/* Final corner registration: account for the SVG's scaled 3px inset.
+   Shift artwork a fraction inward so the stem meets the rounded outline. */
+main > .card {
+  background-position:
+    left -1px top -1px,
+    right -1px top -1px,
+    left -1px bottom -1px,
+    right -1px bottom -1px,
+    center, center;
+}
+@media (max-width: 600px) {
+  main > .card {
+    background-position:
+      left 0 top 0,
+      right 0 top 0,
+      left 0 bottom 0,
+      right 0 bottom 0,
+      center, center;
+  }
+}

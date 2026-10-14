@@ -328,3 +328,27 @@ main > .card {
     padding-right: 24px;
   }
 }
+
+/* Border-hugging vines: artwork follows the card's actual top/side edges.
+   Overrides the oversized inset corners from the previous iteration. */
+main > .card {
+  background-image:
+    url('../images/vine-corner-tl.svg'),
+    url('../images/vine-corner-tr.svg'),
+    url('../images/vine-corner-bl.svg'),
+    url('../images/vine-corner-br.svg'),
+    radial-gradient(ellipse at top left, rgba(255,179,255,.08), transparent 36%),
+    linear-gradient(150deg, rgba(53,100,88,.96), rgba(27,57,51,.98));
+  background-position: left top, right top, left bottom, right bottom, center, center;
+  background-size: 78px 78px, 78px 78px, 78px 78px, 78px 78px, auto, auto;
+  background-repeat: no-repeat;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+@media (max-width: 600px) {
+  main > .card {
+    background-size: 48px 48px, 48px 48px, 48px 48px, 48px 48px, auto, auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}

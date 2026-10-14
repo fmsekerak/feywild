@@ -190,3 +190,6 @@
   outline-offset: 3px;
   border-radius: 4px;
 }
+
+/* Character level drives the automatically calculated 5e proficiency bonus. */
+.character-page-card #proficiencies input[name="proficiencyBonus"][readonly] {background:#dcece5;color:#23463c;cursor:default}

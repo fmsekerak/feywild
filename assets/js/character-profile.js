@@ -6,6 +6,24 @@ function field(name,label=labelize(name),type="text",parent){const wrap=document
 function add(names,parent,type="text"){names.forEach(name=>field(name,undefined,type,parent))}
 
 add(["str","dex","con","int","wis","cha"],"abilities","number");
+/* Live D&D ability modifiers, calculated locally from existing scores.
+   These are display-only and never added to the saved profile payload. */
+document.querySelectorAll("#abilities input[name]").forEach(input=>{
+ const output=document.createElement("output");
+ output.className="ability-modifier";
+ output.setAttribute("aria-label",labelize(input.name)+" modifier");
+ const update=()=>{
+  const raw=input.value.trim();
+  const score=Number(raw);
+  if(!raw || !Number.isFinite(score)){output.textContent="Modifier —";return}
+  const modifier=Math.floor((score-10)/2);
+  output.textContent="Modifier "+(modifier>=0?"+":"")+modifier;
+ };
+ input.closest(".field").append(output);
+ input.addEventListener("input",update);
+ update();
+});
+
 const skills=["Acrobatics","Animal Handling","Arcana","Athletics","Deception","History","Insight","Intimidation","Investigation","Medicine","Nature","Perception","Performance","Persuasion","Religion","Sleight of Hand","Stealth","Survival"];
 const skillWrap=$("skills");skills.forEach(name=>{const label=document.createElement("label"),input=document.createElement("input");input.type="checkbox";input.name="skill-"+name;label.append(input,document.createTextNode(name));skillWrap.append(label)});
 add(["proficiencies"],"proficiencies","textarea");add(["proficiencyBonus","passivePerception"],"proficiencies");
@@ -43,6 +61,6 @@ function renderIdentity(character,data={}){
 }
 // Show hardcoded identity immediately, independently of the profile API.
 renderIdentity(null,{});
-async function load(){try{const response=await fetch("/api/character-profile?character_id="+encodeURIComponent(selectedId),{cache:"no-store"});const payload=await response.json();if(!response.ok)throw Error(payload.error||"Could not load profile");originalData=payload.data||{};renderIdentity(payload.character,originalData);inputs().forEach(el=>{if(Object.hasOwn(payload.data,el.name)){if(el.type==="checkbox")el.checked=!!payload.data[el.name];else el.value=payload.data[el.name]}});$("saveStatus").textContent="♡ Profile loaded from Cloudflare D1"}catch(e){$("saveStatus").textContent="Profile data could not load: "+e.message+". Character header is still available."}}
+async function load(){try{const response=await fetch("/api/character-profile?character_id="+encodeURIComponent(selectedId),{cache:"no-store"});const payload=await response.json();if(!response.ok)throw Error(payload.error||"Could not load profile");originalData=payload.data||{};renderIdentity(payload.character,originalData);inputs().forEach(el=>{if(Object.hasOwn(payload.data,el.name)){if(el.type==="checkbox")el.checked=!!payload.data[el.name];else el.value=payload.data[el.name]}});document.querySelectorAll("#abilities input[name]").forEach(el=>el.dispatchEvent(new Event("input")));$("saveStatus").textContent="♡ Profile loaded from Cloudflare D1"}catch(e){$("saveStatus").textContent="Profile data could not load: "+e.message+". Character header is still available."}}
 $("saveProfile").addEventListener("click",async()=>{const button=$("saveProfile");button.disabled=true;$("saveStatus").textContent="Saving to D1…";const data={...originalData};inputs().forEach(el=>{if(el.name==="characterName")return;data[el.name]=el.type==="checkbox"?el.checked:el.value});try{const response=await fetch("/api/character-profile",{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify({character_id:selectedId,data})});const result=await response.json();if(!response.ok)throw Error(result.error||"Save failed");originalData=data;$("saveStatus").textContent="♡ Saved to Cloudflare D1"}catch(e){$("saveStatus").textContent=e.message}finally{button.disabled=false}});
 load();

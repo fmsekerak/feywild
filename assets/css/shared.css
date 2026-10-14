@@ -396,3 +396,14 @@ main > .card {
       center, center;
   }
 }
+
+/* Corner-gap correction: the SVG stems now follow the card's rounded
+   outline instead of a tighter inner arc. Position them at the border box. */
+main > .card {
+  background-position: left top, right top, left bottom, right bottom, center, center;
+}
+@media (max-width: 600px) {
+  main > .card {
+    background-position: left top, right top, left bottom, right bottom, center, center;
+  }
+}

@@ -352,3 +352,26 @@ main > .card {
     padding-right: 1rem;
   }
 }
+
+/* Align the actual vine stems with the card outline, not inside it.
+   SVG stems sit 3/86 of their width in from the image edge. Offsetting
+   the 78px art by 3px puts the stems directly over the 1px card border. */
+main > .card {
+  background-origin: border-box;
+  background-position:
+    left -3px top -3px,
+    right -3px top -3px,
+    left -3px bottom -3px,
+    right -3px bottom -3px,
+    center, center;
+}
+@media (max-width: 600px) {
+  main > .card {
+    background-position:
+      left -2px top -2px,
+      right -2px top -2px,
+      left -2px bottom -2px,
+      right -2px bottom -2px,
+      center, center;
+  }
+}

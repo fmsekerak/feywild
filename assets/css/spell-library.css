@@ -58,3 +58,32 @@
 @media(max-width:460px) {
  .character-page-card .spell-library-filters { grid-template-columns:1fr; }
 }
+
+/* Enchanted crystal tracker and prepared-spell quick reference. */
+.character-page-card .spell-tracker-panel {margin:0 0 1.25rem;background:linear-gradient(150deg,#284b40,#17372e)}
+.character-page-card .spell-tracker-hint {color:#d7e9df;text-align:center;font-size:.9rem;line-height:1.5}
+.character-page-card .spell-slot-grid {display:grid;gap:.55rem;margin:1rem 0}
+.character-page-card .spell-slot-row {display:grid;grid-template-columns:5.5rem 5.5rem minmax(0,1fr) 4.5rem;gap:.65rem;align-items:center;padding:.6rem .8rem;background:#112c2666;border:1px solid #d8c89b44;border-radius:11px}
+.character-page-card .spell-slot-label {color:#f9e9d8;font:600 1.05rem Georgia,serif}
+.character-page-card .spell-slot-total-label {display:flex;gap:.4rem;align-items:center;color:#c3e4d0;font-size:.8rem}
+.character-page-card .spell-slot-total-label input {width:3.2rem;min-width:0;padding:.35rem;border-radius:8px;border:1px solid #f4c2daaa;background:#f8e8f4;color:#36263d;font:inherit}
+.character-page-card .spell-slot-crystals {display:flex;flex-wrap:wrap;gap:.35rem}
+.character-page-card .spell-slot-crystal {font-size:1.25rem;line-height:1;background:transparent;border:1px solid transparent;border-radius:7px;padding:.3rem;cursor:pointer;color:#f5c3dd;text-shadow:0 0 9px #f2a5d1}
+.character-page-card .spell-slot-crystal.spent {color:#819b91;text-shadow:none;opacity:.65}
+.character-page-card .spell-slot-crystal:focus-visible {outline:2px solid #f5c3dd}
+.character-page-card .spell-slot-empty,.character-page-card .spell-slot-remaining {color:#b9d7c8;font-size:.82rem}
+.character-page-card .spell-slot-remaining {text-align:right}
+.character-page-card .spell-tracker-actions {display:flex;flex-wrap:wrap;gap:.8rem;align-items:center;justify-content:center}
+.character-page-card .spell-tracker-actions button {border:1px solid #f4c2da99;background:#654362;color:#ffe8f3;border-radius:999px;padding:.55rem 1rem;font:inherit;cursor:pointer}
+.character-page-card #spell-slot-status {color:#c8e6d6;font-size:.85rem}
+.character-page-card .spell-known-toolbar {display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.8rem;margin:.5rem 0 1rem;color:#c8e6d6}
+.character-page-card .spell-known-toolbar label {display:flex;gap:.5rem;align-items:center}
+.character-page-card .spell-known-toolbar select {padding:.45rem .65rem;border-radius:8px;background:#f8e8f4;color:#36263d;border:1px solid #f4c2da}
+.character-page-card .srd-spell-quick {color:#f2d8e6;font-size:.88rem;margin:.3rem 0 .6rem}
+.character-page-card .srd-spell-badges {display:flex;gap:.35rem;flex-wrap:wrap;margin:.4rem 0 .75rem}
+.character-page-card .srd-spell-badge {border:1px solid #bce4c355;background:#325a4a;color:#e5f4e9;border-radius:999px;font-size:.73rem;padding:.2rem .5rem}
+.character-page-card .srd-spell-controls {display:flex;flex-wrap:wrap;gap:.45rem}
+.character-page-card .srd-spell-controls button:disabled {opacity:.45;cursor:not-allowed}
+.character-page-card .srd-spell-controls .is-prepared {background:#356c5a;color:#f4ffef;border-color:#bce4c3}
+@media(max-width:700px){.character-page-card .spell-slot-row {grid-template-columns:1fr auto;gap:.4rem}.character-page-card .spell-slot-crystals {grid-column:1/-1;grid-row:2}.character-page-card .spell-slot-remaining {grid-column:2;grid-row:1}}
+@media(prefers-reduced-motion:reduce){.character-page-card .spell-slot-crystal {text-shadow:none}}

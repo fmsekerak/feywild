@@ -71,6 +71,15 @@
      <section class="satchel-panel profile-panel"><h4>Cantrips</h4><div id="cantrips"></div></section>
      <section class="satchel-panel profile-panel"><h4>Spell Notes</h4><div id="spellNotes"></div></section>
     </div>
+    <section class="satchel-panel profile-panel spell-tracker-panel" aria-labelledby="spell-tracker-title">
+     <h4 id="spell-tracker-title">✧ Spell Slot Crystals</h4>
+     <p class="spell-tracker-hint">Set your maximum slots, then tap a glowing crystal to expend or restore it. Your changes are kept when you select <strong>Save Character</strong>.</p>
+     <input type="hidden" name="spellSlotTracker" id="spellSlotTracker" value="">
+     <input type="hidden" name="srdPreparedSpells" id="srdPreparedSpells" value="">
+     <div id="spell-slot-tracker" class="spell-slot-grid" aria-label="Spell slot tracker"></div>
+     <div class="spell-tracker-actions"><button type="button" id="spell-restore-all">✧ Restore All Slots</button><span id="spell-slot-status" role="status" aria-live="polite"></span></div>
+     <p class="spell-tracker-hint">Slot totals are set manually to support different classes and house rules. Resting is manual; no automatic class rules are applied.</p>
+    </section>
     <section class="satchel-panel profile-panel spell-library-panel" aria-labelledby="srd-library-heading">
      <h4 id="srd-library-heading">SRD Spell Library</h4>
      <p class="spell-library-intro">Browse 2014 SRD spells and add them to this character's journal. Use <strong>Save Character</strong> to keep your selections.</p>
@@ -83,6 +92,7 @@
      </div>
      <p id="srd-spell-status" role="status" aria-live="polite">Opening the spell archive…</p>
      <h5 class="spell-library-subheading">✧ Your Saved Spells <span id="srd-known-count"></span></h5>
+     <div class="spell-known-toolbar"><label>Show <select id="srd-known-filter"><option value="all">All saved spells</option><option value="prepared">Prepared only</option><option value="unprepared">Not prepared</option></select></label><span id="srd-prepared-count" aria-live="polite"></span></div>
      <div id="srd-known-spells" class="spell-library-results"></div>
      <h5 class="spell-library-subheading">✧ Browse the Archive</h5>
      <div id="srd-spell-results" class="spell-library-results"></div>
@@ -130,6 +140,7 @@
  <script src="assets/js/character-details.js" defer></script>
  <script src="assets/js/character-profile.js" defer></script>
  <script src="assets/js/spell-library.js" defer></script>
+ <script src="assets/js/spellbook-tools.js" defer></script>
  <script type="module" src="assets/js/inventory.js"></script>
 </body>
 </html>

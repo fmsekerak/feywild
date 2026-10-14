@@ -66,11 +66,16 @@
    </section>
    <section class="profile-pane" id="spells" role="tabpanel" aria-labelledby="tab-spells" hidden>
     <div class="profile-section-heading"><h3>✦ Spellbook</h3><p>A place to keep track of your magical discoveries.</p></div>
-    <div class="profile-layout">
-     <section class="satchel-panel profile-panel"><h4>Spellcasting</h4><div id="spellcasting"></div></section>
-     <section class="satchel-panel profile-panel"><h4>Cantrips</h4><div id="cantrips"></div></section>
-     <section class="satchel-panel profile-panel"><h4>Spell Notes</h4><div id="spellNotes"></div></section>
-    </div>
+    <section class="spellcasting-summary" aria-labelledby="spellcasting-summary-heading">
+     <div class="spellcasting-summary-title"><span aria-hidden="true">✧</span><h4 id="spellcasting-summary-heading">Spellcasting</h4></div>
+     <div class="spellcasting-summary-facts">
+      <div class="character-fact"><span>Class</span><strong id="srd-casting-class">—</strong></div>
+      <div class="character-fact"><span>Ability</span><strong id="srd-casting-status">—</strong></div>
+      <div class="character-fact"><span>Spell Save DC</span><output id="srd-calculated-dc">—</output></div>
+      <div class="character-fact"><span>Spell Attack</span><output id="srd-calculated-attack">—</output></div>
+     </div>
+     <div id="spellcasting" hidden aria-hidden="true"></div>
+    </section>
     <section class="satchel-panel profile-panel spell-tracker-panel" aria-labelledby="spell-tracker-title">
      <h4 id="spell-tracker-title">✧ Spell Slot Crystals</h4>
      <p class="spell-tracker-hint">Set your maximum slots, then tap a glowing crystal to expend or restore it. Your changes are kept when you select <strong>Save Character</strong>.</p>
@@ -87,12 +92,6 @@
      <input type="hidden" name="srdPreparedSpells" id="srdPreparedSpells" value="">
      <input type="hidden" name="srdFavoriteSpells" id="srdFavoriteSpells" value="">
      <input type="hidden" name="srdConcentration" id="srdConcentration" value="">
-     <div class="spellbook-calculator" aria-label="Spellcasting calculations">
-      <div><span>Spellcasting class</span><strong id="srd-casting-class">Loading…</strong><small id="srd-casting-status" role="status" aria-live="polite"></small></div>
-      <div><span>Spell save DC</span><output id="srd-calculated-dc">—</output></div>
-      <div><span>Spell attack</span><output id="srd-calculated-attack">—</output></div>
-     </div>
-     <p class="spell-tracker-hint">Automatically uses the spellcasting ability associated with your class and your saved ability score and proficiency bonus. Multiclass or homebrew spellcasting may require DM review; special bonuses are not included.</p>
      <section class="srd-concentration-panel" aria-label="Active concentration">
       <strong>◈ Active Concentration</strong>
       <p id="srd-concentration-name">No concentration spell active.</p>
@@ -108,7 +107,6 @@
      <h5 class="spell-library-subheading">✧ Your Saved Spells <span id="srd-known-count"></span></h5>
      <div class="spell-known-toolbar">
       <label>Show <select id="srd-known-filter"><option value="all">All saved spells</option><option value="prepared">Prepared only</option><option value="unprepared">Not prepared</option><option value="favorites">♡ Favorites</option></select></label>
-      <label class="srd-compact-label"><input type="checkbox" id="srd-compact-mode"> Compact cards</label>
       <span id="srd-prepared-count" aria-live="polite"></span>
      </div>
      <div id="srd-known-spells" class="spell-library-results"></div>

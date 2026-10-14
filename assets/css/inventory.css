@@ -114,3 +114,30 @@ button:disabled{opacity:.55;cursor:wait}
 }
 .inventory-row { border-color: #4fa37c99; }
 .inventory-row:focus-within { border-color: var(--fey-pink, #ffb3ff); }
+
+/* Enchanted Storybook 2.0: botanical satchel and parchment-like panels. */
+.satchel-panel {
+  border: 1px solid rgba(182,245,216,.68);
+  background:
+    radial-gradient(circle at 100% 0, rgba(255,179,255,.13), transparent 40%),
+    linear-gradient(155deg, #2a4b41, #19352f);
+  box-shadow: inset 0 0 0 2px rgba(182,245,216,.07), 0 9px 24px #0007;
+}
+.satchel-panel::before {
+  content: "❧  ❀";
+  position: absolute;
+  top: .45rem;
+  right: .8rem;
+  font: 1.05rem Georgia, serif;
+  color: #f8b9da;
+  text-shadow: 0 0 10px #ff9cff;
+  opacity: .82;
+  pointer-events: none;
+}
+.satchel-panel > * { position: relative; z-index: 1; }
+.satchel-divider { color: #f8b9da; text-shadow: 0 0 13px #ff9cff; }
+.satchel-divider::before, .satchel-divider::after {
+  background: linear-gradient(90deg, transparent, #a8e5ba 35%, #f8b9da 55%, transparent);
+}
+.satchel-heading { text-shadow: 0 0 15px #ff9cff77; }
+.satchel-sparkle { color: #f8b9da; text-shadow: 0 0 15px #ff9cff; }

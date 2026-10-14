@@ -2,7 +2,7 @@
   // Hide all player-only profile links when the DM is selected.
   const isDM = (sessionStorage.getItem("feywild-character-name") || "").trim().toLowerCase() === "dm";
   if (isDM) {
-    document.querySelectorAll('a[href="character-profile.html"]').forEach(link => {
+    document.querySelectorAll('a[href="character-profile.html"], a[href^="character-profile.html#"]').forEach(link => {
       const navItem = link.closest("nav li");
       if (navItem) navItem.remove();
       else link.remove();

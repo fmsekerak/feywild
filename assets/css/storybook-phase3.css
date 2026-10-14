@@ -12,12 +12,24 @@ main > .card > h1, main > .card > h2 {
 }
 main > .card > h1:first-child { font-size: clamp(2rem, 4vw, 2.8rem); }
 main > .card > h1 + p, main > .card > h2 + p { line-height: 1.75; }
-/* Botanical rule below major section headings; no floral corner icons. */
+/* Dedicated dividers are real layout elements, not heading backgrounds.
+   This keeps the illustrated leaves and flower visible regardless of heading styles. */
 main > .card > h2:not(:first-child) {
   margin-top: 1.8rem;
-  margin-bottom: 1rem;
-  padding-bottom: 3.4rem !important;
-  background: url('../images/phase3-botanical-rule.svg') center bottom / min(100%, 520px) 58px no-repeat;
+  margin-bottom: .1rem;
+}
+.storybook-botanical-divider {
+  display: block;
+  width: min(100%, 520px);
+  height: 58px;
+  margin: .1rem auto 1.4rem;
+  flex: none;
+  background-image: url('../images/phase3-botanical-rule.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  filter: drop-shadow(0 1px 5px #f8c9e34a);
+  pointer-events: none;
 }
 main > .card > table {
   width: 100%;
@@ -148,10 +160,11 @@ main > .card > table tr:last-child td { border-bottom: 0; }
   #crafting-list .crafting-item { transition: none; transform: none !important; }
 }
 
-/* Let the botanical artwork breathe beneath headings on narrow screens. */
+/* Compact but still clearly visible on phones. */
 @media (max-width: 600px) {
-  main > .card > h2:not(:first-child) {
-    padding-bottom: 2.8rem !important;
-    background-size: min(100%, 360px) auto;
+  .storybook-botanical-divider {
+    width: min(100%, 360px);
+    height: 48px;
+    margin-bottom: 1.1rem;
   }
 }

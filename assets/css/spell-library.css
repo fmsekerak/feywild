@@ -121,3 +121,4 @@
 .character-page-card .srd-compact .srd-spell-details {margin-top:.4rem}
 .character-page-card .srd-compact .srd-school-icon {width:1.5rem;height:1.5rem;flex-basis:1.5rem;font-size:.95rem}
 @media(max-width:600px){.character-page-card .spellbook-calculator {grid-template-columns:1fr 1fr}.character-page-card .spellbook-calculator label {grid-column:1/-1}}
+\n.character-page-card #srd-casting-class {font:600 1.2rem Georgia,serif;color:#f5d7e7}\n.character-page-card #srd-casting-status {display:block;line-height:1.45;color:#c7e6d3}\n.character-page-card #spellcasting input[readonly] {background:#dcece5;color:#23463c;cursor:default}\n

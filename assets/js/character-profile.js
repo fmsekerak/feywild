@@ -32,7 +32,8 @@ add(["attacks"],"attacks","textarea");add(["equipment"],"equipment","textarea");
 add(["personality","ideals","bonds","flaws"],"personality","textarea");add(["features"],"features","textarea");
 add(["age","eyes","height","skin","weight","hair"],"appearanceDetails");add(["appearance"],"appearanceNotes","textarea");add(["allies"],"allies","textarea");add(["backstory"],"backstory","textarea");add(["additionalFeatures","treasure"],"extras","textarea");
 add(["spellClass","spellAbility","spellSave","spellAttack"],"spellcasting");add(["cantrips"],"cantrips","textarea");add(["spellNotes"],"spellNotes","textarea");
-for(let level=1;level<=9;level++){const card=document.createElement("article");card.className="satchel-panel profile-panel";card.innerHTML="<h4>✧ Level "+level+" Spells</h4>";const id="level-"+level;card.id=id;$("spellLevels").append(card);field("slots-"+level,"Legacy slot notes (optional)", "text",id);field("spells-"+level,"Spells","textarea",id)}
+// Legacy per-level spell fields are no longer rendered. Existing saved values
+// remain in originalData and are preserved by the profile save workflow.
 document.querySelectorAll(".profile-tabs button").forEach(button=>button.addEventListener("click",()=>{document.querySelectorAll(".profile-tabs button").forEach(x=>x.setAttribute("aria-selected",String(x===button)));document.querySelectorAll(".profile-pane").forEach(p=>{p.classList.toggle("active",p.id===button.dataset.tab);p.hidden=p.id!==button.dataset.tab})}));
 // Equipment notes can open the embedded inventory without navigating away.
 document.querySelectorAll("[data-open-inventory]").forEach(control=>control.addEventListener("click",()=>{

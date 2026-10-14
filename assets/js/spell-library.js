@@ -8,7 +8,7 @@
  const status=byId("srd-spell-status"), results=byId("srd-spell-results"),
        knownList=byId("srd-known-spells"), more=byId("srd-spell-more"),
        count=byId("srd-known-count"), preparedField=byId("srdPreparedSpells"), preparedCount=byId("srd-prepared-count"), knownFilter=byId("srd-known-filter");
- let spells=[], byIndex=new Map(), visible=20;
+ let spells=[], byIndex=new Map(), visible=6;
  const known=()=>new Set(selected.value.split(",").map(x=>x.trim()).filter(x=>byIndex.has(x)));
  const label=s=>s.level===0?"Cantrip":"Level "+s.level;
  const prepared=()=>new Set((preparedField.value||"").split(",").filter(Boolean));
@@ -102,7 +102,7 @@
   more.textContent="Show more spells ("+Math.max(0,filtered.length-visible)+" remaining)";
   if(!status.textContent.includes("changed"))setStatus(filtered.length+" spells match your search · "+spells.length+" SRD spells available.");
  }
- for(const control of [search,level,school,klass])control.addEventListener(control===search?"input":"change",()=>{visible=20;render()});
+ for(const control of [search,level,school,klass])control.addEventListener(control===search?"input":"change",()=>{visible=6;render()});
  more.addEventListener("click",()=>{visible+=20;render()});
  knownFilter.addEventListener("change",render);
  document.addEventListener("feywild:profile-loaded",render);

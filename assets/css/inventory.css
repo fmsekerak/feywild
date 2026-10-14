@@ -99,3 +99,18 @@ button:disabled{opacity:.55;cursor:wait}
  #add-item{grid-template-columns:minmax(0,1fr)}
  .satchel-add-panel .fey-button{width:100%}
 }
+
+/* Enchanted Storybook · satchel surfaces and the existing floral-star dividers. */
+.satchel-panel {
+  border-color: var(--fey-border, #a8d4b8);
+  border-radius: var(--fey-radius, 14px);
+  background: linear-gradient(155deg, #24453d, #1b342f);
+  box-shadow: 0 6px 18px #0006, inset 0 1px #ffffff0d;
+}
+.satchel-panel h3, .satchel-panel h4 { color: var(--fey-blush, #fad9e9); }
+.satchel-divider { color: var(--fey-mint, #b6f5d8); text-shadow: 0 0 10px #55f4bc55; }
+.satchel-divider::before, .satchel-divider::after {
+  background: linear-gradient(90deg, transparent, #4fa37c88 35%, #fad9e988 50%, #4fa37c88 65%, transparent);
+}
+.inventory-row { border-color: #4fa37c99; }
+.inventory-row:focus-within { border-color: var(--fey-pink, #ffb3ff); }

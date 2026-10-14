@@ -89,3 +89,23 @@
  background-position:center, center, center;
  background-repeat:no-repeat;
 }
+
+/* Enchanted Storybook 2.0: character selection keeps its existing art. */
+.portal-grid .portal-character, .portal-dm-grid .portal-character {
+  border: 2px solid rgba(248,185,218,.8);
+  box-shadow: 0 0 0 3px rgba(182,245,216,.1), 0 10px 24px #0009, inset 0 0 20px #ffb3ff22;
+}
+.portal-grid .portal-character::after, .portal-dm-grid .portal-character::after {
+  content: "❀";
+  position: absolute;
+  right: .55rem;
+  top: .3rem;
+  font-size: 1.3rem;
+  color: #fad9e9;
+  text-shadow: 0 0 12px #ff9cff;
+  pointer-events: none;
+}
+.portal-grid .portal-character:hover, .portal-dm-grid .portal-character:hover {
+  border-color: #b6f5d8;
+  box-shadow: 0 0 0 3px #b6f5d822, 0 0 28px #ff9cff99;
+}

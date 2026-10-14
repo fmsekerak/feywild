@@ -71,3 +71,18 @@
 /* Inventory is a character-sheet action rather than a top navigation tab. */
 .character-inventory-action { display: flex; justify-content: center; margin: 1.1rem 0 .8rem; }
 .character-inventory-action .fey-button { margin: 0; text-align: center; }
+
+/* Enchanted Storybook 2.0: a floral portrait frame and illuminated tabs. */
+.character-portrait {
+  border: 3px double #f8b9da;
+  box-shadow: 0 0 0 5px rgba(182,245,216,.14), 0 0 0 8px rgba(248,185,218,.11), 0 0 24px #ff9cff66;
+}
+.profile-tabs button {
+  border: 1px solid #f8b9da;
+  box-shadow: inset 0 1px #ffffff22, 0 0 14px #ff9cff44;
+}
+.profile-tabs button[aria-selected="true"] {
+  border-color: #b6f5d8;
+  box-shadow: 0 0 0 2px #b6f5d833, 0 0 20px #ff9cff77;
+}
+.character-inventory-action .fey-button { box-shadow: 0 0 0 2px #b6f5d822, 0 0 22px #ff9cff66; }

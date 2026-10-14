@@ -35,7 +35,8 @@ add(["spellClass","spellAbility","spellSave","spellAttack"],"spellcasting");
 for(const name of ["spellAbility","spellSave","spellAttack"]){
  const input=document.querySelector('#spellcasting input[name="'+name+'"]');
  if(input){input.readOnly=true;input.title="Automatically calculated from character class, ability score and proficiency bonus";}
-}add(["cantrips"],"cantrips","textarea");add(["spellNotes"],"spellNotes","textarea");
+}
+// Legacy cantrips and spellNotes remain in originalData, but no longer render.
 // Legacy per-level spell fields are no longer rendered. Existing saved values
 // remain in originalData and are preserved by the profile save workflow.
 document.querySelectorAll(".profile-tabs button").forEach(button=>button.addEventListener("click",()=>{document.querySelectorAll(".profile-tabs button").forEach(x=>x.setAttribute("aria-selected",String(x===button)));document.querySelectorAll(".profile-pane").forEach(p=>{p.classList.toggle("active",p.id===button.dataset.tab);p.hidden=p.id!==button.dataset.tab})}));

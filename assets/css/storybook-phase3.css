@@ -20,9 +20,9 @@ main > .card > h2:not(:first-child) {
 }
 .storybook-botanical-divider {
   display: block;
-  width: min(100%, 520px);
-  height: 58px;
-  margin: .1rem auto 1.4rem;
+  width: min(100%, 440px);
+  height: 49px;
+  margin: .1rem auto 1.1rem;
   flex: none;
   background-image: url('../images/phase3-botanical-rule.svg');
   background-repeat: no-repeat;
@@ -163,8 +163,8 @@ main > .card > table tr:last-child td { border-bottom: 0; }
 /* Compact but still clearly visible on phones. */
 @media (max-width: 600px) {
   .storybook-botanical-divider {
-    width: min(100%, 360px);
-    height: 48px;
-    margin-bottom: 1.1rem;
+    width: min(100%, 310px);
+    height: 42px;
+    margin-bottom: .9rem;
   }
 }

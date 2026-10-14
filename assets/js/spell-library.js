@@ -5,7 +5,7 @@
  const preparedField=$("srdPreparedSpells"),favoritesField=$("srdFavoriteSpells"),concentrationField=$("srdConcentration");
  const search=$("srd-spell-search"),level=$("srd-spell-level"),school=$("srd-spell-school"),klass=$("srd-spell-class");
  const status=$("srd-spell-status"),results=$("srd-spell-results"),knownList=$("srd-known-spells"),more=$("srd-spell-more");
- const count=$("srd-known-count"),preparedCount=$("srd-prepared-count"),knownFilter=$("srd-known-filter"),compact=$("srd-compact-mode");
+ const count=$("srd-known-count"),preparedCount=$("srd-prepared-count"),knownFilter=$("srd-known-filter");
  const activeName=$("srd-concentration-name"),endConcentration=$("srd-end-concentration");
  const abilitySelect=$("srd-casting-ability"),dcOutput=$("srd-calculated-dc"),attackOutput=$("srd-calculated-attack");
  let spells=[],lookup=new Map(),visible=6,expandedLevels=new Set();
@@ -170,8 +170,6 @@
   const savedSpells=spells.filter(s=>saved.has(s.id)&&(knownFilter.value==="all"||(knownFilter.value==="prepared"?prep.has(s.id):knownFilter.value==="unprepared"?!prep.has(s.id):favs.has(s.id))));
   count.textContent="("+saved.size+")";
   preparedCount.textContent=spells.filter(s=>saved.has(s.id)&&prep.has(s.id)).length+" prepared";
-  knownList.classList.toggle("srd-compact",compact.checked);
-  results.classList.toggle("srd-compact",compact.checked);
   knownList.replaceChildren();
   if(!savedSpells.length)knownList.append(text("p",saved.size?"No spells match this saved-spell filter.":"No saved spells yet. Find one below and add it to your spellbook.","srd-spell-empty"));
   const levels=[...new Set(savedSpells.map(s=>s.level))].sort((a,b)=>a-b);
@@ -195,7 +193,6 @@
  for(const control of [search,level,school,klass])control.addEventListener(control===search?"input":"change",()=>{visible=6;render()});
  more.addEventListener("click",()=>{visible+=20;render()});
  knownFilter.addEventListener("change",render);
- compact.addEventListener("change",render);
  document.addEventListener("feywild:profile-loaded",()=>{syncAbility();render()});
  document.addEventListener("feywild:slots-changed",render);
  fetch("assets/data/srd-2014-spells.json").then(r=>{if(!r.ok)throw Error("Spell archive could not be loaded.");return r.json()}).then(data=>{

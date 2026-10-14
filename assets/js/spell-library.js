@@ -108,15 +108,13 @@
     const cast=button("✦ Use slot",()=>{
      const chosen=Number(slotSelect.value);
      if(!(window.FEYWILD_SPELL_SLOTS?.remaining(chosen)>0))return;
-     if(!window.confirm("Spend one level "+chosen+" slot for "+spell.name+"?"))return;
+     const previous=spell.concentration?lookup.get(currentConcentration()):null;
+     const switching=previous&&previous.id!==spell.id;
+     const question="Spend one level "+chosen+" slot for "+spell.name+"?"+(switching?" This will replace concentration on "+previous.name+".":"");
+     if(!window.confirm(question))return;
      const success=window.FEYWILD_SPELL_SLOTS?.spend(chosen);
      if(!success)return;
-     if(spell.concentration){
-      const previous=lookup.get(currentConcentration());
-      if(previous&&previous.id!==spell.id){
-       if(window.confirm("Switch concentration from "+previous.name+" to "+spell.name+"?"))concentrationField.value=spell.id;
-      }else concentrationField.value=spell.id;
-     }
+     if(spell.concentration)concentrationField.value=spell.id;
      render();changed("Spell slot expended");
     },"srd-cast-button");
     const updateCast=()=>{cast.disabled=!(window.FEYWILD_SPELL_SLOTS?.remaining(Number(slotSelect.value))>0)};

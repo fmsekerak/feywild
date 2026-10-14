@@ -281,3 +281,26 @@ main > .card {
 @media (max-width: 600px) {
   main > .card { padding-left: 28px; padding-right: 28px; }
 }
+
+/* Visible illustrated vines: replace barely perceptible gradient dots.
+   Decorative background only; the card contents remain fully interactive. */
+main > .card {
+  background-image:
+    url('../images/storybook-vine.svg'),
+    url('../images/storybook-vine.svg'),
+    radial-gradient(ellipse at top left, rgba(255, 179, 255, .08), transparent 36%),
+    linear-gradient(150deg, rgba(53, 100, 88, .96), rgba(27, 57, 51, .98));
+  background-position: left 8px top 8px, right 8px top 8px, center, center;
+  background-size: 65px 400px, 65px 400px, auto, auto;
+  background-repeat: repeat-y, repeat-y, no-repeat, no-repeat;
+  padding-left: max(2.5rem, 70px);
+  padding-right: max(2.5rem, 70px);
+}
+@media (max-width: 600px) {
+  main > .card {
+    background-position: left 4px top 6px, right 4px top 6px, center, center;
+    background-size: 32px 250px, 32px 250px, auto, auto;
+    padding-left: 36px;
+    padding-right: 36px;
+  }
+}

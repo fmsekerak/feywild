@@ -407,3 +407,24 @@ main > .card {
     background-position: left top, right top, left bottom, right bottom, center, center;
   }
 }
+
+/* Phase 2: gentle magical interactions, without moving the vines. */
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .fey-button, .home-path, .clear-filters, .back-to-top {
+    transition: transform .22s ease, box-shadow .25s ease, border-color .25s ease, filter .25s ease;
+  }
+  .fey-button:hover, .clear-filters:hover, .back-to-top:hover {
+    transform: translateY(-2px);
+    border-color: #b6f5d8;
+    box-shadow: 0 0 0 2px #b6f5d81a, 0 0 22px #ffb3ff80, inset 0 1px #ffffff33;
+  }
+  .home-path:hover {
+    transform: translateY(-4px);
+    border-color: #b6f5d8;
+    box-shadow: 0 0 0 2px #b6f5d81c, 0 10px 25px #0005, 0 0 20px #ffb3ff66;
+  }
+}
+.fey-button:active, .clear-filters:active, .back-to-top:active { filter: brightness(1.12); }
+@media (prefers-reduced-motion: reduce) {
+  .fey-button, .home-path, .clear-filters, .back-to-top { transform: none !important; transition: none !important; }
+}

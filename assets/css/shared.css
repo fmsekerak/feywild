@@ -114,3 +114,34 @@ a, button, select { cursor: url('../images/PinkSelect.cur'), pointer; }
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
   .sparkle { display: none; }
 }
+
+/* Enchanted Storybook · cross-page details, shared with search and portal pages. */
+:root {
+  --fey-forest: #11211f;
+  --fey-moss: #305b54;
+  --fey-panel: #1f3a36;
+  --fey-sage: #4fa37c;
+  --fey-mint: #b6f5d8;
+  --fey-blush: #fad9e9;
+  --fey-pink: #ffb3ff;
+  --fey-plum: #5e3460;
+  --fey-border: rgba(168, 212, 184, .65);
+  --fey-glow: 0 0 20px rgba(255, 179, 255, .18);
+  --fey-radius: 14px;
+}
+nav { border-bottom: 1px solid rgba(250, 217, 233, .25); }
+nav a:focus-visible { border-radius: 4px; }
+.banner h1, .banner .site-title { color: var(--fey-blush); }
+.home-path {
+  border-color: var(--fey-border);
+  box-shadow: 0 0 14px rgba(255, 179, 255, .12), inset 0 1px rgba(255, 255, 255, .08);
+}
+.home-path:focus-visible { outline: 3px solid var(--fey-pink); outline-offset: 4px; }
+.clear-filters, .back-to-top {
+  background: linear-gradient(135deg, #784775, var(--fey-plum));
+  border-color: rgba(255, 179, 255, .65);
+}
+#profession-filter, #rarity-filter { background: linear-gradient(135deg, #f8e8f4, #e1f4e7); }
+@media (prefers-reduced-motion: reduce) {
+  .home-path, .clear-filters, .back-to-top { transition: none; }
+}

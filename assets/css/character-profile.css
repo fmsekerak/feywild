@@ -50,3 +50,20 @@
 .character-portrait img[hidden],.character-portrait span[hidden]{display:none!important}
 .character-portrait span{line-height:1}
 @media(max-width:460px){.character-portrait{display:grid;flex:0 0 90px;width:90px;height:90px}}
+
+/* Enchanted Storybook · preserve portrait sizing and functional profile grids. */
+.character-portrait {
+  border: 2px solid var(--fey-border, #a8d4b8);
+  box-shadow: 0 0 0 4px rgba(250, 217, 233, .08), 0 0 22px rgba(255, 179, 255, .18);
+}
+.character-display-name { color: var(--fey-blush, #fad9e9); }
+.character-fact { border-bottom-color: rgba(168, 212, 184, .35); }
+.profile-tabs button {
+  background: linear-gradient(135deg, #70446e, #523451);
+  border-color: rgba(255, 179, 255, .55);
+}
+.profile-tabs button[aria-selected="true"] {
+  background: linear-gradient(135deg, #93608b, #724b76);
+  box-shadow: 0 0 16px rgba(255, 179, 255, .35);
+}
+.profile-tabs button:focus-visible { outline: 3px solid var(--fey-pink, #ffb3ff); outline-offset: 3px; }

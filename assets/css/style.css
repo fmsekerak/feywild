@@ -429,3 +429,39 @@ p {
     word-break: break-word;
   }
 }
+
+/* Enchanted Storybook · shared design tokens and foundational surfaces.
+   These enhance existing components without changing layout or behavior. */
+:root {
+  --fey-forest: #11211f;
+  --fey-moss: #305b54;
+  --fey-panel: #1f3a36;
+  --fey-sage: #4fa37c;
+  --fey-mint: #b6f5d8;
+  --fey-blush: #fad9e9;
+  --fey-pink: #ffb3ff;
+  --fey-plum: #5e3460;
+  --fey-border: rgba(168, 212, 184, .65);
+  --fey-glow: 0 0 20px rgba(255, 179, 255, .18);
+  --fey-radius: 14px;
+}
+.card {
+  border-radius: var(--fey-radius);
+  border-color: var(--fey-border);
+  background: linear-gradient(155deg, rgba(56, 104, 91, .96), rgba(39, 76, 69, .96));
+  box-shadow: 0 8px 22px rgba(0, 0, 0, .38), inset 0 1px rgba(255, 235, 247, .09);
+}
+.card:hover { border-color: rgba(250, 217, 233, .72); box-shadow: 0 10px 25px rgba(0, 0, 0, .42), var(--fey-glow); }
+.card h1, .card h2, .card h3 { text-wrap: balance; }
+.fey-button, .fey-link {
+  background: linear-gradient(135deg, #784775, var(--fey-plum) 62%, #49324d);
+  border-color: rgba(255, 179, 255, .65);
+  box-shadow: 0 0 12px rgba(255, 179, 255, .25), inset 0 1px rgba(255, 255, 255, .16);
+}
+.fey-button:focus-visible, .fey-link:focus-visible { outline: 3px solid var(--fey-pink); outline-offset: 3px; }
+@media (max-width: 768px) {
+  .card { border-radius: 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .card, .fey-button, .fey-link { transition: none; }
+}

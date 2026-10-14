@@ -304,3 +304,27 @@ main > .card {
     padding-right: 36px;
   }
 }
+
+/* Delicate L-shaped climbing vines inspired by the supplied third reference.
+   Four transparent corner illustrations, no repeated side pattern. */
+main > .card {
+  background-image:
+    url('../images/vine-corner-tl.svg'),
+    url('../images/vine-corner-tr.svg'),
+    url('../images/vine-corner-bl.svg'),
+    url('../images/vine-corner-br.svg'),
+    radial-gradient(ellipse at top left, rgba(255,179,255,.08), transparent 36%),
+    linear-gradient(150deg, rgba(53,100,88,.96), rgba(27,57,51,.98));
+  background-position: left 6px top 6px, right 6px top 6px, left 6px bottom 6px, right 6px bottom 6px, center, center;
+  background-size: 120px 120px, 120px 120px, 120px 120px, 120px 120px, auto, auto;
+  background-repeat: no-repeat;
+  padding-left: max(1.25rem, 36px);
+  padding-right: max(1.25rem, 36px);
+}
+@media (max-width: 600px) {
+  main > .card {
+    background-size: 65px 65px, 65px 65px, 65px 65px, 65px 65px, auto, auto;
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}

@@ -18,10 +18,19 @@ async function initialize() {
  let data;
  try{
   const characters=await api("/api/inventory/characters");
-  data=characters.find(character=>character.id===selectedId);
+  // Browser storage always returns strings; API IDs may arrive as numbers.
+  // Recover a stale ID using the selected character name when possible.
+  const selectedName=(sessionStorage.getItem("feywild-character-name")||"").trim().toLowerCase();
+  data=characters.find(character=>String(character.id)===String(selectedId));
+  if(!data && selectedName) data=characters.find(character=>character.name.trim().toLowerCase()===selectedName);
  }catch(error){status("Unable to prepare inventory: "+errorText(error));return;}
  if(!data){sessionStorage.removeItem("feywild-character-id");sessionStorage.removeItem("feywild-character-name");location.replace("index.html");return;}
- await selectCharacter(data.id,data.name);
+ // The API accepts UUIDs; don't send malformed/stale IDs to inventory endpoints.
+ if(!/^[a-f0-9-]{36}$/i.test(String(data.id))){
+  status("This character has an unsupported inventory ID. Please contact the DM.");
+  return;
+ }
+ await selectCharacter(String(data.id),data.name);
  await loadCatalog();
 }
 async function loadCatalog() {

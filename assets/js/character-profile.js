@@ -39,6 +39,14 @@ document.querySelectorAll("[data-open-inventory]").forEach(control=>control.addE
  document.getElementById("tab-inventory").click();
  document.getElementById("tab-inventory").focus();
 }));
+// Direct links to the inventory open the matching character-sheet tab.
+function openRequestedTab(){
+ const tabName=location.hash.slice(1);
+ const tab=document.querySelector('.profile-tabs button[data-tab="'+tabName+'"]');
+ if(tab)tab.click();
+}
+window.addEventListener("hashchange",openRequestedTab);
+openRequestedTab();
 const inputs=()=>[...document.querySelectorAll("input[name],textarea[name]")];
 let originalData={};
 function renderIdentity(character,data={}){

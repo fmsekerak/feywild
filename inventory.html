@@ -1,53 +1,14 @@
 <!doctype html>
 <html lang="en">
 <head>
- <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
- <title>Feywild | Inventory</title>
- <link rel="stylesheet" href="assets/css/style.css">
- <link rel="stylesheet" href="assets/css/shared.css">
- <link rel="stylesheet" href="assets/css/inventory.css">
-  <link rel="stylesheet" href="assets/css/storybook-phase3.css">
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width,initial-scale=1">
+ <meta name="robots" content="noindex">
+ <title>Feywild | Character Sheet</title>
+ <meta http-equiv="refresh" content="0;url=character-profile.html#inventory-pane">
+ <script>location.replace("character-profile.html#inventory-pane");</script>
 </head>
 <body>
- <header class="banner"><canvas id="bannerParticles"></canvas><h1>Inventory</h1></header>
- <nav><ul>
-  <li><a href="home.html">Home</a></li>
-  <li class="dropdown"><a href="crafting.html">Crafting</a><button class="submenu-toggle" type="button" aria-label="Toggle Crafting submenu" aria-controls="crafting-submenu" aria-expanded="false">▾</button><ul class="dropdown-menu" id="crafting-submenu"><li><a href="crafting.html">Overview</a></li><li><a href="alchemy.html">Alchemy</a></li></ul></li>
-  <li><a href="search.html">Search</a></li>
-    <li data-player-profile-link><a href="character-profile.html">Character Profile</a></li>
-  
- </ul></nav>
- <main class="satchel-main">
-  <section class="card satchel-card">
-   <div id="satchel-title" class="satchel-heading"><span class="satchel-sparkle" aria-hidden="true">✧</span><h2 id="inventory-title">Your Inventory</h2><span class="satchel-sparkle" aria-hidden="true">✧</span></div>
-   <p id="status" role="status" aria-live="polite">Preparing the magic...</p>
-   <div id="signed-in">
-    <div id="inventory" hidden>
-     <div class="satchel-divider" aria-hidden="true">✦</div>
-     <div class="satchel-columns">
-      <section class="satchel-panel satchel-add-panel" aria-labelledby="satchel-add-heading">
-       <h4 id="satchel-add-heading">✧ Add to your satchel</h4>
-       <form id="add-item">
-        <div class="satchel-field satchel-search-field"><label for="item-search">Find an item</label><input id="item-search" type="search" placeholder="Search treasures..." autocomplete="off"></div>
-        <div class="satchel-field satchel-select-field"><label for="catalog-item">Choose an item</label><select id="catalog-item" required><option value="">Select an item</option></select></div>
-        <div class="satchel-field satchel-quantity-field"><label for="item-quantity">Quantity</label><input id="item-quantity" type="number" min="1" max="999999" value="1" required></div>
-        <button class="fey-button" type="submit">✧ Add item</button>
-        <p id="catalog-description" aria-live="polite"></p>
-       </form>
-      </section>
-      <section class="satchel-panel satchel-items-panel" aria-labelledby="satchel-items-heading">
-       <h4 id="satchel-items-heading">✧ Your belongings</h4>
-       <p class="satchel-items-hint">Your gathered curiosities and treasures.</p>
-       <ul id="items"></ul>
-      </section>
-     </div>
-
-
-    </div>
-   </div>
-  </section>
- </main>
- <script src="assets/js/particles.js"></script><script src="assets/js/shared.js"></script>
- <script type="module" src="assets/js/inventory.js"></script>
+ <p>Your satchel now lives in your <a href="character-profile.html#inventory-pane">Character Sheet's Inventory tab</a>.</p>
 </body>
 </html>

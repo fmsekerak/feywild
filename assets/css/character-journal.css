@@ -1,0 +1,152 @@
+/* Phase 4 — personalized adventurer's journal.
+   Scoped to the profile page; all inputs and D1 save logic remain unchanged. */
+.character-page-card {
+  --journal-parchment: #f8ebdb;
+  --journal-rose: #f4c2da;
+  --journal-sage: #bce4c3;
+}
+.character-page-card .character-header {
+  max-width: none;
+  gap: clamp(1rem, 3vw, 2rem);
+  padding: clamp(1rem, 3vw, 2rem);
+  margin: .25rem 0 1.25rem;
+  border: 1px solid #e9d5a477;
+  border-radius: 20px;
+  background: radial-gradient(ellipse at 10% 0%, #f4c2da2b, transparent 45%),
+              radial-gradient(ellipse at 100% 100%, #bce4c322, transparent 45%),
+              linear-gradient(145deg, #365b4e, #1b3931);
+  box-shadow: inset 0 0 0 3px #f8ebdb0b, 0 12px 28px #07171488;
+}
+.character-page-card .character-summary::before {
+  content: '✦  THE ADVENTURER’S CHRONICLE  ✦';
+  display: block;
+  margin-bottom: .45rem;
+  color: #e9d5a4;
+  font: 600 .73rem/1.5 Georgia,serif;
+  letter-spacing: .16em;
+}
+.character-page-card .character-display-name {
+  font-size: clamp(2rem, 4.5vw, 3rem);
+  color: var(--journal-parchment);
+  margin-bottom: 1.05rem;
+}
+.character-page-card .character-fact {
+  padding: .5rem .65rem .6rem;
+  background: #102b254f;
+  border: 1px solid #bce4c333;
+  border-radius: 10px;
+}
+.character-page-card .character-fact span { color: var(--journal-sage); }
+.character-page-card .character-fact strong { color: var(--journal-parchment); }
+.character-page-card .character-portrait {
+  border: 3px double #f4c2da;
+  box-shadow: 0 0 0 6px #e9d5a42a, 0 0 0 10px #f4c2da16, 0 0 28px #f4c2da66;
+}
+.character-page-card .profile-tabs {
+  padding: .7rem;
+  border-top: 1px solid #e9d5a444;
+  border-bottom: 1px solid #e9d5a444;
+  gap: .65rem;
+}
+.character-page-card .profile-tabs button {
+  position: relative;
+  border-radius: 10px 10px 4px 4px;
+  padding: .75rem 1.2rem;
+  background: linear-gradient(145deg,#4d6055,#293f38);
+  border-color: #bce4c366;
+  color: #f8ebdb;
+  transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+}
+.character-page-card .profile-tabs button[aria-selected="true"] {
+  background: linear-gradient(145deg,#825b79,#5e405e);
+  border-color: #f4c2da;
+  box-shadow: inset 0 2px #fff2, 0 0 0 2px #f4c2da25, 0 5px 18px #f4c2da4d;
+}
+.character-page-card .profile-section-heading {
+  margin: 1.2rem auto 1.65rem;
+}
+.character-page-card .profile-section-heading h3 {
+  color: var(--journal-parchment);
+  font-size: clamp(1.7rem,3vw,2.25rem);
+  margin: 0;
+}
+.character-page-card .profile-section-heading p {
+  margin: .4rem 0 0;
+  color: var(--journal-sage);
+}
+.character-page-card .profile-section-heading::after {
+  content: '';
+  display: block;
+  width: min(100%, 310px);
+  height: 38px;
+  margin: .45rem auto 0;
+  background: url('../images/phase3-botanical-rule.svg') center / contain no-repeat;
+}
+.character-page-card .profile-panel {
+  border: 1px solid #e9d5a466;
+  background: radial-gradient(ellipse at top right,#f4c2da14,transparent 55%),
+              linear-gradient(145deg,#305447,#1b3930);
+  box-shadow: 0 10px 22px #07171466, inset 0 0 0 2px #f8ebdb0a;
+}
+.character-page-card .profile-panel h4 {
+  font: 600 clamp(1.2rem,2.2vw,1.45rem)/1.3 Georgia,serif;
+  color: var(--journal-parchment);
+  border-bottom: 1px solid #e9d5a466;
+  padding-bottom: .8rem;
+  margin-bottom: 1rem;
+}
+.character-page-card .profile-panel h4::before {
+  content: '❧';
+  display: inline-block;
+  color: var(--journal-rose);
+  margin-right: .55rem;
+  font-weight: 400;
+}
+.character-page-card .stat-grid { gap: .75rem; }
+.character-page-card .stat-grid .field {
+  position: relative;
+  padding: .8rem .5rem .65rem;
+  border: 1px solid #bce4c36b;
+  background: linear-gradient(160deg,#1b3e33,#142b27);
+  box-shadow: inset 0 1px #fff1;
+  color: var(--journal-sage);
+}
+.character-page-card .stat-grid .field input {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+.character-page-card .ability-modifier {
+  display: block;
+  margin-top: .35rem;
+  color: #f3d8a3;
+  font: 700 1.05rem/1.4 Georgia,serif;
+}
+.character-page-card .skill-grid label {
+  padding: .4rem .5rem;
+  border-radius: 7px;
+  background: #102b252e;
+}
+.character-page-card .spell-levels .profile-panel {
+  border-top: 3px solid #f4c2da88;
+}
+.character-page-card .spell-levels .profile-panel h4::before { content: '✧'; }
+.character-page-card .profile-save {
+  padding: 1.2rem;
+  border: 1px solid #e9d5a44f;
+  border-radius: 14px;
+  background: #142e2866;
+}
+.character-page-card .profile-warning { text-align: center; }
+@media (hover:hover) and (prefers-reduced-motion:no-preference) {
+  .character-page-card .profile-tabs button:hover { transform: translateY(-3px); }
+}
+@media (max-width:600px) {
+  .character-page-card .character-header { flex-wrap: wrap; justify-content: center; text-align: center; }
+  .character-page-card .character-summary { flex: 1 1 100%; }
+  .character-page-card .character-facts { text-align: left; }
+  .character-page-card .profile-tabs button { flex: 1 1 auto; padding: .65rem .7rem; }
+  .character-page-card .stat-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+}
+@media (prefers-reduced-motion:reduce) {
+  .character-page-card .profile-tabs button { transition: none; }
+}

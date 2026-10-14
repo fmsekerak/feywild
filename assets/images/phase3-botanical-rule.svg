@@ -1,1 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 18"><g fill="none" stroke="#a8d5b0" stroke-width="1.3" stroke-linecap="round"><path d="M4 9H167 M253 9H416"/><path d="M167 9q12-9 24 0t19 0t19 0t24 0"/></g><g fill="#a8d5b0"><path d="M174 8q-11-12-13-3q3 7 13 3M184 9q-5 12-12 8q-1-7 12-8M236 9q5-12 12-8q1 7-12 8M246 8q11-12 13-3q-3 7-13 3"/></g><path d="M210 3l3.5 6-3.5 6-3.5-6z" fill="#f8c9e3"/><circle cx="210" cy="9" r="2" fill="#e9d5a4"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 58" fill="none">
+<defs><linearGradient id="stem" x1="0" y1="0" x2="520" y2="0"><stop stop-color="#79aa87" stop-opacity="0"/><stop offset=".2" stop-color="#a9d7b1"/><stop offset=".5" stop-color="#d0e8c4"/><stop offset=".8" stop-color="#a9d7b1"/><stop offset="1" stop-color="#79aa87" stop-opacity="0"/></linearGradient><radialGradient id="petal"><stop stop-color="#fff0f7"/><stop offset="1" stop-color="#efaccf"/></radialGradient></defs>
+<g stroke="url(#stem)" stroke-width="1.8" stroke-linecap="round">
+<path d="M6 29 C62 29 92 27 121 22 S169 10 195 27 S238 44 260 29 S300 11 325 27 S373 36 399 23 S458 29 514 29"/>
+<path d="M128 23 C122 12 130 6 140 11 M168 18 C160 34 170 43 180 39 M202 30 C204 12 217 9 226 16 M318 28 C315 10 300 8 293 15 M356 18 C365 35 356 43 346 39 M394 24 C401 10 391 5 382 11"/>
+</g>
+<g fill="#a4d4a9" stroke="#d5edcb" stroke-width=".8">
+<path d="M111 24 Q99 6 91 13 Q91 24 111 24Z"/><path d="M133 19 Q140 2 150 8 Q149 18 133 19Z"/><path d="M158 15 Q147 3 144 10 Q145 18 158 15Z"/><path d="M181 38 Q183 50 194 45 Q195 37 181 38Z"/><path d="M211 23 Q210 7 222 10 Q225 19 211 23Z"/><path d="M309 22 Q310 7 298 10 Q295 19 309 22Z"/><path d="M339 38 Q337 50 326 45 Q325 37 339 38Z"/><path d="M362 15 Q373 3 376 10 Q375 18 362 15Z"/><path d="M387 19 Q380 2 370 8 Q371 18 387 19Z"/><path d="M409 24 Q421 6 429 13 Q429 24 409 24Z"/>
+</g>
+<g fill="#83b998" stroke="#c6e8bd" stroke-width=".6"><path d="M193 27 Q181 13 177 21 Q181 29 193 27Z"/><path d="M327 27 Q339 13 343 21 Q339 29 327 27Z"/><path d="M239 37 Q226 50 238 51 Q246 48 239 37Z"/><path d="M281 37 Q294 50 282 51 Q274 48 281 37Z"/></g>
+<g transform="translate(260 28)">
+<g fill="url(#petal)" stroke="#fce3ef" stroke-width=".8">
+<ellipse cx="0" cy="-11" rx="6.8" ry="12"/><ellipse cx="0" cy="-11" rx="6.8" ry="12" transform="rotate(72)"/><ellipse cx="0" cy="-11" rx="6.8" ry="12" transform="rotate(144)"/><ellipse cx="0" cy="-11" rx="6.8" ry="12" transform="rotate(216)"/><ellipse cx="0" cy="-11" rx="6.8" ry="12" transform="rotate(288)"/>
+</g><circle r="5.4" fill="#f3dc9c" stroke="#fff0c6" stroke-width="1"/><circle r="1.6" fill="#fff7d9"/></g>
+<g fill="#f5c8e0" opacity=".85"><circle cx="174" cy="28" r="2.1"/><circle cx="346" cy="28" r="2.1"/><circle cx="227" cy="31" r="1.5"/><circle cx="293" cy="31" r="1.5"/></g>
+</svg>

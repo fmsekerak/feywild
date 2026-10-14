@@ -9,6 +9,7 @@
  <link rel="stylesheet" href="assets/css/character-profile.css">
   <link rel="stylesheet" href="assets/css/storybook-phase3.css">
   <link rel="stylesheet" href="assets/css/character-journal.css">
+  <link rel="stylesheet" href="assets/css/spell-library.css">
 </head>
 <body>
  <header class="banner"><canvas id="bannerParticles"></canvas><h1>Feywild</h1></header>
@@ -70,6 +71,24 @@
      <section class="satchel-panel profile-panel"><h4>Cantrips</h4><div id="cantrips"></div></section>
      <section class="satchel-panel profile-panel"><h4>Spell Notes</h4><div id="spellNotes"></div></section>
     </div>
+    <section class="satchel-panel profile-panel spell-library-panel" aria-labelledby="srd-library-heading">
+     <h4 id="srd-library-heading">SRD Spell Library</h4>
+     <p class="spell-library-intro">Browse 2014 SRD spells and add them to this character's journal. Use <strong>Save Character</strong> to keep your selections.</p>
+     <input type="hidden" name="srdSpells" id="srdSpells" value="">
+     <div class="spell-library-filters">
+      <label>Find a spell<input type="search" id="srd-spell-search" placeholder="Search by name or description…" autocomplete="off"></label>
+      <label>Level<select id="srd-spell-level"><option value="">All levels</option><option value="0">Cantrips</option></select></label>
+      <label>School<select id="srd-spell-school"><option value="">All schools</option></select></label>
+      <label>Class<select id="srd-spell-class"><option value="">All classes</option></select></label>
+     </div>
+     <p id="srd-spell-status" role="status" aria-live="polite">Opening the spell archive…</p>
+     <h5 class="spell-library-subheading">✧ Your Saved Spells <span id="srd-known-count"></span></h5>
+     <div id="srd-known-spells" class="spell-library-results"></div>
+     <h5 class="spell-library-subheading">✧ Browse the Archive</h5>
+     <div id="srd-spell-results" class="spell-library-results"></div>
+     <div class="spell-library-pagination"><button type="button" id="srd-spell-more" hidden>Show more spells</button></div>
+     <p class="spell-library-credit">Spell content: <a href="https://dnd.wizards.com/resources/systems-reference-document" target="_blank" rel="noopener noreferrer">D&D System Reference Document 5.1</a>, © Wizards of the Coast LLC, licensed under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>. Adapted into searchable JSON from <a href="https://github.com/5e-bits/5e-database" target="_blank" rel="noopener noreferrer">5e-bits/5e-database</a>. Not affiliated with or endorsed by Wizards of the Coast.</p>
+    </section>
     <div class="profile-layout spell-levels" id="spellLevels"></div>
    </section>
    <section class="profile-pane" id="inventory-pane" role="tabpanel" aria-labelledby="tab-inventory" hidden>
@@ -110,6 +129,7 @@
  <script src="assets/js/shared.js"></script>
  <script src="assets/js/character-details.js" defer></script>
  <script src="assets/js/character-profile.js" defer></script>
+ <script src="assets/js/spell-library.js" defer></script>
  <script type="module" src="assets/js/inventory.js"></script>
 </body>
 </html>

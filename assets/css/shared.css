@@ -428,3 +428,28 @@ main > .card {
 @media (prefers-reduced-motion: reduce) {
   .fey-button, .home-path, .clear-filters, .back-to-top { transform: none !important; transition: none !important; }
 }
+
+/* Phase 2 fix: Home's satchel/profile links use .portal-button, not .fey-button.
+   Apply the same magical lift and glow to those actual homepage controls. */
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .portal-home-actions .portal-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform .22s ease, box-shadow .25s ease, border-color .25s ease;
+    will-change: transform;
+  }
+  .portal-home-actions .portal-button:hover {
+    transform: translateY(-5px);
+    border-color: #b6f5d8;
+    box-shadow: 0 0 0 2px #b6f5d833, 0 7px 25px #ffb3ffaa, 0 12px 20px #0005;
+  }
+}
+.portal-home-actions .portal-button:focus-visible {
+  outline: 3px solid #b6f5d8;
+  outline-offset: 4px;
+  box-shadow: 0 0 24px #ffb3ff88;
+}
+@media (prefers-reduced-motion: reduce) {
+  .portal-home-actions .portal-button { transition: none !important; transform: none !important; }
+}

@@ -75,7 +75,7 @@
      <h4 id="spell-tracker-title">✧ Spell Slot Crystals</h4>
      <p class="spell-tracker-hint">Set your maximum slots, then tap a glowing crystal to expend or restore it. Your changes are kept when you select <strong>Save Character</strong>.</p>
      <input type="hidden" name="spellSlotTracker" id="spellSlotTracker" value="">
-     <input type="hidden" name="srdPreparedSpells" id="srdPreparedSpells" value="">
+
      <div id="spell-slot-tracker" class="spell-slot-grid" aria-label="Spell slot tracker"></div>
      <div class="spell-tracker-actions"><button type="button" id="spell-restore-all">✧ Restore All Slots</button><span id="spell-slot-status" role="status" aria-live="polite"></span></div>
      <p class="spell-tracker-hint">Slot totals are set manually to support different classes and house rules. Resting is manual; no automatic class rules are applied.</p>
@@ -84,6 +84,20 @@
      <h4 id="srd-library-heading">SRD Spell Library</h4>
      <p class="spell-library-intro">Browse 2014 SRD spells and add them to this character's journal. Use <strong>Save Character</strong> to keep your selections.</p>
      <input type="hidden" name="srdSpells" id="srdSpells" value="">
+     <input type="hidden" name="srdPreparedSpells" id="srdPreparedSpells" value="">
+     <input type="hidden" name="srdFavoriteSpells" id="srdFavoriteSpells" value="">
+     <input type="hidden" name="srdConcentration" id="srdConcentration" value="">
+     <div class="spellbook-calculator" aria-label="Spellcasting calculations">
+      <label>Spellcasting ability <select id="srd-casting-ability"><option value="">Choose ability</option><option value="int">Intelligence</option><option value="wis">Wisdom</option><option value="cha">Charisma</option><option value="str">Strength</option><option value="dex">Dexterity</option><option value="con">Constitution</option></select></label>
+      <div><span>Spell save DC</span><output id="srd-calculated-dc">—</output></div>
+      <div><span>Spell attack</span><output id="srd-calculated-attack">—</output></div>
+     </div>
+     <p class="spell-tracker-hint">Uses your character's ability score and proficiency bonus. Choose the spellcasting ability manually; class-specific bonuses are not included.</p>
+     <section class="srd-concentration-panel" aria-label="Active concentration">
+      <strong>◈ Active Concentration</strong>
+      <p id="srd-concentration-name">No concentration spell active.</p>
+      <button type="button" id="srd-end-concentration" hidden>End Concentration</button>
+     </section>
      <div class="spell-library-filters">
       <label>Find a spell<input type="search" id="srd-spell-search" placeholder="Search by name or description…" autocomplete="off"></label>
       <label>Level<select id="srd-spell-level"><option value="">All levels</option><option value="0">Cantrips</option></select></label>
@@ -92,7 +106,11 @@
      </div>
      <p id="srd-spell-status" role="status" aria-live="polite">Opening the spell archive…</p>
      <h5 class="spell-library-subheading">✧ Your Saved Spells <span id="srd-known-count"></span></h5>
-     <div class="spell-known-toolbar"><label>Show <select id="srd-known-filter"><option value="all">All saved spells</option><option value="prepared">Prepared only</option><option value="unprepared">Not prepared</option></select></label><span id="srd-prepared-count" aria-live="polite"></span></div>
+     <div class="spell-known-toolbar">
+      <label>Show <select id="srd-known-filter"><option value="all">All saved spells</option><option value="prepared">Prepared only</option><option value="unprepared">Not prepared</option><option value="favorites">♡ Favorites</option></select></label>
+      <label class="srd-compact-label"><input type="checkbox" id="srd-compact-mode"> Compact cards</label>
+      <span id="srd-prepared-count" aria-live="polite"></span>
+     </div>
      <div id="srd-known-spells" class="spell-library-results"></div>
      <h5 class="spell-library-subheading">✧ Browse the Archive</h5>
      <div id="srd-spell-results" class="spell-library-results"></div>

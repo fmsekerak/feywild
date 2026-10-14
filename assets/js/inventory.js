@@ -25,9 +25,9 @@ async function initialize() {
   if(!data && selectedName) data=characters.find(character=>character.name.trim().toLowerCase()===selectedName);
  }catch(error){status("Unable to prepare inventory: "+errorText(error));return;}
  if(!data){sessionStorage.removeItem("feywild-character-id");sessionStorage.removeItem("feywild-character-name");location.replace("index.html");return;}
- // The API accepts UUIDs; don't send malformed/stale IDs to inventory endpoints.
- if(!/^[a-f0-9-]{36}$/i.test(String(data.id))){
-  status("This character has an unsupported inventory ID. Please contact the DM.");
+ // Accept the existing database's safe character IDs, not only UUIDs.
+ if(!/^[a-zA-Z0-9_-]{1,128}$/.test(String(data.id))){
+  status("This character has an invalid inventory ID. Please select your character again.");
   return;
  }
  await selectCharacter(String(data.id),data.name);

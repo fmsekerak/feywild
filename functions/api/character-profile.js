@@ -1,7 +1,7 @@
 // Public character profiles, like the site's intentionally open inventories.
 // NEVER use this endpoint for DM secrets or private campaign data.
 const respond=(data,status=200)=>Response.json(data,{status,headers:{"Cache-Control":"no-store","X-Content-Type-Options":"nosniff"}});
-const validId=x=>typeof x==="string"&&/^[0-9a-f-]{36}$/i.test(x);
+const validId=x=>(typeof x==="string"||typeof x==="number")&&/^[a-zA-Z0-9_-]{1,128}$/.test(String(x));
 export async function onRequestGet({request,env}){
  const id=new URL(request.url).searchParams.get("character_id");
  if(!validId(id))return respond({error:"Invalid character."},400);

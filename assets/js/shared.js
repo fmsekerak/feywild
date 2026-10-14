@@ -30,10 +30,14 @@
   });
 
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  // Delegation includes dynamically inserted character selection buttons.
+  // Throttle hover sparkles and limit active elements for smoother performance.
+  let lastSparkleAt = 0;
   document.addEventListener('mousemove', event => {
       if (!event.target.closest('a, button')) return;
-      if (reducedMotion.matches || Math.random() > 0.3) return;
+      if (reducedMotion.matches || document.hidden) return;
+      const now = performance.now();
+      if (now - lastSparkleAt < 140 || document.querySelectorAll('.sparkle').length >= 12) return;
+      lastSparkleAt = now;
       const sparkle = document.createElement('span');
       sparkle.className = 'sparkle';
       sparkle.style.left = `${event.clientX + (Math.random() * 8 - 4)}px`;

@@ -16,8 +16,8 @@ main > .card > h1 + p, main > .card > h2 + p { line-height: 1.75; }
 main > .card > h2:not(:first-child) {
   margin-top: 1.8rem;
   margin-bottom: 1rem;
-  padding-bottom: 1rem !important;
-  background: url('../images/phase3-botanical-rule.svg') center bottom / min(100%, 420px) 18px no-repeat;
+  padding-bottom: 3.4rem !important;
+  background: url('../images/phase3-botanical-rule.svg') center bottom / min(100%, 520px) 58px no-repeat;
 }
 main > .card > table {
   width: 100%;
@@ -146,4 +146,12 @@ main > .card > table tr:last-child td { border-bottom: 0; }
 }
 @media (prefers-reduced-motion:reduce) {
   #crafting-list .crafting-item { transition: none; transform: none !important; }
+}
+
+/* Let the botanical artwork breathe beneath headings on narrow screens. */
+@media (max-width: 600px) {
+  main > .card > h2:not(:first-child) {
+    padding-bottom: 2.8rem !important;
+    background-size: min(100%, 360px) auto;
+  }
 }

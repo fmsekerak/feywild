@@ -30,32 +30,55 @@
   changed(id?"Concentration started":"Concentration ended");
  }
  endConcentration.addEventListener("click",()=>setConcentration(""));
+ // Standard spellcasting abilities by class (2014/5e rules).
+ const classAbilities={artificer:"int",bard:"cha",cleric:"wis",druid:"wis",paladin:"cha",ranger:"wis",sorcerer:"cha",warlock:"cha",wizard:"int"};
+ const abilityNames={int:"Intelligence",wis:"Wisdom",cha:"Charisma"};
+ const spellAbilityField=$("spellcasting")?.querySelector('input[name="spellAbility"]');
+ const spellClassField=$("spellcasting")?.querySelector('input[name="spellClass"]');
+ const spellSaveField=$("spellcasting")?.querySelector('input[name="spellSave"]');
+ const spellAttackField=$("spellcasting")?.querySelector('input[name="spellAttack"]');
+ const proficiencyField=$("proficiencies")?.querySelector('input[name="proficiencyBonus"]');
+ const abilityStatus=$("srd-casting-status");
+ const classLabel=$("srd-casting-class");
+ const normalizeClass=value=>String(value||"").toLowerCase().replace(/[^a-z]/g,"");
+ function getClass(){
+  // The character header already resolves hardcoded identity + saved D1 class.
+  const header=$("profile-class")?.textContent.trim();
+  if(header&&header!=="—")return header;
+  return spellClassField?.value.trim()||"";
+ }
+ function resolveAbility(){
+  const name=normalizeClass(getClass());
+  // Match first class in a multiclass label; no silent guess for ambiguous multiclass casters.
+  const matches=Object.entries(classAbilities).filter(([klass])=>new RegExp("(^|[^a-z])"+klass+"([^a-z]|$)","i").test(getClass()));
+  if(matches.length===1)return {ability:matches[0][1],klass:matches[0][0]};
+  if(classAbilities[name])return {ability:classAbilities[name],klass:name};
+  return {ability:"",klass:getClass()};
+ }
  function calculate(){
-  const ability=abilitySelect.value;
-  const raw=$("abilities")?.querySelector('input[name="'+ability+'"]')?.value.trim();
-  const proficiency=$('proficiencies')?.querySelector('input[name="proficiencyBonus"]')?.value.trim();
+  const {ability,klass}=resolveAbility();
+  const raw=ability?$("abilities")?.querySelector('input[name="'+ability+'"]')?.value.trim():"";
+  const proficiency=proficiencyField?.value.trim()||"";
   const score=Number(raw),bonus=Number(proficiency);
+  classLabel.textContent=klass?klass.charAt(0).toUpperCase()+klass.slice(1):"Unknown class";
+  abilityStatus.textContent=ability?abilityNames[ability]+" (from class)":"Spellcasting ability unavailable for this class";
+  if(spellAbilityField)spellAbilityField.value=ability?abilityNames[ability]:"";
+  if(spellClassField&&klass)spellClassField.value=getClass();
   if(!ability||!raw||!proficiency||!Number.isFinite(score)||!Number.isFinite(bonus)){
-   dcOutput.textContent="—";attackOutput.textContent="—";return;
+   dcOutput.textContent="—";attackOutput.textContent="—";
+   if(spellSaveField)spellSaveField.value="";
+   if(spellAttackField)spellAttackField.value="";
+   abilityStatus.textContent+=!ability?"":!raw?" · Enter your "+abilityNames[ability]+" score":!proficiency?" · Enter your proficiency bonus":" · Check your ability score and proficiency bonus";
+   return;
   }
-  const modifier=Math.floor((score-10)/2);
-  dcOutput.textContent=String(8+bonus+modifier);
-  const attack=bonus+modifier;
-  attackOutput.textContent=(attack>=0?"+":"")+attack;
+  const modifier=Math.floor((score-10)/2),attack=bonus+modifier,dc=8+attack;
+  dcOutput.textContent=String(dc);attackOutput.textContent=(attack>=0?"+":"")+attack;
+  if(spellSaveField)spellSaveField.value=String(dc);
+  if(spellAttackField)spellAttackField.value=(attack>=0?"+":"")+attack;
  }
- abilitySelect.addEventListener("change",()=>{
-  const profile=$("spellcasting")?.querySelector('input[name="spellAbility"]');
-  if(profile)profile.value=abilitySelect.value;
-  calculate();
-  changed("Spellcasting ability updated");
- });
  document.querySelectorAll('#abilities input[name],#proficiencies input[name="proficiencyBonus"]').forEach(input=>input.addEventListener("input",calculate));
- function syncAbility(){
-  const raw=$("spellcasting")?.querySelector('input[name="spellAbility"]')?.value.trim().toLowerCase()||"";
-  const aliases={intelligence:"int",wisdom:"wis",charisma:"cha",strength:"str",dexterity:"dex",constitution:"con"};
-  abilitySelect.value=aliases[raw]||(["int","wis","cha","str","dex","con"].includes(raw)?raw:"");
-  calculate();
- }
+ if(spellClassField)spellClassField.addEventListener("input",calculate);
+ function syncAbility(){calculate()}
  function options(select,values,formatter=x=>x){
   for(const value of [...new Set(values)].sort((a,b)=>typeof a==="number"?a-b:String(a).localeCompare(String(b)))){
    if(select===level&&value===0)continue;

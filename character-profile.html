@@ -88,11 +88,11 @@
      <input type="hidden" name="srdFavoriteSpells" id="srdFavoriteSpells" value="">
      <input type="hidden" name="srdConcentration" id="srdConcentration" value="">
      <div class="spellbook-calculator" aria-label="Spellcasting calculations">
-      <label>Spellcasting ability <select id="srd-casting-ability"><option value="">Choose ability</option><option value="int">Intelligence</option><option value="wis">Wisdom</option><option value="cha">Charisma</option><option value="str">Strength</option><option value="dex">Dexterity</option><option value="con">Constitution</option></select></label>
+      <div><span>Spellcasting class</span><strong id="srd-casting-class">Loading…</strong><small id="srd-casting-status" role="status" aria-live="polite"></small></div>
       <div><span>Spell save DC</span><output id="srd-calculated-dc">—</output></div>
       <div><span>Spell attack</span><output id="srd-calculated-attack">—</output></div>
      </div>
-     <p class="spell-tracker-hint">Uses your character's ability score and proficiency bonus. Choose the spellcasting ability manually; class-specific bonuses are not included.</p>
+     <p class="spell-tracker-hint">Automatically uses the spellcasting ability associated with your class and your saved ability score and proficiency bonus. Multiclass or homebrew spellcasting may require DM review; special bonuses are not included.</p>
      <section class="srd-concentration-panel" aria-label="Active concentration">
       <strong>◈ Active Concentration</strong>
       <p id="srd-concentration-name">No concentration spell active.</p>

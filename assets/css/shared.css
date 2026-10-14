@@ -243,3 +243,41 @@ nav::before {
 @media (prefers-reduced-motion: reduce) {
   main > .card, .home-path { transition: none; }
 }
+
+/* Storybook refinement: quiet climbing vines instead of floral corner icons.
+   All artwork is CSS-only, non-interactive, and contained inside the cards. */
+main > .card::before, main > .card::after {
+  content: "" !important;
+  display: none;
+}
+main > .card h1::after, main > .card h2::after {
+  content: none !important;
+  display: none;
+}
+nav::before, .home-path::before, .satchel-panel::before,
+.portal-grid .portal-character::after, .portal-dm-grid .portal-character::after {
+  content: none !important;
+  display: none;
+}
+/* Two gently curved stems and small leaves running up the side borders.
+   Gradients are positioned in the border gutter so content remains readable. */
+main > .card {
+  border: 1px solid rgba(166, 216, 168, .82);
+  background-image:
+    radial-gradient(ellipse 7px 15px at 13px 18%, rgba(137, 200, 134, .82) 45%, transparent 55%),
+    radial-gradient(ellipse 7px 15px at 24px 30%, rgba(137, 200, 134, .72) 45%, transparent 55%),
+    radial-gradient(ellipse 7px 15px at 13px 43%, rgba(137, 200, 134, .82) 45%, transparent 55%),
+    radial-gradient(ellipse 7px 15px at calc(100% - 13px) 18%, rgba(137, 200, 134, .82) 45%, transparent 55%),
+    radial-gradient(ellipse 7px 15px at calc(100% - 24px) 30%, rgba(137, 200, 134, .72) 45%, transparent 55%),
+    radial-gradient(ellipse 7px 15px at calc(100% - 13px) 43%, rgba(137, 200, 134, .82) 45%, transparent 55%),
+    linear-gradient(90deg, transparent 12px, rgba(158, 203, 134, .7) 13px, transparent 15px) left top / 26px 100% no-repeat,
+    linear-gradient(90deg, transparent 12px, rgba(158, 203, 134, .7) 13px, transparent 15px) right top / 26px 100% no-repeat,
+    radial-gradient(ellipse at top left, rgba(255, 179, 255, .08), transparent 36%),
+    linear-gradient(150deg, rgba(53, 100, 88, .96), rgba(27, 57, 51, .98));
+  padding-left: max(1.25rem, 32px);
+  padding-right: max(1.25rem, 32px);
+}
+/* The vines sit behind content; keep a generous gutter on narrow screens. */
+@media (max-width: 600px) {
+  main > .card { padding-left: 28px; padding-right: 28px; }
+}

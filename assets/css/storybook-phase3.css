@@ -1,0 +1,149 @@
+/* Enchanted Storybook Phase 3 — visual-only layer loaded last.
+   Preserve existing corner-vine backgrounds and all page behavior. */
+:root { --p3-ink:#f8e9db; --p3-sage:#c3e9c9; --p3-rose:#f8c9e3; --p3-gold:#e9d5a4; }
+main > .card {
+  /* Keep the existing six-layer vine art exactly as authored in shared.css. */
+  box-shadow: 0 0 0 3px #f8c9e310, 0 16px 36px #07171499,
+              inset 0 0 0 3px #e9d5a40d, inset 0 12px 28px #f9e7ce0b;
+}
+main > .card > h1, main > .card > h2 {
+  color: var(--p3-ink);
+  text-shadow: 0 2px 3px #061510, 0 0 20px #f8c9e355;
+}
+main > .card > h1:first-child { font-size: clamp(2rem, 4vw, 2.8rem); }
+main > .card > h1 + p, main > .card > h2 + p { line-height: 1.75; }
+/* Botanical rule below major section headings; no floral corner icons. */
+main > .card > h2:not(:first-child) {
+  margin-top: 1.8rem;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem !important;
+  background: url('../images/phase3-botanical-rule.svg') center bottom / min(100%, 420px) 18px no-repeat;
+}
+main > .card > table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+  border: 1px solid #c3e9c96b;
+  border-radius: 12px;
+  box-shadow: 0 7px 20px #07171455, inset 0 1px #fff2;
+}
+main > .card > table th {
+  color: #f9e8d5;
+  background: linear-gradient(135deg, #5a5360, #365a4e);
+  border-bottom: 1px solid #e9d5a466;
+  letter-spacing: .03em;
+}
+main > .card > table td {
+  background: #18352c77;
+  border-bottom-color: #c3e9c92e;
+}
+main > .card > table tr:nth-child(even) td { background: #41625352; }
+main > .card > table tr:last-child td { border-bottom: 0; }
+/* Raised parchment panels for satchel and profile subsections. */
+.satchel-panel {
+  border: 1px solid #c3e9c999;
+  border-radius: 17px;
+  background: radial-gradient(ellipse at 90% 0, #f8c9e31e, transparent 50%),
+              linear-gradient(150deg, #365b4b, #1c3931 75%);
+  box-shadow: 0 0 0 3px #e9d5a40c, 0 12px 24px #07171466,
+              inset 0 0 0 2px #f9e8d50b, inset 0 1px #f9e8d522;
+}
+.satchel-panel h3, .satchel-panel h4 {
+  color: var(--p3-ink);
+  border-bottom: 1px solid #e9d5a455;
+  padding-bottom: .65rem;
+  margin-bottom: 1rem;
+}
+.satchel-divider { color: var(--p3-gold); text-shadow: 0 0 12px #f8c9e377; }
+.satchel-divider::before, .satchel-divider::after {
+  background: linear-gradient(90deg, transparent, #c3e9c999, #e9d5a4, #c3e9c999, transparent);
+}
+/* Recipe collection: distinct illustrated-card-like header, clear detail rows. */
+#crafting-list { gap: 1rem; }
+#crafting-list .crafting-item {
+  border: 1px solid #c3e9c999;
+  border-radius: 15px;
+  background: #1a332c;
+  box-shadow: 0 0 0 2px #e9d5a40b, 0 9px 22px #07171477;
+  transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+#crafting-list .crafting-item-header {
+  position: relative;
+  min-height: 72px;
+  gap: .75rem;
+  padding: 1rem 1.25rem;
+  background: radial-gradient(circle at 100% 0, #f8c9e321, transparent 48%),
+              linear-gradient(115deg, #345b4e, #223d36);
+  color: var(--p3-ink);
+  font: bold clamp(1.05rem, 2vw, 1.2rem)/1.4 Georgia, serif;
+  text-align: left;
+}
+#crafting-list .crafting-item-header .recipe-icon {
+  display: grid;
+  place-items: center;
+  flex: 0 0 2.65rem;
+  width: 2.65rem;
+  height: 2.65rem;
+  font-size: 1.45rem;
+  border-radius: 12px;
+  background: #102e28a8;
+  border: 1px solid #c3e9c955;
+  box-shadow: inset 0 1px #fff2;
+}
+#crafting-list .crafting-item-header .item-name { flex: 1; min-width: 0; }
+#crafting-list .crafting-item-header::after { color: var(--p3-gold); }
+#crafting-list .crafting-item.open { border-color: var(--p3-gold); }
+#crafting-list .crafting-item-body {
+  padding: 1.1rem 1.25rem;
+  background: linear-gradient(145deg, #24463b, #172f29);
+  border-top: 1px solid #e9d5a466;
+  color: #f6eee2;
+}
+#crafting-list .crafting-item-body[hidden] { display: none !important; }
+#crafting-list .detail-row {
+  padding: .55rem .75rem;
+  margin: 0;
+  border-bottom: 1px solid #c3e9c92c;
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+}
+#crafting-list .detail-row:nth-child(even) { background: #d8ead90b; }
+#crafting-list .detail-row:last-child { border-bottom: 0; }
+#crafting-list .detail-label { color: var(--p3-sage); }
+#crafting-list .detail-description {
+  margin-top: .5rem;
+  padding-top: .8rem;
+  border-top: 1px solid #e9d5a455;
+}
+#crafting-list .rarity-badge {
+  border: 1px solid #e9d5a499;
+  background: #65516b;
+  color: #fff0f6;
+  padding: .25rem .75rem;
+  font: 600 .78rem/1.3 Georgia, serif;
+  letter-spacing: .035em;
+}
+#crafting-list .crafting-item:has(.rarity-badge) { border-left-width: 3px; }
+#crafting-list .rarity-badge[data-rarity="uncommon"] { background: #2c6750; }
+#crafting-list .rarity-badge[data-rarity="rare"] { background: #3b5682; }
+#crafting-list .rarity-badge[data-rarity="very-rare"] { background: #65417b; }
+#crafting-list .rarity-badge[data-rarity="legendary"] { background: #825e35; }
+#crafting-list .rarity-badge[data-rarity="artifact"] { background: #803e5c; }
+@media (hover:hover) and (prefers-reduced-motion:no-preference) {
+  #crafting-list .crafting-item:hover {
+    transform: translateY(-3px);
+    border-color: var(--p3-rose);
+    box-shadow: 0 0 0 2px #f8c9e31c, 0 14px 28px #07171499, 0 0 18px #f8c9e32b;
+  }
+}
+@media (max-width:600px) {
+  main > .card > table { display: block; overflow-x: auto; }
+  #crafting-list .crafting-item-header { padding: .85rem; gap: .5rem; }
+  #crafting-list .crafting-item-header .recipe-icon { flex-basis: 2.2rem; width: 2.2rem; height: 2.2rem; }
+  #crafting-list .crafting-item-body { padding: .7rem; }
+  #crafting-list .rarity-badge { max-width: 6rem; overflow-wrap: anywhere; }
+}
+@media (prefers-reduced-motion:reduce) {
+  #crafting-list .crafting-item { transition: none; transform: none !important; }
+}

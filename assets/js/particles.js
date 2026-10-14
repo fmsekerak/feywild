@@ -3,21 +3,21 @@
   const context = canvas?.getContext('2d');
   if (!context) return;
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const colors = ['#ffb3ff', '#ff9cff', '#ffffff', '#ffe4ff'];
+  const colors = ['#ffb3ff', '#b6f5d8', '#ffe4ff', '#d9f5b0'];
   let particles = [], frame = null;
 
   function resize() {
     const bounds = canvas.getBoundingClientRect();
     canvas.width = Math.max(1, Math.round(bounds.width));
     canvas.height = Math.max(1, Math.round(bounds.height));
-    const count = canvas.width < 600 ? 40 : 80;
+    const count = canvas.width < 600 ? 18 : 36;
     particles = Array.from({ length: count }, () => ({
       x: Math.random() * canvas.width, y: Math.random() * canvas.height,
-      r: Math.random() * 3 + 1, dx: (Math.random() - 0.5) / 2,
-      dy: (Math.random() - 0.5) / 2, opacity: Math.random() * 0.7 + 0.3,
-      opacitySpeed: Math.random() * 0.02 + 0.01,
+      r: Math.random() * 1.8 + 0.7, dx: (Math.random() - 0.5) * 0.28,
+      dy: (Math.random() - 0.5) * 0.28, opacity: Math.random() * 0.45 + 0.25,
+      opacitySpeed: Math.random() * 0.006 + 0.003,
       colorIndex: Math.floor(Math.random() * colors.length),
-      colorSpeed: Math.random() * 0.02 + 0.01
+      colorSpeed: Math.random() * 0.008 + 0.003
     }));
     draw();
   }
@@ -31,9 +31,15 @@
       context.beginPath();
       context.arc(particle.x, particle.y, particle.r, 0, Math.PI * 2);
       context.fill();
+      if (!reducedMotion.matches && particle.r > 1.25) {
+        context.globalAlpha = particle.opacity * 0.12;
+        context.beginPath();
+        context.arc(particle.x, particle.y, particle.r * 3.5, 0, Math.PI * 2);
+        context.fill();
+      }
       if (reducedMotion.matches) continue;
       particle.opacity += particle.opacitySpeed;
-      if (particle.opacity > 1 || particle.opacity < 0.3) particle.opacitySpeed *= -1;
+      if (particle.opacity > 0.75 || particle.opacity < 0.2) particle.opacitySpeed *= -1;
       particle.colorIndex = (particle.colorIndex + particle.colorSpeed) % colors.length;
       particle.x = (particle.x + particle.dx + canvas.width) % canvas.width;
       particle.y = (particle.y + particle.dy + canvas.height) % canvas.height;

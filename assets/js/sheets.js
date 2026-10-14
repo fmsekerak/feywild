@@ -161,6 +161,7 @@
       if (rarityOf(item)) {
         const badge = document.createElement('span');
         badge.className = 'rarity-badge';
+        badge.dataset.rarity = rarityOf(item).toLowerCase().replace(/\s+/g, '-');
         badge.textContent = rarityOf(item);
         button.append(badge);
       }

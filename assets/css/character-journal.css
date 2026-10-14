@@ -150,3 +150,43 @@
 @media (prefers-reduced-motion:reduce) {
   .character-page-card .profile-tabs button { transition: none; }
 }
+
+/* Phase 4: the satchel now lives inside its own journal tab. */
+.character-page-card .profile-inventory { max-width: 940px; margin: 0 auto 1rem; }
+.character-page-card .profile-inventory .satchel-heading h2 {
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  color: var(--journal-parchment);
+}
+.character-page-card .profile-inventory #status { min-height: 1.4rem; }
+.character-page-card .profile-inventory .satchel-panel {
+  background: radial-gradient(ellipse at top right,#f4c2da14,transparent 55%),
+              linear-gradient(145deg,#305447,#1b3930);
+  border-color: #e9d5a466;
+}
+.character-page-card .profile-inventory .satchel-panel h4 {
+  color: var(--journal-parchment);
+}
+.character-page-card .profile-inventory .inventory-row {
+  background: linear-gradient(135deg,#1a3930,#152b27);
+  border-color: #bce4c36b;
+}
+.character-page-card .profile-inventory .inventory-row strong { color: var(--journal-rose); }
+.character-page-card .profile-inventory #items:empty::after {
+  content: '✧ Your satchel awaits its first treasure.';
+  display: block;
+  text-align: center;
+  color: var(--journal-sage);
+  padding: 1rem;
+}
+.character-page-card .profile-inventory-switch {
+  font: inherit;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  padding: .4rem 0;
+}
+.character-page-card .profile-inventory-switch:focus-visible {
+  outline: 2px solid var(--journal-rose);
+  outline-offset: 3px;
+  border-radius: 4px;
+}

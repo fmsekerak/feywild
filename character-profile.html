@@ -34,12 +34,12 @@
      </div>
     </div>
    </div>
-   <div class="character-inventory-action"><a class="fey-button" href="inventory.html">✧ Open Your Inventory ✧</a></div>
    <div class="satchel-divider" aria-hidden="true">✦</div>
    <div class="profile-tabs" role="tablist" aria-label="Character sections">
     <button type="button" role="tab" id="tab-stats" aria-controls="stats" data-tab="stats" aria-selected="true">Stats & Abilities</button>
     <button type="button" role="tab" id="tab-story" aria-controls="story" data-tab="story" aria-selected="false">Story & Personality</button>
     <button type="button" role="tab" id="tab-spells" aria-controls="spells" data-tab="spells" aria-selected="false">Spellbook</button>
+    <button type="button" role="tab" id="tab-inventory" aria-controls="inventory-pane" data-tab="inventory-pane" aria-selected="false">✧ Inventory</button>
    </div>
    <section class="profile-pane active" id="stats" role="tabpanel" aria-labelledby="tab-stats">
     <div class="profile-section-heading"><h3>✧ Stats & Abilities</h3><p>Your character's abilities, combat details, and talents.</p></div>
@@ -49,7 +49,7 @@
      <section class="satchel-panel profile-panel"><h4>Skills & Saving Throws</h4><div class="skill-grid" id="skills"></div></section>
      <section class="satchel-panel profile-panel"><h4>Proficiencies & Languages</h4><div id="proficiencies"></div></section>
      <section class="satchel-panel profile-panel"><h4>Attacks & Spellcasting</h4><div id="attacks"></div></section>
-     <section class="satchel-panel profile-panel"><h4>Equipment Notes</h4><div id="equipment"></div><a class="profile-link" href="inventory.html">✧ Manage your inventory →</a></section>
+     <section class="satchel-panel profile-panel"><h4>Equipment Notes</h4><div id="equipment"></div><button type="button" class="profile-link profile-inventory-switch" data-open-inventory>✧ Manage your inventory →</button></section>
      <section class="satchel-panel profile-panel"><h4>Personality & Ideals</h4><div id="personality"></div></section>
      <section class="satchel-panel profile-panel"><h4>Features & Traits</h4><div id="features"></div></section>
     </div>
@@ -72,6 +72,35 @@
     </div>
     <div class="profile-layout spell-levels" id="spellLevels"></div>
    </section>
+   <section class="profile-pane" id="inventory-pane" role="tabpanel" aria-labelledby="tab-inventory" hidden>
+    <div class="profile-section-heading"><h3>✧ Adventurer's Satchel</h3><p>Keep your collected curiosities, supplies, and treasures close at hand.</p></div>
+    <div class="profile-inventory" aria-label="Character inventory">
+     <div id="satchel-title" class="satchel-heading"><span class="satchel-sparkle" aria-hidden="true">✧</span><h2 id="inventory-title">Your Inventory</h2><span class="satchel-sparkle" aria-hidden="true">✧</span></div>
+     <p id="status" role="status" aria-live="polite">Preparing your satchel…</p>
+     <div id="signed-in">
+      <div id="inventory" hidden>
+       <div class="satchel-divider" aria-hidden="true">✦</div>
+       <div class="satchel-columns">
+        <section class="satchel-panel satchel-add-panel" aria-labelledby="satchel-add-heading">
+         <h4 id="satchel-add-heading">✧ Add to your satchel</h4>
+         <form id="add-item">
+          <div class="satchel-field satchel-search-field"><label for="item-search">Find an item</label><input id="item-search" type="search" placeholder="Search treasures..." autocomplete="off"></div>
+          <div class="satchel-field satchel-select-field"><label for="catalog-item">Choose an item</label><select id="catalog-item" required><option value="">Select an item</option></select></div>
+          <div class="satchel-field satchel-quantity-field"><label for="item-quantity">Quantity</label><input id="item-quantity" type="number" min="1" max="999999" value="1" required></div>
+          <button class="fey-button" type="submit">✧ Add item</button>
+          <p id="catalog-description" aria-live="polite"></p>
+         </form>
+        </section>
+        <section class="satchel-panel satchel-items-panel" aria-labelledby="satchel-items-heading">
+         <h4 id="satchel-items-heading">✧ Your belongings</h4>
+         <p class="satchel-items-hint">Your gathered curiosities and treasures.</p>
+         <ul id="items"></ul>
+        </section>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
    <div class="satchel-divider" aria-hidden="true">✦</div>
    <div class="profile-save"><span id="saveStatus" role="status" aria-live="polite">Opening your chronicle…</span><button class="fey-button" id="saveProfile" type="button">✧ Save Character</button></div>
    <p class="profile-warning">Character profiles are publicly editable. Please don't store private DM notes here.</p>
@@ -81,5 +110,6 @@
  <script src="assets/js/shared.js"></script>
  <script src="assets/js/character-details.js" defer></script>
  <script src="assets/js/character-profile.js" defer></script>
+ <script type="module" src="assets/js/inventory.js"></script>
 </body>
 </html>

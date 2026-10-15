@@ -1,5 +1,5 @@
 /* Character profile is an extension of the existing inventory page, not a separate theme. */
-.character-main{max-width:1100px}
+.character-main{max-width:1240px}
 .character-page-card{padding:clamp(1rem,3vw,2rem)}
 .character-subtitle{color:#d5eee3;font-style:italic;margin:.3rem 0 1.25rem}
 .character-header{display:flex;align-items:center;gap:1.4rem;padding:.8rem 0 1.4rem;max-width:860px;margin:auto}

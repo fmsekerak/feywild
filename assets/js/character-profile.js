@@ -56,7 +56,7 @@ skills.forEach(name=>{
   controls.append(button);
   return button;
  });
- const bonus=document.createElement("output");bonus.className="skill-rank-bonus";bonus.setAttribute("aria-label",name+" skill modifier");
+ const bonus=document.createElement("span");bonus.className="skill-rank-bonus";bonus.setAttribute("role","status");bonus.setAttribute("aria-label",name+" skill modifier");
  function getRank(){return expert.checked?2:legacy.checked?1:0}
  function update(){
   const rank=getRank();

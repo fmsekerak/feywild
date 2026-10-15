@@ -91,7 +91,7 @@ skills.forEach(name=>{
  skillWrap.append(row);
  skillRows.push(update);
 });
-function refreshSkillRanks(){skillRows.forEach(update)}
+function refreshSkillRanks(){skillRows.forEach(refreshRow=>refreshRow())}
 // Some profile values are populated by other character-sheet scripts after the
 // initial fetch. Observe the same live score fields and displayed modifiers,
 // so skill bonuses stay synchronized regardless of which script updated them.

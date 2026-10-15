@@ -67,6 +67,22 @@ if(maxHpInput){
 }
 
 add(["armorClass","initiative","speed","hitDice"],"combat-defense");
+// Display automatically calculated defenses as static ability-style stats.
+// Keep the named inputs in the DOM for existing D1 load/save and calculations.
+document.querySelectorAll('#combat-defense input[name]').forEach(input=>{
+ const tile=input.closest(".field");
+ tile.classList.add("defense-stat");
+ const value=document.createElement("output");
+ value.className="defense-stat-value";
+ value.setAttribute("aria-label",tile.firstChild?.textContent?.trim()||input.name);
+ value.textContent="—";
+ tile.append(value);
+ const refresh=()=>{value.textContent=input.value.trim()||"—";};
+ input.addEventListener("input",refresh);
+ document.addEventListener("feywild:profile-loaded",refresh);
+ document.addEventListener("feywild:combat-calculated",refresh);
+ refresh();
+});
 const deathSavesField=field("deathSaves","Death Saves","text","combat-death-data");
 add(["attacks"],"attacks","textarea");add(["equipment"],"equipment","textarea");
 add(["personality","ideals","bonds","flaws"],"personality","textarea");add(["features"],"features","textarea");

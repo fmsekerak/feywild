@@ -45,21 +45,18 @@
    const select=document.createElement('select');select.setAttribute('aria-label','Choose '+title.toLowerCase());
    const prompt=document.createElement('option');prompt.value='';prompt.textContent='Choose from list…';select.append(prompt);
    for(const option of options[kind]){const el=document.createElement('option');el.value=option;el.textContent=option;select.append(el);}
-   const custom=document.createElement('input');custom.type='text';custom.placeholder='Or enter a custom '+(kind==='languages'?'language':'proficiency');custom.setAttribute('aria-label','Custom '+(kind==='languages'?'language':'proficiency'));custom.maxLength=80;
-   // No name attribute: this is a temporary picker control, not a D1 field.
    const actions=document.createElement('div');actions.className='proficiency-popover-actions';
    const confirm=document.createElement('button');confirm.type='button';confirm.textContent='Add selection';
    const cancel=document.createElement('button');cancel.type='button';cancel.textContent='Cancel';
    const choose=()=>{
-    const item=(custom.value.trim()||select.value).trim();
+    const item=select.value.trim();
     if(!item){select.focus();return;}
     if(!state[kind].some(x=>x.toLowerCase()===item.toLowerCase()))state[kind].push(item);
     persist();render();
    };
    confirm.addEventListener('click',choose);
-   custom.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();choose();}if(e.key==='Escape'){picker.hidden=true;add.setAttribute('aria-expanded','false');add.focus();}});
    cancel.addEventListener('click',()=>{picker.hidden=true;add.setAttribute('aria-expanded','false');add.focus();});
-   actions.append(confirm,cancel);picker.append(select,custom,actions);section.append(picker);
+   actions.append(confirm,cancel);picker.append(select,actions);section.append(picker);
    add.setAttribute('aria-expanded','false');
    add.addEventListener('click',()=>{picker.hidden=!picker.hidden;add.setAttribute('aria-expanded',String(!picker.hidden));if(!picker.hidden)select.focus();});
    shell.append(section);

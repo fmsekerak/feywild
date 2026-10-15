@@ -56,7 +56,7 @@ skills.forEach(name=>{
   controls.append(button);
   return button;
  });
- const bonus=document.createElement("span");bonus.className="skill-rank-bonus";bonus.textContent="+0";bonus.setAttribute("role","status");bonus.setAttribute("aria-label",name+" skill modifier");
+ const bonus=document.createElement("span");bonus.className="skill-rank-bonus";bonus.textContent="—";bonus.setAttribute("role","status");bonus.setAttribute("aria-label",name+" skill modifier");
  function getRank(){return expert.checked?2:legacy.checked?1:0}
  function update(){
   const rank=getRank();
@@ -66,14 +66,18 @@ skills.forEach(name=>{
    button.setAttribute("aria-pressed",String(lit));
    button.setAttribute("aria-label",name+": "+(i===0?"Proficient":"Expertise")+(lit?" selected":" not selected"));
   });
-  const raw=document.querySelector('#abilities input[name="'+skillAbilities[name]+'"]')?.value.trim();
-  const profRaw=document.querySelector('#proficiencies input[name="proficiencyBonus"]')?.value.trim();
-  // Use the saved ability score whenever available. If no score has been
-  // entered yet, show the neutral +0 base instead of an empty dash.
-  // This is display-only and never writes a placeholder score to D1.
-  const score=raw!==""&&Number.isFinite(Number(raw))?Number(raw):10;
-  const mod=Math.floor((score-10)/2);
+  // Read the same Ability Score input used by the visible modifier tile.
+  // Never silently substitute a score of 10 when a real character score exists.
+  const abilityInput=document.querySelector('#abilities [name="'+skillAbilities[name]+'"]');
+  const raw=abilityInput?.value?.trim()??"";
+  const score=raw!==""?Number(raw):NaN;
+  const visibleModifier=abilityInput?.closest(".field")?.querySelector(".ability-modifier")?.textContent||"";
+  const displayedMatch=visibleModifier.match(/Modifier\\s*([+-]\\d+)/);
+  const mod=Number.isFinite(score)?Math.floor((score-10)/2):
+   displayedMatch?Number(displayedMatch[1]):null;
+  const profRaw=proficiencyBonus?.value?.trim()??"";
   const prof=profRaw&&Number.isFinite(Number(profRaw))?Number(profRaw):0;
+  if(mod===null){bonus.textContent="—";return}
   const total=mod+rank*prof;
   bonus.textContent=(total>=0?"+":"")+total;
  }

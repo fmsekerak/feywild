@@ -22,7 +22,7 @@ async function load(){
   }else symbol.textContent="✧";
   const name=document.createElement("strong");name.textContent=character.name;
   button.append(symbol,name);
-  button.addEventListener("click",()=>{sessionStorage.setItem("feywild-character-id",character.id);sessionStorage.setItem("feywild-character-name",character.name);location.href="home.html";});
+  button.addEventListener("click",()=>{sessionStorage.setItem("feywild-character-id",character.id);sessionStorage.setItem("feywild-character-name",character.name);location.href=theme==="dm"?"home.html":"character-profile.html";});
   if(character.name.trim().toLowerCase()==="dm") { dmSection.hidden=false;dmGrid.append(button); }
   else grid.append(button);
  }

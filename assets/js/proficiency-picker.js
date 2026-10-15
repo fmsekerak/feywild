@@ -29,8 +29,8 @@
    const section=document.createElement('section');section.className='proficiency-picker-group';
    const head=document.createElement('div');head.className='proficiency-picker-heading';
    const label=document.createElement('strong');label.textContent=title+':';
-   const add=document.createElement('button');add.type='button';add.className='proficiency-add';add.textContent='+ Add';add.setAttribute('aria-label','Add '+title.toLowerCase());
-   head.append(label,add);section.append(head);
+   const add=document.createElement('button');add.type='button';add.className='proficiency-add';add.textContent='✧ +';add.title='Add '+title.toLowerCase();add.setAttribute('aria-label','Add '+title.toLowerCase());
+   head.append(label);section.append(head);
    const list=document.createElement('div');list.className='proficiency-tags';
    if(!state[kind].length){const empty=document.createElement('span');empty.className='proficiency-empty';empty.textContent='None selected yet';list.append(empty);}
    for(const item of state[kind]){
@@ -40,7 +40,7 @@
     remove.addEventListener('click',()=>{state[kind]=state[kind].filter(x=>x!==item);persist();render();});
     chip.append(name,remove);list.append(chip);
    }
-   section.append(list);
+   list.append(add);section.append(list);
    const picker=document.createElement('div');picker.className='proficiency-popover';picker.hidden=true;
    const select=document.createElement('select');select.setAttribute('aria-label','Choose '+title.toLowerCase());
    const prompt=document.createElement('option');prompt.value='';prompt.textContent='Choose from list…';select.append(prompt);

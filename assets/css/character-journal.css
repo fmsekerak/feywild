@@ -298,3 +298,8 @@
 .character-page-card #combat > .field[hidden],.character-page-card #combat [hidden]{display:none!important}
 @media(max-width:760px){.character-page-card .profile-layout > #combat.combat-layout{display:contents}}
 @media(max-width:440px){.character-page-card .combat-defense-section #combat-defense{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* Calculated maximum HP: a typographic stat, not an editable-looking input. */
+.character-page-card .combat-health .max-hp-stat input[name="maxHp"]{display:none!important}
+.character-page-card .combat-health .max-hp-stat{display:flex;flex-direction:column;align-items:center;gap:.3rem;padding:.85rem 1rem;border:1px solid #bce4c355;border-radius:12px;background:radial-gradient(circle at top,#f4c2da1a,transparent 75%),#183c33;color:#bce4c3}
+.character-page-card .combat-health .max-hp-value{display:block;width:100%;font:700 clamp(2rem,4vw,2.8rem)/1.2 Georgia,serif;color:#f8ebdb;text-align:center;text-shadow:0 0 14px #f4c2da55}

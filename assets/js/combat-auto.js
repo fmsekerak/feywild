@@ -44,6 +44,7 @@
    // Temporary campaign walking speed; update once racial speeds are configured.
    combat('speed').value='30';
    if(passive)passive.value=wisdom===null?'':String(10+wisdom+(perception?.checked?Number(proficiency?.value||0):0));
+   document.dispatchEvent(new Event('feywild:combat-calculated'));
  }
  document.addEventListener('feywild:profile-loaded',()=>{
    if(name!=='mion'&&sampleScores[name]){

@@ -25,7 +25,73 @@ document.querySelectorAll("#abilities input[name]").forEach(input=>{
 });
 
 const skills=["Acrobatics","Animal Handling","Arcana","Athletics","Deception","History","Insight","Intimidation","Investigation","Medicine","Nature","Perception","Performance","Persuasion","Religion","Sleight of Hand","Stealth","Survival"];
-const skillWrap=$("skills");skills.forEach(name=>{const label=document.createElement("label"),input=document.createElement("input");input.type="checkbox";input.name="skill-"+name;label.append(input,document.createTextNode(name));skillWrap.append(label)});
+/* Two crystal marks per skill: 0 = untrained, 1 = proficient, 2 = expertise.
+   Preserve legacy skill-* checkboxes; only add skillExpert-* for the second mark. */
+const skillAbilities={
+ "Acrobatics":"dex","Animal Handling":"wis","Arcana":"int","Athletics":"str",
+ "Deception":"cha","History":"int","Insight":"wis","Intimidation":"cha",
+ "Investigation":"int","Medicine":"wis","Nature":"int","Perception":"wis",
+ "Performance":"cha","Persuasion":"cha","Religion":"int","Sleight of Hand":"dex",
+ "Stealth":"dex","Survival":"wis"
+};
+const skillWrap=$("skills");
+const skillRows=[];
+skills.forEach(name=>{
+ const row=document.createElement("div");
+ row.className="skill-rank-row";
+ const legacy=document.createElement("input");
+ legacy.type="checkbox";legacy.name="skill-"+name;legacy.className="skill-rank-storage";
+ legacy.setAttribute("aria-label",name+" proficiency (saved)");
+ const expert=document.createElement("input");
+ expert.type="checkbox";expert.name="skillExpert-"+name;expert.className="skill-rank-storage";
+ expert.setAttribute("aria-label",name+" expertise (saved)");
+ const title=document.createElement("span");title.className="skill-rank-name";title.textContent=name;
+ const ability=document.createElement("span");ability.className="skill-rank-ability";ability.textContent=skillAbilities[name].toUpperCase();
+ const controls=document.createElement("span");controls.className="skill-rank-controls";controls.setAttribute("role","group");controls.setAttribute("aria-label",name+" training");
+ const marks=[1,2].map(rank=>{
+  const button=document.createElement("button");
+  button.type="button";button.className="skill-rank-gem";
+  button.textContent="✦";
+  button.title=rank===1?"Toggle proficiency":"Toggle expertise";
+  controls.append(button);
+  return button;
+ });
+ const bonus=document.createElement("output");bonus.className="skill-rank-bonus";bonus.setAttribute("aria-label",name+" skill modifier");
+ function getRank(){return expert.checked?2:legacy.checked?1:0}
+ function update(){
+  const rank=getRank();
+  marks.forEach((button,i)=>{
+   const lit=rank>i;
+   button.classList.toggle("lit",lit);
+   button.setAttribute("aria-pressed",String(lit));
+   button.setAttribute("aria-label",name+": "+(i===0?"Proficient":"Expertise")+(lit?" selected":" not selected"));
+  });
+  const raw=document.querySelector('#abilities input[name="'+skillAbilities[name]+'"]')?.value.trim();
+  const profRaw=document.querySelector('#proficiencies input[name="proficiencyBonus"]')?.value.trim();
+  if(!raw||!Number.isFinite(Number(raw))){bonus.textContent="—";return}
+  const mod=Math.floor((Number(raw)-10)/2);
+  const prof=profRaw&&Number.isFinite(Number(profRaw))?Number(profRaw):0;
+  const total=mod+rank*prof;
+  bonus.textContent=(total>=0?"+":"")+total;
+ }
+ function setRank(rank){
+  legacy.checked=rank>=1;expert.checked=rank>=2;
+  legacy.dispatchEvent(new Event("change",{bubbles:true}));
+  update();
+ }
+ marks.forEach((button,i)=>button.addEventListener("click",()=>{
+  const rank=i+1;
+  setRank(getRank()===rank?rank-1:rank);
+ }));
+ row.append(legacy,expert,title,ability,controls,bonus);
+ skillWrap.append(row);
+ skillRows.push(update);
+});
+function refreshSkillRanks(){skillRows.forEach(update)}
+document.querySelectorAll('#abilities input[name]').forEach(input=>input.addEventListener("input",refreshSkillRanks));
+document.addEventListener("feywild:profile-loaded",refreshSkillRanks);
+document.querySelector('#proficiencies input[name="proficiencyBonus"]')?.addEventListener("input",refreshSkillRanks);
+
 const characterLevel=field("characterLevel","Character Level","number","combat");
 characterLevel.closest(".field").hidden=true;
 characterLevel.readOnly=true;

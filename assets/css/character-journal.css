@@ -193,3 +193,29 @@
 
 /* Character level drives the automatically calculated 5e proficiency bonus. */
 .character-page-card #proficiencies input[name="proficiencyBonus"][readonly] {background:#dcece5;color:#23463c;cursor:default}
+
+/* Shorter character identity panel: preserve portrait and name at full size.
+   Reduce only the four detail tiles, their gaps, and outer vertical spacing. */
+.character-page-card .character-header {
+  padding-block: clamp(.7rem, 1.6vw, 1.1rem);
+  margin-bottom: .8rem;
+}
+.character-page-card .character-summary::before { margin-bottom: .25rem; }
+.character-page-card .character-display-name { margin-bottom: .65rem; }
+.character-page-card .character-facts { gap: .5rem .85rem; }
+.character-page-card .character-facts .character-fact {
+  gap: .12rem;
+  padding: .35rem .65rem .4rem;
+}
+.character-page-card .character-facts .character-fact span {
+  font-size: .72rem;
+  line-height: 1.25;
+}
+.character-page-card .character-facts .character-fact strong {
+  font-size: .95rem;
+  line-height: 1.35;
+}
+@media (max-width: 600px) {
+  .character-page-card .character-header { padding-block: .7rem; }
+  .character-page-card .character-facts { gap: .45rem; }
+}

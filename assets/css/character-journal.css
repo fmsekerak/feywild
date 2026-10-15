@@ -476,3 +476,20 @@
 .character-page-card #skills .skill-rank-controls{grid-column:3;grid-row:1}
 .character-page-card #skills .skill-rank-bonus{display:block!important;grid-column:4;grid-row:1;min-width:2.4rem;text-align:right;visibility:visible!important;opacity:1!important}
 .character-page-card #skills .skill-rank-storage{position:absolute!important;inset:auto auto 0 0;visibility:hidden!important;display:none!important}
+
+/* Roomier storybook sheet: preserve proportions and corner vines. */
+@media (min-width: 1000px) {
+ .character-page-card .profile-layout > #combat.combat-columns {
+  column-gap: 1.35rem;
+ }
+ .character-page-card .combat-columns > .combat-column {
+  gap: 1.2rem;
+ }
+ .character-page-card #stats .combat-columns .profile-panel {
+  padding: 1.4rem;
+ }
+ .character-page-card #skills .skill-rank-row {
+  padding: .55rem .7rem;
+  column-gap: .65rem;
+ }
+}

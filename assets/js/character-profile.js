@@ -90,7 +90,6 @@ skills.forEach(name=>{
 function refreshSkillRanks(){skillRows.forEach(update)}
 document.querySelectorAll('#abilities input[name]').forEach(input=>input.addEventListener("input",refreshSkillRanks));
 document.addEventListener("feywild:profile-loaded",refreshSkillRanks);
-document.querySelector('#proficiencies input[name="proficiencyBonus"]')?.addEventListener("input",refreshSkillRanks);
 
 const characterLevel=field("characterLevel","Character Level","number","combat");
 characterLevel.closest(".field").hidden=true;
@@ -99,6 +98,7 @@ characterLevel.min="1";characterLevel.max="20";characterLevel.step="1";
 characterLevel.placeholder="1–20";
 add(["proficiencies"],"proficiencies","textarea");add(["proficiencyBonus","passivePerception"],"proficiencies");
 const proficiencyBonus=document.querySelector('#proficiencies input[name="proficiencyBonus"]');
+proficiencyBonus.addEventListener("input",refreshSkillRanks);
 proficiencyBonus.readOnly=true;
 proficiencyBonus.title="Automatically calculated from character level (D&D 5e)";
 function updateProficiency(){
@@ -202,6 +202,6 @@ function renderIdentity(character,data={}){
 }
 // Show hardcoded identity immediately, independently of the profile API.
 renderIdentity(null,{});
-async function load(){try{const response=await fetch("/api/character-profile?character_id="+encodeURIComponent(selectedId),{cache:"no-store"});const payload=await response.json();if(!response.ok)throw Error(payload.error||"Could not load profile");originalData=payload.data||{};renderIdentity(payload.character,originalData);inputs().forEach(el=>{if(Object.hasOwn(payload.data,el.name)){if(el.type==="checkbox")el.checked=!!payload.data[el.name];else el.value=payload.data[el.name]}});document.querySelectorAll("#abilities input[name]").forEach(el=>el.dispatchEvent(new Event("input")));updateProficiency();document.dispatchEvent(new Event("feywild:profile-loaded"));$("saveStatus").textContent=""}catch(e){$("saveStatus").textContent="Profile data could not load: "+e.message+". Character header is still available."}}
+async function load(){try{const response=await fetch("/api/character-profile?character_id="+encodeURIComponent(selectedId),{cache:"no-store"});const payload=await response.json();if(!response.ok)throw Error(payload.error||"Could not load profile");originalData=payload.data||{};renderIdentity(payload.character,originalData);inputs().forEach(el=>{if(Object.hasOwn(payload.data,el.name)){if(el.type==="checkbox")el.checked=!!payload.data[el.name];else el.value=payload.data[el.name]}});document.querySelectorAll("#abilities input[name]").forEach(el=>el.dispatchEvent(new Event("input")));updateProficiency();document.dispatchEvent(new Event("feywild:profile-loaded"));refreshSkillRanks();$("saveStatus").textContent=""}catch(e){$("saveStatus").textContent="Profile data could not load: "+e.message+". Character header is still available."}}
 $("saveProfile").addEventListener("click",async()=>{const button=$("saveProfile");button.disabled=true;$("saveStatus").textContent="Saving to D1…";if(!characterLevel.checkValidity()){characterLevel.reportValidity();button.disabled=false;$("saveStatus").textContent="Enter a character level between 1 and 20.";return;}const data={...originalData};inputs().forEach(el=>{if(el.name==="characterName")return;data[el.name]=el.type==="checkbox"?el.checked:el.value});try{const response=await fetch("/api/character-profile",{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify({character_id:selectedId,data})});const result=await response.json();if(!response.ok)throw Error(result.error||"Save failed");originalData=data;$("saveStatus").textContent="♡ Saved to Cloudflare D1"}catch(e){$("saveStatus").textContent=e.message}finally{button.disabled=false}});
 load();

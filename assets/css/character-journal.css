@@ -279,3 +279,22 @@
 @media(max-width:900px){.character-page-card #combat-defense{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:620px){.character-page-card .combat-layout{grid-template-columns:1fr}.character-page-card #combat-defense{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:440px){.character-page-card #combat-defense{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* Independent two-column character-sheet panels: Abilities | Health, Defense | Death Saves.
+   display:contents keeps #combat as the stable JS/D1 field parent without a nesting grid. */
+.character-page-card .profile-layout > #combat.combat-layout{display:contents}
+.character-page-card .combat-section{min-width:0}
+.character-page-card .combat-section .combat-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.9rem}
+.character-page-card .combat-health #combat-hp .field:first-child{grid-column:1/-1}
+.character-page-card .combat-defense-section #combat-defense{grid-template-columns:repeat(2,minmax(0,1fr));gap:.9rem}
+.character-page-card .combat-defense-section .combat-hit-dice{margin-top:1.1rem;padding-top:.85rem;border-top:1px solid #bce4c344}
+.character-page-card .combat-defense-section .combat-hit-dice h5{font:600 1rem Georgia,serif;color:#f4c2da;margin:0 0 .6rem}
+.character-page-card .combat-defense-section #combat-dice{grid-template-columns:1fr}
+.character-page-card .combat-section .combat-fields .field{min-width:0}
+.character-page-card .combat-section .combat-fields .field input{width:100%;min-width:0}
+.character-page-card .combat-section .combat-save-row{justify-content:flex-start;gap:clamp(.8rem,3vw,2rem)}
+.character-page-card .combat-section .combat-save-row > span{min-width:5.5rem}
+.character-page-card .combat-section .combat-gems{flex-wrap:wrap}
+.character-page-card #combat > .field[hidden],.character-page-card #combat [hidden]{display:none!important}
+@media(max-width:760px){.character-page-card .profile-layout > #combat.combat-layout{display:contents}}
+@media(max-width:440px){.character-page-card .combat-defense-section #combat-defense{grid-template-columns:repeat(2,minmax(0,1fr))}}

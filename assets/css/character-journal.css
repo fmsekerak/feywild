@@ -493,3 +493,42 @@
   column-gap: .65rem;
  }
 }
+
+/* Tighter primary stat cards within the roomier overall sheet. */
+.character-page-card #stats .profile-abilities .stat-grid,
+.character-page-card #stats .combat-health #combat-hp.combat-fields,
+.character-page-card #stats .combat-defense-section #combat-defense.combat-fields {
+ gap: .55rem;
+}
+.character-page-card #stats .profile-abilities .stat-grid .field,
+.character-page-card #stats .combat-health #combat-hp .field,
+.character-page-card #stats .combat-health #combat-hp .max-hp-stat,
+.character-page-card #stats .combat-defense-section #combat-defense .defense-stat {
+ padding: .5rem .4rem;
+ gap: .3rem;
+}
+.character-page-card #stats .profile-abilities .stat-grid .field input {
+ font-size: 1.05rem;
+ padding: .45rem .55rem;
+}
+.character-page-card #stats .profile-abilities .ability-modifier {
+ font-size: .9rem;
+ margin-top: .2rem;
+}
+.character-page-card #stats .combat-health #combat-hp .field input {
+ padding: .45rem .55rem;
+ font-size: .95rem;
+}
+.character-page-card #stats .combat-health #combat-hp .max-hp-value,
+.character-page-card #stats .combat-defense-section #combat-defense .defense-stat-value {
+ min-height: 2.3rem;
+ padding: .2rem;
+ font-size: clamp(1.1rem, 2vw, 1.45rem);
+}
+@media (min-width: 1000px) {
+ .character-page-card #stats .combat-columns .profile-abilities,
+ .character-page-card #stats .combat-columns .combat-health,
+ .character-page-card #stats .combat-columns .combat-defense-section {
+  padding: 1.1rem;
+ }
+}

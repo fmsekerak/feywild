@@ -109,3 +109,17 @@
   border-color: #b6f5d8;
   box-shadow: 0 0 0 3px #b6f5d822, 0 0 28px #ff9cff99;
 }
+
+/* The short character-selection heading is not tall enough for the shared
+   78px corner vines: top and bottom illustrations overlap. Scale only this
+   heading's four corners; preserve the original vine assets everywhere else. */
+main > .portal-intro {
+  background-size: 46px 46px, 46px 46px, 46px 46px, 46px 46px, auto, auto;
+  background-position: left top, right top, left bottom, right bottom, center, center;
+  background-repeat: no-repeat;
+}
+@media (max-width:600px) {
+  main > .portal-intro {
+    background-size: 30px 30px, 30px 30px, 30px 30px, 30px 30px, auto, auto;
+  }
+}

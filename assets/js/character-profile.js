@@ -5,7 +5,7 @@ const labelize=s=>s.replace(/([A-Z])/g," $1").replace(/^./,x=>x.toUpperCase());
 function field(name,label=labelize(name),type="text",parent){const wrap=document.createElement("label");wrap.className="field";wrap.textContent=label;const input=document.createElement(type==="textarea"?"textarea":"input");input.name=name;if(type!=="textarea")input.type=type;wrap.append(input);$(parent).append(wrap);return input}
 function add(names,parent,type="text"){names.forEach(name=>field(name,undefined,type,parent))}
 
-add(["str","dex","con","int","wis","cha"],"abilities","number");
+const abilityScoreInputs=Object.fromEntries(["str","dex","con","int","wis","cha"].map(key=>[key,field(key,undefined,"number","abilities")]));
 /* Live D&D ability modifiers, calculated locally from existing scores.
    These are display-only and never added to the saved profile payload. */
 document.querySelectorAll("#abilities input[name]").forEach(input=>{
@@ -66,15 +66,12 @@ skills.forEach(name=>{
    button.setAttribute("aria-pressed",String(lit));
    button.setAttribute("aria-label",name+": "+(i===0?"Proficient":"Expertise")+(lit?" selected":" not selected"));
   });
-  // Use the same visible ability modifier that the Ability Scores tile displays.
-  // The score input is a second source if its display has not updated yet.
-  const abilityInput=document.querySelector('#abilities input[name="'+skillAbilities[name]+'"]');
-  const raw=abilityInput?.value?.trim()??"";
-  const modifierText=abilityInput?.closest(".field")?.querySelector(".ability-modifier")?.textContent??"";
-  const displayedMatch=modifierText.match(/Modifier\s*([+-]?\d+)/);
-  const score=raw!==""?Number(raw):NaN;
-  const mod=Number.isFinite(score)?Math.floor((score-10)/2):
-    displayedMatch?Number(displayedMatch[1]):null;
+  // Use the exact input objects created for the Ability Scores tiles.
+  // This avoids fragile selector-based lookups and never invents a score.
+  const scoreInput=abilityScoreInputs[skillAbilities[name]];
+  const raw=scoreInput.value.trim();
+  const score=raw===""?NaN:Number(raw);
+  const mod=Number.isFinite(score)?Math.floor((score-10)/2):null;
   const profRaw=proficiencyBonus?.value?.trim()??"";
   const prof=profRaw&&Number.isFinite(Number(profRaw))?Number(profRaw):0;
   if(mod===null){bonus.textContent="—";return}
@@ -95,7 +92,7 @@ skills.forEach(name=>{
  skillRows.push(update);
 });
 function refreshSkillRanks(){skillRows.forEach(update)}
-document.querySelectorAll('#abilities input[name]').forEach(input=>input.addEventListener("input",refreshSkillRanks));
+Object.values(abilityScoreInputs).forEach(input=>input.addEventListener("input",refreshSkillRanks));
 document.addEventListener("feywild:profile-loaded",refreshSkillRanks);
 document.addEventListener("feywild:combat-calculated",refreshSkillRanks);
 
@@ -210,6 +207,6 @@ function renderIdentity(character,data={}){
 }
 // Show hardcoded identity immediately, independently of the profile API.
 renderIdentity(null,{});
-async function load(){try{const response=await fetch("/api/character-profile?character_id="+encodeURIComponent(selectedId),{cache:"no-store"});const payload=await response.json();if(!response.ok)throw Error(payload.error||"Could not load profile");originalData=payload.data||{};renderIdentity(payload.character,originalData);inputs().forEach(el=>{if(Object.hasOwn(payload.data,el.name)){if(el.type==="checkbox")el.checked=!!payload.data[el.name];else el.value=payload.data[el.name]}});document.querySelectorAll("#abilities input[name]").forEach(el=>el.dispatchEvent(new Event("input")));updateProficiency();document.dispatchEvent(new Event("feywild:profile-loaded"));refreshSkillRanks();$("saveStatus").textContent=""}catch(e){$("saveStatus").textContent="Profile data could not load: "+e.message+". Character header is still available."}}
+async function load(){try{const response=await fetch("/api/character-profile?character_id="+encodeURIComponent(selectedId),{cache:"no-store"});const payload=await response.json();if(!response.ok)throw Error(payload.error||"Could not load profile");originalData=payload.data||{};renderIdentity(payload.character,originalData);inputs().forEach(el=>{if(Object.hasOwn(payload.data,el.name)){if(el.type==="checkbox")el.checked=!!payload.data[el.name];else el.value=payload.data[el.name]}});Object.values(abilityScoreInputs).forEach(el=>el.dispatchEvent(new Event("input")));updateProficiency();document.dispatchEvent(new Event("feywild:profile-loaded"));refreshSkillRanks();$("saveStatus").textContent=""}catch(e){$("saveStatus").textContent="Profile data could not load: "+e.message+". Character header is still available."}}
 $("saveProfile").addEventListener("click",async()=>{const button=$("saveProfile");button.disabled=true;$("saveStatus").textContent="Saving to D1…";if(!characterLevel.checkValidity()){characterLevel.reportValidity();button.disabled=false;$("saveStatus").textContent="Enter a character level between 1 and 20.";return;}const data={...originalData};inputs().forEach(el=>{if(el.name==="characterName")return;data[el.name]=el.type==="checkbox"?el.checked:el.value});try{const response=await fetch("/api/character-profile",{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify({character_id:selectedId,data})});const result=await response.json();if(!response.ok)throw Error(result.error||"Save failed");originalData=data;$("saveStatus").textContent="♡ Saved to Cloudflare D1"}catch(e){$("saveStatus").textContent=e.message}finally{button.disabled=false}});
 load();

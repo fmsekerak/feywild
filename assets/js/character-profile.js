@@ -66,8 +66,7 @@ if(maxHpInput){
  refresh();
 }
 
-add(["armorClass","initiative","speed"],"combat-defense");
-add(["hitDice"],"combat-dice");
+add(["armorClass","initiative","speed","hitDice"],"combat-defense");
 const deathSavesField=field("deathSaves","Death Saves","text","combat-death-data");
 add(["attacks"],"attacks","textarea");add(["equipment"],"equipment","textarea");
 add(["personality","ideals","bonds","flaws"],"personality","textarea");add(["features"],"features","textarea");

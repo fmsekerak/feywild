@@ -45,29 +45,29 @@
    <section class="profile-pane active" id="stats" role="tabpanel" aria-labelledby="tab-stats">
     <div class="profile-section-heading"><h3>✧ Stats &amp; Abilities ✧</h3></div>
     <div class="profile-layout">
-     <section class="satchel-panel profile-panel profile-abilities"><h4>Ability Scores</h4><div class="stat-grid" id="abilities"></div></section>
-     <div id="combat" class="combat-layout">
-      <section class="satchel-panel profile-panel combat-section combat-health" aria-labelledby="combat-hp-title">
-       <h4 id="combat-hp-title">Health</h4>
-       <div id="combat-hp" class="combat-fields"></div>
-      </section>
-      <section class="satchel-panel profile-panel combat-section combat-defense-section" aria-labelledby="combat-defense-title">
-       <h4 id="combat-defense-title">Defense &amp; Movement</h4>
-       <div id="combat-defense" class="combat-fields"></div>
-       <div class="combat-hit-dice" aria-labelledby="combat-dice-title">
-        <h5 id="combat-dice-title">✦ Hit Dice</h5>
-        <div id="combat-dice" class="combat-fields"></div>
-       </div>
-      </section>
-      <section class="satchel-panel profile-panel combat-section combat-death-saves" aria-labelledby="combat-saves-title">
-       <h4 id="combat-saves-title">Death Saving Throws</h4>
-       <div id="combat-death-saves" class="combat-death-controls">
-        <div class="combat-save-row"><span>Successes</span><div id="death-success-gems" class="combat-gems" role="group" aria-label="Death save successes"></div></div>
-        <div class="combat-save-row"><span>Failures</span><div id="death-failure-gems" class="combat-gems" role="group" aria-label="Death save failures"></div></div>
-        <button type="button" class="combat-reset-saves">Reset death saves</button>
-       </div>
-       <div id="combat-death-data" hidden></div>
-      </section>
+     <div id="combat" class="combat-layout combat-columns">
+      <div class="combat-column">
+       <section class="satchel-panel profile-panel profile-abilities"><h4>Ability Scores</h4><div class="stat-grid" id="abilities"></div></section>
+       <section class="satchel-panel profile-panel combat-section combat-defense-section" aria-labelledby="combat-defense-title">
+        <h4 id="combat-defense-title">Defense &amp; Movement</h4>
+        <div id="combat-defense" class="combat-fields"></div>
+       </section>
+      </div>
+      <div class="combat-column">
+       <section class="satchel-panel profile-panel combat-section combat-health" aria-labelledby="combat-hp-title">
+        <h4 id="combat-hp-title">Health</h4>
+        <div id="combat-hp" class="combat-fields"></div>
+       </section>
+       <section class="satchel-panel profile-panel combat-section combat-death-saves" aria-labelledby="combat-saves-title">
+        <h4 id="combat-saves-title">Death Saving Throws</h4>
+        <div id="combat-death-saves" class="combat-death-controls">
+         <div class="combat-save-row"><span>Successes</span><div id="death-success-gems" class="combat-gems" role="group" aria-label="Death save successes"></div></div>
+         <div class="combat-save-row"><span>Failures</span><div id="death-failure-gems" class="combat-gems" role="group" aria-label="Death save failures"></div></div>
+         <button type="button" class="combat-reset-saves">Reset death saves</button>
+        </div>
+        <div id="combat-death-data" hidden></div>
+       </section>
+      </div>
      </div>
      <section class="satchel-panel profile-panel"><h4>Skills & Saving Throws</h4><div class="skill-grid" id="skills"></div></section>
      <section class="satchel-panel profile-panel"><h4>Proficiencies & Languages</h4><div id="proficiencies"></div></section>

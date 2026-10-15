@@ -454,3 +454,16 @@
  .character-page-card .combat-defense-section #combat-defense .defense-stat{padding:.55rem .3rem}
  .character-page-card .combat-defense-section #combat-defense .defense-stat-value{font-size:1.3rem}
 }
+
+/* Two glowing proficiency marks, matching the death-save crystals. */
+.character-page-card #skills.skill-grid{display:grid;grid-template-columns:1fr;gap:.4rem}
+.character-page-card #skills .skill-rank-row{display:grid;grid-template-columns:minmax(0,1fr) 2.2rem auto 3rem;gap:.45rem;align-items:center;padding:.45rem .55rem;border:1px solid #bce4c333;border-radius:9px;background:#142e2966;min-width:0}
+.character-page-card #skills .skill-rank-name{font-size:.9rem;color:#f8ebdb;min-width:0}
+.character-page-card #skills .skill-rank-ability{font-size:.7rem;color:#bce4c3;text-align:center}
+.character-page-card #skills .skill-rank-controls{display:flex;gap:.25rem;align-items:center}
+.character-page-card #skills .skill-rank-gem{appearance:none;border:1px solid #bce4c366;border-radius:7px;padding:.28rem .38rem;background:#18342f;color:#738e85;opacity:.8;font-size:1.05rem;line-height:1.2;cursor:pointer}
+.character-page-card #skills .skill-rank-gem.lit{opacity:1;color:#f4c2da;border-color:#f4c2da;background:#684963;text-shadow:0 0 9px #f4c2da;box-shadow:0 0 12px #f4c2da55}
+.character-page-card #skills .skill-rank-gem:focus-visible{outline:2px solid #f8ebdb;outline-offset:2px}
+.character-page-card #skills .skill-rank-bonus{text-align:right;font:700 1.1rem Georgia,serif;color:#f8ebdb;white-space:nowrap}
+.character-page-card #skills .skill-rank-storage{position:absolute!important;width:1px!important;height:1px!important;opacity:0!important;pointer-events:none!important}
+@media(max-width:440px){.character-page-card #skills .skill-rank-row{grid-template-columns:minmax(0,1fr) 1.7rem auto 2.4rem;gap:.25rem;padding:.4rem .3rem}.character-page-card #skills .skill-rank-name{font-size:.8rem}.character-page-card #skills .skill-rank-gem{padding:.24rem .3rem}}

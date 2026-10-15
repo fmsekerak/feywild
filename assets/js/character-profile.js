@@ -36,7 +36,9 @@ proficiencyBonus.title="Automatically calculated from character level (D&D 5e)";
 function updateProficiency(){
  const raw=characterLevel.value.trim(),n=Number(raw);
  const valid=raw!==""&&Number.isInteger(n)&&n>=1&&n<=20;
- if(!valid){if(raw!=="")characterLevel.setCustomValidity("Enter a whole-number level from 1 to 20.");else characterLevel.setCustomValidity("");return;}\n characterLevel.setCustomValidity("");\n proficiencyBonus.value=String(2+Math.floor((n-1)/4));
+ if(!valid){if(raw!=="")characterLevel.setCustomValidity("Enter a whole-number level from 1 to 20.");else characterLevel.setCustomValidity("");return;}
+ characterLevel.setCustomValidity("");
+ proficiencyBonus.value=String(2+Math.floor((n-1)/4));
  proficiencyBonus.dispatchEvent(new Event("input",{bubbles:true}));
 }
 characterLevel.addEventListener("input",updateProficiency);

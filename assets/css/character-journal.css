@@ -237,3 +237,29 @@
   outline: 2px solid #f8ebdb;
   outline-offset: 3px;
 }
+
+/* Compact character level beside the full-size adventurer name. */
+.character-page-card .character-name-row{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.character-page-card .character-name-row .character-display-name{margin-bottom:.65rem}
+.character-page-card .character-level-badge{margin-left:auto;align-self:center;white-space:nowrap;padding:.4rem .75rem;border-radius:999px;border:1px solid #f4c2da99;background:linear-gradient(145deg,#73536d,#463b54);color:#f8ebdb;font:600 .95rem Georgia,serif;box-shadow:0 0 12px #f4c2da33}
+.character-page-card .character-level-badge strong{font-size:1.12rem;color:#f4c2da}
+/* Group health, defenses, hit dice, and death saves without changing D1 fields. */
+.character-page-card .combat-layout{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.85rem}
+.character-page-card .combat-group{min-width:0;border:1px solid #bce4c355;border-radius:13px;padding:.9rem;background:linear-gradient(145deg,#173c33a6,#1c342f)}
+.character-page-card .combat-group h5{margin:0 0 .75rem;font:600 1.05rem Georgia,serif;color:#f4c2da}
+.character-page-card .combat-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.55rem}
+.character-page-card #combat-hp .field:first-child{grid-column:1/-1}
+.character-page-card #combat-defense{grid-template-columns:repeat(3,minmax(0,1fr))}
+.character-page-card #combat-dice{grid-template-columns:1fr}
+.character-page-card .combat-fields .field{min-width:0}
+.character-page-card .combat-fields input{width:100%;min-width:0}
+.character-page-card .combat-hint{font-size:.78rem;color:#bce4c3;margin:.5rem 0 0}
+.character-page-card .combat-save-row{display:flex;align-items:center;justify-content:space-between;gap:.65rem;margin:.5rem 0;color:#f8ebdb}
+.character-page-card .combat-gems{display:flex;gap:.3rem}
+.character-page-card .combat-save-gem{border:1px solid #bce4c366;border-radius:8px;padding:.3rem .42rem;background:#18342f;color:#738e85;opacity:.8;font-size:1.15rem;line-height:1.2;cursor:pointer}
+.character-page-card .combat-save-gem.lit{opacity:1;color:#f4c2da;border-color:#f4c2da;background:#684963;text-shadow:0 0 9px #f4c2da;box-shadow:0 0 12px #f4c2da55}
+.character-page-card .combat-save-gem:focus-visible,.character-page-card .combat-reset-saves:focus-visible{outline:2px solid #f8ebdb;outline-offset:2px}
+.character-page-card .combat-reset-saves{margin-top:.6rem;background:transparent;color:#bce4c3;border:1px solid #bce4c366;border-radius:8px;padding:.4rem .7rem;cursor:pointer}
+.character-page-card .combat-reset-saves:hover{color:#f8ebdb;border-color:#f4c2da}
+@media(max-width:760px){.character-page-card .combat-layout{grid-template-columns:1fr}.character-page-card #combat-defense{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:400px){.character-page-card #combat-defense{grid-template-columns:1fr 1fr}.character-page-card .character-level-badge{padding:.3rem .55rem;font-size:.82rem}}

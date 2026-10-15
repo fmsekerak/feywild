@@ -27,6 +27,8 @@ document.querySelectorAll("#abilities input[name]").forEach(input=>{
 const skills=["Acrobatics","Animal Handling","Arcana","Athletics","Deception","History","Insight","Intimidation","Investigation","Medicine","Nature","Perception","Performance","Persuasion","Religion","Sleight of Hand","Stealth","Survival"];
 const skillWrap=$("skills");skills.forEach(name=>{const label=document.createElement("label"),input=document.createElement("input");input.type="checkbox";input.name="skill-"+name;label.append(input,document.createTextNode(name));skillWrap.append(label)});
 const characterLevel=field("characterLevel","Character Level","number","combat");
+characterLevel.closest(".field").hidden=true;
+characterLevel.readOnly=true;
 characterLevel.min="1";characterLevel.max="20";characterLevel.step="1";
 characterLevel.placeholder="1–20";
 add(["proficiencies"],"proficiencies","textarea");add(["proficiencyBonus","passivePerception"],"proficiencies");
@@ -43,7 +45,10 @@ function updateProficiency(){
 }
 characterLevel.addEventListener("input",updateProficiency);
 
-add(["maxHp","currentHp","temporaryHp","hitDice","armorClass","initiative","speed","deathSaves"],"combat");
+add(["maxHp","currentHp","temporaryHp"],"combat-hp");
+add(["armorClass","initiative","speed"],"combat-defense");
+add(["hitDice"],"combat-dice");
+const deathSavesField=field("deathSaves","Death Saves","text","combat-death-data");
 add(["attacks"],"attacks","textarea");add(["equipment"],"equipment","textarea");
 add(["personality","ideals","bonds","flaws"],"personality","textarea");add(["features"],"features","textarea");
 add(["age","eyes","height","skin","weight","hair"],"appearanceDetails");add(["appearance"],"appearanceNotes","textarea");add(["allies"],"allies","textarea");add(["backstory"],"backstory","textarea");add(["additionalFeatures","treasure"],"extras","textarea");

@@ -66,15 +66,15 @@ skills.forEach(name=>{
    button.setAttribute("aria-pressed",String(lit));
    button.setAttribute("aria-label",name+": "+(i===0?"Proficient":"Expertise")+(lit?" selected":" not selected"));
   });
-  // Read the same Ability Score input used by the visible modifier tile.
-  // Never silently substitute a score of 10 when a real character score exists.
-  const abilityInput=document.querySelector('#abilities [name="'+skillAbilities[name]+'"]');
+  // Use the same visible ability modifier that the Ability Scores tile displays.
+  // The score input is a second source if its display has not updated yet.
+  const abilityInput=document.querySelector('#abilities input[name="'+skillAbilities[name]+'"]');
   const raw=abilityInput?.value?.trim()??"";
+  const modifierText=abilityInput?.closest(".field")?.querySelector(".ability-modifier")?.textContent??"";
+  const displayedMatch=modifierText.match(/Modifier\s*([+-]?\d+)/);
   const score=raw!==""?Number(raw):NaN;
-  const visibleModifier=abilityInput?.closest(".field")?.querySelector(".ability-modifier")?.textContent||"";
-  const displayedMatch=visibleModifier.match(/Modifier\\s*([+-]\\d+)/);
   const mod=Number.isFinite(score)?Math.floor((score-10)/2):
-   displayedMatch?Number(displayedMatch[1]):null;
+    displayedMatch?Number(displayedMatch[1]):null;
   const profRaw=proficiencyBonus?.value?.trim()??"";
   const prof=profRaw&&Number.isFinite(Number(profRaw))?Number(profRaw):0;
   if(mod===null){bonus.textContent="—";return}

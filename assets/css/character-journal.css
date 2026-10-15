@@ -219,3 +219,21 @@
   .character-page-card .character-header { padding-block: .7rem; }
   .character-page-card .character-facts { gap: .45rem; }
 }
+
+/* Muted mauve inactive tabs contrast with the forest-green sheet background.
+   The selected tab retains its stronger rose-purple emphasis. */
+.character-page-card .profile-tabs button[aria-selected="false"] {
+  background: linear-gradient(145deg, #685669, #4b4259);
+  border: 1px solid #d8b7d0a8;
+  color: #fff0f5;
+  box-shadow: inset 0 1px #ffffff1a, 0 3px 12px #0d1b1b40;
+}
+.character-page-card .profile-tabs button[aria-selected="false"]:hover {
+  background: linear-gradient(145deg, #806680, #5e4c6d);
+  border-color: #f4c2da;
+  box-shadow: 0 0 14px #f4c2da45;
+}
+.character-page-card .profile-tabs button:focus-visible {
+  outline: 2px solid #f8ebdb;
+  outline-offset: 3px;
+}

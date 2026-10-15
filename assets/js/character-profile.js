@@ -56,7 +56,7 @@ skills.forEach(name=>{
   controls.append(button);
   return button;
  });
- const bonus=document.createElement("span");bonus.className="skill-rank-bonus";bonus.textContent="—";bonus.setAttribute("role","status");bonus.setAttribute("aria-label",name+" skill modifier");
+ const bonus=document.createElement("span");bonus.className="skill-rank-bonus";bonus.textContent="+0";bonus.setAttribute("role","status");bonus.setAttribute("aria-label",name+" skill modifier");
  function getRank(){return expert.checked?2:legacy.checked?1:0}
  function update(){
   const rank=getRank();
@@ -68,8 +68,11 @@ skills.forEach(name=>{
   });
   const raw=document.querySelector('#abilities input[name="'+skillAbilities[name]+'"]')?.value.trim();
   const profRaw=document.querySelector('#proficiencies input[name="proficiencyBonus"]')?.value.trim();
-  if(!raw||!Number.isFinite(Number(raw))){bonus.textContent="—";return}
-  const mod=Math.floor((Number(raw)-10)/2);
+  // Use the saved ability score whenever available. If no score has been
+  // entered yet, show the neutral +0 base instead of an empty dash.
+  // This is display-only and never writes a placeholder score to D1.
+  const score=raw!==""&&Number.isFinite(Number(raw))?Number(raw):10;
+  const mod=Math.floor((score-10)/2);
   const prof=profRaw&&Number.isFinite(Number(profRaw))?Number(profRaw):0;
   const total=mod+rank*prof;
   bonus.textContent=(total>=0?"+":"")+total;

@@ -33,6 +33,8 @@
    const hitDie=classDice[name];
    const constitution=scoreModifier('con'),dexterity=scoreModifier('dex'),wisdom=scoreModifier('wis');
    if(level&&level.value!=='3'){level.value='3';level.dispatchEvent(new Event('input',{bubbles:true}));}
+   const levelDisplay=document.getElementById('characterLevelDisplay');
+   if(levelDisplay)levelDisplay.textContent='3';
    if(hitDie){
      combat('hitDice').value='3d'+hitDie;
      combat('maxHp').value=constitution===null?'':String(Math.max(1,3*(hitDie+constitution)));

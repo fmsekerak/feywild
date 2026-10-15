@@ -467,3 +467,12 @@
 .character-page-card #skills .skill-rank-bonus{text-align:right;font:700 1.1rem Georgia,serif;color:#f8ebdb;white-space:nowrap}
 .character-page-card #skills .skill-rank-storage{position:absolute!important;width:1px!important;height:1px!important;opacity:0!important;pointer-events:none!important}
 @media(max-width:440px){.character-page-card #skills .skill-rank-row{grid-template-columns:minmax(0,1fr) 1.7rem auto 2.4rem;gap:.25rem;padding:.4rem .3rem}.character-page-card #skills .skill-rank-name{font-size:.8rem}.character-page-card #skills .skill-rank-gem{padding:.24rem .3rem}}
+
+/* Keep skill modifiers in their own explicit final grid column.
+   Hidden persistence inputs must not occupy implicit grid cells. */
+.character-page-card #skills .skill-rank-row{position:relative}
+.character-page-card #skills .skill-rank-name{grid-column:1;grid-row:1}
+.character-page-card #skills .skill-rank-ability{grid-column:2;grid-row:1}
+.character-page-card #skills .skill-rank-controls{grid-column:3;grid-row:1}
+.character-page-card #skills .skill-rank-bonus{display:block!important;grid-column:4;grid-row:1;min-width:2.4rem;text-align:right;visibility:visible!important;opacity:1!important}
+.character-page-card #skills .skill-rank-storage{position:absolute!important;inset:auto auto 0 0;visibility:hidden!important;display:none!important}

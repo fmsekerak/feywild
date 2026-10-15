@@ -56,7 +56,7 @@ skills.forEach(name=>{
   controls.append(button);
   return button;
  });
- const bonus=document.createElement("span");bonus.className="skill-rank-bonus";bonus.setAttribute("role","status");bonus.setAttribute("aria-label",name+" skill modifier");
+ const bonus=document.createElement("span");bonus.className="skill-rank-bonus";bonus.textContent="—";bonus.setAttribute("role","status");bonus.setAttribute("aria-label",name+" skill modifier");
  function getRank(){return expert.checked?2:legacy.checked?1:0}
  function update(){
   const rank=getRank();
@@ -83,7 +83,7 @@ skills.forEach(name=>{
   const rank=i+1;
   setRank(getRank()===rank?rank-1:rank);
  }));
- row.append(legacy,expert,title,ability,controls,bonus);
+ row.append(title,ability,controls,bonus,legacy,expert);
  skillWrap.append(row);
  skillRows.push(update);
 });

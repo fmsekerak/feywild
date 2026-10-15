@@ -548,3 +548,24 @@
 .character-page-card .proficiency-popover-actions{display:flex;flex-wrap:wrap;gap:.5rem}
 .character-page-card .proficiency-popover-actions button{border:1px solid #bce4c388;border-radius:9px;padding:.4rem .7rem;background:#315847;color:#f8ebdb;font:inherit;cursor:pointer}
 .character-page-card .proficiency-add:focus-visible,.character-page-card .proficiency-tag button:focus-visible,.character-page-card .proficiency-popover button:focus-visible{outline:2px solid #f4c2da;outline-offset:2px}
+
+/* Pink fairy-gem add chip sits after the selected proficiency/language tags. */
+.character-page-card .proficiency-tags{align-items:center}
+.character-page-card .proficiency-add{
+ display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;
+ min-height:2rem;min-width:3.25rem;padding:.3rem .7rem;
+ border:1px solid #ffd4ed;border-radius:999px;
+ background:linear-gradient(145deg,#b864a0,#854675);
+ color:#fff1f8;font:700 1.05rem/1 Georgia,serif;
+ box-shadow:inset 0 1px #fff6,0 2px 9px #f4a8d755;
+ cursor:pointer;transition:background .15s,box-shadow .15s,transform .15s;
+}
+.character-page-card .proficiency-add:hover{
+ background:linear-gradient(145deg,#d982b8,#a55390);
+ box-shadow:0 0 14px #f4c2da99;transform:translateY(-1px);
+}
+.character-page-card .proficiency-add[aria-expanded="true"]{
+ background:linear-gradient(145deg,#df91c4,#ad6098);
+ box-shadow:0 0 14px #f4c2daaa;
+}
+@media(prefers-reduced-motion:reduce){.character-page-card .proficiency-add{transition:none}.character-page-card .proficiency-add:hover{transform:none}}

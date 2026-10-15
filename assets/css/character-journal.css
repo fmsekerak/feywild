@@ -263,3 +263,19 @@
 .character-page-card .combat-reset-saves:hover{color:#f8ebdb;border-color:#f4c2da}
 @media(max-width:760px){.character-page-card .combat-layout{grid-template-columns:1fr}.character-page-card #combat-defense{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:400px){.character-page-card #combat-defense{grid-template-columns:1fr 1fr}.character-page-card .character-level-badge{padding:.3rem .55rem;font-size:.82rem}}
+
+/* Health & Combat needs the full journal width; its four cards are columns inside. */
+.character-page-card .profile-layout > .combat-panel{grid-column:1/-1}
+.character-page-card .combat-layout{grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
+.character-page-card .combat-group{padding:clamp(1rem,2vw,1.35rem)}
+.character-page-card .combat-fields{gap:.8rem}
+.character-page-card #combat-defense{grid-template-columns:repeat(3,minmax(0,1fr));gap:.85rem}
+.character-page-card #combat-defense .field{min-width:0}
+.character-page-card #combat-defense .field input{min-width:0}
+.character-page-card .combat-fields .field{overflow-wrap:normal}
+.character-page-card .combat-fields .field input[readonly]{cursor:default;background:linear-gradient(135deg,#e7eee6,#dcece3);border-color:#bce4c388;box-shadow:none}
+.character-page-card .combat-fields .field input[readonly]:focus{outline:none;box-shadow:none}
+.character-page-card #combat .field[hidden],.character-page-card #combat [hidden]{display:none!important}
+@media(max-width:900px){.character-page-card #combat-defense{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:620px){.character-page-card .combat-layout{grid-template-columns:1fr}.character-page-card #combat-defense{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:440px){.character-page-card #combat-defense{grid-template-columns:repeat(2,minmax(0,1fr))}}

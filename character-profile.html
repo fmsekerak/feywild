@@ -26,7 +26,7 @@
    <div class="character-header">
     <div class="character-portrait" id="characterPortrait"><img id="characterPortraitImage" alt="" hidden><span id="characterPortraitFallback" aria-hidden="true">✦</span></div>
     <div class="character-summary">
-     <h3 class="character-display-name" id="characterName">Adventurer</h3>
+     <div class="character-name-row"><h3 class="character-display-name" id="characterName">Adventurer</h3><span class="character-level-badge" aria-label="Character level">Level <strong id="characterLevelDisplay">3</strong></span></div>
      <div class="character-facts" id="identity" aria-label="Character details">
       <div class="character-fact"><span>Class</span><strong id="profile-class">—</strong></div>
       <div class="character-fact"><span>Race</span><strong id="profile-race">—</strong></div>
@@ -46,7 +46,14 @@
     <div class="profile-section-heading"><h3>✧ Stats &amp; Abilities ✧</h3></div>
     <div class="profile-layout">
      <section class="satchel-panel profile-panel profile-abilities"><h4>Ability Scores</h4><div class="stat-grid" id="abilities"></div></section>
-     <section class="satchel-panel profile-panel"><h4>Health & Combat</h4><div class="character-details" id="combat"></div></section>
+     <section class="satchel-panel profile-panel combat-panel"><h4>Health &amp; Combat</h4>
+      <div id="combat" class="combat-layout">
+       <section class="combat-group" aria-labelledby="combat-hp-title"><h5 id="combat-hp-title">♡ Hit Points</h5><div id="combat-hp" class="combat-fields"></div></section>
+       <section class="combat-group" aria-labelledby="combat-defense-title"><h5 id="combat-defense-title">✧ Defense &amp; Movement</h5><div id="combat-defense" class="combat-fields"></div></section>
+       <section class="combat-group combat-hit-dice" aria-labelledby="combat-dice-title"><h5 id="combat-dice-title">✦ Hit Dice</h5><div id="combat-dice" class="combat-fields"></div><p class="combat-hint">Maximum hit dice based on your class and level.</p></section>
+       <section class="combat-group combat-death-saves" aria-labelledby="combat-saves-title"><h5 id="combat-saves-title">✧ Death Saving Throws</h5><div id="combat-death-saves" class="combat-death-controls"><div class="combat-save-row"><span>Successes</span><div id="death-success-gems" class="combat-gems" role="group" aria-label="Death save successes"></div></div><div class="combat-save-row"><span>Failures</span><div id="death-failure-gems" class="combat-gems" role="group" aria-label="Death save failures"></div></div><button type="button" class="combat-reset-saves">Reset death saves</button></div><div id="combat-death-data" hidden></div></section>
+      </div>
+     </section>
      <section class="satchel-panel profile-panel"><h4>Skills & Saving Throws</h4><div class="skill-grid" id="skills"></div></section>
      <section class="satchel-panel profile-panel"><h4>Proficiencies & Languages</h4><div id="proficiencies"></div></section>
      <section class="satchel-panel profile-panel"><h4>Attacks & Spellcasting</h4><div id="attacks"></div></section>

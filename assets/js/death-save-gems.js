@@ -41,11 +41,6 @@
      }
    }
  }
- document.querySelector('.combat-reset-saves')?.addEventListener('click',()=>{
-   successes=0;failures=0;
-   field.value=JSON.stringify({successes,failures});
-   render();
- });
  document.addEventListener('feywild:profile-loaded',read);
  read();
 })();

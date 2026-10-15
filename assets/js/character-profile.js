@@ -46,6 +46,26 @@ function updateProficiency(){
 characterLevel.addEventListener("input",updateProficiency);
 
 add(["maxHp","currentHp","temporaryHp"],"combat-hp");
+// Max HP is calculated, so show it as a stat rather than a text field.
+// Retain the hidden named input for existing D1 load/save and combat automation.
+const maxHpInput=document.querySelector('#combat-hp input[name="maxHp"]');
+if(maxHpInput){
+ const wrap=maxHpInput.closest(".field");
+ wrap.classList.add("max-hp-stat");
+ const display=document.createElement("output");
+ display.className="max-hp-value";
+ display.setAttribute("aria-label","Calculated maximum hit points");
+ display.textContent="—";
+ wrap.append(display);
+ const refresh=()=>{display.textContent=maxHpInput.value.trim()||"—";};
+ maxHpInput.addEventListener("input",refresh);
+ document.addEventListener("feywild:profile-loaded",refresh);
+ // The existing combat calculator sets input.value directly without an input event.
+ // A targeted event from the calculator below keeps the display current.
+ document.addEventListener("feywild:combat-calculated",refresh);
+ refresh();
+}
+
 add(["armorClass","initiative","speed"],"combat-defense");
 add(["hitDice"],"combat-dice");
 const deathSavesField=field("deathSaves","Death Saves","text","combat-death-data");

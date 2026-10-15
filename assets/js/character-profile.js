@@ -90,6 +90,7 @@ skills.forEach(name=>{
 function refreshSkillRanks(){skillRows.forEach(update)}
 document.querySelectorAll('#abilities input[name]').forEach(input=>input.addEventListener("input",refreshSkillRanks));
 document.addEventListener("feywild:profile-loaded",refreshSkillRanks);
+document.addEventListener("feywild:combat-calculated",refreshSkillRanks);
 
 const characterLevel=field("characterLevel","Character Level","number","combat");
 characterLevel.closest(".field").hidden=true;
@@ -99,6 +100,7 @@ characterLevel.placeholder="1–20";
 add(["proficiencies"],"proficiencies","textarea");add(["proficiencyBonus","passivePerception"],"proficiencies");
 const proficiencyBonus=document.querySelector('#proficiencies input[name="proficiencyBonus"]');
 proficiencyBonus.addEventListener("input",refreshSkillRanks);
+refreshSkillRanks();
 proficiencyBonus.readOnly=true;
 proficiencyBonus.title="Automatically calculated from character level (D&D 5e)";
 function updateProficiency(){

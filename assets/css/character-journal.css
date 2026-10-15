@@ -532,3 +532,19 @@
   padding: 1.1rem;
  }
 }
+
+/* Enchanted proficiency and language picker. */
+.character-page-card .proficiency-picker{display:grid;gap:1rem;margin-bottom:1rem}
+.character-page-card .proficiency-picker-group{min-width:0}
+.character-page-card .proficiency-picker-heading{display:flex;align-items:center;justify-content:space-between;gap:.75rem;margin-bottom:.55rem;color:#f8ebdb}
+.character-page-card .proficiency-add{border:1px solid #f4c2da99;border-radius:999px;background:#60445e;color:#ffe6f2;padding:.3rem .75rem;font:inherit;cursor:pointer}
+.character-page-card .proficiency-tags{display:flex;flex-wrap:wrap;gap:.45rem}
+.character-page-card .proficiency-tag{display:inline-flex;align-items:center;gap:.4rem;max-width:100%;border:1px solid #bce4c377;border-radius:999px;background:#234a3e;color:#f8ebdb;padding:.3rem .35rem .3rem .7rem;font-size:.85rem;overflow-wrap:anywhere}
+.character-page-card .proficiency-tag button{border:0;border-radius:50%;background:#63445c;color:#ffe6f2;cursor:pointer;width:1.45rem;height:1.45rem;font-size:1rem;line-height:1}
+.character-page-card .proficiency-empty{font-size:.85rem;color:#bce4c3b8;font-style:italic}
+.character-page-card .proficiency-popover{margin-top:.65rem;padding:.85rem;border:1px solid #bce4c377;border-radius:12px;background:#18382f;box-shadow:0 6px 18px #091a1640}
+.character-page-card .proficiency-popover[hidden]{display:none}
+.character-page-card .proficiency-popover select,.character-page-card .proficiency-popover input{display:block;box-sizing:border-box;width:100%;margin-bottom:.55rem;padding:.55rem;border:1px solid #bce4c388;border-radius:9px;background:#f4eaf1;color:#352b3b;font:inherit}
+.character-page-card .proficiency-popover-actions{display:flex;flex-wrap:wrap;gap:.5rem}
+.character-page-card .proficiency-popover-actions button{border:1px solid #bce4c388;border-radius:9px;padding:.4rem .7rem;background:#315847;color:#f8ebdb;font:inherit;cursor:pointer}
+.character-page-card .proficiency-add:focus-visible,.character-page-card .proficiency-tag button:focus-visible,.character-page-card .proficiency-popover button:focus-visible{outline:2px solid #f4c2da;outline-offset:2px}

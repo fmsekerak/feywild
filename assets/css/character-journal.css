@@ -608,3 +608,9 @@
 .character-page-card .feature-group .feature-card{flex:1 1 12rem;min-width:0}
 .character-page-card .feature-group .feature-add{min-height:2rem;min-width:3.25rem;padding:.3rem .7rem;font-size:1.05rem}
 .character-page-card .feature-group .feature-picker{width:100%;box-sizing:border-box}
+
+/* Put the Add control above full-width feature cards. */
+.character-page-card .feature-group-heading{display:flex;align-items:center;justify-content:space-between;gap:.65rem}
+.character-page-card .feature-group .feature-selected{display:grid;grid-template-columns:minmax(0,1fr);gap:.55rem;width:100%}
+.character-page-card .feature-group .feature-card{display:block;width:100%;min-width:0;box-sizing:border-box}
+.character-page-card .feature-group .feature-add{flex:0 0 auto}

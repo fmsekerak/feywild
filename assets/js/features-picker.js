@@ -43,7 +43,7 @@
    }
    if(category!=='Custom'){
     const add=el('button','feature-add','✧ +');add.type='button';add.title='Add '+category.toLowerCase();add.setAttribute('aria-label','Add '+category.toLowerCase());add.setAttribute('aria-expanded','false');
-    selected.append(add);
+    heading.append(add);
     const picker=el('div','feature-picker');picker.hidden=true;
     const search=el('input','feature-search');search.type='search';search.placeholder='Search '+(category==='Feat'?'feats':category==='Class Feature'?'class features':'species traits')+'…';search.setAttribute('aria-label','Search '+category.toLowerCase());
     const results=el('div','feature-results');results.setAttribute('aria-live','polite');
@@ -67,11 +67,7 @@
    }else section.append(selected);
    ui.append(section);
   }
-  const legacy=el('div','feature-legacy');
-  const label=el('label','','Additional feature notes');
-  const notes=el('textarea','');notes.rows=3;notes.placeholder='Optional notes or older saved features…';notes.value=state.notes;notes.setAttribute('aria-label','Additional feature notes');
-  notes.addEventListener('input',()=>{state.notes=notes.value;save();});
-  label.append(notes);legacy.append(label);ui.append(legacy);
+  // Keep previously saved notes in state/storage, but do not show the notes editor.
  }
  document.addEventListener('feywild:profile-loaded',()=>{state=parse(storage.value);render();});
  state=parse(storage.value);render();

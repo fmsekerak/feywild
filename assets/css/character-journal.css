@@ -669,3 +669,8 @@
 .character-page-card .feat-ability-button.selected{background:#f4c2da;color:#243b31;border-color:#f4c2da;font-weight:700}
 .character-page-card .feat-ability-button:focus-visible{outline:3px solid #f4c2da;outline-offset:2px}
 .character-page-card .feat-ability-choice small{display:block;margin-top:.45rem;color:#bce4c3}
+
+/* Secondary prerequisite line beneath feature descriptions. */
+.character-page-card .feature-prerequisite{display:block;margin:.45rem 0 .8rem;color:#bce4c3;font-size:.88rem;line-height:1.4}
+.character-page-card .feature-prerequisite strong{color:#f4c2da;font-weight:650}
+.character-page-card .feature-result .feature-prerequisite{margin:.3rem 0 0}

@@ -44,6 +44,34 @@
  }
  const save=()=>{storage.value=JSON.stringify({version:1,items:state.items,notes:state.notes});storage.dispatchEvent(new Event('input',{bubbles:true}));};
  function el(tag,cls,content){const node=document.createElement(tag);if(cls)node.className=cls;if(content!==undefined)node.textContent=content;return node;}
+ // Display eligibility separately from the effect text without changing saved data.
+ const classLabels=['Barbarian','Bard','Cleric','Druid','Fighter','Monk','Paladin','Ranger','Rogue','Sorcerer','Warlock','Wizard'];
+ const speciesLabels=['Elf','Halfling','Dwarf','Gnome','Half-orc','Tiefling','Dragonborn'];
+ function featureDisplay(item,description){
+  let text=description||'No description provided.';
+  let prerequisite='';
+  if(item.category==='Class Feature'){
+   const match=text.match(/^([A-Za-z -]+):\s*/);
+   if(match&&match[1].split(/\s+or\s+/i).every(x=>classLabels.some(y=>y.toLowerCase()===x.toLowerCase()))){
+    prerequisite=match[1];text=text.slice(match[0].length);
+   }
+  }else if(item.category==='Species Trait'){
+   const match=text.match(/^([A-Za-z -]+):\s*/);
+   if(match&&speciesLabels.some(x=>x.toLowerCase()===match[1].toLowerCase())){
+    prerequisite=match[1];text=text.slice(match[0].length);
+   }
+  }else if(item.category==='Feat'){
+   const ancestry=text.match(/^Requires? ([^.]+?) ancestry\.\s*/i);
+   const required=text.match(/^Requires? ([^.]+?)\.\s*/i);
+   const generic=text.match(/^Prerequisite:\s*([^.]+?)\.\s*/i);
+   const match=ancestry||required||generic;
+   if(match){
+    prerequisite=match[1];text=text.slice(match[0].length);
+    if(ancestry)prerequisite=prerequisite.replace(/^(elf or half-elf)$/i,'Elf/Half-Elf').replace(/^(human, half-elf, or half-orc)$/i,'Human/Half-Elf/Half-Orc').replace(/^(dwarf ancestry or a Small race)$/i,'Dwarf or Small Species');
+   }
+  }
+  return {description:text,prerequisite};
+ }
  function render(){
   ui.replaceChildren();
   for(const category of ['Feat','Class Feature','Species Trait','Custom']){
@@ -60,8 +88,14 @@
     const summary=el('summary','feature-card-summary');
     summary.append(el('span','feature-card-title',item.name));card.append(summary);
     const content=el('div','feature-card-body');
-    const currentFeat=item.category==='Feat'?library.find(x=>x.id===item.id||x.category==='Feat'&&x.name===item.name):null;
-    content.append(el('p','',currentFeat?.description||item.description||'No description provided.'));
+    const currentEntry=library.find(x=>x.id===item.id||x.category===item.category&&x.name===item.name);
+    const details=featureDisplay(item,currentEntry?.description||item.description);
+    content.append(el('p','feature-description',details.description));
+    if(details.prerequisite){
+     const prereq=el('p','feature-prerequisite');
+     prereq.append(el('strong','', 'Prerequisite: '),document.createTextNode(details.prerequisite));
+     content.append(prereq);
+    }
     if(item.category==='Feat'&&featAbilityOptions[item.name]){
      const options=featAbilityOptions[item.name];
      const chooser=el('div','feat-ability-choice');
@@ -110,7 +144,9 @@
      for(const entry of matches){
       const option=el('button','feature-result');option.type='button';
       const already=state.items.some(x=>x.id===entry.id);option.disabled=already;
-      option.append(el('strong','',entry.name),el('small','',already?'Already added':entry.category),el('span','',entry.description));
+      const preview=featureDisplay(entry,entry.description);
+      option.append(el('strong','',entry.name),el('small','',already?'Already added':entry.category),el('span','',preview.description));
+      if(preview.prerequisite)option.append(el('small','feature-prerequisite','Prerequisite: '+preview.prerequisite));
       option.addEventListener('click',()=>{state.items.push({...entry});save();render();});
       results.append(option);
      }

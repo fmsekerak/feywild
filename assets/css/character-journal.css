@@ -633,3 +633,40 @@
   display:grid;grid-template-columns:minmax(0,1fr);gap:.85rem
  }
 }
+
+/* Explicit row-aligned Stats grid; blank grid areas are intentional. */
+.character-page-card .profile-layout > #combat.combat-columns{
+ grid-column:1/-1;display:grid;align-items:start;gap:1rem
+}
+.character-page-card #stats #combat.combat-columns > .profile-panel{
+ width:100%;min-width:0;box-sizing:border-box;margin:0
+}
+@media(min-width:1100px){
+ .character-page-card .profile-layout > #combat.combat-columns{
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  grid-template-areas:
+   "abilities health statistics"
+   "skills saves attacks"
+   ". proficiencies equipment"
+   ". features .";
+ }
+ .character-page-card #combat .stats-slot-abilities{grid-area:abilities}
+ .character-page-card #combat .stats-slot-health{grid-area:health}
+ .character-page-card #combat .stats-slot-statistics{grid-area:statistics}
+ .character-page-card #combat .stats-slot-skills{grid-area:skills}
+ .character-page-card #combat .stats-slot-death-saves{grid-area:saves}
+ .character-page-card #combat .stats-slot-attacks{grid-area:attacks}
+ .character-page-card #combat .stats-slot-proficiencies{grid-area:proficiencies}
+ .character-page-card #combat .stats-slot-equipment{grid-area:equipment}
+ .character-page-card #combat .stats-slot-features{grid-area:features}
+}
+@media(min-width:700px) and (max-width:1099px){
+ .character-page-card .profile-layout > #combat.combat-columns{
+  grid-template-columns:repeat(2,minmax(0,1fr));grid-template-areas:none
+ }
+}
+@media(max-width:699px){
+ .character-page-card .profile-layout > #combat.combat-columns{
+  grid-template-columns:minmax(0,1fr);grid-template-areas:none
+ }
+}

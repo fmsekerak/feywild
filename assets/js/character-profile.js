@@ -113,6 +113,7 @@ characterLevel.placeholder="1–20";
 const proficienciesField=field("proficiencies","Proficiencies","textarea","proficiencies");
 proficienciesField.closest(".field").hidden=true;
 
+add(["armorClass","initiative","speed","hitDice","proficiencyBonus","passivePerception"],"combat-defense");
 const proficiencyBonus=document.querySelector('#combat-defense input[name="proficiencyBonus"]');
 proficiencyBonus.addEventListener("input",refreshSkillRanks);
 proficiencyBonus.readOnly=true;
@@ -148,7 +149,7 @@ if(maxHpInput){
  refresh();
 }
 
-add(["armorClass","initiative","speed","hitDice","proficiencyBonus","passivePerception"],"combat-defense");
+
 // Display automatically calculated defenses as static ability-style stats.
 // Keep the named inputs in the DOM for existing D1 load/save and calculations.
 document.querySelectorAll('#combat-defense input[name]').forEach(input=>{

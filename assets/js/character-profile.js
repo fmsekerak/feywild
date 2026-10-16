@@ -168,7 +168,7 @@ document.querySelectorAll('#combat-defense input[name]').forEach(input=>{
 });
 const deathSavesField=field("deathSaves","Death Saves","text","combat-death-data");
 add(["attacks"],"attacks","textarea");add(["equipment"],"equipment","textarea");
-add(["personality","ideals","bonds","flaws"],"personality","textarea");add(["features"],"features","textarea");
+add(["personality","ideals","bonds","flaws"],"personality","textarea");const featuresStorage=field("features","Features","textarea","features");featuresStorage.closest(".field").hidden=true;
 add(["age","eyes","height","skin","weight","hair"],"appearanceDetails");add(["appearance"],"appearanceNotes","textarea");add(["allies"],"allies","textarea");add(["backstory"],"backstory","textarea");add(["additionalFeatures","treasure"],"extras","textarea");
 add(["spellClass","spellAbility","spellSave","spellAttack"],"spellcasting");
 for(const name of ["spellAbility","spellSave","spellAttack"]){

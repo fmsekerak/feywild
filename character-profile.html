@@ -46,19 +46,18 @@
     <div class="profile-section-heading"><h3>✧ Stats &amp; Abilities ✧</h3></div>
     <div class="profile-layout">
      <div id="combat" class="combat-layout combat-columns">
-      <div class="combat-column">
+      <div class="combat-column combat-column-1">
        <section class="satchel-panel profile-panel profile-abilities"><h4>Ability Scores</h4><div class="stat-grid" id="abilities"></div></section>
-       <section class="satchel-panel profile-panel"><h4>Skills & Saving Throws</h4><div class="skill-grid" id="skills"></div></section>
-       <section class="satchel-panel profile-panel"><h4>Attacks & Spellcasting</h4><div id="attacks"></div></section>
-      </div>
-      <div class="combat-column">
-       <section class="satchel-panel profile-panel combat-section combat-health" aria-labelledby="combat-hp-title">
-        <h4 id="combat-hp-title">Health</h4>
-        <div id="combat-hp" class="combat-fields"></div>
-       </section>
        <section class="satchel-panel profile-panel combat-section combat-defense-section" aria-labelledby="combat-defense-title">
         <h4 id="combat-defense-title">Combat Statistics</h4>
         <div id="combat-defense" class="combat-fields"></div>
+       </section>
+       <section class="satchel-panel profile-panel"><h4>Attacks & Spellcasting</h4><div id="attacks"></div></section>
+      </div>
+      <div class="combat-column combat-column-2">
+       <section class="satchel-panel profile-panel combat-section combat-health" aria-labelledby="combat-hp-title">
+        <h4 id="combat-hp-title">Health</h4>
+        <div id="combat-hp" class="combat-fields"></div>
        </section>
        <section class="satchel-panel profile-panel combat-section combat-death-saves" aria-labelledby="combat-saves-title">
         <h4 id="combat-saves-title">Death Saving Throws</h4>
@@ -68,8 +67,11 @@
         </div>
         <div id="combat-death-data" hidden></div>
        </section>
-       <section class="satchel-panel profile-panel"><h4>Proficiencies & Languages</h4><div id="proficiencies"></div></section>
        <section class="satchel-panel profile-panel"><h4>Equipment Notes</h4><div id="equipment"></div><button type="button" class="profile-link profile-inventory-switch" data-open-inventory>✧ Manage your inventory →</button></section>
+      </div>
+      <div class="combat-column combat-column-3">
+       <section class="satchel-panel profile-panel"><h4>Skills & Saving Throws</h4><div class="skill-grid" id="skills"></div></section>
+       <section class="satchel-panel profile-panel"><h4>Proficiencies & Languages</h4><div id="proficiencies"></div></section>
        <section class="satchel-panel profile-panel"><h4>Features & Traits</h4><div id="features"></div></section>
       </div>
      </div>

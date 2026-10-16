@@ -22,7 +22,23 @@
   // Older freeform text remains visible and editable as proficiency entries.
   return {proficiencies:normalize(raw.split(/[,;\n]+/)),languages:[]};
  }
+ // Skill selections and the first proficiency gems share the existing saved
+ // skill-* checkboxes. Never touch expertise or unrelated proficiencies.
+ function syncSkill(name,enabled){
+  if(!skills.includes(name))return;
+  const input=[...document.querySelectorAll('#skills input.skill-rank-storage')].find(el=>el.name==='skill-'+name);
+  if(!input||input.checked===enabled)return;
+  input.checked=enabled;
+  input.dispatchEvent(new Event('change',{bubbles:true}));
+  document.dispatchEvent(new Event('feywild:skill-proficiency-synced'));
+ }
+ function syncSelectedSkills(){
+  for(const name of skills){
+   if(state.proficiencies.some(x=>x.toLowerCase()===name.toLowerCase()))syncSkill(name,true);
+  }
+ }
  function persist(){field.value=JSON.stringify(state);field.dispatchEvent(new Event('input',{bubbles:true}));}
+
  function render(){
   shell.replaceChildren();
   for(const [kind,title] of [['proficiencies','Proficiencies'],['languages','Languages']]){
@@ -37,7 +53,7 @@
     const chip=document.createElement('span');chip.className='proficiency-tag';
     const name=document.createElement('span');name.textContent=item;
     const remove=document.createElement('button');remove.type='button';remove.textContent='×';remove.title='Remove '+item;remove.setAttribute('aria-label','Remove '+item);
-    remove.addEventListener('click',()=>{state[kind]=state[kind].filter(x=>x!==item);persist();render();});
+    remove.addEventListener('click',()=>{state[kind]=state[kind].filter(x=>x!==item);if(kind==='proficiencies')syncSkill(item,false);persist();render();});
     chip.append(name,remove);list.append(chip);
    }
    list.append(add);section.append(list);
@@ -52,6 +68,7 @@
     const item=select.value.trim();
     if(!item){select.focus();return;}
     if(!state[kind].some(x=>x.toLowerCase()===item.toLowerCase()))state[kind].push(item);
+    if(kind==='proficiencies')syncSkill(item,true);
     persist();render();
    };
    confirm.addEventListener('click',choose);
@@ -62,7 +79,7 @@
    shell.append(section);
   }
  }
- function refresh(){state=parse(field.value);render();}
+ function refresh(){state=parse(field.value);syncSelectedSkills();render();}
  document.addEventListener('feywild:profile-loaded',refresh);
  refresh();
 })();

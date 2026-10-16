@@ -569,3 +569,34 @@
  box-shadow:0 0 14px #f4c2daaa;
 }
 @media(prefers-reduced-motion:reduce){.character-page-card .proficiency-add{transition:none}.character-page-card .proficiency-add:hover{transform:none}}
+
+/* Searchable Features & Traits library: compact enchanted journal cards. */
+.character-page-card .feature-library{display:grid;gap:.85rem}
+.character-page-card .feature-toolbar{display:flex;align-items:center;justify-content:space-between;gap:.75rem;flex-wrap:wrap}
+.character-page-card .feature-intro{flex:1 1 14rem;margin:0;color:#bce4c3;font-size:.8rem;line-height:1.5}
+.character-page-card .feature-add{flex:0 0 auto;border:1px solid #ffd4ed;border-radius:999px;padding:.5rem .9rem;background:linear-gradient(145deg,#b864a0,#854675);color:#fff1f8;font:700 .9rem Georgia,serif;box-shadow:0 2px 9px #f4a8d755;cursor:pointer}
+.character-page-card .feature-add:hover{background:linear-gradient(145deg,#d982b8,#a55390);box-shadow:0 0 14px #f4c2da99}
+.character-page-card .feature-selected{display:grid;gap:.55rem}
+.character-page-card .feature-card{border:1px solid #bce4c366;border-radius:12px;background:linear-gradient(135deg,#1b3c34,#18312d);color:#f8ebdb;overflow:hidden}
+.character-page-card .feature-card-summary{display:flex;align-items:center;justify-content:space-between;gap:.6rem;padding:.75rem .85rem;cursor:pointer}
+.character-page-card .feature-card-summary::marker{color:#f4c2da}
+.character-page-card .feature-card-title{font-weight:700;overflow-wrap:anywhere}
+.character-page-card .feature-card-kind{font-size:.7rem;color:#f4c2da;white-space:nowrap}
+.character-page-card .feature-card-body{border-top:1px solid #bce4c344;padding:.75rem .9rem}
+.character-page-card .feature-card-body p{margin:0 0 .7rem;font-size:.86rem;line-height:1.55;color:#f8ebdb}
+.character-page-card .feature-remove{border:1px solid #f4c2da88;border-radius:8px;background:#60445e;color:#fff1f8;padding:.3rem .6rem;cursor:pointer}
+.character-page-card .feature-empty{font-size:.85rem;color:#bce4c3;margin:.35rem 0}
+.character-page-card .feature-picker{display:grid;gap:.65rem;border:1px solid #bce4c366;border-radius:12px;padding:.85rem;background:#18382f}
+.character-page-card .feature-picker[hidden]{display:none}
+.character-page-card .feature-picker input,.character-page-card .feature-picker select,.character-page-card .feature-picker textarea,.character-page-card .feature-legacy textarea{box-sizing:border-box;width:100%;padding:.6rem;border:1px solid #bce4c388;border-radius:9px;background:#f4eaf1;color:#352b3b;font:inherit}
+.character-page-card .feature-results{display:grid;gap:.35rem;max-height:17rem;overflow-y:auto}
+.character-page-card .feature-result{display:grid;gap:.2rem;text-align:left;border:1px solid #bce4c344;border-radius:9px;padding:.6rem;background:#21483c;color:#f8ebdb;cursor:pointer}
+.character-page-card .feature-result:hover:not(:disabled){border-color:#f4c2da;background:#365b4e}
+.character-page-card .feature-result:disabled{opacity:.5;cursor:default}
+.character-page-card .feature-result small{color:#f4c2da}
+.character-page-card .feature-result span{font-size:.77rem;line-height:1.45}
+.character-page-card .feature-custom{display:grid;gap:.55rem;padding-top:.7rem;border-top:1px solid #bce4c344}
+.character-page-card .feature-custom h5{margin:0;color:#f4c2da}
+.character-page-card .feature-custom button{justify-self:start;border:1px solid #f4c2da88;border-radius:9px;padding:.5rem .75rem;background:#60445e;color:#fff1f8;cursor:pointer}
+.character-page-card .feature-legacy label{display:grid;gap:.4rem;color:#bce4c3;font-size:.83rem}
+.character-page-card .feature-add:focus-visible,.character-page-card .feature-library button:focus-visible,.character-page-card .feature-card-summary:focus-visible{outline:2px solid #f4c2da;outline-offset:2px}

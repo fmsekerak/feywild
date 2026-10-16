@@ -6,7 +6,7 @@
  const ability=name=>byName('abilities',name);
  const combat=name=>byName('combat',name);
  const level=combat('characterLevel');
- const proficiency=byName('proficiencies','proficiencyBonus');
+ const proficiency=byName('combat-defense','proficiencyBonus');
  const perception=document.querySelector('#skills [name="skill-Perception"]');
  const name=(sessionStorage.getItem('feywild-character-name')||'').trim().toLowerCase();
  const classDice={mion:8,ruin:8,crotus:8,hayden:10};
@@ -27,7 +27,7 @@
    if(input){input.readOnly=true;input.title='Automatically calculated for the level-3 campaign; equipment modifiers are not yet included';}
  });
  if(level){level.readOnly=true;level.title='Campaign level is currently set to 3';}
- const passive=byName('proficiencies','passivePerception');
+ const passive=byName('combat-defense','passivePerception');
  if(passive){passive.readOnly=true;passive.title='10 + Wisdom modifier + Perception proficiency (if selected)';}
  function calculate(){
    const hitDie=classDice[name];

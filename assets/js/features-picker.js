@@ -22,59 +22,51 @@
  function el(tag,cls,content){const node=document.createElement(tag);if(cls)node.className=cls;if(content!==undefined)node.textContent=content;return node;}
  function render(){
   ui.replaceChildren();
-  const top=el('div','feature-toolbar');
-  const intro=el('p','feature-intro','2014 D&D 5e • Select a feature to see its summary. Full rules and prerequisites remain in your sourcebook.');
-  const add=el('button','feature-add','✧ + Add Feature');add.type='button';add.setAttribute('aria-expanded','false');
-  top.append(intro,add);ui.append(top);
-  const selected=el('div','feature-selected');ui.append(selected);
-  if(!state.items.length)selected.append(el('p','feature-empty','No features selected yet.'));
-  for(const item of state.items){
-   const card=el('details','feature-card');
-   const summary=el('summary','feature-card-summary');
-   const title=el('span','feature-card-title',item.name);
-   const kind=el('span','feature-card-kind',item.category);
-   summary.append(title,kind);card.append(summary);
-   const content=el('div','feature-card-body');
-   content.append(el('p','',item.description||'No description provided.'));
-   const remove=el('button','feature-remove','Remove');remove.type='button';remove.setAttribute('aria-label','Remove '+item.name);
-   remove.addEventListener('click',()=>{state.items=state.items.filter(x=>x!==item);save();render();});
-   content.append(remove);card.append(content);selected.append(card);
-  }
-  const picker=el('div','feature-picker');picker.hidden=true;
-  const search=el('input','feature-search');search.type='search';search.placeholder='Search feats, classes, species traits…';search.setAttribute('aria-label','Search features');
-  const filter=el('select','feature-filter');filter.setAttribute('aria-label','Feature category');
-  for(const cat of categories){const opt=el('option','',cat);opt.value=cat;filter.append(opt);}
-  const results=el('div','feature-results');results.setAttribute('aria-live','polite');
-  const updateResults=()=>{
-   results.replaceChildren();
-   const query=search.value.trim().toLowerCase();
-   const matches=library.filter(x=>(filter.value==='All'||x.category===filter.value)&&(x.name+' '+x.description).toLowerCase().includes(query));
-   if(!matches.length)results.append(el('p','feature-empty','No matching features.'));
-   for(const entry of matches){
-    const item=el('button','feature-result');item.type='button';
-    const already=state.items.some(x=>x.id===entry.id);item.disabled=already;
-    item.append(el('strong','',entry.name),el('small','',entry.category+(already?' · Added':'')),el('span','',entry.description));
-    item.addEventListener('click',()=>{state.items.push({...entry});save();render();});
-    results.append(item);
+  for(const category of ['Feat','Class Feature','Species Trait','Custom']){
+   const chosen=state.items.filter(item=>item.category===category);
+   if(category==='Custom'&&!chosen.length)continue; // Retain saved homebrew cards without allowing new entries.
+   const section=el('section','feature-group');
+   const heading=el('div','feature-group-heading');
+   heading.append(el('strong','',category==='Feat'?'Feats':category==='Class Feature'?'Class Features':category==='Species Trait'?'Species Traits':'Previously Saved Custom Features'));
+   section.append(heading);
+   const selected=el('div','feature-selected');
+   if(!chosen.length)selected.append(el('span','feature-empty','None selected yet'));
+   for(const item of chosen){
+    const card=el('details','feature-card');
+    const summary=el('summary','feature-card-summary');
+    summary.append(el('span','feature-card-title',item.name));card.append(summary);
+    const content=el('div','feature-card-body');
+    content.append(el('p','',item.description||'No description provided.'));
+    const remove=el('button','feature-remove','Remove');remove.type='button';remove.setAttribute('aria-label','Remove '+item.name);
+    remove.addEventListener('click',()=>{state.items=state.items.filter(x=>x!==item);save();render();});
+    content.append(remove);card.append(content);selected.append(card);
    }
-  };
-  search.addEventListener('input',updateResults);filter.addEventListener('change',updateResults);
-  picker.append(search,filter,results);
-  const custom=el('form','feature-custom');
-  custom.append(el('h5','','Custom / Homebrew Feature'));
-  const name=el('input','');name.placeholder='Feature name';name.maxLength=120;name.required=true;name.setAttribute('aria-label','Custom feature name');
-  const description=el('textarea','');description.placeholder='Description and rules';description.maxLength=3000;description.rows=3;description.setAttribute('aria-label','Custom feature description');
-  const customAdd=el('button','','Add custom feature');customAdd.type='submit';
-  custom.append(name,description,customAdd);
-  custom.addEventListener('submit',e=>{
-   e.preventDefault();const n=name.value.trim();if(!n)return;
-   if(state.items.some(x=>x.category==='Custom'&&x.name.toLowerCase()===n.toLowerCase())){name.setCustomValidity('This custom feature is already added.');name.reportValidity();return;}
-   name.setCustomValidity('');
-   state.items.push({id:'custom:'+Date.now()+':'+Math.random().toString(36).slice(2),name:n,category:'Custom',description:description.value.trim()});save();render();
-  });
-  name.addEventListener('input',()=>name.setCustomValidity(''));
-  picker.append(custom);ui.append(picker);
-  add.addEventListener('click',()=>{picker.hidden=!picker.hidden;add.setAttribute('aria-expanded',String(!picker.hidden));if(!picker.hidden){updateResults();search.focus();}});
+   if(category!=='Custom'){
+    const add=el('button','feature-add','✧ +');add.type='button';add.title='Add '+category.toLowerCase();add.setAttribute('aria-label','Add '+category.toLowerCase());add.setAttribute('aria-expanded','false');
+    selected.append(add);
+    const picker=el('div','feature-picker');picker.hidden=true;
+    const search=el('input','feature-search');search.type='search';search.placeholder='Search '+(category==='Feat'?'feats':category==='Class Feature'?'class features':'species traits')+'…';search.setAttribute('aria-label','Search '+category.toLowerCase());
+    const results=el('div','feature-results');results.setAttribute('aria-live','polite');
+    const updateResults=()=>{
+     results.replaceChildren();
+     const query=search.value.trim().toLowerCase();
+     const matches=library.filter(x=>x.category===category&&(x.name+' '+x.description).toLowerCase().includes(query));
+     if(!matches.length)results.append(el('p','feature-empty','No matching features.'));
+     for(const entry of matches){
+      const option=el('button','feature-result');option.type='button';
+      const already=state.items.some(x=>x.id===entry.id);option.disabled=already;
+      option.append(el('strong','',entry.name),el('small','',already?'Already added':entry.category),el('span','',entry.description));
+      option.addEventListener('click',()=>{state.items.push({...entry});save();render();});
+      results.append(option);
+     }
+    };
+    search.addEventListener('input',updateResults);
+    picker.append(search,results);
+    add.addEventListener('click',()=>{picker.hidden=!picker.hidden;add.setAttribute('aria-expanded',String(!picker.hidden));if(!picker.hidden){updateResults();search.focus();}});
+    section.append(selected,picker);
+   }else section.append(selected);
+   ui.append(section);
+  }
   const legacy=el('div','feature-legacy');
   const label=el('label','','Additional feature notes');
   const notes=el('textarea','');notes.rows=3;notes.placeholder='Optional notes or older saved features…';notes.value=state.notes;notes.setAttribute('aria-label','Additional feature notes');

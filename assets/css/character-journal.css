@@ -600,3 +600,11 @@
 .character-page-card .feature-custom button{justify-self:start;border:1px solid #f4c2da88;border-radius:9px;padding:.5rem .75rem;background:#60445e;color:#fff1f8;cursor:pointer}
 .character-page-card .feature-legacy label{display:grid;gap:.4rem;color:#bce4c3;font-size:.83rem}
 .character-page-card .feature-add:focus-visible,.character-page-card .feature-library button:focus-visible,.character-page-card .feature-card-summary:focus-visible{outline:2px solid #f4c2da;outline-offset:2px}
+
+/* Feature groups mirror the inline proficiency and language pickers. */
+.character-page-card .feature-group{display:grid;gap:.5rem}
+.character-page-card .feature-group-heading{color:#f4c2da;font:700 .95rem Georgia,serif}
+.character-page-card .feature-group .feature-selected{display:flex;align-items:center;flex-wrap:wrap;gap:.55rem}
+.character-page-card .feature-group .feature-card{flex:1 1 12rem;min-width:0}
+.character-page-card .feature-group .feature-add{min-height:2rem;min-width:3.25rem;padding:.3rem .7rem;font-size:1.05rem}
+.character-page-card .feature-group .feature-picker{width:100%;box-sizing:border-box}

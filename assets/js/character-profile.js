@@ -104,6 +104,7 @@ Object.values(abilityScoreInputs).forEach(input=>{
 Object.values(abilityScoreInputs).forEach(input=>input.addEventListener("input",refreshSkillRanks));
 document.addEventListener("feywild:profile-loaded",refreshSkillRanks);
 document.addEventListener("feywild:combat-calculated",refreshSkillRanks);
+document.addEventListener("feywild:skill-proficiency-synced",refreshSkillRanks);
 
 const characterLevel=field("characterLevel","Character Level","number","combat");
 characterLevel.closest(".field").hidden=true;

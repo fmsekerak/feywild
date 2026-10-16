@@ -144,7 +144,9 @@
      for(const entry of matches){
       const option=el('button','feature-result');option.type='button';
       const already=state.items.some(x=>x.id===entry.id);option.disabled=already;
-      option.append(el('strong','',entry.name),el('small','',already?'Already added':entry.category),el('span','',entry.description));
+      const preview=featureDisplay(entry,entry.description);
+      option.append(el('strong','',entry.name),el('small','',already?'Already added':entry.category),el('span','',preview.description));
+      if(preview.prerequisite)option.append(el('small','feature-prerequisite','Prerequisite: '+preview.prerequisite));
       option.addEventListener('click',()=>{state.items.push({...entry});save();render();});
       results.append(option);
      }

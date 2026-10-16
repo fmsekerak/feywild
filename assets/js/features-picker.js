@@ -17,9 +17,22 @@
   return existing||{id:'Feat:'+name,category:'Feat',name,description:supplementalFeatSummaries[name]||'Consult the sourcebook for this feat’s description and prerequisites.'};
  });
  const library=[...feats,...libraryBase.filter(x=>x.category!=='Feat')];
+ const featAbilityOptions={"Athlete":["str","dex"],"Heavily Armored":["str"],"Heavy Armor Master":["str"],"Keen Mind":["int"],"Lightly Armored":["str","dex"],"Linguist":["int"],"Moderately Armored":["str","dex"],"Observant":["int","wis"],"Resilient":["str","dex","con","int","wis","cha"],"Tavern Brawler":["str","con"],"Weapon Master":["str","dex"],"Dragon Fear":["str","con","cha"],"Dragon Hide":["str","con","cha"],"Dwarven Fortitude":["con"],"Elven Accuracy":["dex","int","wis","cha"],"Fade Away":["dex","int"],"Fey Teleportation":["int","cha"],"Flames of Phlegethos":["int","cha"],"Infernal Constitution":["con"],"Orcish Fury":["str","con"],"Second Chance":["dex","con","cha"],"Squat Nimbleness":["str","dex"],"Chef":["con","wis"],"Crusher":["str","con"],"Fey Touched":["int","wis","cha"],"Gunner":["dex"],"Piercer":["str","dex"],"Shadow Touched":["int","wis","cha"],"Skill Expert":["str","dex","con","int","wis","cha"],"Slasher":["str","dex"],"Telekinetic":["int","wis","cha"],"Telepathic":["int","wis","cha"]};
+ const abilityLabels={str:'Strength',dex:'Dexterity',con:'Constitution',int:'Intelligence',wis:'Wisdom',cha:'Charisma'};
+ // Applied bonuses live in the same saved feat item as their chosen ability.
+ // Scores already contain these bonuses on load, so never reapply them then.
+ function changeAbility(ability,delta){
+  if(!ability||!delta)return true;
+  const input=document.querySelector('#abilities input[name="'+ability+'"]');
+  if(!input||input.value.trim()===''||!Number.isFinite(Number(input.value)))return false;
+  input.value=String(Number(input.value)+delta);
+  input.dispatchEvent(new Event('input',{bubbles:true}));
+  input.dispatchEvent(new Event('change',{bubbles:true}));
+  return true;
+ }
  const categories=['All','Feat','Class Feature','Species Trait'];
  const ui=document.createElement('div');ui.className='feature-library';host.prepend(ui);
- const unique=items=>(Array.isArray(items)?items:[]).filter(x=>x&&typeof x==='object'&&typeof x.name==='string').map(x=>({id:String(x.id||''),name:x.name,category:String(x.category||'Custom'),description:String(x.description||'')})).filter((x,i,a)=>a.findIndex(y=>y.id&&x.id?y.id===x.id:y.name===x.name&&y.category===x.category)===i);
+ const unique=items=>(Array.isArray(items)?items:[]).filter(x=>x&&typeof x==='object'&&typeof x.name==='string').map(x=>({id:String(x.id||''),name:x.name,category:String(x.category||'Custom'),description:String(x.description||''),abilityChoice:typeof x.abilityChoice==='string'?x.abilityChoice:'',abilityApplied:x.abilityApplied===true})).filter((x,i,a)=>a.findIndex(y=>y.id&&x.id?y.id===x.id:y.name===x.name&&y.category===x.category)===i);
  function parse(raw){
   if(!raw.trim())return {items:[],notes:''};
   try{
@@ -47,8 +60,38 @@
     summary.append(el('span','feature-card-title',item.name));card.append(summary);
     const content=el('div','feature-card-body');
     content.append(el('p','',item.description||'No description provided.'));
+    if(item.category==='Feat'&&featAbilityOptions[item.name]){
+     const options=featAbilityOptions[item.name];
+     const chooser=el('div','feat-ability-choice');
+     chooser.append(el('strong','', 'Ability score increase (+1)'));
+     const buttons=el('div','feat-ability-buttons');
+     for(const ability of options){
+      const button=el('button','feat-ability-button',abilityLabels[ability]);button.type='button';
+      const selected=item.abilityApplied&&item.abilityChoice===ability;
+      button.classList.toggle('selected',selected);button.setAttribute('aria-pressed',String(selected));
+      button.addEventListener('click',()=>{
+       if(selected)return;
+       if(item.abilityApplied&&!changeAbility(item.abilityChoice,-1)){
+        alert('Enter a valid ability score before changing this feat bonus.');return;
+       }
+       if(!changeAbility(ability,1)){
+        if(item.abilityApplied)changeAbility(item.abilityChoice,1);
+        alert('Enter a valid '+abilityLabels[ability]+' score first.');return;
+       }
+       item.abilityChoice=ability;item.abilityApplied=true;save();render();
+      });buttons.append(button);
+     }
+     chooser.append(buttons);
+     if(!item.abilityApplied)chooser.append(el('small','','Choose an ability to apply this feat’s +1 bonus.'));
+     content.append(chooser);
+    }
     const remove=el('button','feature-remove','Remove');remove.type='button';remove.setAttribute('aria-label','Remove '+item.name);
-    remove.addEventListener('click',()=>{state.items=state.items.filter(x=>x!==item);save();render();});
+    remove.addEventListener('click',()=>{
+     if(item.abilityApplied&&!changeAbility(item.abilityChoice,-1)){
+      alert('Enter a valid ability score before removing this feat so its bonus can be reversed.');return;
+     }
+     state.items=state.items.filter(x=>x!==item);save();render();
+    });
     content.append(remove);card.append(content);selected.append(card);
    }
    if(category!=='Custom'){

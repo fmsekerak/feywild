@@ -26,7 +26,7 @@
    <div class="character-header">
     <div class="character-portrait" id="characterPortrait"><img id="characterPortraitImage" alt="" hidden><span id="characterPortraitFallback" aria-hidden="true">✦</span></div>
     <div class="character-summary">
-     <div class="character-name-row"><h3 class="character-display-name" id="characterName">Adventurer</h3><span class="character-level-badge" aria-label="Character level">Level <strong id="characterLevelDisplay">3</strong></span></div>
+     <div class="character-name-row"><h3 class="character-display-name" id="characterName">Adventurer</h3><label class="character-level-badge" for="characterLevel">Level <select id="characterLevel" name="characterLevel" aria-label="Character level"></select></label></div>
      <div class="character-facts" id="identity" aria-label="Character details">
       <div class="character-fact"><span>Class</span><strong id="profile-class">—</strong></div>
       <div class="character-fact"><span>Race</span><strong id="profile-race">—</strong></div>
@@ -54,6 +54,8 @@
        <section class="satchel-panel profile-panel stats-slot-health combat-section combat-health" aria-labelledby="combat-hp-title">
         <h4 id="combat-hp-title">Health</h4>
         <div id="combat-hp" class="combat-fields"></div>
+        <div class="level-hp-options"><label>Maximum HP <select id="hpCalculationMode" name="hpCalculationMode"><option value="auto">Auto · fixed average</option><option value="manual">Manual · rolled/custom</option></select></label><label id="manual-hp-label" hidden>Custom max HP <input id="manualMaxHp" name="manualMaxHp" type="number" min="1" max="99999" step="1"></label></div>
+        <p id="hp-progression-note" class="combat-hint" aria-live="polite"></p>
        </section>
        <section class="satchel-panel profile-panel stats-slot-death-saves combat-section combat-death-saves" aria-labelledby="combat-saves-title">
         <h4 id="combat-saves-title">Death Saving Throws</h4>
@@ -107,12 +109,14 @@
     </section>
     <section class="satchel-panel profile-panel spell-tracker-panel" aria-labelledby="spell-tracker-title">
      <h4 id="spell-tracker-title">✧ Spell Slot Crystals</h4>
-     <p class="spell-tracker-hint">Set your maximum slots, then tap a glowing crystal to expend or restore it. Your changes are kept when you select <strong>Save Character</strong>.</p>
+     <p class="spell-tracker-hint">Your class and level can set your maximum slots automatically. Tap a glowing crystal to expend or restore it, then select <strong>Save Character</strong>.</p>
      <input type="hidden" name="spellSlotTracker" id="spellSlotTracker" value="">
+     <input type="hidden" name="spellSlotManualBackup" id="spellSlotManualBackup" value="">
+     <div class="spell-slot-mode"><label>Slot totals <select id="spellSlotMode" name="spellSlotMode"><option value="auto">Auto · class &amp; level</option><option value="manual">Manual · custom/house rules</option></select></label><span id="spell-slot-mode-hint" role="status"></span></div>
 
      <div id="spell-slot-tracker" class="spell-slot-grid" aria-label="Spell slot tracker"></div>
      <div class="spell-tracker-actions"><button type="button" id="spell-restore-all">✧ Restore All Slots</button><span id="spell-slot-status" role="status" aria-live="polite"></span></div>
-     <p class="spell-tracker-hint">Slot totals are set manually to support different classes and house rules. Resting is manual; no automatic class rules are applied.</p>
+     <p class="spell-tracker-hint">Automatic totals use single-class 2014 progression. Manual mode supports multiclassing, subclasses and house rules. Spell slots do not automatically restore on rest or level changes; Warlock Mystic Arcanum is tracked separately.</p>
     </section>
     <section class="satchel-panel profile-panel spell-library-panel" aria-labelledby="srd-library-heading">
      <h4 id="srd-library-heading">SRD Spell Library</h4>
@@ -182,6 +186,7 @@
  <script src="assets/js/shared.js"></script>
  <script src="assets/js/character-details.js" defer></script>
  <script src="assets/js/character-profile.js" defer></script>
+ <script src="assets/js/level-rules.js" defer></script>
  <script src="assets/js/combat-auto.js" defer></script>
  <script src="assets/js/death-save-gems.js" defer></script>
  <script src="assets/js/proficiency-picker.js" defer></script>

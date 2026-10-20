@@ -56,6 +56,9 @@
   const next=Math.max(0,Math.min(resource.max,previous+delta));
   data.resources[resource.id]={...data.resources[resource.id],spent:resource.max-next};persist();renderResources();
  }
+ function healthError(message=''){
+  const status=$('sheet-hp-status');status.textContent=message;status.hidden=!message;
+ }
  // Health actions keep all class calculations and manual maximum settings intact.
  function changeHP(kind){
   try{
@@ -63,8 +66,8 @@
    const was=R.integer(named('currentHp').value);
    set('currentHp',next.current);set('temporaryHp',next.temporary);
    if(was===0&&next.current>0)clearDeathSaves();
-   $('sheet-hp-status').textContent=(kind==='heal'?'Healing applied':'Damage applied')+': '+next.current+' HP, '+next.temporary+' temporary HP. Select Save Character.';
-  }catch(e){$('sheet-hp-status').textContent=e.message;}
+   healthError();
+  }catch(e){healthError(e.message);}
  }
  function clearDeathSaves(){set('deathSaves',JSON.stringify({successes:0,failures:0}));document.dispatchEvent(new Event('feywild:death-saves-changed'));}
  $('sheet-damage').addEventListener('click',()=>changeHP('damage'));
@@ -161,8 +164,8 @@
   if(!loaded)return;
   const max=R.integer(named('maxHp').value,1),hp=R.integer(named('currentHp').value),con=R.modifier(score('con')),l=level(),die=L.classRule()?.die;
   $('sheet-rest-error').textContent='';
-  if(max===null||hp===null||!l||con===null||!die){$('sheet-hp-status').textContent='Enter valid HP, level and Constitution before resting.';return;}
-  if(kind==='short'&&hp===0){$('sheet-hp-status').textContent='At 0 HP, resolve recovery with the DM before using a short rest.';return;}
+  if(max===null||hp===null||!l||con===null||!die){healthError('Enter valid HP, level and Constitution before resting.');return;}
+  if(kind==='short'&&hp===0){healthError('At 0 HP, resolve recovery with the DM before using a short rest.');return;}
   rest={kind,max,hp,con,l,die,rolls:[],count:0,snapshot:restSnapshot()};
   $('sheet-rest-title').textContent=kind==='short'?'☾ Short Rest':'☾ Long Rest';
   const root=$('sheet-rest-content');root.replaceChildren();
@@ -212,7 +215,7 @@
   }else{data.hitDiceSpent+=rest.count;if(rest.hp===0&&restHP()>0)clearDeathSaves();}
   for(const resource of currentResources())if(R.restRecovers(resource.recharge,rest.kind))data.resources[resource.id]={...data.resources[resource.id],spent:0};
   if($('sheet-rest-slots').checked)window.FEYWILD_SPELL_SLOTS?.restoreAll();
-  persist();renderResources();renderConditions();dialog.close();$('sheet-hp-status').textContent=(rest.kind==='long'?'Long':'Short')+' rest applied. Select Save Character.';rest=null;
+  persist();renderResources();renderConditions();dialog.close();healthError();rest=null;
  });
  document.addEventListener('feywild:profile-loaded',()=>{
   read();renderInspiration();document.querySelector('.inspiration-counter').hidden=false;loaded=true;for(const id of ['sheet-toolbar','sheet-hp-controls','sheet-conditions-panel','sheet-resources-panel'])$(id).hidden=false;

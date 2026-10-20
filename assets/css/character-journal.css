@@ -698,3 +698,37 @@
 .character-page-card .level-hp-options input{max-width:6rem}
 .character-page-card .level-hp-options [hidden]{display:none}
 .character-page-card #hp-progression-note{margin:.65rem 0 0;line-height:1.45}
+
+
+/* Hayden's verified Halfwit homebrew notes and manually controlled resource. */
+.character-page-card #halfwit-panel[hidden]{display:none!important}
+.character-page-card .halfwit-panel h5{margin:1rem 0 .6rem;color:#f4c2da;font:600 1rem Georgia,serif}
+.character-page-card .halfwit-intro{color:#d2e7da;margin:.25rem 0 .85rem;font-size:.9rem}
+.character-page-card .halfwit-class-facts{display:flex;flex-wrap:wrap;gap:.4rem .65rem}
+.character-page-card .halfwit-class-facts span{
+ display:inline-flex;flex-wrap:wrap;gap:.4rem;padding:.4rem .55rem;border:1px solid #bce4c355;
+ border-radius:8px;color:#c8dfd0;background:#142e29;font-size:.82rem
+}
+.character-page-card .halfwit-class-facts strong{color:#f8ebdb}
+.character-page-card .halfwit-resource{padding:.75rem;margin:.95rem 0;border:1px solid #4fa37c88;border-radius:12px;background:#142e29}
+.character-page-card .halfwit-resource h5{margin:0 0 .6rem}
+.character-page-card .halfwit-resource-fields{display:flex;align-items:end;flex-wrap:wrap;gap:.5rem}
+.character-page-card .halfwit-resource-fields label{display:flex;flex-direction:column;gap:.35rem;color:#c7dfd0;font-size:.82rem}
+.character-page-card .halfwit-resource-fields input{
+ box-sizing:border-box;width:5rem;padding:.4rem .45rem;border-radius:8px;border:1px solid #bce4c388;
+ color:#f8ebdb;background:#23483d;font:inherit
+}
+.character-page-card .halfwit-resource-fields button,
+.character-page-card #halfwit-use-listed-max{
+ cursor:pointer;border:1px solid #e0abc9;border-radius:8px;background:#60445e;
+ color:#ffe6f2;padding:.4rem .7rem;font:inherit
+}
+.character-page-card .halfwit-resource-fields button{font-size:1.1rem;min-width:2.25rem}
+.character-page-card #halfwit-use-listed-max{margin-top:.5rem;font-size:.82rem}
+.character-page-card .halfwit-milestones{margin:.5rem 0;padding-left:1.25rem;color:#e4eadf;font-size:.85rem;line-height:1.55}
+.character-page-card .halfwit-milestones li{margin-bottom:.25rem}
+.character-page-card .halfwit-milestones strong{color:#f4c2da}
+.character-page-card .halfwit-source{display:inline-block;margin-top:.55rem;color:#f4c2da;font-size:.9rem}
+.character-page-card .halfwit-panel button:focus-visible,
+.character-page-card .halfwit-panel input:focus-visible,
+.character-page-card .halfwit-source:focus-visible{outline:2px solid #f4c2da;outline-offset:2px}

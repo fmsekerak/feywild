@@ -33,7 +33,7 @@
  function updateHint(){
   if(!hint)return;
   if(mode.value==='manual')hint.textContent='Custom spell slot totals. Changing level will not overwrite them.';
-  else if(rules?.getClass()==='warlock')hint.textContent='Warlock Pact Magic slots (short-rest recharge); Mystic Arcanum uses are separate.';
+  else if(rules?.getClass()==='warlock')hint.textContent='Warlock Pact Magic slots (short-rest recharge); Mystic Arcanum uses are not included.';
   else hint.textContent='2014 single-class slot totals. Expended slots are kept when you change level.';
  }
  function applyAutomatic(){

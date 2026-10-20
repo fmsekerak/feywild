@@ -37,7 +37,7 @@
  const spellClassField=$("spellcasting")?.querySelector('input[name="spellClass"]');
  const spellSaveField=$("spellcasting")?.querySelector('input[name="spellSave"]');
  const spellAttackField=$("spellcasting")?.querySelector('input[name="spellAttack"]');
- const proficiencyField=$("proficiencies")?.querySelector('input[name="proficiencyBonus"]');
+ const proficiencyField=$("combat-defense")?.querySelector('input[name="proficiencyBonus"]');
  const abilityStatus=$("srd-casting-status");
  const classLabel=$("srd-casting-class");
  const normalizeClass=value=>String(value||"").toLowerCase().replace(/[^a-z]/g,"");
@@ -76,7 +76,7 @@
   if(spellSaveField)spellSaveField.value=String(dc);
   if(spellAttackField)spellAttackField.value=(attack>=0?"+":"")+attack;
  }
- document.querySelectorAll('#abilities input[name],#proficiencies input[name="proficiencyBonus"]').forEach(input=>input.addEventListener("input",calculate));
+ document.querySelectorAll('#abilities input[name],#combat-defense input[name="proficiencyBonus"]').forEach(input=>input.addEventListener("input",calculate));
  if(spellClassField)spellClassField.addEventListener("input",calculate);
  function syncAbility(){calculate()}
  function options(select,values,formatter=x=>x){

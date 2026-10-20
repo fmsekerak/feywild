@@ -44,6 +44,12 @@
 #sheet-damage{background:#6f3948;border-color:#ce8d9f;color:#ffe6ed}
 #sheet-damage:hover:not(:disabled){background:#854658;border-color:#e6a8b8}
 #sheet-damage:active:not(:disabled){background:#5b2e3b}
-#sheet-heal{background:#28543f;border-color:#86b997;color:#e0f3df}
-#sheet-heal:hover:not(:disabled){background:#35694e;border-color:#a4d3b1}
-#sheet-heal:active:not(:disabled){background:#204432}
+#sheet-heal{background:#9bc6a3;border-color:#d2e7c8;color:#163b2b}
+#sheet-heal:hover:not(:disabled){background:#b3d8b4;border-color:#e1efda}
+#sheet-heal:active:not(:disabled){background:#87b492}
+
+
+.sheet-health-restore-actions{display:inline-flex;align-items:center;gap:.4rem}
+#sheet-hp-reset{padding:.3rem .45rem;font-size:.8rem;background:#44394b;border-color:#9c8299;color:#eadce5}
+#sheet-hp-reset:hover:not(:disabled){background:#58475f;border-color:#c2a3bc}
+#sheet-hp-reset:active:not(:disabled){background:#382f3e}

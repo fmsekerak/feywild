@@ -10,7 +10,7 @@
  const level=document.getElementById('characterLevel');
  const rules=window.FEYWILD_LEVEL_RULES;
  const MAX=30;
- let slots={},previousMode='manual';
+ let slots={},previousMode='manual',profileLoaded=false;
  const clamp=n=>Math.max(0,Math.min(MAX,Number.isFinite(n)?Math.floor(n):0));
  function parse(value){
   let parsed={};
@@ -110,12 +110,14 @@
  });
  document.addEventListener('feywild:profile-loaded',()=>{
   read();
+  profileLoaded=true;
   previousMode=mode.value;
   if(mode.value==='auto')applyAutomatic();
   render();
   if(mode.value==='manual')status.textContent='Manual slots loaded from character profile';
  });
  document.addEventListener('feywild:level-changed',()=>{
+  if(!profileLoaded)return;
   if(mode.value==='auto'){if(applyAutomatic())render();}
   else updateHint();
  });

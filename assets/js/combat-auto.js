@@ -1,61 +1,86 @@
-/* Level-three campaign combat automation.
-   Uses existing saved scores; sample scores only fill empty fields for non-Mion characters.
-   Armor/shields and class features are intentionally excluded until equipment is modeled. */
+/* Single-class combat progression with explicit manual HP override.
+   Keep existing combat fields and D1 keys. Never reset current/temporary HP. */
 (() => {
  const byName=(group,name)=>document.querySelector('#'+group+' [name="'+name+'"]');
  const ability=name=>byName('abilities',name);
  const combat=name=>byName('combat',name);
- const level=combat('characterLevel');
+ const level=document.getElementById('characterLevel');
+ const rules=window.FEYWILD_LEVEL_RULES;
  const proficiency=byName('combat-defense','proficiencyBonus');
  const perception=document.querySelector('#skills [name="skill-Perception"]');
+ const mode=document.getElementById('hpCalculationMode');
+ const manual=document.getElementById('manualMaxHp');
+ const manualLabel=document.getElementById('manual-hp-label');
+ const note=document.getElementById('hp-progression-note');
+ const features=document.querySelector('#features [name="features"]');
  const name=(sessionStorage.getItem('feywild-character-name')||'').trim().toLowerCase();
- const classDice={mion:8,ruin:8,crotus:8,hayden:10};
  const sampleScores={
-   ruin:{str:10,dex:14,con:14,int:12,wis:16,cha:10},
-   crotus:{str:10,dex:14,con:12,int:12,wis:10,cha:16},
-   hayden:{str:16,dex:14,con:16,int:10,wis:12,cha:10}
+  ruin:{str:10,dex:14,con:14,int:12,wis:16,cha:10},
+  crotus:{str:10,dex:14,con:12,int:12,wis:10,cha:16},
+  hayden:{str:16,dex:14,con:16,int:10,wis:12,cha:10}
  };
  const scoreModifier=key=>{
-   const raw=ability(key)?.value.trim();
-   if(!raw||!Number.isFinite(Number(raw)))return null;
-   return Math.floor((Number(raw)-10)/2);
+  const raw=ability(key)?.value.trim();
+  if(!raw||!Number.isFinite(Number(raw)))return null;
+  return Math.floor((Number(raw)-10)/2);
  };
  const display=n=>n>=0?'+'+n:String(n);
- const autoFields=['maxHp','hitDice','armorClass','initiative','speed'];
- autoFields.forEach(key=>{
-   const input=combat(key);
-   if(input){input.readOnly=true;input.title='Automatically calculated for the level-3 campaign; equipment modifiers are not yet included';}
- });
- if(level){level.readOnly=true;level.title='Campaign level is currently set to 3';}
- const passive=byName('combat-defense','passivePerception');
- if(passive){passive.readOnly=true;passive.title='10 + Wisdom modifier + Perception proficiency (if selected)';}
- function calculate(){
-   const hitDie=classDice[name];
-   const constitution=scoreModifier('con'),dexterity=scoreModifier('dex'),wisdom=scoreModifier('wis');
-   if(level&&level.value!=='3'){level.value='3';level.dispatchEvent(new Event('input',{bubbles:true}));}
-   const levelDisplay=document.getElementById('characterLevelDisplay');
-   if(levelDisplay)levelDisplay.textContent='3';
-   if(hitDie){
-     combat('hitDice').value='3d'+hitDie;
-     combat('maxHp').value=constitution===null?'':String(Math.max(1,3*(hitDie+constitution)));
-   }
-   combat('armorClass').value=dexterity===null?'':String(10+dexterity);
-   combat('initiative').value=dexterity===null?'':display(dexterity);
-   // Temporary campaign walking speed; update once racial speeds are configured.
-   combat('speed').value='30';
-   if(passive)passive.value=wisdom===null?'':String(10+wisdom+(perception?.checked?Number(proficiency?.value||0):0));
-   document.dispatchEvent(new Event('feywild:combat-calculated'));
+ for(const key of ['maxHp','hitDice','armorClass','initiative','speed']){
+  const input=combat(key);
+  if(input){input.readOnly=true;input.title='Calculated from scores and character progression where supported';}
  }
- document.addEventListener('feywild:profile-loaded',()=>{
-   if(name!=='mion'&&sampleScores[name]){
-     for(const [key,score] of Object.entries(sampleScores[name])){
-       const input=ability(key);
-       if(input&&!input.value.trim()){input.value=String(score);input.dispatchEvent(new Event('input',{bubbles:true}));}
-     }
-   }
-   calculate();
+ const passive=byName('combat-defense','passivePerception');
+ if(passive){passive.readOnly=true;passive.title='10 + Wisdom modifier + Perception proficiency';}
+ function toughSelected(){
+  try{
+   const parsed=JSON.parse(features?.value||'{}');
+   return Array.isArray(parsed?.items)&&parsed.items.some(item=>item.category==='Feat'&&item.name==='Tough');
+  }catch{return false;}
+ }
+ function calculate(){
+  const rule=rules?.classRule(),levelValue=rules?.atLevel(level?.value);
+  const constitution=scoreModifier('con'),dexterity=scoreModifier('dex'),wisdom=scoreModifier('wis');
+  const maximum=combat('maxHp'),hitDice=combat('hitDice');
+  if(mode&&manualLabel)manualLabel.hidden=mode.value!=='manual';
+  if(rule&&levelValue&&hitDice)hitDice.value=levelValue+'d'+rule.die;
+  if(mode?.value==='auto'){
+   const hp=rules?.hpFor(null,levelValue,ability('con')?.value?.trim()||'',toughSelected());
+   if(hp!==null&&hp!==undefined&&maximum)maximum.value=String(hp);
+   if(note)note.textContent=rule?'2014 fixed-average HP (+ Constitution each level'+(toughSelected()?', including Tough feat':'')+'). Rolled HP or other bonuses? Choose Manual.':'Custom class: choose Manual HP until its hit die is configured.';
+  }else{
+   const chosen=Number(manual?.value);
+   if(maximum&&manual?.value!==''&&Number.isInteger(chosen)&&chosen>=1&&chosen<=99999)maximum.value=String(chosen);
+   if(note)note.textContent=rule?'Manual HP keeps your chosen maximum when you change level. Hit Dice still follow your class.':'Custom class: maximum HP and Hit Dice remain as saved.';
+  }
+  if(combat('armorClass'))combat('armorClass').value=dexterity===null?'':String(10+dexterity);
+  if(combat('initiative'))combat('initiative').value=dexterity===null?'':display(dexterity);
+  // Existing placeholder until armor and species speed are modeled.
+  if(combat('speed'))combat('speed').value='30';
+  if(passive)passive.value=wisdom===null?'':String(10+wisdom+(perception?.checked?Number(proficiency?.value||0):0));
+  document.dispatchEvent(new Event('feywild:combat-calculated'));
+ }
+ mode?.addEventListener('change',()=>{
+  if(mode.value==='auto'&&!rules?.classRule()){
+   mode.value='manual';
+   if(note)note.textContent='This homebrew class needs a hit die before HP can be automated.';
+  }
+  if(mode.value==='manual'&&manual&&!manual.value)manual.value=combat('maxHp')?.value||'';
+  calculate();
  });
+ manual?.addEventListener('input',calculate);
+ document.addEventListener('feywild:profile-loaded',()=>{
+  if(name!=='mion'&&sampleScores[name]){
+   for(const [key,score] of Object.entries(sampleScores[name])){
+    const input=ability(key);
+    if(input&&!input.value.trim()){input.value=String(score);input.dispatchEvent(new Event('input',{bubbles:true}));}
+   }
+  }
+  if(!rules?.classRule()&&mode)mode.value='manual';
+  calculate();
+ });
+ document.addEventListener('feywild:level-changed',calculate);
  document.querySelectorAll('#abilities input[name]').forEach(input=>input.addEventListener('input',calculate));
+ features?.addEventListener('input',calculate);
  perception?.addEventListener('change',calculate);
  proficiency?.addEventListener('input',calculate);
  calculate();

@@ -68,7 +68,7 @@
         <!-- Retain saved HP settings for profile loading and calculations. -->
         <input type="hidden" id="hpCalculationMode" name="hpCalculationMode" value="auto">
         <input type="hidden" id="manualMaxHp" name="manualMaxHp" value="">
-        <div id="sheet-hp-controls" class="sheet-tools" hidden><div class="sheet-inline"><label>Amount <input id="sheet-hp-amount" type="number" min="1" max="99999" step="1" inputmode="numeric"></label><button type="button" id="sheet-damage">Take damage</button><button type="button" id="sheet-heal">Heal</button></div><p id="sheet-hp-status" role="status" aria-live="polite"></p><p class="combat-hint">Damage uses temporary HP first. Apply resistance or vulnerability to the amount yourself; death-save failures and massive damage are adjudicated separately.</p></div>
+        <div id="sheet-hp-controls" class="sheet-tools" hidden><div class="sheet-inline"><label>Amount <input id="sheet-hp-amount" type="number" min="1" max="99999" step="1" inputmode="numeric"></label><button type="button" id="sheet-damage">Take damage</button><button type="button" id="sheet-heal">Heal</button></div><p id="sheet-hp-status" role="status" aria-live="polite" hidden></p></div>
        </section>
        <section class="satchel-panel profile-panel stats-slot-death-saves combat-section combat-death-saves" aria-labelledby="combat-saves-title">
         <h4 id="combat-saves-title">Death Saving Throws</h4>

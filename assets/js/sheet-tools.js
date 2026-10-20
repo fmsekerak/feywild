@@ -13,6 +13,27 @@
  let data={version:1,conditions:[],exhaustion:0,resources:{},customResources:[],attacks:[],hitDiceSpent:0};
  let loaded=false;
  const emit=el=>el.dispatchEvent(new Event('input',{bubbles:true}));
+ const inspiration=$('inspiration2014');
+ function inspirationPoints(){
+  if(inspiration.value==='true')return 1;
+  if(inspiration.value==='false')return 0;
+  return R.integer(inspiration.value,0,99999)??0;
+ }
+ function renderInspiration(){
+  const count=inspirationPoints();inspiration.value=String(count);
+  $('inspiration-count').textContent=String(count);
+  $('inspiration-count').classList.toggle('lit',count>0);
+  $('inspiration-minus').disabled=count===0;
+  $('inspiration-plus').disabled=count===99999;
+ }
+ function changeInspiration(delta){
+  if(!loaded)return;
+  inspiration.value=String(Math.max(0,Math.min(99999,inspirationPoints()+delta)));
+  renderInspiration();emit(inspiration);
+ }
+ $('inspiration-minus').addEventListener('click',()=>changeInspiration(-1));
+ $('inspiration-plus').addEventListener('click',()=>changeInspiration(1));
+
  function persist(){store.value=JSON.stringify(data);emit(store);}
  const level=()=>L.atLevel($('characterLevel').value),className=()=>L.getClass();
  const score=key=>named(key)?.value??'';
@@ -155,14 +176,7 @@
    const mod=R.modifier(score(key)),rank=named('skillExpert-'+name)?.checked?2:named('skill-'+name)?.checked?1:0,prof=Number(named('proficiencyBonus').value)||0;
    details.querySelector('p').textContent=mod===null?'Enter '+key.toUpperCase()+' to calculate.':key.toUpperCase()+' '+R.signed(mod)+' + '+(rank===2?'expertise (2 × '+prof+')':rank===1?'proficiency '+prof:'no proficiency')+' = '+R.signed(mod+rank*prof);
   }
-  for(const key of ['armorClass','initiative','speed','hitDice','proficiencyBonus','passivePerception','maxHp']){
-   const field=named(key),tile=field?.closest('.field');if(!tile)continue;
-   let details=tile.querySelector('.sheet-stat-explanation');if(!details){details=make('details',undefined,'sheet-stat-explanation');details.append(make('summary','How?'),make('p'));tile.append(details);}
-   const dex=R.modifier(score('dex')),wis=R.modifier(score('wis')),prof=named('proficiencyBonus').value;
-   const rank=named('skillExpert-Perception')?.checked?2:named('skill-Perception')?.checked?1:0;
-   const text={armorClass:'Unarmored base: 10 + DEX modifier ('+dex+'). Armor, shields and feature bonuses are not included.',initiative:'DEX modifier: '+dex+'. Feature bonuses are not included.',speed:'Current base placeholder is 30 feet. Species, conditions and feature adjustments are not automated.',hitDice:'Single-class level '+level()+' × d'+L.classRule()?.die+'. Track spent dice under Class Resources.',proficiencyBonus:'2 + floor((level − 1) / 4) = '+prof,passivePerception:'10 + WIS ('+wis+') + '+rank+' × proficiency ('+prof+'). Situational modifiers are separate.',maxHp:$('hpCalculationMode').value==='manual'?'Your manual maximum HP.':$('hp-progression-note').textContent};
-   details.querySelector('p').textContent=text[key];
-  }
+
  }
  // Rest preview is read-only until Apply. Rolled dice stay fixed within a preview.
  const dialog=$('sheet-rest-dialog');let rest=null;
@@ -226,7 +240,7 @@
   persist();renderResources();renderConditions();dialog.close();$('sheet-hp-status').textContent=(rest.kind==='long'?'Long':'Short')+' rest applied. Select Save Character.';rest=null;
  });
  document.addEventListener('feywild:profile-loaded',()=>{
-  read();loaded=true;for(const id of ['sheet-toolbar','sheet-hp-controls','sheet-conditions-panel','sheet-resources-panel'])$(id).hidden=false;
+  read();renderInspiration();loaded=true;for(const id of ['sheet-toolbar','sheet-hp-controls','sheet-conditions-panel','sheet-resources-panel'])$(id).hidden=false;
   renderConditions();renderResources();renderAttacks();refreshExplanations();
  });
  document.addEventListener('feywild:combat-calculated',()=>{if(loaded){refreshAttackBonuses();refreshExplanations();}});

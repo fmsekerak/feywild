@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="assets/css/character-journal.css">
   <link rel="stylesheet" href="assets/css/spell-library.css">
  <link rel="stylesheet" href="assets/css/sheet-tools.css">
+ <link rel="stylesheet" href="assets/css/equipment.css">
 </head>
 <body>
  <header class="banner"><canvas id="bannerParticles"></canvas><h1>Feywild</h1></header>
@@ -109,7 +110,8 @@
         <div id="combat-defense" class="combat-fields"></div>
        </section>
        <section class="satchel-panel profile-panel stats-slot-attacks"><h4>Attacks & Spellcasting</h4><div id="attacks"></div></section>
-       <section class="satchel-panel profile-panel stats-slot-equipment"><h4>Equipment Notes</h4><div id="equipment"></div><button type="button" class="profile-link profile-inventory-switch" data-open-inventory>✧ Manage your inventory →</button></section>
+       <section class="satchel-panel profile-panel sheet-tools stats-slot-equipped" aria-labelledby="equipped-gear-title"><h4 id="equipped-gear-title">Equipped Gear</h4><div id="equipped-gear"><p class="equipment-empty">Loading equipment…</p></div><p id="equipment-status" role="status" aria-live="polite"></p><button type="button" id="equipment-retry" hidden>Retry inventory</button><button type="button" class="profile-link profile-inventory-switch" data-open-inventory>✧ Manage your inventory →</button></section>
+       <section class="satchel-panel profile-panel stats-slot-equipment"><h4>Equipment Notes</h4><div id="equipment"></div></section>
       </div>
      </div>
 
@@ -189,6 +191,7 @@
     <div class="profile-inventory" aria-label="Character inventory">
      <div id="satchel-title" class="satchel-heading"><span class="satchel-sparkle" aria-hidden="true">✧</span><h2 id="inventory-title">Your Inventory</h2><span class="satchel-sparkle" aria-hidden="true">✧</span></div>
      <p id="status" role="status" aria-live="polite">Preparing your satchel…</p>
+     <button type="button" id="inventory-retry" class="fey-button" hidden>Retry inventory</button>
      <div id="signed-in">
       <div id="inventory" hidden>
        <div class="satchel-divider" aria-hidden="true">✦</div>

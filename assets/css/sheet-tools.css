@@ -39,3 +39,11 @@
 #sheet-rest-error{color:#ffc7d8}
 @media(max-width:600px){.sheet-toolbar>button{flex:1}.character-page-card .character-header-counters{gap:.5rem}.sheet-rest-dialog{padding:1rem}.profile-save{flex-wrap:wrap}#sheet-save-indicator{flex-basis:100%}}
 .sheet-tools a{color:#f4c2da}
+
+/* Muted health-action colors coordinated with the Feywild palette. */
+#sheet-damage{background:#6f3948;border-color:#ce8d9f;color:#ffe6ed}
+#sheet-damage:hover:not(:disabled){background:#854658;border-color:#e6a8b8}
+#sheet-damage:active:not(:disabled){background:#5b2e3b}
+#sheet-heal{background:#28543f;border-color:#86b997;color:#e0f3df}
+#sheet-heal:hover:not(:disabled){background:#35694e;border-color:#a4d3b1}
+#sheet-heal:active:not(:disabled){background:#204432}

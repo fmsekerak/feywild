@@ -67,6 +67,26 @@
        </section>
        <section class="satchel-panel profile-panel stats-slot-proficiencies"><h4>Proficiencies & Languages</h4><div id="proficiencies"></div></section>
        <section class="satchel-panel profile-panel stats-slot-features"><h4>Features & Traits</h4><div id="features"></div></section>
+       <section id="halfwit-panel" class="satchel-panel profile-panel halfwit-panel" aria-labelledby="halfwit-title" hidden>
+        <h4 id="halfwit-title">✧ Halfwit Class</h4>
+        <p class="halfwit-intro">Hayden's homebrew class reference and resource tracker.</p>
+        <div class="halfwit-class-facts"><span>Hit Die <strong>d10</strong></span><span>Saving Throws <strong>CON / CHA</strong></span><span>Skills <strong>Choose any two</strong></span></div>
+        <div class="halfwit-resource">
+         <h5>Stupidity Points</h5>
+         <div class="halfwit-resource-fields">
+          <label>Remaining <input type="number" id="halfwitStupidityRemaining" min="0" max="99" step="1" inputmode="numeric"></label>
+          <label>Maximum <input type="number" id="halfwitStupidityMax" min="0" max="99" step="1" inputmode="numeric"></label>
+          <button type="button" id="halfwit-spend-point" aria-label="Spend one Stupidity Point">−</button>
+          <button type="button" id="halfwit-restore-point" aria-label="Restore one Stupidity Point">+</button>
+         </div>
+         <p id="halfwit-resource-guidance" class="combat-hint" aria-live="polite"></p>
+         <button id="halfwit-use-listed-max" type="button" hidden>Apply verified maximum</button>
+        </div>
+        <h5>Confirmed Level Milestones</h5>
+        <ul id="halfwit-milestones" class="halfwit-milestones"></ul>
+        <p class="combat-hint">This is a partial class reference, not the full feature rules. See the creator's page for descriptions and unverified levels.</p>
+        <a class="halfwit-source" href="https://www.dandwiki.com/wiki/Halfwit_%285e_Class%29" target="_blank" rel="noopener noreferrer">✧ Read Halfwit on D&amp;D Wiki ↗</a>
+       </section>
       </div>
       <div class="combat-column combat-column-3">
        <section class="satchel-panel profile-panel stats-slot-statistics combat-section combat-defense-section" aria-labelledby="combat-defense-title">
@@ -193,6 +213,7 @@
  <script src="assets/js/features-picker.js" defer></script>
  <script src="assets/js/spell-library.js" defer></script>
  <script src="assets/js/spellbook-tools.js" defer></script>
+ <script src="assets/js/halfwit-sheet.js" defer></script>
  <script type="module" src="assets/js/inventory.js"></script>
 </body>
 </html>

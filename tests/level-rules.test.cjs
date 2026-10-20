@@ -32,14 +32,14 @@ test('warlock Pact Magic does not invent Mystic Arcanum slots',()=>{
 });
 test('noncasting and custom classes do not silently receive spell slots',()=>{
  equal(rules.slotsFor('Monk',15),[]);
- equal(rules.slotsFor('Himbo',3),[]);
+ equal(rules.slotsFor('Halfwit',3),[]);
  assert.equal(rules.slotsFor('Unknown Homebrew',3),null);
 });
 test('fixed-average HP, Tough and proficiency increase with level',()=>{
  assert.equal(rules.hpFor('Druid',1,16),11);
  assert.equal(rules.hpFor('Druid',3,16),27);
  assert.equal(rules.hpFor('Druid',3,16,true),33);
- assert.equal(rules.hpFor('Himbo',3,16),31);
+ assert.equal(rules.hpFor('Halfwit',3,16),31);
  assert.equal(rules.proficiency(1),2);
  assert.equal(rules.proficiency(5),3);
  assert.equal(rules.proficiency(17),6);

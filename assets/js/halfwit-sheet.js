@@ -16,7 +16,7 @@
  // Dynamically name inputs so unrelated character saves gain no Halfwit keys.
  remaining.name='halfwitStupidityRemaining';
  maximum.name='halfwitStupidityMax';
- let rules=null,profileLoaded=false;
+ let rules=null;
  const number=input=>{
   if(input.value.trim()==='')return null;
   const value=Number(input.value);
@@ -87,7 +87,7 @@
   notify('Applied the verified level '+level.value+' maximum and preserved spent points where possible');
  });
  level?.addEventListener('input',render);
- document.addEventListener('feywild:profile-loaded',()=>{profileLoaded=true;if(rules)render();});
+ document.addEventListener('feywild:profile-loaded',()=>{if(rules)render();});
  fetch('assets/data/halfwit-class.json').then(response=>{
   if(!response.ok)throw Error('Could not load Halfwit class data');
   return response.json();

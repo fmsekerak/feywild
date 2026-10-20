@@ -124,3 +124,17 @@
 .character-page-card .spellcasting-summary-facts #srd-casting-status {font-size:.87rem;color:#f4c2da}
 @media(max-width:680px){.character-page-card .spellcasting-summary-facts {grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:360px){.character-page-card .spellcasting-summary {padding:.7rem}.character-page-card .spellcasting-summary-facts {gap:.4rem}}
+
+
+/* Spell slot totals can follow class progression or stay custom. */
+.character-page-card .spell-slot-mode{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem 1rem;margin:.7rem 0}
+.character-page-card .spell-slot-mode label{display:flex;flex-wrap:wrap;align-items:center;gap:.55rem;color:#d4e9d9;font-size:.88rem}
+.character-page-card .spell-slot-mode select{
+ padding:.4rem .55rem;border-radius:8px;border:1px solid #bce4c388;
+ background:#173a32;color:#f8ebdb;font:inherit
+}
+.character-page-card #spell-slot-mode-hint{font-size:.82rem;color:#bce4c3}
+.character-page-card .spell-slot-total-label input[readonly]{
+ background:#244b3e;color:#daecdf;border-color:#bce4c344;cursor:default
+}
+.character-page-card .spell-slot-mode select:focus-visible{outline:2px solid #f4c2da;outline-offset:2px}

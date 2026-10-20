@@ -26,6 +26,7 @@
  function read(){slots=parse(field.value);}
  function persist(message){
   field.value=JSON.stringify(slots);
+  field.dispatchEvent(new Event('input',{bubbles:true}));
   status.textContent=message||'Unsaved changes · Select Save Character';
   document.dispatchEvent(new Event('feywild:slots-changed'));
  }
@@ -128,7 +129,11 @@
  });
  window.FEYWILD_SPELL_SLOTS={
   remaining(spellLevel){const s=slots[spellLevel];return s?Math.max(0,s.total-s.used):0},
-  spend
+  spend,
+  restoreAll(){
+   for(const slot of Object.values(slots))slot.used=0;
+   persist('Rest restored spell slots · Select Save Character');render();
+  }
  };
  read();render();
 })();

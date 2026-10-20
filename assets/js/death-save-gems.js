@@ -35,6 +35,7 @@
          const next=i===count?i-1:i;
          if(label==='success')successes=next;else failures=next;
          field.value=JSON.stringify({successes,failures});
+         field.dispatchEvent(new Event("input",{bubbles:true}));
          render();
        });
        root.append(button);
@@ -42,5 +43,6 @@
    }
  }
  document.addEventListener('feywild:profile-loaded',read);
+ document.addEventListener('feywild:death-saves-changed',read);
  read();
 })();

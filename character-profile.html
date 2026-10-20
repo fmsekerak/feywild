@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="assets/css/storybook-phase3.css">
   <link rel="stylesheet" href="assets/css/character-journal.css">
   <link rel="stylesheet" href="assets/css/spell-library.css">
+ <link rel="stylesheet" href="assets/css/sheet-tools.css">
 </head>
 <body>
  <header class="banner"><canvas id="bannerParticles"></canvas><h1>Feywild</h1></header>
@@ -44,6 +45,11 @@
    </div>
    <section class="profile-pane active" id="stats" role="tabpanel" aria-labelledby="tab-stats">
     <div class="profile-section-heading"><h3>✧ Stats &amp; Abilities ✧</h3></div>
+    <div id="sheet-toolbar" class="sheet-tools sheet-toolbar" hidden>
+     <label class="inspiration-toggle"><input type="checkbox" name="inspiration2014" id="inspiration2014"><span aria-hidden="true">✦</span> Inspiration</label>
+     <button type="button" id="sheet-short-rest">☾ Short Rest</button><button type="button" id="sheet-long-rest">☾ Long Rest</button>
+     <span id="sheet-change-status" role="status" aria-live="polite">Loading character…</span>
+    </div>
     <div class="profile-layout">
      <div id="combat" class="combat-layout combat-columns">
       <div class="combat-column combat-column-1">
@@ -56,6 +62,7 @@
         <div id="combat-hp" class="combat-fields"></div>
         <div class="level-hp-options"><label>Maximum HP <select id="hpCalculationMode" name="hpCalculationMode"><option value="auto">Auto · fixed average</option><option value="manual">Manual · rolled/custom</option></select></label><label id="manual-hp-label" hidden>Custom max HP <input id="manualMaxHp" name="manualMaxHp" type="number" min="1" max="99999" step="1"></label></div>
         <p id="hp-progression-note" class="combat-hint" aria-live="polite"></p>
+        <div id="sheet-hp-controls" class="sheet-tools" hidden><div class="sheet-inline"><label>Amount <input id="sheet-hp-amount" type="number" min="1" max="99999" step="1" inputmode="numeric"></label><button type="button" id="sheet-damage">Take damage</button><button type="button" id="sheet-heal">Heal</button></div><p id="sheet-hp-status" role="status" aria-live="polite"></p><p class="combat-hint">Damage uses temporary HP first. Apply resistance or vulnerability to the amount yourself; death-save failures and massive damage are adjudicated separately.</p></div>
        </section>
        <section class="satchel-panel profile-panel stats-slot-death-saves combat-section combat-death-saves" aria-labelledby="combat-saves-title">
         <h4 id="combat-saves-title">Death Saving Throws</h4>
@@ -65,6 +72,8 @@
         </div>
         <div id="combat-death-data" hidden></div>
        </section>
+       <section class="satchel-panel profile-panel sheet-tools" id="sheet-conditions-panel" hidden><h4>Conditions</h4><div id="sheet-conditions"></div></section>
+       <section class="satchel-panel profile-panel sheet-tools" id="sheet-resources-panel" hidden><h4>Class Resources</h4><div id="sheet-resources"></div></section>
        <section class="satchel-panel profile-panel stats-slot-proficiencies"><h4>Proficiencies & Languages</h4><div id="proficiencies"></div></section>
        <section class="satchel-panel profile-panel stats-slot-features"><h4>Features & Traits</h4><div id="features"></div></section>
        <section id="halfwit-panel" class="satchel-panel profile-panel halfwit-panel" aria-labelledby="halfwit-title" hidden>
@@ -199,9 +208,14 @@
     </div>
    </section>
    <div class="satchel-divider" aria-hidden="true">✦</div>
-   <div class="profile-save"><span id="saveStatus" role="status" aria-live="polite">Opening your chronicle…</span><button class="fey-button" id="saveProfile" type="button">✧ Save Character</button></div>
+   <div class="profile-save"><span id="sheet-save-indicator" role="status" aria-live="polite"></span><span id="saveStatus" role="status" aria-live="polite">Opening your chronicle…</span><button class="fey-button" id="saveProfile" type="button">✧ Save Character</button></div>
   </section>
  </main>
+ <dialog id="sheet-rest-dialog" class="sheet-tools sheet-rest-dialog" aria-labelledby="sheet-rest-title">
+  <h3 id="sheet-rest-title">Rest</h3><div id="sheet-rest-content"></div>
+  <p id="sheet-rest-error" role="status" aria-live="polite"></p>
+  <div class="sheet-inline"><button type="button" id="sheet-rest-apply">Apply rest</button><button type="button" id="sheet-rest-cancel">Cancel</button></div>
+ </dialog>
  <script src="assets/js/particles.js"></script>
  <script src="assets/js/shared.js"></script>
  <script src="assets/js/character-details.js" defer></script>
@@ -214,6 +228,8 @@
  <script src="assets/js/spell-library.js" defer></script>
  <script src="assets/js/spellbook-tools.js" defer></script>
  <script src="assets/js/halfwit-sheet.js" defer></script>
+ <script src="assets/js/sheet-rules.js" defer></script>
+ <script src="assets/js/sheet-tools.js" defer></script>
  <script type="module" src="assets/js/inventory.js"></script>
 </body>
 </html>

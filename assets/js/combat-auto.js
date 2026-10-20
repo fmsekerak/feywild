@@ -8,6 +8,7 @@
  const rules=window.FEYWILD_LEVEL_RULES;
  const proficiency=byName('combat-defense','proficiencyBonus');
  const perception=document.querySelector('#skills [name="skill-Perception"]');
+ const perceptionExpert=document.querySelector('#skills [name="skillExpert-Perception"]');
  const mode=document.getElementById('hpCalculationMode');
  const manual=document.getElementById('manualMaxHp');
  const manualLabel=document.getElementById('manual-hp-label');
@@ -56,7 +57,7 @@
   if(combat('initiative'))combat('initiative').value=dexterity===null?'':display(dexterity);
   // Existing placeholder until armor and species speed are modeled.
   if(combat('speed'))combat('speed').value='30';
-  if(passive)passive.value=wisdom===null?'':String(10+wisdom+(perception?.checked?Number(proficiency?.value||0):0));
+  if(passive)passive.value=wisdom===null?'':String(10+wisdom+((perceptionExpert?.checked?2:perception?.checked?1:0)*Number(proficiency?.value||0)));
   document.dispatchEvent(new Event('feywild:combat-calculated'));
  }
  mode?.addEventListener('change',()=>{
@@ -82,6 +83,7 @@
  document.querySelectorAll('#abilities input[name]').forEach(input=>input.addEventListener('input',calculate));
  features?.addEventListener('input',calculate);
  perception?.addEventListener('change',calculate);
+ perceptionExpert?.addEventListener('change',calculate);
  proficiency?.addEventListener('input',calculate);
  calculate();
 })();

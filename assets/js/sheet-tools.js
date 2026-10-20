@@ -72,6 +72,9 @@
  function clearDeathSaves(){set('deathSaves',JSON.stringify({successes:0,failures:0}));document.dispatchEvent(new Event('feywild:death-saves-changed'));}
  $('sheet-damage').addEventListener('click',()=>changeHP('damage'));
  $('sheet-heal').addEventListener('click',()=>changeHP('heal'));
+ $('sheet-hp-reset').addEventListener('click',()=>{
+  const amount=$('sheet-hp-amount');amount.value='';healthError();amount.focus();
+ });
  // Conditions remain reminders: no hidden modifiers are applied to base statistics.
  function renderConditions(){
   const root=$('sheet-conditions');root.replaceChildren();

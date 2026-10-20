@@ -1,0 +1,98 @@
+{
+  "title": "Halfwit",
+  "edition": "5e homebrew",
+  "source": "https://www.dandwiki.com/wiki/Halfwit_%285e_Class%29",
+  "sourceAccess": "Only indexed snippets were available on October 20, 2026; do not treat this as a complete source transcription.",
+  "hitDie": 10,
+  "spellcasting": "none listed",
+  "savingThrowProficiencies": [
+    "Constitution",
+    "Charisma"
+  ],
+  "skillChoices": "Choose any two",
+  "resource": {
+    "name": "Stupidity Points",
+    "knownMaximumByLevel": {
+      "1": 1,
+      "2": 2,
+      "3": 2,
+      "4": 3,
+      "14": 8,
+      "15": 8,
+      "16": 9,
+      "17": 9
+    }
+  },
+  "knownMilestones": [
+    {
+      "level": 1,
+      "features": [
+        "Idiotic Fighter",
+        "Ditsy Charm"
+      ]
+    },
+    {
+      "level": 2,
+      "features": [
+        "Stumbling Luck"
+      ]
+    },
+    {
+      "level": 3,
+      "features": [
+        "Idiotic Trope"
+      ]
+    },
+    {
+      "level": 4,
+      "features": [
+        "Ability Score Improvement",
+        "Ability Score Change"
+      ]
+    },
+    {
+      "level": 8,
+      "features": [
+        "Ability Score Improvement"
+      ]
+    },
+    {
+      "level": 12,
+      "features": [
+        "Ability Score Improvement"
+      ]
+    },
+    {
+      "level": 14,
+      "features": [
+        "Intelligence Black Hole"
+      ]
+    },
+    {
+      "level": 15,
+      "features": [
+        "Trope"
+      ]
+    },
+    {
+      "level": 16,
+      "features": [
+        "Ability Score Improvement",
+        "Ability Score Change"
+      ]
+    },
+    {
+      "level": 17,
+      "features": [
+        "True Idiocy"
+      ]
+    },
+    {
+      "level": 19,
+      "features": [
+        "Ability Score Improvement"
+      ]
+    }
+  ],
+  "completeness": "partial: feature rules, most resource maxima, class equipment and other milestones require full source text"
+}

@@ -31,6 +31,7 @@
   if(input){input.readOnly=true;input.title='Calculated from scores and character progression where supported';}
  }
  const passive=byName('combat-defense','passivePerception');
+ if(combat('armorClass'))combat('armorClass').title='Calculated from equipped armor, shield, and Dexterity';
  if(passive){passive.readOnly=true;passive.title='10 + Wisdom modifier + Perception proficiency';}
  function toughSelected(){
   try{
@@ -53,9 +54,10 @@
    if(maximum&&manual?.value!==''&&Number.isInteger(chosen)&&chosen>=1&&chosen<=99999)maximum.value=String(chosen);
    if(note)note.textContent=rule?'Manual HP keeps your chosen maximum when you change level. Hit Dice still follow your class.':'Custom class: maximum HP and Hit Dice remain as saved.';
   }
-  if(combat('armorClass'))combat('armorClass').value=dexterity===null?'':String(10+dexterity);
+  const armor=window.FEYWILD_EQUIPMENT?.armorClass(dexterity);
+  if(combat('armorClass'))combat('armorClass').value=armor?.value===null||armor?.value===undefined?'':String(armor.value);
   if(combat('initiative'))combat('initiative').value=dexterity===null?'':display(dexterity);
-  // Existing placeholder until armor and species speed are modeled.
+  // Campaign base speed; species movement and armor speed penalties are not modeled.
   if(combat('speed'))combat('speed').value='30';
   if(passive)passive.value=wisdom===null?'':String(10+wisdom+((perceptionExpert?.checked?2:perception?.checked?1:0)*Number(proficiency?.value||0)));
   document.dispatchEvent(new Event('feywild:combat-calculated'));
@@ -80,6 +82,7 @@
   calculate();
  });
  document.addEventListener('feywild:level-changed',calculate);
+ document.addEventListener('feywild:equipment-changed',calculate);
  document.querySelectorAll('#abilities input[name]').forEach(input=>input.addEventListener('input',calculate));
  features?.addEventListener('input',calculate);
  perception?.addEventListener('change',calculate);

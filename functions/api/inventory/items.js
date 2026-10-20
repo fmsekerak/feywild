@@ -1,8 +1,14 @@
 import {json,validId,parseBody,errorResponse} from "../_lib/inventory.js";
+import {equipmentForItem} from '../../../assets/js/equipment-rules.js';
 export async function onRequestGet({request,env}){
  const characterId=new URL(request.url).searchParams.get("character_id");
  if(!validId(characterId))return json({error:"Invalid character ID."},400);
- try{const r=await env.DB.prepare("SELECT id,name,description,quantity FROM inventory_items WHERE character_id=? ORDER BY name").bind(characterId).all();return json(r.results)}catch{return errorResponse()}
+ try{
+  const r=await env.DB.prepare(`SELECT i.id,i.name,i.description,i.quantity,e.data_json AS equipment_json
+   FROM inventory_items i LEFT JOIN character_data e ON e.character_id=i.character_id AND e.section='equipment:'||i.id
+   WHERE i.character_id=? ORDER BY i.name,i.id`).bind(characterId).all();
+  return json(r.results.map(({equipment_json,...item})=>({...item,equipment:equipmentForItem(item,equipment_json)})));
+ }catch{return errorResponse()}
 }
 export async function onRequestPost({request,env}){
  const b=await parseBody(request);

@@ -195,7 +195,8 @@ openRequestedTab();
 const inputs=()=>[...document.querySelectorAll("input[name],textarea[name],select[name]")];
 let originalData={};
 let profileReady=false,savedSnapshot=null,dirtyFrame=0;
-const profileSnapshot=()=>JSON.stringify(inputs().map(el=>[el.name,el.type==='checkbox'?el.checked:el.value]).sort((a,b)=>a[0].localeCompare(b[0])));
+// AC is derived from separately saved inventory equipment; it is not an unsaved profile edit.
+const profileSnapshot=()=>JSON.stringify(inputs().filter(el=>el.name!=='armorClass').map(el=>[el.name,el.type==='checkbox'?el.checked:el.value]).sort((a,b)=>a[0].localeCompare(b[0])));
 function refreshDirtyStatus(){
  const dirty=profileReady&&savedSnapshot!==profileSnapshot();
  for(const id of ['sheet-change-status','sheet-save-indicator']){

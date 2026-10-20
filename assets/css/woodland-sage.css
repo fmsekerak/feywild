@@ -1,0 +1,193 @@
+/* Woodland & Sage character-sheet theme.
+   Presentation only: scoped to this page, loaded after the legacy journal styles.
+   The independent Stats columns and all persistence controls keep their layout. */
+body.woodland-sage {
+ --ws-page: #1c2e29;
+ --ws-header: #3b5d4f;
+ --ws-panel: #dbe5d8;
+ --ws-inset: #cbd9c9;
+ --ws-field: #f4f5ed;
+ --ws-ink: #263f34;
+ --ws-muted: #435b4e;
+ --ws-border: #9caf9e;
+ --ws-rose: #88425d;
+ --ws-rose-hover: #793a53;
+ --ws-blush: #ead7e0;
+ --ws-light: #f2f4e9;
+ --ws-light-muted: #ceddcd;
+ background: var(--ws-page);
+ color: var(--ws-light);
+}
+body.woodland-sage .character-main { font-family: Arial, sans-serif; }
+body.woodland-sage :is(.character-page-card, #sheet-rest-dialog),
+body.woodland-sage :is(.character-page-card, #sheet-rest-dialog) * {
+ /* Old decorative glows otherwise persist on headings and nested controls. */
+ text-shadow: none !important;
+}
+body.woodland-sage .character-page-card {
+ --journal-parchment: var(--ws-light);
+ --journal-sage: var(--ws-light-muted);
+ --journal-rose: #edb8cf;
+ background: var(--ws-page);
+ border-color: #536f60;
+ box-shadow: none;
+}
+body.woodland-sage > nav { background: #283f35; box-shadow: none; border-color: #536f60; }
+body.woodland-sage > nav a { color: var(--ws-light); text-shadow: none; }
+body.woodland-sage > nav a.active { color: #edb8cf; }
+body.woodland-sage .character-page-card .character-header {
+ background: var(--ws-header);
+ border-color: #789480;
+ box-shadow: none;
+}
+body.woodland-sage .character-page-card .character-summary::before { color: var(--ws-light-muted); }
+body.woodland-sage .character-page-card .character-fact { background: #304d40; border-color: #6f8b77; }
+body.woodland-sage .character-page-card .character-fact span { color: var(--ws-light-muted); }
+body.woodland-sage .character-page-card .character-fact strong { color: var(--ws-light); }
+body.woodland-sage .character-page-card .character-portrait { border-color: #edb8cf; box-shadow: 0 0 0 5px #cbd9c922; }
+body.woodland-sage .character-page-card .character-level-badge { background: #304d40; border-color: #93aa97; box-shadow: none; }
+body.woodland-sage .character-page-card .profile-tabs { border-color: #536f60; }
+body.woodland-sage .character-page-card .profile-tabs button { transition: none; }
+body.woodland-sage .character-page-card .profile-tabs button[aria-selected="false"] {
+ background: #304d40; color: var(--ws-light); border-color: #789480; box-shadow: none;
+}
+body.woodland-sage .character-page-card .profile-tabs button[aria-selected="true"] {
+ background: var(--ws-blush); color: #63364b; border-color: #d8a5bc; box-shadow: none;
+}
+body.woodland-sage .character-page-card .profile-tabs button:hover { transform: none; }
+body.woodland-sage .character-page-card .profile-tabs button[aria-selected="false"]:hover { background: #476756; }
+body.woodland-sage .character-page-card .profile-tabs button[aria-selected="true"]:hover:not(:disabled) {
+ background: #f0dfe7; color: #63364b;
+}
+body.woodland-sage .character-page-card .profile-section-heading { margin: 1rem auto 1.3rem; }
+body.woodland-sage .character-page-card .profile-section-heading::after { display: none; }
+body.woodland-sage .character-page-card .satchel-divider { color: #d6a4ba; }
+body.woodland-sage .character-page-card .satchel-divider::before,
+body.woodland-sage .character-page-card .satchel-divider::after { background: #536f60; }
+
+/* Light sage surfaces and dark ink throughout all four character-sheet tabs. */
+body.woodland-sage .character-page-card :is(.profile-panel, .satchel-panel, .spellcasting-summary),
+body.woodland-sage #sheet-rest-dialog {
+ --journal-parchment: var(--ws-ink);
+ --journal-sage: var(--ws-muted);
+ --journal-rose: var(--ws-rose);
+ background: var(--ws-panel);
+ color: var(--ws-ink);
+ border-color: var(--ws-border);
+ box-shadow: 0 3px 10px #08140f26;
+}
+body.woodland-sage .character-page-card .profile-inventory .satchel-panel { background: var(--ws-panel); border-color: var(--ws-border); }
+body.woodland-sage .character-page-card :is(.profile-panel, .satchel-panel, .spellcasting-summary) :where(p, label, span, strong, h4, h5, h6, summary, dt, dd, small, output, li),
+body.woodland-sage #sheet-rest-dialog :where(p, label, span, strong, h3, summary, li) { color: inherit; }
+body.woodland-sage .character-page-card .profile-panel h4 {
+ color: var(--ws-ink); border-color: #a9bca9; font-family: Georgia, serif; font-weight: 500;
+}
+body.woodland-sage .character-page-card .profile-inventory .satchel-panel h4 { color: var(--ws-ink); }
+body.woodland-sage .character-page-card :is(.field, .sheet-tools, .combat-save-row, .proficiency-picker-heading, .feature-group-heading) { color: var(--ws-ink); }
+body.woodland-sage .character-page-card :is(.combat-hint, .proficiency-empty, .feature-empty, .feature-intro, .feature-prerequisite,
+ .spell-library-intro, .spell-tracker-hint, .spell-slot-label, .spell-slot-total-label, .spell-slot-remaining, .spell-slot-empty,
+ .spell-known-toolbar, .spell-library-credit, .srd-spell-meta, .srd-spell-empty, .srd-upcast-label, .satchel-items-hint,
+ .halfwit-intro, .halfwit-milestones, .feat-ability-choice small, .sheet-tools details p) { color: var(--ws-muted); }
+body.woodland-sage .character-page-card :is(#srd-spell-status, #spell-slot-mode-hint, #spell-slot-status, #catalog-description) { color: var(--ws-muted); }
+body.woodland-sage .character-page-card :is(.profile-link, .sheet-tools a, .sheet-tools summary, .feature-custom h5,
+ .feature-prerequisite strong, .feature-result small, .srd-spell-details summary, .spell-library-credit a, .halfwit-source) { color: var(--ws-rose); }
+
+/* One ivory input treatment, including the formerly pink ability/HP fields. */
+body.woodland-sage .character-page-card :is(input:not([type="checkbox"]):not([type="hidden"]), textarea, select),
+body.woodland-sage #sheet-rest-dialog :is(input, select),
+body.woodland-sage .character-page-card #stats .profile-abilities .stat-grid .field input,
+body.woodland-sage .character-page-card #stats .combat-health #combat-hp .field input,
+body.woodland-sage .character-page-card .spell-slot-total-label input[readonly] {
+ background: var(--ws-field); color: var(--ws-ink); border-color: var(--ws-border);
+ border-radius: 8px; box-shadow: none; color-scheme: light;
+}
+body.woodland-sage .character-page-card :is(input, textarea)::placeholder { color: #65796a; opacity: 1; }
+body.woodland-sage .character-page-card input[type="checkbox"] { accent-color: var(--ws-rose); }
+body.woodland-sage .character-page-card :is(.stat-grid .field, .feat-ability-choice, .sheet-resource, .sheet-attack,
+ .sheet-condition, .feature-picker, .proficiency-popover, .feature-card, .srd-spell-card, .srd-spell-level-group,
+ .spell-slot-row, .srd-concentration-panel, .halfwit-resource, .halfwit-class-facts span) {
+ background: var(--ws-field); color: var(--ws-ink); border-color: var(--ws-border); box-shadow: none;
+}
+body.woodland-sage .character-page-card .profile-abilities .stat-grid .field {
+ background: transparent; border-color: transparent; box-shadow: none;
+}
+body.woodland-sage .character-page-card #stats .ability-modifier { color: var(--ws-muted); font-size: .9rem; font-weight: 500; }
+body.woodland-sage .character-page-card .combat-health #combat-hp :is(.field, .max-hp-stat),
+body.woodland-sage .character-page-card .combat-defense-section #combat-defense .defense-stat {
+ background: transparent; color: var(--ws-muted); border-color: transparent; box-shadow: none;
+}
+body.woodland-sage .character-page-card .combat-health #combat-hp .max-hp-value,
+body.woodland-sage .character-page-card .combat-defense-section #combat-defense .defense-stat-value {
+ background: var(--ws-inset); color: var(--ws-ink); border-radius: 8px;
+}
+body.woodland-sage .character-page-card .combat-health #combat-hp :is(.field, .max-hp-stat) { justify-content: flex-end; }
+body.woodland-sage .character-page-card .combat-health #combat-hp :is(input, .max-hp-value) { min-height: 2.5rem; }
+body.woodland-sage .character-page-card #skills .skill-rank-row { background: #f4f5ed80; border-color: #afc0ac; }
+body.woodland-sage .character-page-card #skills :is(.skill-rank-name, .skill-rank-bonus) { color: var(--ws-ink); }
+body.woodland-sage .character-page-card #skills .skill-rank-ability { color: var(--ws-muted); }
+
+/* Muted rose actions; color and filled state both distinguish selected gems. */
+body.woodland-sage .character-page-card button,
+body.woodland-sage #sheet-rest-dialog button {
+ background: var(--ws-rose); color: #fff7fa; border-color: #a96783; box-shadow: none; font-family: inherit;
+}
+body.woodland-sage .character-page-card button:hover:not(:disabled),
+body.woodland-sage #sheet-rest-dialog button:hover:not(:disabled) { background: var(--ws-rose-hover); box-shadow: none; }
+body.woodland-sage .character-page-card :is(.feature-add, .proficiency-add):hover { transform: none; }
+body.woodland-sage .character-page-card :is(.combat-save-gem, .inspiration-gem),
+body.woodland-sage .character-page-card #skills .skill-rank-gem {
+ background: var(--ws-field); color: #59705e; border-color: #91a78f; opacity: 1; box-shadow: none;
+}
+body.woodland-sage .character-page-card :is(.combat-save-gem.lit, .inspiration-gem.lit),
+body.woodland-sage .character-page-card #skills .skill-rank-gem.lit {
+ background: var(--ws-rose); color: #fff7fa; border-color: var(--ws-rose); box-shadow: none;
+}
+body.woodland-sage .character-page-card #skills .skill-rank-gem:hover:not(:disabled),
+body.woodland-sage .character-page-card .combat-save-gem:hover:not(:disabled) { background: var(--ws-blush); color: #63364b; }
+body.woodland-sage .character-page-card .profile-inventory-switch { background: transparent; color: var(--ws-rose); }
+body.woodland-sage .character-page-card .profile-inventory-switch:hover { background: var(--ws-blush); }
+body.woodland-sage .character-page-card :is(.feature-result, .feat-ability-button, .proficiency-tag, .srd-spell-badge) {
+ background: var(--ws-inset); color: var(--ws-ink); border-color: var(--ws-border);
+}
+body.woodland-sage .character-page-card .feature-result:hover:not(:disabled) { background: var(--ws-blush); color: #63364b; }
+body.woodland-sage .character-page-card .feat-ability-button.selected { background: var(--ws-rose); color: #fff7fa; }
+body.woodland-sage .character-page-card :is(.feature-card-body, .feature-custom) { border-color: var(--ws-border); }
+body.woodland-sage .character-page-card :is(.feature-card-body p, .srd-spell-description, .srd-spell-details, .srd-spell-quick, .sheet-attack-result) { color: var(--ws-ink); }
+body.woodland-sage .character-page-card .feature-card-kind { color: var(--ws-rose); }
+body.woodland-sage .character-page-card #sheet-damage { background: #98394d; color: #fff7fa; border-color: #98394d; }
+body.woodland-sage .character-page-card #sheet-damage:hover { background: #7e2d3e; }
+body.woodland-sage .character-page-card #sheet-heal { background: #38684c; color: #f4f5ed; border-color: #38684c; }
+body.woodland-sage .character-page-card #sheet-heal:hover { background: #285239; }
+body.woodland-sage .character-page-card #sheet-hp-reset { background: var(--ws-field); color: var(--ws-ink); border-color: #819a85; }
+body.woodland-sage .character-page-card #sheet-hp-reset:hover { background: var(--ws-inset); }
+
+/* Dark page chrome and light-panel dialogs each keep their own readable ink. */
+body.woodland-sage .character-page-card .sheet-toolbar,
+body.woodland-sage .character-page-card .profile-save { background: #304d40; color: var(--ws-light); border-color: #6f8b77; box-shadow: none; }
+body.woodland-sage .character-page-card .inspiration-counter,
+body.woodland-sage .character-page-card :is(#sheet-change-status, #sheet-save-indicator) { color: var(--ws-light-muted); }
+body.woodland-sage .character-page-card .sheet-is-dirty { color: #f4c2da !important; }
+body.woodland-sage #sheet-rest-preview { background: var(--ws-field); border-color: var(--ws-border); }
+body.woodland-sage #sheet-rest-dialog::backdrop { background: #0b1712b8; }
+body.woodland-sage #sheet-rest-dialog { margin: auto; font-family: Arial, sans-serif; }
+body.woodland-sage :is(#sheet-rest-error, #sheet-hp-status) { color: #98394d; }
+body.woodland-sage .character-page-card .profile-inventory .inventory-row { background: var(--ws-field); border-color: var(--ws-border); }
+body.woodland-sage .character-page-card .profile-inventory .inventory-row :is(strong,p) { color: var(--ws-ink); }
+body.woodland-sage .character-page-card .profile-inventory #items:empty::after { color: var(--ws-muted); }
+body.woodland-sage .character-page-card .spellcasting-summary :is(.character-fact, .srd-concentration-panel) { background: var(--ws-field); border-color: var(--ws-border); }
+body.woodland-sage .character-page-card .spellcasting-summary { padding: 1rem 1.25rem; margin: 0 0 1.15rem; border: 1px solid var(--ws-border); border-radius: 12px; }
+body.woodland-sage .character-page-card .spellcasting-summary :is(h4, strong, output, #srd-casting-class, #srd-casting-status) { color: var(--ws-ink); }
+body.woodland-sage .character-page-card .spellcasting-summary .character-fact span { color: var(--ws-muted); }
+body.woodland-sage .character-page-card .spellcasting-summary-title { color: var(--ws-rose); }
+body.woodland-sage .character-page-card .srd-school-icon { color: #fff7fa; }
+body.woodland-sage .character-page-card .srd-spell-controls :is(.is-prepared, .is-active) { background: #38684c; color: #f4f5ed; }
+body.woodland-sage .character-page-card .srd-favorite-toggle { background: transparent; color: var(--ws-rose); border-color: var(--ws-border); }
+body.woodland-sage .character-page-card .srd-favorite-toggle[aria-pressed="true"] { background: var(--ws-blush); color: #75354f; }
+body.woodland-sage .character-page-card .spell-slot-crystal { background: var(--ws-blush); color: #843d5d; border-color: #c49baf; }
+body.woodland-sage .character-page-card .spell-slot-crystal.spent { background: var(--ws-inset); color: #5a7061; border-color: #9caf9e; opacity: .65; }
+body.woodland-sage :is(.character-page-card, #sheet-rest-dialog) :is(button,input,select,textarea,summary,a):focus-visible {
+ outline: 3px solid var(--ws-rose); outline-offset: 3px;
+}
+body.woodland-sage .character-page-card :is(.profile-tabs, .character-header, .profile-save, .sheet-toolbar) :is(button,select):focus-visible {
+ outline-color: #f0b7d1;
+}

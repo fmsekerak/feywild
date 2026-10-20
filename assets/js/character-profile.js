@@ -194,6 +194,20 @@ window.addEventListener("hashchange",openRequestedTab);
 openRequestedTab();
 const inputs=()=>[...document.querySelectorAll("input[name],textarea[name],select[name]")];
 let originalData={};
+let profileReady=false,savedSnapshot=null,dirtyFrame=0;
+const profileSnapshot=()=>JSON.stringify(inputs().map(el=>[el.name,el.type==='checkbox'?el.checked:el.value]).sort((a,b)=>a[0].localeCompare(b[0])));
+function refreshDirtyStatus(){
+ const dirty=profileReady&&savedSnapshot!==profileSnapshot();
+ for(const id of ['sheet-change-status','sheet-save-indicator']){
+  const el=document.getElementById(id);if(el){el.textContent=profileReady?(dirty?'✧ Unsaved changes':'♡ All changes saved'):'Character not loaded';el.classList.toggle('sheet-is-dirty',dirty);}
+ }
+ document.getElementById('saveProfile').classList.toggle('sheet-save-dirty',dirty);
+ return dirty;
+}
+const scheduleDirtyStatus=()=>{cancelAnimationFrame(dirtyFrame);dirtyFrame=requestAnimationFrame(refreshDirtyStatus);};
+for(const event of ['input','change','click'])document.addEventListener(event,scheduleDirtyStatus);
+window.addEventListener('beforeunload',event=>{if(refreshDirtyStatus()){event.preventDefault();event.returnValue='';}});
+$('saveProfile').disabled=true;
 function renderIdentity(character,data={}){
  const name=(character?.name||sessionStorage.getItem("feywild-character-name")||"Adventurer").trim();
  $("characterName").textContent=name;
@@ -228,6 +242,8 @@ if(!Object.hasOwn(originalData,"spellSlotMode")){
  try{const rows=JSON.parse(originalData.spellSlotTracker||"{}");existingSlots=Object.values(rows).some(row=>Number(row?.total)>0)}catch{}
  $("spellSlotMode").value=existingSlots?"manual":"auto";
 }
-Object.values(abilityScoreInputs).forEach(el=>el.dispatchEvent(new Event("input")));updateProficiency();document.dispatchEvent(new Event("feywild:profile-loaded"));refreshSkillRanks();requestAnimationFrame(refreshSkillRanks);$("saveStatus").textContent=""}catch(e){$("saveStatus").textContent="Profile data could not load: "+e.message+". Character header is still available."}}
-$("saveProfile").addEventListener("click",async()=>{const button=$("saveProfile");button.disabled=true;$("saveStatus").textContent="Saving to D1…";if(!characterLevel.checkValidity()){characterLevel.reportValidity();button.disabled=false;$("saveStatus").textContent="Enter a character level between 1 and 20.";return;}const data={...originalData};inputs().forEach(el=>{if(el.name==="characterName")return;data[el.name]=el.type==="checkbox"?el.checked:el.value});try{const response=await fetch("/api/character-profile",{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify({character_id:selectedId,data})});const result=await response.json();if(!response.ok)throw Error(result.error||"Save failed");originalData=data;$("saveStatus").textContent="♡ Saved to Cloudflare D1"}catch(e){$("saveStatus").textContent=e.message}finally{button.disabled=false}});
-load();
+Object.values(abilityScoreInputs).forEach(el=>el.dispatchEvent(new Event("input")));updateProficiency();document.dispatchEvent(new Event("feywild:profile-loaded"));refreshSkillRanks();requestAnimationFrame(refreshSkillRanks);profileReady=true;$('saveProfile').disabled=false;queueMicrotask(()=>{savedSnapshot=profileSnapshot();refreshDirtyStatus();});$("saveStatus").textContent=""}catch(e){$("saveStatus").textContent="Profile data could not load: "+e.message+". Character header is still available."}}
+$("saveProfile").addEventListener("click",async()=>{const button=$("saveProfile");if(!profileReady)return;button.disabled=true;$("saveStatus").textContent="Saving to D1…";if(!characterLevel.checkValidity()){characterLevel.reportValidity();button.disabled=false;$("saveStatus").textContent="Enter a character level between 1 and 20.";return;}const submittedSnapshot=profileSnapshot();const data={...originalData};inputs().forEach(el=>{if(el.name==="characterName")return;data[el.name]=el.type==="checkbox"?el.checked:el.value});try{const response=await fetch("/api/character-profile",{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify({character_id:selectedId,data})});const result=await response.json();if(!response.ok)throw Error(result.error||"Save failed");originalData=data;savedSnapshot=submittedSnapshot;refreshDirtyStatus();$("saveStatus").textContent="♡ Saved to Cloudflare D1"}catch(e){$("saveStatus").textContent=e.message}finally{button.disabled=false}});
+// Wait for all deferred sheet modules to register their fields and load handlers.
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',load,{once:true});
+else load();

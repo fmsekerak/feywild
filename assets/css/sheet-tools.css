@@ -1,0 +1,50 @@
+/* Session tools inherit the journal palette without changing the independent columns. */
+.sheet-tools{color:#d9e9dd;font-size:.9rem;line-height:1.5;min-width:0}
+.sheet-tools[hidden]{display:none!important}
+.sheet-tools button{cursor:pointer;border:1px solid #d9a3bf;border-radius:8px;background:#60445e;color:#ffe6f2;padding:.4rem .65rem;font:inherit}
+.sheet-tools button:disabled{cursor:default;opacity:.5}
+.sheet-tools input:not([type=checkbox]),.sheet-tools select{box-sizing:border-box;max-width:100%;min-width:0;background:#173b31;border:1px solid #729e86;border-radius:7px;color:#f8ecdf;padding:.4rem;font:inherit}
+.sheet-tools input[type=number]{width:5.5rem}
+.sheet-tools input[type=checkbox]{accent-color:#e7a8c6}
+.sheet-tools label{display:flex;align-items:center;flex-wrap:wrap;gap:.4rem;margin:.45rem 0}
+.sheet-tools p{margin:.4rem 0;overflow-wrap:anywhere}
+.sheet-tools summary{cursor:pointer;color:#f4c2da}
+.sheet-tools details p{font-size:.82rem;color:#d2e7da}
+.sheet-tools :is(button,input,select,summary):focus-visible,.sheet-stat-explanation summary:focus-visible,.sheet-skill-explanation summary:focus-visible{outline:2px solid #f4c2da;outline-offset:3px}
+.sheet-toolbar,.sheet-inline{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}
+.sheet-toolbar{padding:.7rem .9rem;border:1px solid #6b9c7e;border-radius:12px;margin:0 0 1rem;background:#16392d}
+.sheet-toolbar .inspiration-toggle{margin:0 auto 0 0;cursor:pointer}
+.inspiration-toggle span{color:#8a9c92;font-size:1.4rem}
+.inspiration-toggle input:checked+span{color:#ffbddc;text-shadow:0 0 8px #ff94c4}
+#sheet-change-status{flex-basis:100%;font-size:.8rem;color:#bbd8c7}
+.sheet-is-dirty{color:#ffd0e4!important}
+.sheet-save-dirty{box-shadow:0 0 0 2px #eeadcb66}
+#sheet-save-indicator{font-size:.85rem;color:#bdd9c8}
+.sheet-resource,.sheet-attack,.sheet-condition{padding:.7rem;border:1px solid #6e967955;border-radius:10px;margin:.6rem 0;background:#142f27;min-width:0}
+.sheet-resource strong,.sheet-attack strong{color:#f5c3dc}
+.sheet-attack-result{display:block;font-weight:600;color:#f1e5d6;margin:.3rem 0}
+.sheet-attack details label input[type=text]{width:100%}
+.sheet-condition{display:flex;align-items:start;gap:.5rem}
+.sheet-condition details{flex:1;min-width:0}
+.sheet-condition>button{padding:.1rem .5rem}
+.sheet-saving-throws h5{color:#efbdd4;font-size:1rem;margin:1rem 0 .6rem}
+.sheet-saving-row{display:grid;grid-template-columns:minmax(0,1fr) 2rem 2.5rem;align-items:start;gap:.5rem;padding:.35rem 0;border-bottom:1px solid #84ac8d33}
+.sheet-saving-row output{color:#f3d1e3;font-weight:bold;text-align:right}
+.sheet-save-storage{display:none}
+.sheet-skill-explanation{min-width:0}
+.sheet-skill-explanation summary{cursor:pointer;list-style:disclosure-closed}
+.sheet-skill-explanation[open] summary{list-style:disclosure-open}
+.sheet-skill-explanation p{font-size:.75rem;line-height:1.4;color:#bed9c9;margin:.3rem 0;overflow-wrap:anywhere}
+.sheet-stat-explanation{font-size:.7rem;line-height:1.4;font-weight:normal;text-transform:none;letter-spacing:normal;margin-top:.25rem}
+.sheet-stat-explanation summary{cursor:pointer;color:#e8b3d0}
+.sheet-stat-explanation p{color:#c6ddcd;margin:.3rem 0;overflow-wrap:anywhere}
+.sheet-rest-dialog{box-sizing:border-box;width:min(36rem,calc(100vw - 2rem));max-height:85vh;overflow:auto;background:#15352a;color:#e0eadd;border:1px solid #dfa8c6;border-radius:16px;padding:1.25rem}
+.sheet-rest-dialog::backdrop{background:#04130ac9}
+.sheet-rest-dialog h3{color:#f1bdd5;margin-top:0}
+#sheet-rest-preview{border:1px solid #7cae8e66;border-radius:10px;background:#102a22;margin:.75rem 0;padding:.4rem}
+#sheet-rest-preview ul{padding-left:1.4rem}
+#sheet-rest-error{color:#ffc7d8}
+@media(max-width:600px){.sheet-toolbar>button{flex:1}.sheet-toolbar .inspiration-toggle{flex-basis:100%}.sheet-rest-dialog{padding:1rem}.profile-save{flex-wrap:wrap}#sheet-save-indicator{flex-basis:100%}}
+.sheet-saving-row .skill-rank-gem{background:#183b33;color:#7b9b8c;border-color:#72998566;text-shadow:none}
+.sheet-saving-row .skill-rank-gem.lit{background:#805974;color:#ffe0ef;border-color:#f1b5d4;text-shadow:0 0 6px #f6a6d2}
+.sheet-tools a{color:#f4c2da}

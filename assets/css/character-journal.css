@@ -519,6 +519,15 @@
  padding: .45rem .55rem;
  font-size: .95rem;
 }
+/* Keep editable ability and HP values in the forest palette. */
+.character-page-card #stats .profile-abilities .stat-grid .field input,
+.character-page-card #stats .combat-health #combat-hp .field input {
+ background: #173b31;
+ color: #f3e9df;
+ border-color: #719881;
+ box-shadow: inset 0 1px 3px #061b1640;
+ color-scheme: dark;
+}
 .character-page-card #stats .combat-health #combat-hp .max-hp-value,
 .character-page-card #stats .combat-defense-section #combat-defense .defense-stat-value {
  min-height: 2.3rem;

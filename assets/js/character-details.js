@@ -30,7 +30,7 @@ window.FEYWILD_CHARACTER_DETAILS = {
   "Hayden": {
     portrait: "assets/images/characters/hayden.jpg",
     class: "Halfwit",
-    race: "Humna",
+    race: "Human",
     background: "-",
     alignment: "-"
   }

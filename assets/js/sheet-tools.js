@@ -153,31 +153,6 @@
   attackRoot.append(make('p','Choose the ability, training and damage dice for each weapon or spell. For spells, turn off ability-to-damage unless a feature adds it. Extra bonuses support magic weapons and other effects.','combat-hint'));
   refreshAttackBonuses();
  }
- // Six independently selectable saving-throw proficiencies; no automatic class grants.
- function createSavingThrows(){
-  const container=make('section',undefined,'sheet-tools sheet-saving-throws');container.append(make('h5','Saving Throws'));
-  for(const key of ['str','dex','con','int','wis','cha']){
-   const check=input('checkbox');check.name='savingThrowProficient-'+key;check.className='sheet-save-storage';
-   const row=make('div',undefined,'sheet-saving-row'),out=make('output'),explain=make('details');
-   const toggle=button('✦',()=>{check.checked=!check.checked;check.dispatchEvent(new Event('change',{bubbles:true}));refresh();},key.toUpperCase()+' saving throw proficiency');toggle.className='skill-rank-gem';
-   const summary=make('summary',key.toUpperCase()+' save'),breakdown=make('p');explain.append(summary,breakdown);
-   function refresh(){const mod=R.modifier(score(key)),prof=Number(named('proficiencyBonus').value)||0,total=mod===null?null:mod+(check.checked?prof:0);out.textContent=total===null?'—':R.signed(total);toggle.classList.toggle('lit',check.checked);toggle.setAttribute('aria-pressed',String(check.checked));breakdown.textContent=mod===null?'Enter '+key.toUpperCase()+' to calculate.':key.toUpperCase()+' '+R.signed(mod)+(check.checked?' + proficiency '+prof:' (no proficiency)')+' = '+R.signed(total);}
-   row.append(explain,toggle,out,check);container.append(row);document.addEventListener('feywild:combat-calculated',refresh);document.addEventListener('feywild:profile-loaded',refresh);check.addEventListener('change',refresh);refresh();
-  }
-  container.append(make('p','Select a gem to mark saving-throw proficiency from your class or features. Existing choices are kept; class proficiencies are not granted automatically.','combat-hint'));
-  $('skills').after(container);
- }
- createSavingThrows();
- function refreshExplanations(){
-  for(const row of document.querySelectorAll('.skill-rank-row')){
-   const key=row.querySelector('.skill-rank-ability').textContent.toLowerCase(),name=row.querySelector('.skill-rank-name').textContent;
-   let details=row.querySelector('.sheet-skill-explanation');
-   if(!details){details=make('details',undefined,'sheet-skill-explanation');const summary=make('summary',name);row.querySelector('.skill-rank-name').replaceWith(details);summary.className='skill-rank-name';details.append(summary,make('p'));}
-   const mod=R.modifier(score(key)),rank=named('skillExpert-'+name)?.checked?2:named('skill-'+name)?.checked?1:0,prof=Number(named('proficiencyBonus').value)||0;
-   details.querySelector('p').textContent=mod===null?'Enter '+key.toUpperCase()+' to calculate.':key.toUpperCase()+' '+R.signed(mod)+' + '+(rank===2?'expertise (2 × '+prof+')':rank===1?'proficiency '+prof:'no proficiency')+' = '+R.signed(mod+rank*prof);
-  }
-
- }
  // Rest preview is read-only until Apply. Rolled dice stay fixed within a preview.
  const dialog=$('sheet-rest-dialog');let rest=null;
  function hasFeat(name){try{return JSON.parse(named('features').value).items?.some(x=>x.category==='Feat'&&x.name===name);}catch{return false;}}
@@ -240,13 +215,12 @@
   persist();renderResources();renderConditions();dialog.close();$('sheet-hp-status').textContent=(rest.kind==='long'?'Long':'Short')+' rest applied. Select Save Character.';rest=null;
  });
  document.addEventListener('feywild:profile-loaded',()=>{
-  read();renderInspiration();loaded=true;for(const id of ['sheet-toolbar','sheet-hp-controls','sheet-conditions-panel','sheet-resources-panel'])$(id).hidden=false;
-  renderConditions();renderResources();renderAttacks();refreshExplanations();
+  read();renderInspiration();document.querySelector('.inspiration-counter').hidden=false;loaded=true;for(const id of ['sheet-toolbar','sheet-hp-controls','sheet-conditions-panel','sheet-resources-panel'])$(id).hidden=false;
+  renderConditions();renderResources();renderAttacks();
  });
- document.addEventListener('feywild:combat-calculated',()=>{if(loaded){refreshAttackBonuses();refreshExplanations();}});
+ document.addEventListener('feywild:combat-calculated',()=>{if(loaded){refreshAttackBonuses();}});
  document.addEventListener('feywild:level-changed',()=>{if(loaded)renderResources();});
  document.addEventListener('input',event=>{if(loaded&&event.target.name==='cha')renderResources();});
- document.addEventListener('change',event=>{if(loaded&&event.target.name?.startsWith('skill'))refreshExplanations();});
  // Expose only small read-only hooks useful to the existing sheet and browser checks.
  window.FEYWILD_SESSION_TOOLS={ready:()=>loaded};
 })();

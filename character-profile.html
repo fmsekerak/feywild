@@ -27,7 +27,12 @@
    <div class="character-header">
     <div class="character-portrait" id="characterPortrait"><img id="characterPortraitImage" alt="" hidden><span id="characterPortraitFallback" aria-hidden="true">✦</span></div>
     <div class="character-summary">
-     <div class="character-name-row"><h3 class="character-display-name" id="characterName">Adventurer</h3><label class="character-level-badge" for="characterLevel">Level <select id="characterLevel" name="characterLevel" aria-label="Character level"></select></label></div>
+     <div class="character-name-row"><h3 class="character-display-name" id="characterName">Adventurer</h3><div class="character-header-counters"><div class="inspiration-counter sheet-tools" role="group" aria-label="Inspiration counter" hidden>
+      <span>Inspiration</span><input type="hidden" name="inspiration2014" id="inspiration2014" value="0">
+      <button type="button" id="inspiration-minus" aria-label="Spend one Inspiration">−</button>
+      <output id="inspiration-count" class="inspiration-gem" aria-label="Inspiration points" aria-live="polite">0</output>
+      <button type="button" id="inspiration-plus" aria-label="Add one Inspiration">+</button>
+     </div><label class="character-level-badge" for="characterLevel">Level <select id="characterLevel" name="characterLevel" aria-label="Character level"></select></label></div></div>
      <div class="character-facts" id="identity" aria-label="Character details">
       <div class="character-fact"><span>Class</span><strong id="profile-class">—</strong></div>
       <div class="character-fact"><span>Race</span><strong id="profile-race">—</strong></div>
@@ -46,12 +51,7 @@
    <section class="profile-pane active" id="stats" role="tabpanel" aria-labelledby="tab-stats">
     <div class="profile-section-heading"><h3>✧ Stats &amp; Abilities ✧</h3></div>
     <div id="sheet-toolbar" class="sheet-tools sheet-toolbar" hidden>
-     <div class="inspiration-counter" role="group" aria-label="Inspiration counter">
-      <span>Inspiration</span><input type="hidden" name="inspiration2014" id="inspiration2014" value="0">
-      <button type="button" id="inspiration-minus" aria-label="Spend one Inspiration">−</button>
-      <output id="inspiration-count" class="inspiration-gem" aria-label="Inspiration points" aria-live="polite">0</output>
-      <button type="button" id="inspiration-plus" aria-label="Add one Inspiration">+</button>
-     </div>
+
      <button type="button" id="sheet-short-rest">☾ Short Rest</button><button type="button" id="sheet-long-rest">☾ Long Rest</button>
      <span id="sheet-change-status" role="status" aria-live="polite">Loading character…</span>
     </div>
@@ -59,7 +59,7 @@
      <div id="combat" class="combat-layout combat-columns">
       <div class="combat-column combat-column-1">
        <section class="satchel-panel profile-panel stats-slot-abilities profile-abilities"><h4>Ability Scores</h4><div class="stat-grid" id="abilities"></div></section>
-       <section class="satchel-panel profile-panel stats-slot-skills"><h4>Skills & Saving Throws</h4><div class="skill-grid" id="skills"></div></section>
+       <section class="satchel-panel profile-panel stats-slot-skills"><h4>Skills</h4><div class="skill-grid" id="skills"></div></section>
       </div>
       <div class="combat-column combat-column-2">
        <section class="satchel-panel profile-panel stats-slot-health combat-section combat-health" aria-labelledby="combat-hp-title">

@@ -10,10 +10,13 @@
 .sheet-tools p{margin:.4rem 0;overflow-wrap:anywhere}
 .sheet-tools summary{cursor:pointer;color:#f4c2da}
 .sheet-tools details p{font-size:.82rem;color:#d2e7da}
-.sheet-tools :is(button,input,select,summary):focus-visible,.sheet-skill-explanation summary:focus-visible{outline:2px solid #f4c2da;outline-offset:3px}
+.sheet-tools :is(button,input,select,summary):focus-visible{outline:2px solid #f4c2da;outline-offset:3px}
 .sheet-toolbar,.sheet-inline{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}
 .sheet-toolbar{padding:.7rem .9rem;border:1px solid #6b9c7e;border-radius:12px;margin:0 0 1rem;background:#16392d}
-.sheet-toolbar .inspiration-counter{display:flex;align-items:center;gap:.45rem;margin:0 auto 0 0}
+.character-page-card .character-header-counters{display:flex;align-items:center;justify-content:flex-end;gap:.8rem;flex-wrap:wrap;margin-left:auto}
+.character-page-card .character-header-counters .character-level-badge{margin-left:0}
+.character-header-counters .inspiration-counter{display:flex;align-items:center;gap:.4rem;white-space:nowrap}
+.character-header-counters .inspiration-counter[hidden]{display:none}
 .inspiration-counter button{width:2rem;height:2rem;padding:0;font-size:1.15rem}
 .inspiration-gem{display:inline-flex;justify-content:center;align-items:center;min-width:2rem;min-height:2rem;padding:.1rem .35rem;box-sizing:border-box;border:1px solid #72998588;border-radius:9px;background:#183b33;color:#a8c4b5;font-weight:bold;font-variant-numeric:tabular-nums}
 .inspiration-gem.lit{background:#805974;color:#ffe0ef;border-color:#f1b5d4;box-shadow:0 0 8px #eeadcb44}
@@ -28,21 +31,11 @@
 .sheet-condition{display:flex;align-items:start;gap:.5rem}
 .sheet-condition details{flex:1;min-width:0}
 .sheet-condition>button{padding:.1rem .5rem}
-.sheet-saving-throws h5{color:#efbdd4;font-size:1rem;margin:1rem 0 .6rem}
-.sheet-saving-row{display:grid;grid-template-columns:minmax(0,1fr) 2rem 2.5rem;align-items:start;gap:.5rem;padding:.35rem 0;border-bottom:1px solid #84ac8d33}
-.sheet-saving-row output{color:#f3d1e3;font-weight:bold;text-align:right}
-.sheet-save-storage{display:none}
-.sheet-skill-explanation{min-width:0}
-.sheet-skill-explanation summary{cursor:pointer;list-style:disclosure-closed}
-.sheet-skill-explanation[open] summary{list-style:disclosure-open}
-.sheet-skill-explanation p{font-size:.75rem;line-height:1.4;color:#bed9c9;margin:.3rem 0;overflow-wrap:anywhere}
 .sheet-rest-dialog{box-sizing:border-box;width:min(36rem,calc(100vw - 2rem));max-height:85vh;overflow:auto;background:#15352a;color:#e0eadd;border:1px solid #dfa8c6;border-radius:16px;padding:1.25rem}
 .sheet-rest-dialog::backdrop{background:#04130ac9}
 .sheet-rest-dialog h3{color:#f1bdd5;margin-top:0}
 #sheet-rest-preview{border:1px solid #7cae8e66;border-radius:10px;background:#102a22;margin:.75rem 0;padding:.4rem}
 #sheet-rest-preview ul{padding-left:1.4rem}
 #sheet-rest-error{color:#ffc7d8}
-@media(max-width:600px){.sheet-toolbar>button{flex:1}.sheet-toolbar .inspiration-counter{flex-basis:100%}.sheet-rest-dialog{padding:1rem}.profile-save{flex-wrap:wrap}#sheet-save-indicator{flex-basis:100%}}
-.sheet-saving-row .skill-rank-gem{background:#183b33;color:#7b9b8c;border-color:#72998566;text-shadow:none}
-.sheet-saving-row .skill-rank-gem.lit{background:#805974;color:#ffe0ef;border-color:#f1b5d4;text-shadow:0 0 6px #f6a6d2}
+@media(max-width:600px){.sheet-toolbar>button{flex:1}.character-page-card .character-header-counters{gap:.5rem}.sheet-rest-dialog{padding:1rem}.profile-save{flex-wrap:wrap}#sheet-save-indicator{flex-basis:100%}}
 .sheet-tools a{color:#f4c2da}

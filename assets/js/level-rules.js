@@ -13,6 +13,8 @@
   barbarian:{die:12},bard:{die:8,casting:'full'},
   cleric:{die:8,casting:'full'},druid:{die:8,casting:'full'},
   fighter:{die:10},monk:{die:8},
+  // Site-specific Himbo homebrew: retain the previously configured d10 hit die.
+  himbo:{die:10},
   paladin:{die:10,casting:'half'},ranger:{die:10,casting:'half'},
   rogue:{die:8},sorcerer:{die:6,casting:'full'},
   warlock:{die:8,casting:'pact'},wizard:{die:6,casting:'full'}

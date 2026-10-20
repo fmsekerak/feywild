@@ -73,6 +73,12 @@
  $('sheet-damage').addEventListener('click',()=>changeHP('damage'));
  $('sheet-heal').addEventListener('click',()=>changeHP('heal'));
  $('sheet-hp-reset').addEventListener('click',()=>{
+  if(!loaded)return;
+  const maximum=R.integer(named('maxHp').value,1);
+  if(maximum===null){healthError('Enter a valid maximum HP before resetting health.');return;}
+  const was=R.integer(named('currentHp').value);
+  set('currentHp',maximum);set('temporaryHp',0);
+  if(was===0)clearDeathSaves();
   const amount=$('sheet-hp-amount');amount.value='';healthError();amount.focus();
  });
  // Conditions remain reminders: no hidden modifiers are applied to base statistics.

@@ -29,7 +29,7 @@ window.FEYWILD_CHARACTER_DETAILS = {
   },
   "Hayden": {
     portrait: "assets/images/characters/hayden.jpg",
-    class: "Himbo",
+    class: "Halfwit",
     race: "Humna",
     background: "-",
     alignment: "-"

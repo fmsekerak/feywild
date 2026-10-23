@@ -1,19 +1,19 @@
-# 2014 race library
+# Character race assignments
 
-Use **Choose race** in the character header, or **Race & Lineage → Browse races & subraces** in Stats & Abilities. Search names/traits, filter by sourcebook, preview a reference, and choose an option. **Save Character** persists the choice. **Use original race** restores the character's existing default and clears the catalog selection.
+Races are assigned by the site owner in `assets/js/character-details.js`. There is no race picker, search, source filter, or reset control on the character sheet. Edit the `race` and `raceSource` fields together to change an assignment:
 
-The source archive contains **296 options from 29 sources**: the 134 base records in the pinned data file, 98 subrace records (five unnamed standard records are merged into their parent), and 69 named variants. The picker shows **247 distinct names**, hiding 49 repeated sourcebook versions. It prefers Monsters of the Multiverse reprints and later 2014-era sources for repeated names. Named subraces and variants remain available. All 296 source records remain available internally so existing saved selections keep their original traits and speed. These counts describe race/subrace/variant options, not distinct species. It includes older and reprinted versions, setting supplements, Plane Shift publications, and clearly marked DMG NPC options. It does not claim to include every homebrew race or every later publication.
+| Character | Race | Source |
+| --- | --- | --- |
+| Mion | Puca | Custom; details pending (`raceSource: ""`) |
+| Hayden | Human | Player's Handbook 2014 (`PHB`) |
+| Ruin | Firbolg | Monsters of the Multiverse (`MPMM`) |
+| Crotus | Satyr | Monsters of the Multiverse (`MPMM`) |
 
-## What selection does
+The Race & Lineage panel is a read-only reference. Linked races supply base walking speed: Human and Firbolg 30 feet, Satyr 35 feet. Puca keeps the existing 30-foot campaign fallback until its custom rules are provided; no Puca traits are invented. Race assignment is resolved from the character's displayed name using the same configuration as the header.
 
-- Updates the character header and source abbreviation.
-- Supplies base walking speed to Combat Statistics; Satyr and Wood Elf use 35 feet, for example.
-- Shows a factual reference for size, creature type, movement, ability increases, senses, resistances, proficiencies, racial spell names, and trait names when available in the source data.
-- Identifies entries with subraces or alternate trait choices rather than treating all alternatives as simultaneous benefits.
+Ability increases, skill/language choices, feats, racial spells, natural armor, attacks, resistances, and conditional movement remain references, not automatic effects. Scores, features, spells, notes, HP, and inventory are not rewritten. The speed is a base value, not an exhaustion/armor/class/spell-adjusted total.
 
-Ability increases, skill/language choices, feats, racial spells, natural armor, attacks, condition/damage resistances, and conditional movement are **references, not automatically applied effects**. They must still be configured or adjudicated using the cited source. The walking-speed value is a base value, not an exhaustion/armor/class/spell-adjusted total. Existing skills, ability scores, features, spell selections, notes, HP, and inventory are not rewritten by race selection. The race panel does not copy traits into the existing editable Features & Traits field.
-
-No sourcebook is silently assigned to an existing character. Mion's Puca and other existing custom/default identities continue to work. The existing Crotus default spelling is corrected from Saytr to Satyr. Characters without an explicit selection retain the existing 30-foot fallback. New choices use the preferred visible version. Existing selections are never automatically switched to that version. The source filter lists only books with visible choices.
+The bundled archive still contains all 296 source records and the 247-name deduplication helper remains available for future catalog use, but the sheet no longer exposes that list. It includes source/page references, structured facts, and trait names rather than sourcebook prose.
 
 ## Source data and reproduction
 
@@ -31,17 +31,17 @@ node scripts/import-races.cjs /path/to/races.json
 
 The CLI verifies a canonical input checksum before writing the catalog. To update the source revision, review the new format and adjust the pinned commit/checksum and coverage tests deliberately. The original downloaded source JSON is not committed. Site runtime uses the bundled file and does not call 5etools or GitHub.
 
-## Saving and failure recovery
+## Existing saves and failure recovery
 
-No database migration is required. One compact `raceSelection2014` JSON string containing the selected ID and display name is saved through the existing profile endpoint. Different source versions have different IDs. No live database values are changed on deployment.
+No database migration is required. Old `raceSelection2014` and `race` values remain preserved in the original profile data when saving, but they do not override configured assignments. The sheet no longer renders or saves a race-selection input. Editing `character-details.js` changes the assignment after deployment without requiring players to select a race or save their character first.
 
-Unrecognized saved IDs remain intact, display their saved name, and leave derived speed blank. A failed catalog fetch also preserves the selection and provides **Retry race library**. Derived speed is excluded from the dirty snapshot because asynchronous catalog loading is not an edit; the race-selection field itself remains tracked. Choosing a race before the profile is loaded is disabled.
+A failed catalog fetch leaves the configured name visible, clears the linked race's derived speed rather than guessing, and offers **Retry race library**. Custom races retain their fallback independently of catalog availability. An invalid configured name/source combination displays an unavailable reference and leaves derived speed blank. Derived speed is excluded from the dirty snapshot because asynchronous loading is not an edit.
 
 ## Verification
 
 ```sh
-node --test tests/race-library.test.cjs tests/equipment.test.cjs tests/level-rules.test.cjs tests/sheet-rules.test.cjs
+node --test tests/race-library.test.cjs
 PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/path/to/chromium node tests/browser/race-library.cjs
 ```
 
-The browser test runs real profile APIs against an isolated in-memory SQLite D1 adapter. It covers search/source filters, pagination, selection/speed, saved data preservation, save/reload, reset, unavailable/unknown entries, retry, custom Puca identity, and a 390-pixel mobile viewport. No production records are used or modified.
+The browser test uses real profile API handlers and an isolated SQLite D1 adapter. It checks all four assignments against conflicting saved race values, absence of picker controls, base speed, data preservation on save/reload, custom Puca, catalog failure/retry, and a 390-pixel mobile viewport. Production records are not used or modified.

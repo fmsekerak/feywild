@@ -36,3 +36,16 @@ test('import fails on an unresolved copy or unrecognized inheritance operation',
  assert.throws(()=>importer.build({race:[{name:'Missing',source:'PHB',_copy:{name:'No parent',source:'PHB'}}],subrace:[]}),/Missing copy/);
  assert.throws(()=>importer.resolveCopies([{name:'Base',source:'PHB',entries:[]},{name:'Copy',source:'PHB',_copy:{name:'Base',source:'PHB',_mod:{entries:{mode:'unknown'}}}}]),/Unsupported/);
 });
+
+test('picker removes repeated sourcebook names, keeping latest reprints and distinct subraces',()=>{
+ const visible=rules.browsableRaces(catalog.races);
+ assert.equal(visible.length,247);
+ assert.equal(new Set(visible.map(r=>r.name.toLowerCase())).size,visible.length);
+ for(const name of ['Fairy','Firbolg','Satyr','Aarakocra','Goblin'])assert.equal(visible.find(r=>r.name===name).source,'MPMM');
+ assert.equal(visible.find(r=>r.name==='Elf (Eladrin)').source,'MTF');
+ assert.equal(visible.find(r=>r.name==='Vedalken').source,'GGR');
+ for(const name of ['Elf (High)','Elf (Wood)','Human (Variant)','Goblin (Dankwood)','Dragonborn (Chromatic; Red)'])assert.ok(visible.some(r=>r.name===name),name);
+ assert.deepEqual(rules.browsableRaces([...catalog.races].reverse()).map(r=>r.id),visible.map(r=>r.id),'Independent of input order');
+ assert.ok(!visible.some(r=>r.id==='satyr|MOT'));
+ assert.equal(find('Satyr','MOT').source,'MOT','Old saved IDs still resolve in the complete catalog');
+});

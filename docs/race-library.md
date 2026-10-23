@@ -2,7 +2,7 @@
 
 Use **Choose race** in the character header, or **Race & Lineage → Browse races & subraces** in Stats & Abilities. Search names/traits, filter by sourcebook, preview a reference, and choose an option. **Save Character** persists the choice. **Use original race** restores the character's existing default and clears the catalog selection.
 
-The library contains **296 options from 29 sources**: the 134 base records in the pinned data file, 98 subrace records (five unnamed standard records are merged into their parent), and 69 named variants. These are source-specific options, not 296 distinct species. It includes older and reprinted versions, setting supplements, Plane Shift publications, and clearly marked DMG NPC options. It does not claim to include every homebrew race or every later publication.
+The source archive contains **296 options from 29 sources**: the 134 base records in the pinned data file, 98 subrace records (five unnamed standard records are merged into their parent), and 69 named variants. The picker shows **247 distinct names**, hiding 49 repeated sourcebook versions. It prefers Monsters of the Multiverse reprints and later 2014-era sources for repeated names. Named subraces and variants remain available. All 296 source records remain available internally so existing saved selections keep their original traits and speed. These counts describe race/subrace/variant options, not distinct species. It includes older and reprinted versions, setting supplements, Plane Shift publications, and clearly marked DMG NPC options. It does not claim to include every homebrew race or every later publication.
 
 ## What selection does
 
@@ -13,7 +13,7 @@ The library contains **296 options from 29 sources**: the 134 base records in th
 
 Ability increases, skill/language choices, feats, racial spells, natural armor, attacks, condition/damage resistances, and conditional movement are **references, not automatically applied effects**. They must still be configured or adjudicated using the cited source. The walking-speed value is a base value, not an exhaustion/armor/class/spell-adjusted total. Existing skills, ability scores, features, spell selections, notes, HP, and inventory are not rewritten by race selection. The race panel does not copy traits into the existing editable Features & Traits field.
 
-No sourcebook is silently assigned to an existing character. Mion's Puca and other existing custom/default identities continue to work. The existing Crotus default spelling is corrected from Saytr to Satyr. Characters without an explicit selection retain the existing 30-foot fallback. Users may select any source version themselves.
+No sourcebook is silently assigned to an existing character. Mion's Puca and other existing custom/default identities continue to work. The existing Crotus default spelling is corrected from Saytr to Satyr. Characters without an explicit selection retain the existing 30-foot fallback. New choices use the preferred visible version. Existing selections are never automatically switched to that version. The source filter lists only books with visible choices.
 
 ## Source data and reproduction
 

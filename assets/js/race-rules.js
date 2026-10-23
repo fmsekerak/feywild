@@ -52,8 +52,20 @@
   if(!race.languageProficiencies&&race.lineage==='VRGR')add('Languages','Common and one other language agreed with your DM.');
   add('Feats',grants(race.feats));add('Spell references',spellNames(race));return rows;
  }
+ // One visible entry per race/subrace/variant name. Keep the full catalog for saved IDs.
+ // Prefer the later 2014-era reprints; setting-specific names remain distinct.
+ const sourcePriority=['MPMM','EGW','MOT','ERLW','GGR','MTF','PSD','PSA','PSK','PSZ','VGM','WBtW','EEPC','TTP','PHB','DMG'];
+ function browsableRaces(races){
+  const groups=new Map();
+  const rank=r=>{const index=sourcePriority.indexOf(r.source);return (r.npcOption?1000:0)+(index<0?100:index);};
+  for(const race of races){
+   const name=race.name.trim().toLowerCase().replace(/\s+/g,' '),current=groups.get(name);
+   if(!current||rank(race)<rank(current)||(rank(race)===rank(current)&&race.source.localeCompare(current.source)<0))groups.set(name,race);
+  }
+  return [...groups.values()].sort((a,b)=>a.name.localeCompare(b.name)||a.source.localeCompare(b.source));
+ }
  function selection(raw){try{const x=JSON.parse(raw||'null');return x&&typeof x.id==='string'&&x.id.length<=300?{id:x.id,name:typeof x.name==='string'?x.name.slice(0,180):''}:null;}catch{return null;}}
- const api={walkingSpeed,movement,abilityText,grants,facts,selection};
+ const api={walkingSpeed,movement,abilityText,grants,facts,selection,browsableRaces};
  if(typeof module==='object'&&module.exports)module.exports=api;
  if(root)root.FEYWILD_RACE_RULES=api;
 })(typeof window==='object'?window:null);

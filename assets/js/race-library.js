@@ -7,7 +7,7 @@
  const status=document.getElementById('race-status'),count=document.getElementById('race-result-count');
  const browse=document.getElementById('race-browse'),more=document.getElementById('race-more'),retry=document.getElementById('race-retry'),reset=document.getElementById('race-reset');
  const header=document.getElementById('profile-race'),sourceLabel=document.getElementById('profile-race-source');
- let catalog=null,profileLoaded=false,loading=false,limit=20,originalRace=header.textContent;
+ let catalog=null,browsable=[],profileLoaded=false,loading=false,limit=20,originalRace=header.textContent;
  const node=(tag,cls,text)=>{const el=document.createElement(tag);if(cls)el.className=cls;if(text!==undefined)el.textContent=text;return el;};
  const current=()=>{const s=rules.selection(storage.value);return s&&catalog?.races.find(r=>r.id===s.id);};
  window.FEYWILD_RACES={walkingSpeed:()=>{
@@ -39,7 +39,7 @@
    const details=node('details','race-selected-details');details.append(node('summary','','Race details'),reference(race));selected.append(details);
   }else{
    header.textContent=s?.name||originalRace;sourceLabel.textContent='';
-   selected.append(node('strong','race-selected-name',header.textContent),node('p','race-note',s?'This saved race reference is unavailable. Your selection is preserved.': 'Choose a sourcebook version to link its race reference and walking speed.'));
+   selected.append(node('strong','race-selected-name',header.textContent),node('p','race-note',s?'This saved race reference is unavailable. Your selection is preserved.': 'Choose a race to link its reference and walking speed.'));
   }
  }
  function choose(race){
@@ -53,7 +53,7 @@
   results.replaceChildren();more.hidden=true;
   if(!catalog){count.textContent='';return;}
   const query=search.value.trim().toLowerCase(),saved=rules.selection(storage.value)?.id;
-  const rows=catalog.races.filter(r=>(!source.value||r.source===source.value)&&(!query||[r.name,r.source,r.sourceName,...r.traits].join(' ').toLowerCase().includes(query)));
+  const rows=browsable.filter(r=>(!source.value||r.source===source.value)&&(!query||[r.name,r.source,r.sourceName,...r.traits].join(' ').toLowerCase().includes(query)));
   count.textContent=rows.length+' matching '+(rows.length===1?'option':'options')+(rows.length>limit?' · showing '+limit:'');
   if(!rows.length)results.append(node('p','race-note','No races match. Try another name or sourcebook.'));
   for(const race of rows.slice(0,limit)){
@@ -71,7 +71,9 @@
    const response=await fetch('assets/data/races-2014.json');if(!response.ok)throw Error('HTTP '+response.status);
    const data=await response.json();
    if(!data||!Array.isArray(data.races)||!data.races.length||!data.sources||data.races.some(r=>!r.id||!r.name||!r.sourceName||!Array.isArray(r.traits))||new Set(data.races.map(r=>r.id)).size!==data.races.length)throw Error('Invalid catalog');
-   catalog=data;source.replaceChildren(new Option('All sourcebooks',''),...Object.entries(data.sources).sort((a,b)=>a[1].localeCompare(b[1])).map(([id,name])=>new Option(name,id)));
+   catalog=data;browsable=rules.browsableRaces(data.races);
+   const visibleSources=new Set(browsable.map(r=>r.source));
+   source.replaceChildren(new Option('All sourcebooks',''),...Object.entries(data.sources).filter(([id])=>visibleSources.has(id)).sort((a,b)=>a[1].localeCompare(b[1])).map(([id,name])=>new Option(name,id)));
    search.disabled=false;source.disabled=false;status.textContent='';sync();
   }catch{status.textContent='Could not load the race library. Retry to view your race reference.';retry.hidden=false;sync();}
   finally{loading=false;}

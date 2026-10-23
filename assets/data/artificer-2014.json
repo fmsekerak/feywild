@@ -1,0 +1,1852 @@
+{
+  "schemaVersion": 1,
+  "id": "artificer",
+  "name": "Artificer",
+  "edition": "2014 rules · Tasha’s Cauldron of Everything (2020)",
+  "source": {
+    "book": "Tasha’s Cauldron of Everything",
+    "pages": "9–23",
+    "url": "https://www.dndbeyond.com/sources/dnd/tcoe",
+    "checkedAgainst": {
+      "repository": "5etools-mirror-3/5etools-2014-src",
+      "commit": "e51b3c0707786370e7444d55a9d5a2086bdec591"
+    }
+  },
+  "progression": [
+    {
+      "level": 1,
+      "known": 0,
+      "items": 0,
+      "cantrips": 2,
+      "slots": [
+        2,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "level": 2,
+      "known": 4,
+      "items": 2,
+      "cantrips": 2,
+      "slots": [
+        2,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "level": 3,
+      "known": 4,
+      "items": 2,
+      "cantrips": 2,
+      "slots": [
+        3,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "level": 4,
+      "known": 4,
+      "items": 2,
+      "cantrips": 2,
+      "slots": [
+        3,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "level": 5,
+      "known": 4,
+      "items": 2,
+      "cantrips": 2,
+      "slots": [
+        4,
+        2,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "level": 6,
+      "known": 6,
+      "items": 3,
+      "cantrips": 2,
+      "slots": [
+        4,
+        2,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "level": 7,
+      "known": 6,
+      "items": 3,
+      "cantrips": 2,
+      "slots": [
+        4,
+        3,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "level": 8,
+      "known": 6,
+      "items": 3,
+      "cantrips": 2,
+      "slots": [
+        4,
+        3,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "level": 9,
+      "known": 6,
+      "items": 3,
+      "cantrips": 2,
+      "slots": [
+        4,
+        3,
+        2,
+        0,
+        0
+      ]
+    },
+    {
+      "level": 10,
+      "known": 8,
+      "items": 4,
+      "cantrips": 3,
+      "slots": [
+        4,
+        3,
+        2,
+        0,
+        0
+      ]
+    },
+    {
+      "level": 11,
+      "known": 8,
+      "items": 4,
+      "cantrips": 3,
+      "slots": [
+        4,
+        3,
+        3,
+        0,
+        0
+      ]
+    },
+    {
+      "level": 12,
+      "known": 8,
+      "items": 4,
+      "cantrips": 3,
+      "slots": [
+        4,
+        3,
+        3,
+        0,
+        0
+      ]
+    },
+    {
+      "level": 13,
+      "known": 8,
+      "items": 4,
+      "cantrips": 3,
+      "slots": [
+        4,
+        3,
+        3,
+        1,
+        0
+      ]
+    },
+    {
+      "level": 14,
+      "known": 10,
+      "items": 5,
+      "cantrips": 4,
+      "slots": [
+        4,
+        3,
+        3,
+        1,
+        0
+      ]
+    },
+    {
+      "level": 15,
+      "known": 10,
+      "items": 5,
+      "cantrips": 4,
+      "slots": [
+        4,
+        3,
+        3,
+        2,
+        0
+      ]
+    },
+    {
+      "level": 16,
+      "known": 10,
+      "items": 5,
+      "cantrips": 4,
+      "slots": [
+        4,
+        3,
+        3,
+        2,
+        0
+      ]
+    },
+    {
+      "level": 17,
+      "known": 10,
+      "items": 5,
+      "cantrips": 4,
+      "slots": [
+        4,
+        3,
+        3,
+        3,
+        1
+      ]
+    },
+    {
+      "level": 18,
+      "known": 12,
+      "items": 6,
+      "cantrips": 4,
+      "slots": [
+        4,
+        3,
+        3,
+        3,
+        1
+      ]
+    },
+    {
+      "level": 19,
+      "known": 12,
+      "items": 6,
+      "cantrips": 4,
+      "slots": [
+        4,
+        3,
+        3,
+        3,
+        2
+      ]
+    },
+    {
+      "level": 20,
+      "known": 12,
+      "items": 6,
+      "cantrips": 4,
+      "slots": [
+        4,
+        3,
+        3,
+        3,
+        2
+      ]
+    }
+  ],
+  "replicas": [
+    {
+      "level": 2,
+      "items": [
+        {
+          "name": "Alchemy jug",
+          "attunement": false
+        },
+        {
+          "name": "Bag of holding",
+          "attunement": false
+        },
+        {
+          "name": "Cap of water breathing",
+          "attunement": false
+        },
+        {
+          "name": "Goggles of night",
+          "attunement": false
+        },
+        {
+          "name": "Rope of climbing",
+          "attunement": false
+        },
+        {
+          "name": "Sending stones",
+          "attunement": false
+        },
+        {
+          "name": "Wand of magic detection",
+          "attunement": false
+        },
+        {
+          "name": "Wand of secrets",
+          "attunement": false
+        }
+      ]
+    },
+    {
+      "level": 6,
+      "items": [
+        {
+          "name": "Boots of elvenkind",
+          "attunement": false
+        },
+        {
+          "name": "Cloak of elvenkind",
+          "attunement": true
+        },
+        {
+          "name": "Cloak of the manta ray",
+          "attunement": false
+        },
+        {
+          "name": "Eyes of charming",
+          "attunement": true
+        },
+        {
+          "name": "Gloves of thievery",
+          "attunement": false
+        },
+        {
+          "name": "Lantern of revealing",
+          "attunement": false
+        },
+        {
+          "name": "Pipes of haunting",
+          "attunement": false
+        },
+        {
+          "name": "Ring of water walking",
+          "attunement": false
+        }
+      ]
+    },
+    {
+      "level": 10,
+      "items": [
+        {
+          "name": "Boots of striding and springing",
+          "attunement": true
+        },
+        {
+          "name": "Boots of the Winterlands",
+          "attunement": true
+        },
+        {
+          "name": "Bracers of archery",
+          "attunement": true
+        },
+        {
+          "name": "Brooch of shielding",
+          "attunement": true
+        },
+        {
+          "name": "Cloak of protection",
+          "attunement": true
+        },
+        {
+          "name": "Eyes of the eagle",
+          "attunement": true
+        },
+        {
+          "name": "Gauntlets of ogre power",
+          "attunement": true
+        },
+        {
+          "name": "Gloves of missile snaring",
+          "attunement": true
+        },
+        {
+          "name": "Gloves of swimming and climbing",
+          "attunement": true
+        },
+        {
+          "name": "Hat of disguise",
+          "attunement": true
+        },
+        {
+          "name": "Headband of intellect",
+          "attunement": true
+        },
+        {
+          "name": "Helm of telepathy",
+          "attunement": true
+        },
+        {
+          "name": "Medallion of thoughts",
+          "attunement": true
+        },
+        {
+          "name": "Necklace of adaptation",
+          "attunement": true
+        },
+        {
+          "name": "Periapt of wound closure",
+          "attunement": true
+        },
+        {
+          "name": "Pipes of the sewers",
+          "attunement": true
+        },
+        {
+          "name": "Quiver of Ehlonna",
+          "attunement": false
+        },
+        {
+          "name": "Ring of jumping",
+          "attunement": true
+        },
+        {
+          "name": "Ring of mind shielding",
+          "attunement": true
+        },
+        {
+          "name": "Slippers of spider climbing",
+          "attunement": true
+        },
+        {
+          "name": "Ventilating lungs",
+          "attunement": true
+        },
+        {
+          "name": "Winged boots",
+          "attunement": true
+        }
+      ]
+    },
+    {
+      "level": 14,
+      "items": [
+        {
+          "name": "Amulet of health",
+          "attunement": true
+        },
+        {
+          "name": "Arcane propulsion arm",
+          "attunement": true
+        },
+        {
+          "name": "Belt of hill giant strength",
+          "attunement": true
+        },
+        {
+          "name": "Boots of levitation",
+          "attunement": true
+        },
+        {
+          "name": "Boots of speed",
+          "attunement": true
+        },
+        {
+          "name": "Bracers of defense",
+          "attunement": true
+        },
+        {
+          "name": "Cloak of the bat",
+          "attunement": true
+        },
+        {
+          "name": "Dimensional shackles",
+          "attunement": false
+        },
+        {
+          "name": "Gem of seeing",
+          "attunement": true
+        },
+        {
+          "name": "Horn of blasting",
+          "attunement": false
+        },
+        {
+          "name": "Ring of free action",
+          "attunement": true
+        },
+        {
+          "name": "Ring of protection",
+          "attunement": true
+        },
+        {
+          "name": "Ring of the ram",
+          "attunement": true
+        }
+      ]
+    }
+  ],
+  "spells": [
+    {
+      "name": "Acid Splash",
+      "level": 0,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "Booming Blade",
+      "level": 0,
+      "source": "TCE",
+      "ritual": false
+    },
+    {
+      "name": "Create Bonfire",
+      "level": 0,
+      "source": "XGE",
+      "ritual": false
+    },
+    {
+      "name": "Dancing Lights",
+      "level": 0,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "Fire Bolt",
+      "level": 0,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "Frostbite",
+      "level": 0,
+      "source": "XGE",
+      "ritual": false
+    },
+    {
+      "name": "Green-Flame Blade",
+      "level": 0,
+      "source": "TCE",
+      "ritual": false
+    },
+    {
+      "name": "Guidance",
+      "level": 0,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "Light",
+      "level": 0,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "Lightning Lure",
+      "level": 0,
+      "source": "TCE",
+      "ritual": false
+    },
+    {
+      "name": "Mage Hand",
+      "level": 0,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "Magic Stone",
+      "level": 0,
+      "source": "XGE",
+      "ritual": false
+    },
+    {
+      "name": "Mending",
+      "level": 0,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "Message",
+      "level": 0,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "Poison Spray",
+      "level": 0,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "Prestidigitation",
+      "level": 0,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "Ray of Frost",
+      "level": 0,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "Resistance",
+      "level": 0,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "Shocking Grasp",
+      "level": 0,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "Spare the Dying",
+      "level": 0,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "Sword Burst",
+      "level": 0,
+      "source": "TCE",
+      "ritual": false
+    },
+    {
+      "name": "Thorn Whip",
+      "level": 0,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "Thunderclap",
+      "level": 0,
+      "source": "XGE",
+      "ritual": false
+    },
+    {
+      "name": "Absorb Elements",
+      "level": 1,
+      "source": "XGE",
+      "ritual": false
+    },
+    {
+      "name": "Alarm",
+      "level": 1,
+      "source": "PHB",
+      "ritual": true
+    },
+    {
+      "name": "Catapult",
+      "level": 1,
+      "source": "XGE",
+      "ritual": false
+    },
+    {
+      "name": "Cure Wounds",
+      "level": 1,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "Detect Magic",
+      "level": 1,
+      "source": "PHB",
+      "ritual": true
+    },
+    {
+      "name": "Disguise Self",
+      "level": 1,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "Expeditious Retreat",
+      "level": 1,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "Faerie Fire",
+      "level": 1,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "False Life",
+      "level": 1,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "Feather Fall",
+      "level": 1,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "Grease",
+      "level": 1,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "Identify",
+      "level": 1,
+      "source": "PHB",
+      "ritual": true
+    },
+    {
+      "name": "Jump",
+      "level": 1,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "Longstrider",
+      "level": 1,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "Purify Food and Drink",
+      "level": 1,
+      "source": "PHB",
+      "ritual": true
+    },
+    {
+      "name": "Sanctuary",
+      "level": 1,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "Snare",
+      "level": 1,
+      "source": "XGE",
+      "ritual": false
+    },
+    {
+      "name": "Tasha's Caustic Brew",
+      "level": 1,
+      "source": "TCE",
+      "ritual": false
+    },
+    {
+      "name": "Aid",
+      "level": 2,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "Alter Self",
+      "level": 2,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "Arcane Lock",
+      "level": 2,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "Blur",
+      "level": 2,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "Continual Flame",
+      "level": 2,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "Darkvision",
+      "level": 2,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "Enhance Ability",
+      "level": 2,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "Enlarge/Reduce",
+      "level": 2,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "Heat Metal",
+      "level": 2,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "Invisibility",
+      "level": 2,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "Lesser Restoration",
+      "level": 2,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "Levitate",
+      "level": 2,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "Magic Mouth",
+      "level": 2,
+      "source": "PHB",
+      "ritual": true
+    },
+    {
+      "name": "Magic Weapon",
+      "level": 2,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "Protection from Poison",
+      "level": 2,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "Pyrotechnics",
+      "level": 2,
+      "source": "XGE",
+      "ritual": false
+    },
+    {
+      "name": "Rope Trick",
+      "level": 2,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "See Invisibility",
+      "level": 2,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "Skywrite",
+      "level": 2,
+      "source": "XGE",
+      "ritual": true
+    },
+    {
+      "name": "Spider Climb",
+      "level": 2,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "Web",
+      "level": 2,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "Blink",
+      "level": 3,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "Catnap",
+      "level": 3,
+      "source": "XGE",
+      "ritual": false
+    },
+    {
+      "name": "Create Food and Water",
+      "level": 3,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "Dispel Magic",
+      "level": 3,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "Elemental Weapon",
+      "level": 3,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "Flame Arrows",
+      "level": 3,
+      "source": "XGE",
+      "ritual": false
+    },
+    {
+      "name": "Fly",
+      "level": 3,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "Glyph of Warding",
+      "level": 3,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "Haste",
+      "level": 3,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "Intellect Fortress",
+      "level": 3,
+      "source": "TCE",
+      "ritual": false
+    },
+    {
+      "name": "Protection from Energy",
+      "level": 3,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "Revivify",
+      "level": 3,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "Tiny Servant",
+      "level": 3,
+      "source": "XGE",
+      "ritual": false
+    },
+    {
+      "name": "Water Breathing",
+      "level": 3,
+      "source": "PHB",
+      "ritual": true
+    },
+    {
+      "name": "Water Walk",
+      "level": 3,
+      "source": "PHB",
+      "ritual": true
+    },
+    {
+      "name": "Arcane Eye",
+      "level": 4,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "Elemental Bane",
+      "level": 4,
+      "source": "XGE",
+      "ritual": false
+    },
+    {
+      "name": "Fabricate",
+      "level": 4,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "Freedom of Movement",
+      "level": 4,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "Leomund's Secret Chest",
+      "level": 4,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "Mordenkainen's Faithful Hound",
+      "level": 4,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "Mordenkainen's Private Sanctum",
+      "level": 4,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "Otiluke's Resilient Sphere",
+      "level": 4,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "Stone Shape",
+      "level": 4,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "Stoneskin",
+      "level": 4,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "Summon Construct",
+      "level": 4,
+      "source": "TCE",
+      "ritual": false
+    },
+    {
+      "name": "Animate Objects",
+      "level": 5,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "Bigby's Hand",
+      "level": 5,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "Creation",
+      "level": 5,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "Greater Restoration",
+      "level": 5,
+      "source": "PHB",
+      "ritual": false
+    },
+    {
+      "name": "Skill Empowerment",
+      "level": 5,
+      "source": "XGE",
+      "ritual": false
+    },
+    {
+      "name": "Transmute Rock",
+      "level": 5,
+      "source": "XGE",
+      "ritual": false
+    },
+    {
+      "name": "Wall of Stone",
+      "level": 5,
+      "source": "PHB",
+      "ritual": false
+    }
+  ],
+  "subclasses": [
+    {
+      "id": "alchemist",
+      "name": "Alchemist",
+      "spells": [
+        {
+          "level": 3,
+          "names": [
+            "healing word",
+            "ray of sickness"
+          ]
+        },
+        {
+          "level": 5,
+          "names": [
+            "flaming sphere",
+            "Melf's acid arrow"
+          ]
+        },
+        {
+          "level": 9,
+          "names": [
+            "gaseous form",
+            "mass healing word"
+          ]
+        },
+        {
+          "level": 13,
+          "names": [
+            "blight",
+            "death ward"
+          ]
+        },
+        {
+          "level": 17,
+          "names": [
+            "cloudkill",
+            "raise dead"
+          ]
+        }
+      ],
+      "features": [
+        {
+          "level": 3,
+          "name": "Tool Proficiency",
+          "paragraphs": [
+            "Gain proficiency with alchemist’s supplies. If already proficient, choose another type of artisan’s tools."
+          ]
+        },
+        {
+          "level": 3,
+          "name": "Experimental Elixir",
+          "paragraphs": [
+            "After a long rest, make 1 random elixir in an empty flask; make 2 at level 6 and 3 at level 15. Have alchemist’s supplies with you, use a separate flask for each, and roll 1d6 for each effect. Elixirs expire when drunk or at the end of your next long rest.",
+            "Action + a spell slot of level 1 or higher: make one additional elixir and choose its effect. Drinking an elixir, or administering it to an incapacitated creature, takes an action.",
+            "1 · Healing: restore 2d4 + your INT modifier HP. 2 · Swiftness: +10 ft walking speed for 1 hour. 3 · Resilience: +1 AC for 10 minutes.",
+            "4 · Boldness: +1d4 to every attack roll and saving throw for 1 minute. 5 · Flight: flying speed 10 ft for 10 minutes. 6 · Transformation: Alter Self effect for 10 minutes; the drinker chooses the transformation."
+          ]
+        },
+        {
+          "level": 5,
+          "name": "Alchemical Savant",
+          "paragraphs": [
+            "When casting through alchemist’s supplies, add your INT modifier (minimum +1) to one roll that heals HP or deals acid, fire, necrotic, or poison damage."
+          ]
+        },
+        {
+          "level": 9,
+          "name": "Restorative Reagents",
+          "paragraphs": [
+            "Drinking your experimental elixir also grants 2d6 + your INT modifier temporary HP (minimum 1).",
+            "Cast Lesser Restoration through alchemist’s supplies without preparation or a slot. Uses per long rest = INT modifier, minimum 1."
+          ]
+        },
+        {
+          "level": 15,
+          "name": "Chemical Mastery",
+          "paragraphs": [
+            "Gain acid and poison resistance and immunity to the poisoned condition.",
+            "Through alchemist’s supplies, cast Greater Restoration and Heal once each per long rest without preparation, a slot, or material components."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "armorer",
+      "name": "Armorer",
+      "spells": [
+        {
+          "level": 3,
+          "names": [
+            "magic missile",
+            "thunderwave"
+          ]
+        },
+        {
+          "level": 5,
+          "names": [
+            "mirror image",
+            "shatter"
+          ]
+        },
+        {
+          "level": 9,
+          "names": [
+            "hypnotic pattern",
+            "lightning bolt"
+          ]
+        },
+        {
+          "level": 13,
+          "names": [
+            "fire shield",
+            "greater invisibility"
+          ]
+        },
+        {
+          "level": 17,
+          "names": [
+            "passwall",
+            "wall of force"
+          ]
+        }
+      ],
+      "features": [
+        {
+          "level": 3,
+          "name": "Tools of the Trade",
+          "paragraphs": [
+            "Gain heavy armor proficiency. Gain proficiency with smith’s tools. If already proficient, choose another type of artisan’s tools."
+          ]
+        },
+        {
+          "level": 3,
+          "name": "Arcane Armor",
+          "paragraphs": [
+            "Action with smith’s tools in hand: turn armor you are wearing into Arcane Armor. While worn, it ignores its Strength requirement for you, serves as your Artificer focus, cannot be removed against your will, and replaces missing limbs. Don or doff it as an action; deploy or retract the helmet as a bonus action. Its magic ends when you put on another suit or die."
+          ]
+        },
+        {
+          "level": 3,
+          "name": "Armor Model",
+          "paragraphs": [
+            "Choose Guardian or Infiltrator; change models after a short or long rest with smith’s tools in hand. Model weapons may use INT instead of STR/DEX for attack and damage rolls. Benefits apply while wearing the armor.",
+            "Guardian · Thunder Gauntlets: each empty gauntlet is a simple melee weapon dealing 1d8 thunder. A creature you hit has disadvantage on attacks against others until your next turn starts. Defensive Field: bonus action to replace your temporary HP with your Artificer level; proficiency-bonus uses per long rest, and these HP end when you remove the armor.",
+            "Infiltrator · Lightning Launcher: simple ranged weapon, 90/300 ft, 1d6 lightning; one hit per turn can deal another 1d6 lightning. Powered Steps: +5 ft walking speed. Dampening Field: advantage on Stealth checks, canceling armor disadvantage if present."
+          ]
+        },
+        {
+          "level": 5,
+          "name": "Extra Attack",
+          "paragraphs": [
+            "On your turn, the Attack action allows two attacks."
+          ]
+        },
+        {
+          "level": 9,
+          "name": "Armor Modifications",
+          "paragraphs": [
+            "Your chest piece, boots, helmet, and special weapon count as separate infusion targets. Raise your active infused-item limit by 2, restricted to parts of your Arcane Armor. Infusions carry over when you change armor models."
+          ]
+        },
+        {
+          "level": 15,
+          "name": "Perfected Armor",
+          "paragraphs": [
+            "Guardian · When a visible Huge-or-smaller creature ends its turn within 30 ft, use your reaction to force a STR save against your spell DC. Failure: pull it up to 25 ft directly to an empty space, then make one melee weapon attack if it ends within 5 ft of you. Uses per long rest = proficiency bonus.",
+            "Infiltrator · A creature damaged by your launcher sheds 5 ft of dim light until your next turn starts and has disadvantage on attacks against you. The next attack against it has advantage and, on a hit, adds 1d6 lightning damage."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "artillerist",
+      "name": "Artillerist",
+      "spells": [
+        {
+          "level": 3,
+          "names": [
+            "shield",
+            "thunderwave"
+          ]
+        },
+        {
+          "level": 5,
+          "names": [
+            "scorching ray",
+            "shatter"
+          ]
+        },
+        {
+          "level": 9,
+          "names": [
+            "fireball",
+            "wind wall"
+          ]
+        },
+        {
+          "level": 13,
+          "names": [
+            "ice storm",
+            "wall of fire"
+          ]
+        },
+        {
+          "level": 17,
+          "names": [
+            "cone of cold",
+            "wall of force"
+          ]
+        }
+      ],
+      "features": [
+        {
+          "level": 3,
+          "name": "Tool Proficiency",
+          "paragraphs": [
+            "Gain proficiency with woodcarver’s tools. If already proficient, choose another type of artisan’s tools."
+          ]
+        },
+        {
+          "level": 3,
+          "name": "Eldritch Cannon",
+          "paragraphs": [
+            "Action with woodcarver’s or smith’s tools: create a Small or Tiny cannon on an empty horizontal surface within 5 ft. A Tiny cannon can be held. Maximum 1 cannon; making another requires a long rest or expending a level 1+ spell slot, and no existing cannon.",
+            "AC 18; HP = 5 × Artificer level. It is a magical object, immune to poison, psychic damage, and all conditions; ability scores are 10 for checks/saves. Mending restores 2d6 HP. It lasts 1 hour, ends at 0 HP, or can be dismissed with an action.",
+            "Bonus action while within 60 ft: activate it; also move it up to 15 ft walking/climbing if you gave it legs. Choose its type when created.",
+            "Flamethrower · 15-ft cone, DEX save vs your spell DC, 2d8 fire (half on success); ignites unattended flammable objects. Force Ballista · ranged spell attack from the cannon at 120 ft, 2d8 force; push a hit creature up to 5 ft away. Protector · the cannon and chosen creatures within 10 ft receive 1d8 + your INT modifier temporary HP (minimum +1 modifier)."
+          ]
+        },
+        {
+          "level": 5,
+          "name": "Arcane Firearm",
+          "paragraphs": [
+            "After a long rest, use woodcarver’s tools to mark one wand, staff, or rod as your firearm/focus; creating another removes the old markings. When casting an Artificer spell through it, add 1d8 to one damage roll of that spell. This does not increase cannon damage."
+          ]
+        },
+        {
+          "level": 9,
+          "name": "Explosive Cannon",
+          "paragraphs": [
+            "Cannon damage rolls gain 1d8 (Protector’s temporary HP are not damage). Action while within 60 ft: destroy a cannon in an explosion; creatures within 20 ft make DEX saves vs your spell DC, taking 3d8 force on failure or half on success."
+          ]
+        },
+        {
+          "level": 15,
+          "name": "Fortified Position",
+          "paragraphs": [
+            "You and allies within 10 ft of a cannon gain half cover (+2 AC and DEX saves). Maximum 2 cannons. Create both with one action, paying separately for any spell-slot creations; activate both with one bonus action. Their types may differ."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "battle-smith",
+      "name": "Battle Smith",
+      "spells": [
+        {
+          "level": 3,
+          "names": [
+            "heroism",
+            "shield"
+          ]
+        },
+        {
+          "level": 5,
+          "names": [
+            "branding smite",
+            "warding bond"
+          ]
+        },
+        {
+          "level": 9,
+          "names": [
+            "aura of vitality",
+            "conjure barrage"
+          ]
+        },
+        {
+          "level": 13,
+          "names": [
+            "aura of purity",
+            "fire shield"
+          ]
+        },
+        {
+          "level": 17,
+          "names": [
+            "banishing smite",
+            "mass cure wounds"
+          ]
+        }
+      ],
+      "features": [
+        {
+          "level": 3,
+          "name": "Tool Proficiency",
+          "paragraphs": [
+            "Gain proficiency with smith’s tools. If already proficient, choose another type of artisan’s tools."
+          ]
+        },
+        {
+          "level": 3,
+          "name": "Battle Ready",
+          "paragraphs": [
+            "Gain martial weapon proficiency. Attacks with a magic weapon may use INT instead of STR/DEX for attack and damage rolls."
+          ]
+        },
+        {
+          "level": 3,
+          "name": "Steel Defender",
+          "paragraphs": [
+            "Your construct acts immediately after you on the same initiative. It moves and reacts independently, but takes Dodge unless your bonus action commands another action. If you are incapacitated it can choose any action.",
+            "Mending restores 2d6 HP. If it died within the past hour, an action with smith’s tools within 5 ft and a level 1+ slot revives it after 1 minute at full HP. After a long rest with smith’s tools, you can create a replacement; the old defender perishes. It also perishes if you die. See companion statistics below."
+          ]
+        },
+        {
+          "level": 5,
+          "name": "Extra Attack",
+          "paragraphs": [
+            "On your turn, the Attack action allows two attacks."
+          ]
+        },
+        {
+          "level": 9,
+          "name": "Arcane Jolt",
+          "paragraphs": [
+            "When your magic weapon attack or your defender’s attack hits, add 2d6 force damage to the target OR restore 2d6 HP to one creature or object you can see within 30 ft of that target. Maximum once per turn; INT modifier uses per long rest, minimum 1."
+          ]
+        },
+        {
+          "level": 15,
+          "name": "Improved Defender",
+          "paragraphs": [
+            "Arcane Jolt becomes 4d6 damage/healing. The defender gains +2 AC. When it uses Deflect Attack, the attacker also takes 1d4 + your INT modifier force damage."
+          ]
+        }
+      ]
+    }
+  ],
+  "basics": [
+    [
+      "Hit points",
+      "Hit Die: d8 per Artificer level. First level: 8 + CON modifier. Later Artificer levels: 1d8 (or 5) + CON modifier, minimum 1 HP per level."
+    ],
+    [
+      "Armor & weapons",
+      "Light armor, medium armor, shields, and simple weapons."
+    ],
+    [
+      "Tools",
+      "Thieves’ tools, tinker’s tools, and one artisan’s tool proficiency of your choice."
+    ],
+    [
+      "Saving throws",
+      "Constitution and Intelligence."
+    ],
+    [
+      "Skills",
+      "Choose two: Arcana, History, Investigation, Medicine, Nature, Perception, or Sleight of Hand."
+    ],
+    [
+      "Starting equipment",
+      "Two simple weapons; a light crossbow with 20 bolts; studded leather or scale mail; thieves’ tools; a dungeoneer’s pack; plus background equipment. Alternatively, use the 5d4 × 10 gp starting-wealth option."
+    ],
+    [
+      "Multiclassing",
+      "INT 13 required, along with the other class’s requirements. Entering Artificer grants light/medium armor, shields, thieves’ tools and tinker’s tools. For combined Spellcasting slots, add half your Artificer levels, rounded up. This sheet’s automatic progression assumes one class."
+    ]
+  ],
+  "features": [
+    {
+      "level": 1,
+      "name": "Magical Tinkering",
+      "paragraphs": [
+        "Action; hold thieves’ tools or artisan’s tools and touch a Tiny nonmagical object. Give it one effect: light (5 ft bright + 5 ft dim); a recorded message up to 6 seconds long, audible within 10 ft when tapped; a continuous sound or smell detectable within 10 ft; or a still image/text display (up to 25 words).",
+        "Maximum affected objects: INT modifier, minimum 1. One effect per object. Effects last until ended by your touch/action or replaced when you exceed the limit; the oldest ends first."
+      ]
+    },
+    {
+      "level": 1,
+      "name": "Spellcasting",
+      "paragraphs": [
+        "Intelligence is your casting ability. Spell save DC = 8 + proficiency bonus + INT modifier; spell attack = proficiency bonus + INT modifier. See the spellcasting reference for preparation, tools, rituals, and the spell index."
+      ]
+    },
+    {
+      "level": 1,
+      "name": "Firearm Proficiency (optional)",
+      "paragraphs": [
+        "Requires the DM’s firearm rules and exposure to how firearms work. Under those conditions, you are proficient with firearms."
+      ]
+    },
+    {
+      "level": 2,
+      "name": "Infuse Item",
+      "paragraphs": [
+        "Learn four infusions at level 2. Known/active limits rise at levels 6, 10, 14, and 18; see the progression table. On gaining an Artificer level, you may replace one known infusion. Each option can be learned once unless it says otherwise.",
+        "After a long rest, touch qualifying nonmagical objects to infuse them. Each known infusion can occupy one object; each object can hold one infusion. Attune immediately while creating an infusion that requires it, or use normal attunement later. Exceeding the active-item limit ends the oldest infusion.",
+        "An infusion persists until replaced or forgotten. If you die, it ends after INT modifier days (minimum 1). Contents of a storage item whose infusion ends appear safely around it. The infusion catalog lists item types, level requirements, and attunement."
+      ]
+    },
+    {
+      "level": 3,
+      "name": "Artificer Specialist",
+      "paragraphs": [
+        "Choose Alchemist, Armorer, Artillerist, or Battle Smith. Your specialist grants features at levels 3, 5, 9, and 15, with additional spell pairs at 3, 5, 9, 13, and 17."
+      ]
+    },
+    {
+      "level": 3,
+      "name": "The Right Tool for the Job",
+      "paragraphs": [
+        "Hold thieves’ tools or artisan’s tools and work uninterrupted for 1 hour to create one set of artisan’s tools within 5 ft. The work can overlap a rest. The resulting tools are nonmagical and disappear when you use this feature again."
+      ]
+    },
+    {
+      "level": 4,
+      "name": "Ability Score Improvement",
+      "paragraphs": [
+        "Increase one ability score by 2, or two scores by 1 each (maximum 20). With the DM’s optional feat rule, take a feat instead. Record your chosen improvement on the sheet."
+      ]
+    },
+    {
+      "level": 5,
+      "name": "Specialist Feature",
+      "paragraphs": [
+        "Gain the feature for this level from your chosen Artificer specialist. Browse its reference below."
+      ]
+    },
+    {
+      "level": 6,
+      "name": "Tool Expertise",
+      "paragraphs": [
+        "Double your proficiency bonus on ability checks that use a tool proficiency you have."
+      ]
+    },
+    {
+      "level": 7,
+      "name": "Flash of Genius",
+      "paragraphs": [
+        "Reaction when you or a visible creature within 30 ft makes an ability check or saving throw: add your INT modifier to that roll. Uses per long rest = INT modifier, minimum 1."
+      ]
+    },
+    {
+      "level": 8,
+      "name": "Ability Score Improvement",
+      "paragraphs": [
+        "Increase one ability score by 2, or two scores by 1 each (maximum 20). With the DM’s optional feat rule, take a feat instead. Record your chosen improvement on the sheet."
+      ]
+    },
+    {
+      "level": 9,
+      "name": "Specialist Feature",
+      "paragraphs": [
+        "Gain the feature for this level from your chosen Artificer specialist. Browse its reference below."
+      ]
+    },
+    {
+      "level": 10,
+      "name": "Magic Item Adept",
+      "paragraphs": [
+        "Attunement limit becomes 4 items. Crafting common or uncommon magic items takes one-quarter of the usual time and half the usual gold cost."
+      ]
+    },
+    {
+      "level": 11,
+      "name": "Spell-Storing Item",
+      "paragraphs": [
+        "After a long rest, store a 1st- or 2nd-level Artificer spell with a casting time of one action in a simple/martial weapon or an item you can use as a spellcasting focus. The spell need not be prepared.",
+        "A holder uses an action to produce the effect with your spellcasting modifier; the holder supplies any concentration. Maximum uses = twice your INT modifier, minimum 2. Storage ends after those uses or when you store another spell."
+      ]
+    },
+    {
+      "level": 12,
+      "name": "Ability Score Improvement",
+      "paragraphs": [
+        "Increase one ability score by 2, or two scores by 1 each (maximum 20). With the DM’s optional feat rule, take a feat instead. Record your chosen improvement on the sheet."
+      ]
+    },
+    {
+      "level": 14,
+      "name": "Magic Item Savant",
+      "paragraphs": [
+        "Attunement limit becomes 5. Ignore class, race, spell, and level requirements when using or attuning to magic items; other restrictions still apply."
+      ]
+    },
+    {
+      "level": 15,
+      "name": "Specialist Feature",
+      "paragraphs": [
+        "Gain the feature for this level from your chosen Artificer specialist. Browse its reference below."
+      ]
+    },
+    {
+      "level": 16,
+      "name": "Ability Score Improvement",
+      "paragraphs": [
+        "Increase one ability score by 2, or two scores by 1 each (maximum 20). With the DM’s optional feat rule, take a feat instead. Record your chosen improvement on the sheet."
+      ]
+    },
+    {
+      "level": 18,
+      "name": "Magic Item Master",
+      "paragraphs": [
+        "Attunement limit becomes 6 magic items."
+      ]
+    },
+    {
+      "level": 19,
+      "name": "Ability Score Improvement",
+      "paragraphs": [
+        "Increase one ability score by 2, or two scores by 1 each (maximum 20). With the DM’s optional feat rule, take a feat instead. Record your chosen improvement on the sheet."
+      ]
+    },
+    {
+      "level": 20,
+      "name": "Soul of Artifice",
+      "paragraphs": [
+        "Add +1 to every saving throw for each magic item you are attuned to. When reduced to 0 HP without being killed outright, you may use your reaction to end one of your Artificer infusions and remain at 1 HP instead."
+      ]
+    }
+  ],
+  "casting": [
+    [
+      "Focus & components",
+      "Hold thieves’ tools or artisan’s tools you are proficient with for every Artificer spell, adding a material component to the casting. From level 2, an item bearing one of your infusions can serve as your focus. A focus does not replace costly or consumed material components."
+    ],
+    [
+      "Cantrips",
+      "Know 2 at level 1, 3 at level 10, and 4 at level 14. Each time you gain an Artificer level, you may exchange one known Artificer cantrip for another from its list."
+    ],
+    [
+      "Prepared spells",
+      "Prepare INT modifier + half your Artificer level (rounded down), minimum 1 spell. Choose spells of levels for which you have slots. Specialist spells are always prepared once unlocked and do not use this allowance. Cantrips are separate."
+    ],
+    [
+      "Changing preparation",
+      "Change your prepared list after a long rest. Preparation takes at least 1 minute per spell level for each spell on the new list, working with your focuses. Casting a prepared spell does not remove it from the list."
+    ],
+    [
+      "Slots & recovery",
+      "Casting a leveled spell normally expends a slot at least as high as that spell. Recover Artificer slots after a long rest. The table below shows base slot capacity; spent slots are tracked in Spellbook."
+    ],
+    [
+      "Rituals",
+      "An Artificer spell with the ritual tag can be cast as a ritual only while prepared. Ritual casting adds 10 minutes and does not expend a slot."
+    ]
+  ],
+  "companions": [
+    {
+      "id": "homunculus",
+      "name": "Homunculus Servant",
+      "facts": [
+        [
+          "Body & movement",
+          "Tiny construct; walk 20 ft, fly 30 ft. STR 4, DEX 15, CON 12, INT 10, WIS 10, CHA 7."
+        ],
+        [
+          "Defenses",
+          "AC 13. HP = 1 + your INT modifier + Artificer level; d4 Hit Dice equal to Artificer level. DEX save = 2 + PB. Immune to poison damage, exhaustion, and the poisoned condition."
+        ],
+        [
+          "Senses & skills",
+          "Darkvision 60 ft; passive Perception 10 + twice PB. Perception = twice PB; Stealth = 2 + PB. Understands your languages."
+        ],
+        [
+          "Evasion",
+          "For DEX saves allowing half damage: take none on success, half on failure. Unavailable while incapacitated."
+        ],
+        [
+          "Force Strike",
+          "Ranged weapon attack using your spell attack modifier; range 30 ft, one visible target; 1d4 + PB force damage."
+        ],
+        [
+          "Channel Magic",
+          "Reaction: deliver your touch-range spell while the servant is within 120 ft of you."
+        ],
+        [
+          "Commands & repair",
+          "Acts immediately after your turn on your initiative. Moves/reacts on its own; Dodges unless commanded with your bonus action, or you are incapacitated. Mending heals 2d6 HP. If either of you dies, its body vanishes and the 100-gp heart remains."
+        ]
+      ]
+    },
+    {
+      "id": "steel-defender",
+      "name": "Steel Defender",
+      "facts": [
+        [
+          "Body & movement",
+          "Medium construct; walk 40 ft. STR 14, DEX 12, CON 14, INT 4, WIS 10, CHA 6."
+        ],
+        [
+          "Defenses",
+          "AC 15 (17 at Battle Smith level 15). HP = 2 + your INT modifier + 5 × Artificer level; d8 Hit Dice equal to Artificer level. DEX save = 1 + PB; CON save = 2 + PB. Immune to poison damage, exhaustion, and the charmed and poisoned conditions. Cannot be surprised."
+        ],
+        [
+          "Senses & skills",
+          "Darkvision 60 ft; passive Perception 10 + twice PB. Athletics = 2 + PB; Perception = twice PB. Understands your languages."
+        ],
+        [
+          "Force-Empowered Rend",
+          "Melee weapon attack using your spell attack modifier; reach 5 ft, one visible target; 1d8 + PB force damage."
+        ],
+        [
+          "Repair",
+          "Action, 3/day: restore 2d8 + PB HP to itself, or one construct or object within 5 ft."
+        ],
+        [
+          "Deflect Attack",
+          "Reaction: impose disadvantage on an attack made by a visible creature within 5 ft of the defender, targeting someone other than the defender. At Battle Smith level 15, the attacker also takes 1d4 + your INT modifier force damage."
+        ]
+      ]
+    }
+  ],
+  "infusions": [
+    {
+      "id": "arcane-propulsion-armor",
+      "name": "Arcane Propulsion Armor",
+      "level": 14,
+      "item": "Armor",
+      "attunement": true,
+      "paragraphs": [
+        "Walking speed +5 ft; cannot be forcibly removed; replaces missing limbs. Each empty gauntlet is a proficient magic melee weapon dealing 1d8 force, thrown 20/60 ft, returning immediately after a throw."
+      ]
+    },
+    {
+      "id": "armor-of-magical-strength",
+      "name": "Armor of Magical Strength",
+      "level": 2,
+      "item": "Armor",
+      "attunement": true,
+      "paragraphs": [
+        "6 charges; regain 1d6 at dawn. Spend 1 on a STR check/save to add the wearer’s INT modifier, or use a reaction and 1 charge to avoid being knocked prone."
+      ]
+    },
+    {
+      "id": "boots-of-the-winding-path",
+      "name": "Boots of the Winding Path",
+      "level": 6,
+      "item": "Boots",
+      "attunement": true,
+      "paragraphs": [
+        "Bonus action: teleport up to 15 ft to an empty visible space you occupied earlier in the same turn."
+      ]
+    },
+    {
+      "id": "enhanced-arcane-focus",
+      "name": "Enhanced Arcane Focus",
+      "level": 2,
+      "item": "Rod, staff, or wand",
+      "attunement": true,
+      "paragraphs": [
+        "While held: +1 spell attack rolls, and spell attacks ignore half cover. Bonus becomes +2 at Artificer level 10."
+      ]
+    },
+    {
+      "id": "enhanced-defense",
+      "name": "Enhanced Defense",
+      "level": 2,
+      "item": "Armor or shield",
+      "attunement": false,
+      "paragraphs": [
+        "+1 AC while worn/wielded; +2 at Artificer level 10."
+      ]
+    },
+    {
+      "id": "enhanced-weapon",
+      "name": "Enhanced Weapon",
+      "level": 2,
+      "item": "Simple or martial weapon",
+      "attunement": false,
+      "paragraphs": [
+        "Magic weapon: +1 to its attack and damage rolls; +2 at Artificer level 10."
+      ]
+    },
+    {
+      "id": "helm-of-awareness",
+      "name": "Helm of Awareness",
+      "level": 10,
+      "item": "Helmet",
+      "attunement": true,
+      "paragraphs": [
+        "Advantage on initiative. Cannot be surprised while not incapacitated."
+      ]
+    },
+    {
+      "id": "homunculus-servant",
+      "name": "Homunculus Servant",
+      "level": 2,
+      "item": "Gem or crystal worth at least 100 gp",
+      "attunement": false,
+      "paragraphs": [
+        "The infused heart forms a servant. See companion statistics and command rules below."
+      ]
+    },
+    {
+      "id": "mind-sharpener",
+      "name": "Mind Sharpener",
+      "level": 2,
+      "item": "Armor or robes",
+      "attunement": false,
+      "paragraphs": [
+        "4 charges; regain 1d4 at dawn. After a failed CON save to maintain spell concentration, the wearer may react and spend 1 charge to succeed instead."
+      ]
+    },
+    {
+      "id": "radiant-weapon",
+      "name": "Radiant Weapon",
+      "level": 6,
+      "item": "Simple or martial weapon",
+      "attunement": true,
+      "paragraphs": [
+        "+1 attack and damage. Bonus action: turn on/off light (30 ft bright + 30 ft dim). 4 charges, regain 1d4 at dawn. Reaction after an attack hits you: spend 1 charge to blind that attacker until its next turn ends, unless it succeeds on a CON save vs the Artificer’s spell DC."
+      ]
+    },
+    {
+      "id": "repeating-shot",
+      "name": "Repeating Shot",
+      "level": 2,
+      "item": "Simple or martial ammunition weapon",
+      "attunement": true,
+      "paragraphs": [
+        "+1 ranged attack and damage; ignore Loading. If needed, generate ammunition for each ranged attack; it disappears after the hit or miss."
+      ]
+    },
+    {
+      "id": "replicate-magic-item",
+      "name": "Replicate Magic Item",
+      "level": 2,
+      "item": "Object appropriate to the chosen magic item",
+      "attunement": null,
+      "paragraphs": [
+        "Learn separately for each chosen item. Choose from an eligible level table below, or a common magic item other than a potion or scroll. Use that item’s own rules, base object, and attunement requirements."
+      ]
+    },
+    {
+      "id": "repulsion-shield",
+      "name": "Repulsion Shield",
+      "level": 6,
+      "item": "Shield",
+      "attunement": true,
+      "paragraphs": [
+        "+1 AC. 4 charges, regain 1d4 at dawn. Reaction immediately after a melee attack hits you: spend 1 charge to push the attacker up to 15 ft away."
+      ]
+    },
+    {
+      "id": "resistant-armor",
+      "name": "Resistant Armor",
+      "level": 6,
+      "item": "Armor",
+      "attunement": true,
+      "paragraphs": [
+        "Choose one resistance when infusing: acid, cold, fire, force, lightning, necrotic, poison, psychic, radiant, or thunder. Applies while worn."
+      ]
+    },
+    {
+      "id": "returning-weapon",
+      "name": "Returning Weapon",
+      "level": 2,
+      "item": "Simple or martial thrown weapon",
+      "attunement": false,
+      "paragraphs": [
+        "+1 attack and damage. After a ranged attack, the weapon immediately returns to the wielder’s hand."
+      ]
+    },
+    {
+      "id": "spell-refueling-ring",
+      "name": "Spell-Refueling Ring",
+      "level": 6,
+      "item": "Ring",
+      "attunement": true,
+      "paragraphs": [
+        "Action while wearing: recover one expended spell slot of level 3 or lower. Recharges at dawn."
+      ]
+    }
+  ]
+}

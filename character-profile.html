@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="assets/css/spell-library.css">
  <link rel="stylesheet" href="assets/css/sheet-tools.css">
  <link rel="stylesheet" href="assets/css/equipment.css">
+ <link rel="stylesheet" href="assets/css/race-library.css">
 </head>
 <body>
  <header class="banner"><canvas id="bannerParticles"></canvas><h1>Feywild</h1></header>
@@ -36,7 +37,7 @@
      </div><label class="character-level-badge" for="characterLevel">Level <select id="characterLevel" name="characterLevel" aria-label="Character level"></select></label></div></div>
      <div class="character-facts" id="identity" aria-label="Character details">
       <div class="character-fact"><span>Class</span><strong id="profile-class">—</strong></div>
-      <div class="character-fact"><span>Race</span><strong id="profile-race">—</strong></div>
+      <div class="character-fact"><span>Race</span><strong id="profile-race">—</strong><div class="race-header-action"><small id="profile-race-source"></small><button type="button" id="choose-race">Choose race</button></div></div>
       <div class="character-fact"><span>Background</span><strong id="profile-background">—</strong></div>
       <div class="character-fact"><span>Alignment</span><strong id="profile-alignment">—</strong></div>
      </div>
@@ -82,6 +83,24 @@
        <section class="satchel-panel profile-panel sheet-tools" id="sheet-conditions-panel" hidden><h4>Conditions</h4><div id="sheet-conditions"></div></section>
        <section class="satchel-panel profile-panel sheet-tools" id="sheet-resources-panel" hidden><h4>Class Resources</h4><div id="sheet-resources"></div></section>
        <section class="satchel-panel profile-panel stats-slot-proficiencies"><h4>Proficiencies & Languages</h4><div id="proficiencies"></div></section>
+       <section class="satchel-panel profile-panel" id="race-panel" aria-labelledby="race-title">
+        <h4 id="race-title">Race &amp; Lineage</h4>
+        <input type="hidden" name="raceSelection2014" id="raceSelection2014" value="">
+        <div id="race-selected"><p>Loading character…</p></div>
+        <button type="button" id="race-reset" hidden>Use original race</button>
+        <details id="race-browse">
+         <summary id="race-browse-summary">Browse races &amp; subraces</summary>
+         <div class="race-filters">
+          <label>Find a race<input id="race-search" type="search" placeholder="Firbolg, Fairy, Satyr…" autocomplete="off" disabled></label>
+          <label>Sourcebook<select id="race-source" disabled><option value="">All sourcebooks</option></select></label>
+         </div>
+         <p id="race-result-count" role="status" aria-live="polite"></p>
+         <div id="race-results"></div>
+         <button type="button" id="race-more" hidden>Show more races</button>
+        </details>
+        <p id="race-status" role="status" aria-live="polite"></p>
+        <button type="button" id="race-retry" hidden>Retry race library</button>
+       </section>
        <section class="satchel-panel profile-panel stats-slot-features"><h4>Features & Traits</h4><div id="features"></div></section>
        <section id="halfwit-panel" class="satchel-panel profile-panel halfwit-panel" aria-labelledby="halfwit-title" hidden>
         <h4 id="halfwit-title">✧ Halfwit Class</h4>
@@ -234,6 +253,8 @@
  <script src="assets/js/death-save-gems.js" defer></script>
  <script src="assets/js/proficiency-picker.js" defer></script>
  <script src="assets/js/features-picker.js" defer></script>
+ <script src="assets/js/race-rules.js" defer></script>
+ <script src="assets/js/race-library.js" defer></script>
  <script src="assets/js/spell-library.js" defer></script>
  <script src="assets/js/spellbook-tools.js" defer></script>
  <script src="assets/js/halfwit-sheet.js" defer></script>

@@ -13,6 +13,7 @@
  <link rel="stylesheet" href="assets/css/sheet-tools.css">
  <link rel="stylesheet" href="assets/css/equipment.css">
  <link rel="stylesheet" href="assets/css/race-library.css">
+ <link rel="stylesheet" href="assets/css/class-details.css">
 </head>
 <body>
  <header class="banner"><canvas id="bannerParticles"></canvas><h1>Feywild</h1></header>
@@ -46,6 +47,7 @@
    <div class="satchel-divider" aria-hidden="true">✦</div>
    <div class="profile-tabs" role="tablist" aria-label="Character sections">
     <button type="button" role="tab" id="tab-stats" aria-controls="stats" data-tab="stats" aria-selected="true">Stats & Abilities</button>
+    <button type="button" role="tab" id="tab-class" aria-controls="class-details" data-tab="class-details" aria-selected="false">Class Details</button>
     <button type="button" role="tab" id="tab-story" aria-controls="story" data-tab="story" aria-selected="false">Story & Personality</button>
     <button type="button" role="tab" id="tab-spells" aria-controls="spells" data-tab="spells" aria-selected="false">Spellbook</button>
     <button type="button" role="tab" id="tab-inventory" aria-controls="inventory-pane" data-tab="inventory-pane" aria-selected="false">✧ Inventory</button>
@@ -127,6 +129,36 @@
 
 
 
+    </div>
+   </section>
+   <section class="profile-pane" id="class-details" role="tabpanel" aria-labelledby="tab-class" hidden>
+    <div class="profile-section-heading"><h3 id="class-details-title">✧ Class Details ✧</h3><p id="class-details-edition"></p></div>
+    <input type="hidden" id="classSpecialist2014" name="classSpecialist2014" value="">
+    <div id="class-summary" class="class-summary" aria-label="Class at current level"></div>
+    <p id="class-status" role="status" aria-live="polite">Loading class reference…</p>
+    <button type="button" id="class-retry" hidden>Retry class reference</button>
+    <div id="artificer-reference" hidden>
+     <div class="class-toolbar">
+      <label>Features shown <select id="class-level-filter"><option value="current">Through current level</option><option value="all">All levels · 1–20</option></select></label>
+      <button type="button" id="class-open-spells">Open Spellbook →</button>
+     </div>
+     <section class="satchel-panel profile-panel class-section"><h4>Class Features</h4><div id="class-features" class="class-feature-grid"></div></section>
+     <section class="satchel-panel profile-panel class-section">
+      <h4>Artificer Specialist</h4>
+      <p id="class-specialist-status"></p>
+      <div class="class-toolbar"><label>Browse specialists <select id="class-specialist-view"><option value="">All specialists</option></select></label><button type="button" id="class-use-specialist" disabled>Use this specialist</button></div>
+      <p class="class-note">Browsing is a preview. Choose a specialist, then Save Character to keep it.</p>
+      <div id="class-specialists"></div>
+     </section>
+     <section class="satchel-panel profile-panel class-section"><h4>Infusions</h4><label class="class-search">Find an infusion <input type="search" id="class-infusion-search" placeholder="Name, item, or effect…" maxlength="100"></label><p id="class-infusion-count" class="class-note" role="status"></p><div id="class-infusions" class="class-feature-grid"></div><details class="class-reference-card"><summary>Replicate Magic Item · item tables</summary><p class="class-note">Each chosen item is a separate learned infusion. Common magic items other than potions and scrolls are also eligible. Consult each item’s reference for its effects.</p><div id="class-replicas"></div></details></section>
+     <div class="class-reference-grid">
+      <details class="class-reference-card"><summary>Starting Proficiencies &amp; Equipment</summary><div id="class-basics"></div></details>
+      <details class="class-reference-card"><summary>Spellcasting &amp; Preparation</summary><div id="class-casting"></div></details>
+      <details class="class-reference-card"><summary>Companion Statistics</summary><p class="class-note">Reference statistics; a companion requires its matching infusion or specialist feature. PB means your proficiency bonus.</p><div id="class-companions"></div></details>
+      <details class="class-reference-card"><summary>Artificer Spell Index</summary><p class="class-note">95 spell names from the PHB, Xanathar’s, and Tasha’s. R = ritual. Specialist spells appear with each specialist. The Spellbook’s description library covers SRD spells.</p><div id="class-spell-index"></div></details>
+     </div>
+     <details class="class-reference-card"><summary>Level Progression · 1–20</summary><div id="class-progression"></div></details>
+     <p class="class-note">Rules summaries for play. Selecting a specialist saves your choice; feature bonuses, companions, and infusions are reference information and do not automatically change equipment, attacks, or proficiencies. <a href="https://www.dndbeyond.com/sources/dnd/tcoe" target="_blank" rel="noopener noreferrer">Tasha’s Cauldron of Everything ↗</a></p>
     </div>
    </section>
    <section class="profile-pane" id="story" role="tabpanel" aria-labelledby="tab-story" hidden>
@@ -237,6 +269,7 @@
  <script src="assets/js/character-details.js" defer></script>
  <script src="assets/js/character-profile.js" defer></script>
  <script src="assets/js/level-rules.js" defer></script>
+ <script src="assets/js/class-details.js" defer></script>
  <script src="assets/js/combat-auto.js" defer></script>
  <script src="assets/js/death-save-gems.js" defer></script>
  <script src="assets/js/proficiency-picker.js" defer></script>

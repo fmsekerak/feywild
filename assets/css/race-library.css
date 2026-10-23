@@ -1,0 +1,32 @@
+/* Scoped to the existing forest / rose character-sheet palette. */
+.race-header-action{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
+.character-fact .race-header-action button{padding:.18rem .5rem;font-size:.75rem;line-height:1.4;background:#283e35;color:#f2bfd8;border:1px solid #805974;border-radius:999px;cursor:pointer}
+#profile-race-source{color:#d4b7c8;font-size:.7rem}
+#race-panel{scroll-margin-top:1rem}
+#race-panel [hidden]{display:none!important}
+#race-panel button,#race-panel input,#race-panel select{font:inherit;box-sizing:border-box;max-width:100%}
+#race-panel button{background:#33483e;color:#ffe0ef;border:1px solid #946c87;border-radius:8px;padding:.4rem .65rem;cursor:pointer}
+#race-panel button:hover{background:#4b3f4d}
+#race-panel button:disabled{opacity:.55;cursor:default}
+#race-panel :is(button,input,select,summary):focus-visible{outline:2px solid #f4bbd8;outline-offset:3px}
+.race-selected-name{color:#ffe0ef;overflow-wrap:anywhere}
+#race-panel .race-source-label{display:block;color:#ccadbf;font-size:.76rem;margin:.2rem 0 .6rem;line-height:1.4}
+#race-panel .race-note,#race-status,#race-result-count{color:#d4c9d0;font-size:.78rem;line-height:1.5;margin:.6rem 0}
+#race-panel summary{color:#f2bfd8;cursor:pointer;padding:.4rem 0;font-size:.85rem}
+#race-browse{margin-top:.6rem;border-top:1px solid #80597455;padding-top:.35rem}
+.race-filters{display:grid;gap:.5rem;margin:.5rem 0}
+.race-filters label{font-size:.78rem;color:#e5c7d8;min-width:0}
+.race-filters input,.race-filters select{display:block;width:100%;background:#24372e;color:#ffe0ef;border:1px solid #805974;border-radius:7px;padding:.5rem;margin-top:.25rem}
+#race-results{display:grid;gap:.55rem;max-height:34rem;overflow:auto;padding:.2rem .3rem .4rem .1rem}
+.race-card{background:#203329;border:1px solid #80597466;border-radius:10px;padding:.65rem;min-width:0}
+.race-card-heading{display:flex;align-items:start;justify-content:space-between;gap:.5rem}
+.race-card-heading>div{min-width:0}
+.race-card-heading strong{font-size:.86rem;color:#ffe0ef;overflow-wrap:anywhere}
+.race-card-heading button{font-size:.75rem!important;flex-shrink:0}
+.race-facts{margin:.6rem 0;display:grid;grid-template-columns:1fr;gap:.15rem;font-size:.8rem}
+.race-facts dt{font-weight:600;color:#e4b3ce}
+.race-facts dd{margin:0 0 .45rem;color:#eee4eb;overflow-wrap:anywhere;line-height:1.45}
+.race-reference h5{margin:.6rem 0 .35rem;color:#f2bfd8}
+.race-traits{padding-left:1.15rem;margin:.2rem 0;color:#eee4eb;font-size:.8rem;line-height:1.6}
+#race-more,#race-reset{margin-top:.5rem}
+@media(max-width:480px){.race-card-heading{flex-wrap:wrap}.race-card-heading>div{flex:1 1 130px}}

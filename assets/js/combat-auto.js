@@ -57,8 +57,9 @@
   const armor=window.FEYWILD_EQUIPMENT?.armorClass(dexterity);
   if(combat('armorClass'))combat('armorClass').value=armor?.value===null||armor?.value===undefined?'':String(armor.value);
   if(combat('initiative'))combat('initiative').value=dexterity===null?'':display(dexterity);
-  // Campaign base speed; species movement and armor speed penalties are not modeled.
-  if(combat('speed'))combat('speed').value='30';
+  // Selected race supplies base walking speed; conditional movement remains a reference.
+  const speed=window.FEYWILD_RACES?window.FEYWILD_RACES.walkingSpeed():30;
+  if(combat('speed'))combat('speed').value=speed===null?'':String(speed);
   if(passive)passive.value=wisdom===null?'':String(10+wisdom+((perceptionExpert?.checked?2:perception?.checked?1:0)*Number(proficiency?.value||0)));
   document.dispatchEvent(new Event('feywild:combat-calculated'));
  }
@@ -83,6 +84,7 @@
  });
  document.addEventListener('feywild:level-changed',calculate);
  document.addEventListener('feywild:equipment-changed',calculate);
+ document.addEventListener('feywild:race-changed',calculate);
  document.querySelectorAll('#abilities input[name]').forEach(input=>input.addEventListener('input',calculate));
  features?.addEventListener('input',calculate);
  perception?.addEventListener('change',calculate);

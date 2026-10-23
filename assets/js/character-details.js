@@ -23,7 +23,7 @@ window.FEYWILD_CHARACTER_DETAILS = {
   "Crotus": {
     portrait: "assets/images/characters/crotus.jpg",
     class: "Bard",
-    race: "Saytr",
+    race: "Satyr",
     background: "-",
     alignment: "-"
   },
